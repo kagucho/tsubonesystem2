@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="tsuboneSystem" default="ProductionWar">
+    <description>WARファイル作成 build.xml</description>
+    <property name="build.FilePath" value="target/tsuboneSystem.war"/>
+    <property name="build.OutputDir" value="src/main/webapp/WEB-INF/classes"/>
+    <property name="build.SourceDir" value="src/main/java"/>
+    <property name="build.ResourceDir" value="src/main/resources"/>
+    <property name="build.webinf" value="src/main/webapp/WEB-INF"/>
+    <!-- 本番用設定ファイルパス -->
+    <property name="build.Production" value="src/main/resources"/>
+    
+    <!-- ビルドに必要なファイル群 -->
+    <path id="build.classpath">
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${build.webinf}/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="[Tomcatパス]\lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    
+    <!-- 本番環境用のWARファイルを作成 -->
+    <target name="ProductionWar">
+        <antcall target="Clean"/>
+        <antcall target="Compile"/>
+        <antcall target="CopyProductionFile"/>
+        <antcall target="Package"/>
+        <!-- 再度コンパイルをすることで開発環境の状態に戻します。 -->
+        <antcall target="Compile"/>
+    </target>
+
+    <!-- コンパイル先を整備 -->
+    <target name="Clean">
+        <delete dir="target"/>
+        <mkdir dir="target"/>
+        <delete>
+            <fileset dir="${build.OutputDir}"/>
+        </delete>
+    </target>
+    
+    <!-- コンパイル -->
+    <target name="Compile">
+        <javac destdir="${build.OutputDir}"
+            encoding="UTF-8"
+            nowarn="false"
+            debug="true"
+            optimize="false"
+            deprecation="true"
+            target="1.6"
+            verbose="false"
+            fork="false"
+            source="1.6">
+            <src>
+                <pathelement location="${build.SourceDir}"/>
+            </src>
+            <classpath refid="build.classpath"/>
+        </javac>
+        <copy todir="${build.OutputDir}" overwrite="true">
+            <fileset dir="${build.ResourceDir}">
+                <include name="*.dicon"/>
+                <include name="*.properties"/>
+                <!-- env.txtを含まなければCoolDeployとなります -->
+            </fileset>
+        </copy>
+    </target>
+    
+    <!-- 本番環境用の設定ファイルをコピー -->
+    <target name="CopyProductionFile">
+        <copy todir="${build.OutputDir}" overwrite="true">
+            <fileset dir="${build.Production}">
+                <include name="*.dicon"/>
+                <include name="*.properties"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- WARファイルを作成 -->
+    <target name="Package">
+        <war destfile="${build.FilePath}" webxml="${basedir}/${build.webinf}/web.xml">
+            <webinf dir="${basedir}/${build.webinf}/">
+                <include name="*.xml"/>
+                <include name="*.tld"/>
+                <include name="view/**"/>
+                <exclude name="web.xml"/>
+            </webinf>
+            <lib dir="${basedir}/${build.webinf}/lib" includes="*.jar"/>
+            <classes dir="${build.OutputDir}"/>
+            <fileset dir="${basedir}/src/main/webapp">
+                <include name="css/**"/>
+                <include name="img/**"/>
+                <include name="js/**"/>
+                <include name="favicon.ico"/>
+            </fileset>
+        </war>
+    </target>
+</project>

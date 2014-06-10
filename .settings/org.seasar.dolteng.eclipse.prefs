@@ -1,0 +1,8 @@
+DaoType=S2JDBC
+DefaultResourcePath=/TsuboneSystem/src/main/resources
+DefaultRootPackage=tsuboneSystem
+DefaultSrcPath=/TsuboneSystem/src/main/java
+ServletPath=/TsuboneSystem
+ViewType=SA-Struts
+WebContentsRoot=src/main/webapp/
+eclipse.preferences.version=1
