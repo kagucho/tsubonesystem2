@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
+    "http://www.seasar.org/dtd/components23.dtd">
+<components namespace="mailProperties">
+    <component name="host">
+        "smtp.gmail.com"
+    </component>
+    <component name="port">
+        587
+    </component>
+    <component name="username">
+        kagutyo@gmail.com
+    </component>
+    <component name="password">
+        hosys1019
+    </component>
+    <component name="from">
+        kagutyo@gmail.com
+    </component>
+    <component name="replyTo">
+        null
+    </component>
+    <component name="returnPath">
+        null
+    </component>
+    <component name="messageId">
+        null
+    </component>
+    <component name="templateEncoding">
+        "UTF-8"
+    </component>
+    <component name="connectionTimeout">
+        10000
+    </component>
+    <component name="readTimeout">
+        10000
+    </component>
+    <component name="mailCharset">
+        "ISO-2022-JP"
+    </component>
+</components>

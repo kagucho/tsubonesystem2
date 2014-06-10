@@ -1,0 +1,33 @@
+/*
+ * Copyright 2012 soundarapandian.
+ * Comming soon page build on Twitter Bootstrap.
+ */
+/****************** Full screen slider start **************/
+.full-screen-slider {
+  z-index:1;
+  background-color: white;
+  /* IE 8 support */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  /* IE 5-7 */
+  filter: alpha(opacity=80);
+  opacity: 0.8;
+}
+
+.full-screen-slider img {
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.full-screen-slider img {
+  display: none;
+}
+
+.full-screen-slider img.active {
+  display: block;
+}
+/****************** Full screen slider end **************/

@@ -1,0 +1,82 @@
+.memberF{
+	margin-bottom:20px;
+}
+a.btn.btn-primary{
+	margin-bottom:20px;
+}
+.btnMRC{
+	margin-bottom:20px;
+}
+
+img.bgmaximage{
+  position:fixed !important;
+}
+
+#maincontent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  width: 100%;
+}
+
+#maximage {
+	position:fixed !important;
+}
+			
+/*Set my logo in bottom left*/
+#logo {
+	bottom:30px;
+	height:auto;
+	left:30px;
+	position:absolute;
+	width:34%;
+	z-index:1000;
+}
+#logo img {
+	width:100%;
+}
+
+#bg { position: fixed; top: 0; left: 0; }
+.bgwidth { width: 100%; }
+.bgheight { height: 100%; }
+
+#searchWindow{
+	background-color: #f0f8ff;
+	border-radius: 10px; 
+	padding: 5px;	
+}
+#searchWindow h4{
+	text-align: center;
+	font-family:'Lucida Grande','Hiragino Kaku Gothic ProN',Meiryo, sans-serif;
+}
+#compBtn{
+	text-align: center;
+}
+#mailInput{
+	margin-top: 30px;
+}
+#mailInput h4{
+	margin: 30px;
+}
+.jumbotron{
+	background-color:white;
+	background-image: url("../images/jumbotron/2.png");
+	width: 100%;
+	background-position: 100%;
+	background-repeat: no-repeat;
+}
+.btnDelete{
+	margin-right: 10px;
+}
+
+.jumbotron .container{
+	background-color: rgba(255,255,255,0.7);
+	border-radius: 30px;
+}
+
+@media screen and (min-width: 768px) {
+	.jumbotron{
+	background-color:white;
+	}
+}
