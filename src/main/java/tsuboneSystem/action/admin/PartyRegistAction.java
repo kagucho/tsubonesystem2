@@ -104,8 +104,6 @@ public class PartyRegistAction {
         	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
         	partyForm.clubMapSS.put(club.id.toString(), club.ClubName);
         }
-//        GoogleCalMain Cal = new GoogleCalMain();
-//        Cal.main();
          
         return "partyInput.jsp";
 	}
