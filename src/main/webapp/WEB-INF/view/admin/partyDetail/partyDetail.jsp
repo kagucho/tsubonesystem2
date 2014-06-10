@@ -37,6 +37,10 @@
 		<td><h5>${f:h(meetingDay)}</h5></td>
 	</tr>
 	<tr>
+		<th><h4>開催時間</h4></th>
+		<td><h5>${f:h(meetingTime)}</h5></td>
+	</tr>
+	<tr>
 		<th><h4>会議の開催場所</h4></th>
 		<td><h5>${f:h(meetingRoom)}</h5></td>
 	</tr>
@@ -65,6 +69,10 @@
 	<tr>
 		<th><h4>会議の締切時間</h4></th>
 		<td><h5>${f:h(meetingDeadlineDay)}</h5></td>
+	</tr>
+	<tr>
+		<th><h4>締切時間</h4></th>
+		<td><h5>${f:h(meetingDeadlineTime)}</h5></td>
 	</tr>
 </table>
 <c:if test="${!deadFlag}">

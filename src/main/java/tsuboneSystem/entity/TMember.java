@@ -24,7 +24,7 @@ public class TMember implements Serializable {
     /* idプロパティ */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = true, unique = true)
+    @Column(nullable = false, unique = true)
     public Integer id;
     
     /* 名前 */
@@ -32,47 +32,47 @@ public class TMember implements Serializable {
     public String  name;
     
     /* ハンドルネーム */
-    @Column(nullable = true, unique = false)
+    @Column(nullable = false, unique = false)
     public String  hname;
     
     /* 性別 */
-    @Column(nullable = false, unique = false)
+    @Column(nullable = true, unique = false)
     public String sex;
     
     /* メールアドレス */
-    @Column(nullable = true, unique = false)
+    @Column(nullable = false, unique = false)
     public String mail;
     
     /* 学科 */
-    @Column(nullable = false, unique = false)
+    @Column(nullable = true, unique = false)
     public String curriculum;
     
     /* 入学年度*/
-    @Column(nullable = false, unique = false)
+    @Column(nullable = true, unique = false)
     public Integer entrance;
    
     /* 電話番号1 */
-    @Column(nullable = false, unique = false)
+    @Column(nullable = true, unique = false)
     public String tel1;
     
     /* 電話番号2 */
-    @Column(nullable = false, unique = false)
+    @Column(nullable = true, unique = false)
     public String tel2;
     
     /* 電話番号3 */
-    @Column(nullable = false, unique = false)
+    @Column(nullable = true, unique = false)
     public String tel3;
     
     /* ID */
-    @Column(nullable = true, unique = true)
+    @Column(nullable = false, unique = true)
     public String userName;
     
     /* パスワード */
-    @Column(nullable = true, unique = false)
+    @Column(nullable = false, unique = false)
     public String password;
     
     /* OBフラグ */
-    @Column(nullable = false, unique = false)
+    @Column(nullable = true, unique = false)
     public Boolean obFlag;
     
     /* 削除フラグ */

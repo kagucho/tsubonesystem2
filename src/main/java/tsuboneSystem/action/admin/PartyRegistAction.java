@@ -86,7 +86,6 @@ public class PartyRegistAction {
 	protected LoginAdminDto loginAdminDto;
 	
 	@Execute(validator = false, reset = "resetInput")
-//	@RemoveSession(name="partyForm")
 	public String index() {
 		
 		/** 2重登録防止のためのTokenの生成　**/

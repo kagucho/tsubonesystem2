@@ -17,6 +17,8 @@ package tsuboneSystem.action.admin;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.seasar.struts.annotation.ActionForm;
@@ -27,6 +29,7 @@ import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyAttend;
+import tsuboneSystem.entity.TPartyClub;
 import tsuboneSystem.form.MyPageForm;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TLeadersService;
@@ -38,6 +41,8 @@ import tsuboneSystem.service.TPartyService;
 public class IndexAction {
 	
 	public String actionName = "Welcome!!";
+	
+	public String actionNameSub = null;
 	
 	/** Indexのアクションフォーム */
 	@ActionForm
@@ -77,6 +82,7 @@ public class IndexAction {
     	
     	//ログインしているメンバー情報
     	myPageForm.tMember = loginAdminDto.tMemberLogin;
+    	actionNameSub = myPageForm.tMember.hname;
     	//ログインしているメンバーの所属部一覧
     	myPageForm.tMemberClubList = tMemberClubService.findByMemberId(loginAdminDto.tMemberLogin.id.toString());
     	myPageForm.tClubList = new ArrayList<TClub>();
@@ -87,7 +93,23 @@ public class IndexAction {
     	//現在時刻の取得と、その時点で出欠受付中かつ、まだ出欠を出していないの会議一覧
     	myPageForm.tPartyNoAttendList = new ArrayList<TParty>();
     	Date dateNow = new Date();
+    	//List<TParty> tPartyList = tPartyService.findBy_Deadline_GE_Now(dateNow);
     	myPageForm.tPartyList = tPartyService.findBy_Deadline_GE_Now(dateNow);
+    	
+    	List<TParty> tPartyListNoClub = new ArrayList<TParty>();
+    	List<TParty> tPartyListYesClub = new ArrayList<TParty>();
+    	
+//    	for (TParty tPartyOne : tPartyList){
+//    		if (tPartyOne.tPartyClubList.size() > 0) {
+//    			for (TPartyClub tPartyClubOne : tPartyOne.tPartyClubList) {
+//    				for (loginAdminDto.tMemberLogin.) {
+//    					
+//    				}
+//    			}
+//    		}else{
+//    			myPageForm.tPartyList.add(tPartyOne);
+//    		}
+//    	}
     	for (TParty tParty : myPageForm.tPartyList){
     		TPartyAttend tPartyAttend = tPartyAttendService.findByPartyIdMemberId(tParty.id,loginAdminDto.memberId);
     		if (tPartyAttend == null){

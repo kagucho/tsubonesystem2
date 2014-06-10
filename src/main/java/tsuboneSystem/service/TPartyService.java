@@ -48,7 +48,10 @@ public class TPartyService extends AbstractService<TParty> {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(deleteFlag(), Boolean.valueOf(false));
     	where.ge(meetingDeadlineDay(), dateNow);
-        return select().innerJoin("TMember").where(where).orderBy(desc(id())).getResultList();
+        return select()
+        		.innerJoin("TMember")
+        		.leftOuterJoin("tPartyClubList")
+        		.where(where).orderBy(desc(id())).getResultList();
     }
     
     /**
