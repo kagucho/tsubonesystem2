@@ -133,6 +133,7 @@ public class MemberForm implements Serializable{
 		password = null;
 		clubListChecked = new ArrayList<String>();
 		obFlag = null;
+		sendErrorFlag = false;
     }
 
 }

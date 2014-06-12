@@ -147,6 +147,7 @@ public class MemberUpdateAction {
         		TMember tMember = tMemberService.findById(memberForm.id);
         		memberUp.password = tMember.password;
         	}
+        	memberUp.sendErrorFlag = false;
         	
         	//DB更新
         	tMemberService.update(memberUp);
