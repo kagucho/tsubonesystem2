@@ -120,7 +120,7 @@ public class IndexAction {
     			tPartyListNoClub.add(tPartyOne);
     			}
     	}
-    	
+    	myPageForm.tPartyList = new ArrayList<TParty>();
     	myPageForm.tPartyList.addAll(tPartyListYesClub);
     	myPageForm.tPartyList.addAll(tPartyListNoClub);
     	
