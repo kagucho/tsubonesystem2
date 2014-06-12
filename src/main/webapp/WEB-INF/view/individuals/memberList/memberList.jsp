@@ -21,7 +21,7 @@
 <th></th><th>名前</th><th>ハンドルネーム</th><th>メールアドレス</th><th>学部</th><th>入学年度</th>
 		<tr>
 			<td>
-				<a href="<c:url value="/individuals/memberDetail/${tMember.id}"/>/"><span class="glyphicon glyphicon-user"></span></a>
+				<a href="<c:url value="/individuals/memberDetail"/>/"><span class="glyphicon glyphicon-user"></span></a>
 			</td>
 			<td>
 				${f:h(tMember.name) }

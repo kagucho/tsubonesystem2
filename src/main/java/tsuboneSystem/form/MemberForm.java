@@ -78,6 +78,9 @@ public class MemberForm implements Serializable{
 	@Maxlength(maxlength=10)
 	public String userName;
 	
+	/* メール不達フラグ　*/
+	public boolean sendErrorFlag;
+	
 	/* 削除フラグ　*/
 	public String deleteFlag;
 	

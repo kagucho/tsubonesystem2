@@ -14,7 +14,7 @@
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
 <h3 class="col-md-4">${f:h(hname)}ちゃんの詳細情報</h3>
-<a class="btn btn-primary col-md-1 col-md-offset-7" href="<c:url value="/individuals/memberUpdate/${id}"/>">更新</a>
+<a class="btn btn-primary col-md-1 col-md-offset-7" href="<c:url value="/individuals/memberUpdate/input"/>/">更新</a>
 <div class="col-sm-12">
 <table class="table">
 	<tr>

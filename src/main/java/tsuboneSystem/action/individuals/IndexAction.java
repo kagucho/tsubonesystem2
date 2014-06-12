@@ -87,6 +87,7 @@ public class IndexAction {
     	
     	//ログインしているメンバー情報
     	myPageForm.tMember = loginIndividualsDto.tMemberLogin;
+    	
     	//ログインしているメンバーの所属部一覧
     	myPageForm.tMemberClubList = tMemberClubService.findByMemberId(loginIndividualsDto.tMemberLogin.id.toString());
     	myPageForm.tClubList = new ArrayList<TClub>();

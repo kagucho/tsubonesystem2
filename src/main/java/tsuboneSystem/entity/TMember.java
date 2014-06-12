@@ -73,11 +73,15 @@ public class TMember implements Serializable {
     
     /* OBフラグ */
     @Column(nullable = true, unique = false)
-    public Boolean obFlag;
+    public boolean obFlag;
+    
+    /* メール不達フラグ */
+    @Column(columnDefinition ="boolean default '0'")
+    public boolean  sendErrorFlag;
     
     /* 削除フラグ */
     @Column(columnDefinition ="boolean default '0'")
-    public Boolean  deleteFlag;
+    public boolean  deleteFlag;
     
     
     /** memberIdをTLeadersに結びつける */

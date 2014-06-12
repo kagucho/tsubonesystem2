@@ -82,6 +82,10 @@ public class LoginAction {
         		//通常部員はIndividuals
         		loginIndividualsDto.memberId = member.id;
         		loginIndividualsDto.tMemberLogin = member;
+        		//メール不達フラグが立っていたらメンバー更新画面に飛ばす
+            	if (loginIndividualsDto.tMemberLogin.sendErrorFlag) {
+            		return "/individuals/memberUpdate/input/?redirect=true";
+            	}
            		return "/individuals/?redirect=true";
         	}
         	

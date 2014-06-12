@@ -13,7 +13,7 @@ import tsuboneSystem.names.TPartyNames._TPartyNames;
  * {@link TMember}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/10 23:55:07")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/12 19:08:29")
 public class TMemberNames {
 
     /**
@@ -131,6 +131,15 @@ public class TMemberNames {
      */
     public static PropertyName<Boolean> obFlag() {
         return new PropertyName<Boolean>("obFlag");
+    }
+
+    /**
+     * sendErrorFlagのプロパティ名を返します。
+     * 
+     * @return sendErrorFlagのプロパティ名
+     */
+    public static PropertyName<Boolean> sendErrorFlag() {
+        return new PropertyName<Boolean>("sendErrorFlag");
     }
 
     /**
@@ -335,6 +344,15 @@ public class TMemberNames {
          */
         public PropertyName<Boolean> obFlag() {
             return new PropertyName<Boolean>(this, "obFlag");
+        }
+
+        /**
+         * sendErrorFlagのプロパティ名を返します。
+         *
+         * @return sendErrorFlagのプロパティ名
+         */
+        public PropertyName<Boolean> sendErrorFlag() {
+            return new PropertyName<Boolean>(this, "sendErrorFlag");
         }
 
         /**

@@ -79,11 +79,13 @@ public class MemberUpdateAction {
 	
 	
 	@SuppressWarnings("boxing")
-	@Execute(validator = false, urlPattern = "{id}")
+	@Execute(validator = false)
 	public String input() {
 		
     	/** 2重登録防止のためのTokenの生成　**/
         TokenProcessor.getInstance().saveToken(request);
+        
+        memberForm.id = loginIndividualsDto.tMemberLogin.id;
         
         /** 詳細画面にて部の表示のためにmapを作成する　**/
         memberForm.clubList = tClubService.findAllOrderById();
@@ -106,7 +108,7 @@ public class MemberUpdateAction {
 		TMember member = tMemberService.findById(memberForm.id);
 		Beans.copy(member, memberForm).excludes("password").execute();
 		memberForm.password = null;
-		
+
         return "memberInput.jsp";
 	}
     
@@ -134,7 +136,7 @@ public class MemberUpdateAction {
         if (TokenProcessor.getInstance().isTokenValid(request, true)){  	
         	TMember memberUp = new TMember();
         	Beans.copy(memberForm, memberUp).execute();
-        	memberUp.obFlag = Boolean.valueOf(false);
+        	memberUp.obFlag = false;
         	//ログインDTOを入れなおす
         	loginIndividualsDto.tMemberLogin = memberUp;
         	

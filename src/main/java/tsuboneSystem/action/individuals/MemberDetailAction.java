@@ -59,37 +59,32 @@ public class MemberDetailAction {
 
 	
 	@SuppressWarnings("boxing")
-	@Execute(validator = false, urlPattern = "{id}")
+	@Execute(validator = false)
 	public String detail() {
-		
-		//ログインしている人の詳細画面のみ遷移可能
-		if (memberForm.id.equals(loginIndividualsDto.memberId)) {
 			
-			// 詳細画面にて部の表示のためにmapを作成する
-	        memberForm.clubList = tClubService.findAllOrderById();
-	        memberForm.clubMap = new HashMap<Integer,String>();
-	        for ( TClub club : memberForm.clubList) {
-	        	memberForm.clubMap.put(club.id, club.ClubName);
-	        }
+		memberForm.id = loginIndividualsDto.tMemberLogin.id;
+		// 詳細画面にて部の表示のためにmapを作成する
+		memberForm.clubList = tClubService.findAllOrderById();
+	    memberForm.clubMap = new HashMap<Integer,String>();
+	    for ( TClub club : memberForm.clubList) {
+	    	memberForm.clubMap.put(club.id, club.ClubName);
+	    }
 	        
-	        // Idから対象のメンバー情報を検索する
-	        TMember memberDetail = new TMember();
-	        memberDetail = tMemberService.findById(memberForm.id);
+	    // Idから対象のメンバー情報を検索する
+	    TMember memberDetail = new TMember();
+	    memberDetail = tMemberService.findById(memberForm.id);
 	       
-	        //検索した結果をformにコピー
-	        Beans.copy(memberDetail, memberForm).execute();	
+	    //検索した結果をformにコピー
+	    Beans.copy(memberDetail, memberForm).execute();	
 	        
-	        memberForm.sexMap = new HashMap<String, String>();
-	        for (Integer i=1; i<=3; i++) {
-	        	memberForm.sexMap.put(i.toString(), SexCode.getnameByCode(i.toString()));
-	        }
+	    memberForm.sexMap = new HashMap<String, String>();
+	    for (Integer i=1; i<=3; i++) {
+	      	memberForm.sexMap.put(i.toString(), SexCode.getnameByCode(i.toString()));
+	    }
 	        
-	        // Idから対象のメンバーが所属している部の一覧を検索する
-	        memberForm.tMemberClubList = tMemberClubService.findByMemberId(memberForm.id.toString());
-	        	
-	        return "memberDetail.jsp";
-			
-		}	
-    return "/individuals/memberList/?redirect=true"	;
+	    // Idから対象のメンバーが所属している部の一覧を検索する
+	    memberForm.tMemberClubList = tMemberClubService.findByMemberId(memberForm.id.toString());
+	    
+	    return "memberDetail.jsp";
 	}
 }

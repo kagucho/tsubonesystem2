@@ -133,7 +133,7 @@ public class MemberUpdateAction {
         	Beans.copy(memberForm, memberUp).execute();
         	
         	if (memberForm.obFlag == null) {
-        		memberUp.obFlag = Boolean.valueOf(false);
+        		memberUp.obFlag = false;
         	}
         	
         	if (!memberForm.password.isEmpty()){

@@ -14,7 +14,10 @@
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
 <h3>メンバー情報を入力してください。</h3>
-<div class="col-sm-8">
+<c:if test="${sendErrorFlag}">
+	<div class="alert alert-danger"><h4>メールが正常に届いていません。メールアドレスを確認して下さい。</h4></div>
+</c:if>
+<div class="col-sm-12">
 <s:form method="POST" >
 <form class="form-horizontal">
 	<div class="form-group">
@@ -23,6 +26,7 @@
 			<input type="text" id="name" name="name" property="name" class="form-control" placeholder="Name" value="${name}">
 			<html:errors property="name"/>
 		</div>
+	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="sex">性別</label>
 		<div class="col-sm-8 memberF">
