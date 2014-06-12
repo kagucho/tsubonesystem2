@@ -17,7 +17,9 @@ package tsuboneSystem.action.admin;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -36,6 +38,7 @@ import tsuboneSystem.service.TLeadersService;
 import tsuboneSystem.service.TMemberClubService;
 import tsuboneSystem.service.TMemberService;
 import tsuboneSystem.service.TPartyAttendService;
+import tsuboneSystem.service.TPartyClubService;
 import tsuboneSystem.service.TPartyService;
 
 public class IndexAction {
@@ -65,6 +68,10 @@ public class IndexAction {
 	@Resource
 	protected TPartyAttendService tPartyAttendService;
 	
+	/** TPartyClubServiceのサービスクラス */
+	@Resource
+	protected TPartyClubService tPartyClubService;
+	
 	/** TMemberClubServiceのサービスクラス */
 	@Resource
 	protected TMemberClubService tMemberClubService;
@@ -93,23 +100,30 @@ public class IndexAction {
     	//現在時刻の取得と、その時点で出欠受付中かつ、まだ出欠を出していないの会議一覧
     	myPageForm.tPartyNoAttendList = new ArrayList<TParty>();
     	Date dateNow = new Date();
-    	//List<TParty> tPartyList = tPartyService.findBy_Deadline_GE_Now(dateNow);
-    	myPageForm.tPartyList = tPartyService.findBy_Deadline_GE_Now(dateNow);
+    	  	
+    	//出席対象が部で絞られている場合の会議一覧
+    	Set<TParty> partySet = new  HashSet<TParty>();
+    	List<TMemberClub> tMemberClubList = tMemberClubService.findByMemberId(loginAdminDto.tMemberLogin.id.toString());
+    	for (TMemberClub tMemberClubOne : tMemberClubList) {
+    		List<TPartyClub> tPartyClubList = tPartyClubService.findByClubIdPartyGE(tMemberClubOne.ClubId,dateNow);
+    		for (TPartyClub tPartyClubOne : tPartyClubList) {
+    			partySet.add(tPartyClubOne.tParty);
+    		}
+    	}
+    	List<TParty> tPartyListYesClub = new ArrayList<TParty>(partySet);
     	
+    	//出席対象が部で絞られていない場合の会議一覧
+    	List<TParty> tPartyList = tPartyService.findBy_Deadline_GE_Now(dateNow);
     	List<TParty> tPartyListNoClub = new ArrayList<TParty>();
-    	List<TParty> tPartyListYesClub = new ArrayList<TParty>();
+    	for (TParty tPartyOne : tPartyList) {
+    		if (tPartyOne.tPartyClubList.size() == 0) {
+    			tPartyListNoClub.add(tPartyOne);
+    			}
+    	}
     	
-//    	for (TParty tPartyOne : tPartyList){
-//    		if (tPartyOne.tPartyClubList.size() > 0) {
-//    			for (TPartyClub tPartyClubOne : tPartyOne.tPartyClubList) {
-//    				for (loginAdminDto.tMemberLogin.) {
-//    					
-//    				}
-//    			}
-//    		}else{
-//    			myPageForm.tPartyList.add(tPartyOne);
-//    		}
-//    	}
+    	myPageForm.tPartyList.addAll(tPartyListYesClub);
+    	myPageForm.tPartyList.addAll(tPartyListNoClub);
+    	
     	for (TParty tParty : myPageForm.tPartyList){
     		TPartyAttend tPartyAttend = tPartyAttendService.findByPartyIdMemberId(tParty.id,loginAdminDto.memberId);
     		if (tPartyAttend == null){

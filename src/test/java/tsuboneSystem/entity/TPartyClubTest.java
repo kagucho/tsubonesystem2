@@ -4,8 +4,6 @@ import javax.annotation.Generated;
 import org.seasar.extension.jdbc.JdbcManager;
 import org.seasar.extension.unit.S2TestCase;
 
-import static tsuboneSystem.entity.TPartyClubNames.*;
-
 /**
  * {@link TPartyClub}のテストクラスです。
  * 

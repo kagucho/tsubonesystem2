@@ -27,6 +27,8 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.SexCode;
+import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginIndividualsDto;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
@@ -70,11 +72,16 @@ public class MemberUpdateAction {
 	@Resource
 	protected HttpServletRequest request;
 	
+	/** ログインDTO */
+	@Resource
+	protected LoginIndividualsDto loginIndividualsDto;
+	
 	/** Memberのリスト */
 	public List<TMember> memberItems;
 	
 	/** Clubのリスト */
 	public List<TClub> clubItems;
+	
 	
 	@SuppressWarnings("boxing")
 	@Execute(validator = false, urlPattern = "{id}")
@@ -133,14 +140,8 @@ public class MemberUpdateAction {
         	TMember memberUp = new TMember();
         	Beans.copy(memberForm, memberUp).execute();
         	memberUp.obFlag = Boolean.valueOf(false);
-        	tMemberService.update(memberUp);
-        	
-        	/** メンバーが所属していた情報を一回削除した上で、選択された部とメンバーのIDをtMemberClubに登録していく。複数なので選択した回数だけレコードを登録する。*/
-        	//メンバーが所属していた情報を削除する
-        	memberForm.tMemberClubUpOldId = tMemberClubService.findByMemberId(memberForm.id.toString());
-        	for (TMemberClub tMemberClubUpOldOne : memberForm.tMemberClubUpOldId) {
-        		tMemberClubService.delete(tMemberClubUpOldOne);
-        	}
+        	//ログインDTOを入れなおす
+        	loginIndividualsDto.tMemberLogin = memberUp;
         	
         	if (!memberForm.password.isEmpty()){
         		//パスワードのハッシュ化
@@ -150,11 +151,23 @@ public class MemberUpdateAction {
         		memberUp.password = tMember.password;
         	}
         	
+        	//DB更新
+        	tMemberService.update(memberUp);
+
+        	/** メンバーが所属していた情報を一回削除した上で、選択された部とメンバーのIDをtMemberClubに登録していく。複数なので選択した回数だけレコードを登録する。*/
+        	//メンバーが所属していた情報を削除する
+        	memberForm.tMemberClubUpOldId = tMemberClubService.findByMemberId(memberForm.id.toString());
+        	for (TMemberClub tMemberClubUpOldOne : memberForm.tMemberClubUpOldId) {
+        		//DB削除
+        		tMemberClubService.delete(tMemberClubUpOldOne);
+        	}
+        	
         	//新しく選択された情報で新規追加する。
         	for (String check : memberForm.clubListChecked){
         		TMemberClub memberClub = new TMemberClub();
         		memberClub.MemberId = memberUp.id;
         		memberClub.ClubId = Integer.valueOf(check);
+        		//DB登録
         		tMemberClubService.insert(memberClub);
         	}
         }

@@ -1,5 +1,6 @@
 package tsuboneSystem.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -73,6 +74,36 @@ public class TPartyClubService extends AbstractService<TPartyClub> {
         					.eq("tClub.tMemberClubList.tMember.deleteFlag", Boolean.valueOf(false))
         					.eq("tClub.tMemberClubList.tMember.obFlag", Boolean.valueOf(false))
         				)
+        		.where(where).getResultList();
+    }
+    
+    /**
+     * ClubIdでエンティティを検索し、出席対処になっている会議を取得します。
+     * 
+     * @param PartyId
+     * 
+     * @return エンティティのリスト
+     */
+    public List<TPartyClub> findByClubId(Integer clubId) {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(ClubId(), clubId);
+        return select()
+        		.innerJoin("tParty",new SimpleWhere().eq("tParty.deleteFlag",  Boolean.valueOf(false)))
+        		.where(where).getResultList();
+    }
+    
+    /**
+     * ClubIdでエンティティを検索し、出席対象になっている会議(期限内)を取得します。
+     * 
+     * @param PartyId
+     * 
+     * @return エンティティのリスト
+     */
+    public List<TPartyClub> findByClubIdPartyGE(Integer clubId, Date date) {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(ClubId(), clubId);
+        return select()
+        		.innerJoin("tParty",new SimpleWhere().eq("tParty.deleteFlag",  Boolean.valueOf(false)).ge("tParty.meetingDeadlineDay", date))
         		.where(where).getResultList();
     }
 }
