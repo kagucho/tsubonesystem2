@@ -30,12 +30,11 @@ import org.seasar.framework.util.ArrayUtil;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
-import tsuboneSystem.form.MemberForm;
 import tsuboneSystem.code.SexCode;
-import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TClub;
+import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
-import tsuboneSystem.service.DigestService;
+import tsuboneSystem.form.MemberForm;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TMemberClubService;
 import tsuboneSystem.service.TMemberService;
@@ -65,10 +64,6 @@ public class MemberRegistAction {
 	/** TMemberClubServiceのサービスクラス */
 	@Resource
 	protected TMemberClubService tMemberClubService;
-	
-	/** DigestServiceのサービスクラス */
-	@Resource
-    protected DigestService digestService;
 	
 	/** HttpServlet */
 	@Resource
@@ -154,9 +149,6 @@ public class MemberRegistAction {
         	
         	//削除フラグはfalse
         	member.deleteFlag = Boolean.valueOf(false);
-        	
-        	//パスワードのハッシュ化
-        	member.password = digestService.md5(member.password);
         	
         	//エンティティの内容をDBに追加する
         	tMemberService.insert(member);

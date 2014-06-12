@@ -14,7 +14,7 @@ import tsuboneSystem.dto.LoginIndividualsDto;
 import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.LoginForm;
-import tsuboneSystem.service.DigestService;
+import tsuboneSystem.original.util.DigestUtil;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TLeadersService;
 import tsuboneSystem.service.TMemberService;
@@ -42,10 +42,6 @@ public class LoginAction {
 	@Resource
 	protected TClubService tClubService;
 	
-	/** DigestServiceのサービスクラス */
-	@Resource
-    protected DigestService digestService;
-	
 	/**admin用ののDto */
 	@Resource
 	protected LoginAdminDto loginAdminDto;
@@ -67,7 +63,7 @@ public class LoginAction {
 		String password = new String();
 		
 		id = loginForm.id;
-		password = digestService.md5(loginForm.password);
+		password = DigestUtil.md5(loginForm.password);
 		
 		//パスワードとIDで検索する
     	TMember member = tMemberService.findByLoginIdPassword(id, password);
@@ -101,7 +97,7 @@ public class LoginAction {
 		String password = new String();
 		
 		id = loginForm.id;
-		password = digestService.md5(loginForm.password);
+		password = DigestUtil.md5(loginForm.password);
 		
         TMember tMember = tMemberService.findByLoginIdPassword(id, password);
 		if (tMember == null) {

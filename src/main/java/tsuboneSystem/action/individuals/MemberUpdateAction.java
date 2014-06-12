@@ -27,13 +27,12 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.SexCode;
-import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginIndividualsDto;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.form.MemberForm;
-import tsuboneSystem.service.DigestService;
+import tsuboneSystem.original.util.DigestUtil;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TLeadersService;
 import tsuboneSystem.service.TMemberClubService;
@@ -63,10 +62,6 @@ public class MemberUpdateAction {
 	/** TLeadersServiceのサービスクラス */
 	@Resource
 	protected TLeadersService tLeadersService;
-	
-	/** DigestServiceのサービスクラス */
-	@Resource
-    protected DigestService digestService;
 	
 	/** HttpServlet */
 	@Resource
@@ -145,7 +140,7 @@ public class MemberUpdateAction {
         	
         	if (!memberForm.password.isEmpty()){
         		//パスワードのハッシュ化
-            	memberUp.password = digestService.md5(memberForm.password);
+            	memberUp.password = DigestUtil.md5(memberForm.password);
         	}else{
         		TMember tMember = tMemberService.findById(memberForm.id);
         		memberUp.password = tMember.password;

@@ -1,9 +1,9 @@
-package tsuboneSystem.service;
+package tsuboneSystem.original.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class DigestService {
+public class DigestUtil {
 
 	/**
      * 入力された文字列をMD5でハッシュして、ダイジェスト文字列を返します。
@@ -11,7 +11,7 @@ public class DigestService {
      * @return ダイジェスト文字列
      * @throws NoSuchAlgorithmException
      */
-    public String md5(String src) {
+    public static String md5(String src) {
         
         String rtn = "";
         try {

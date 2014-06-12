@@ -1,5 +1,16 @@
 package tsuboneSystem.service;
 
+import static org.seasar.extension.jdbc.operation.Operations.asc;
+import static org.seasar.extension.jdbc.operation.Operations.desc;
+import static tsuboneSystem.names.TClubNames.deleteFlag;
+import static tsuboneSystem.names.TMemberNames.entrance;
+import static tsuboneSystem.names.TMemberNames.hname;
+import static tsuboneSystem.names.TMemberNames.id;
+import static tsuboneSystem.names.TMemberNames.name;
+import static tsuboneSystem.names.TMemberNames.obFlag;
+import static tsuboneSystem.names.TMemberNames.password;
+import static tsuboneSystem.names.TMemberNames.userName;
+
 import java.util.List;
 import java.util.Map;
 
@@ -9,9 +20,7 @@ import org.seasar.extension.jdbc.where.ComplexWhere;
 import org.seasar.extension.jdbc.where.SimpleWhere;
 
 import tsuboneSystem.entity.TMember;
-import static org.seasar.extension.jdbc.operation.Operations.*;
-import static tsuboneSystem.names.TClubNames.deleteFlag;
-import static tsuboneSystem.names.TMemberNames.*;
+import tsuboneSystem.original.util.DigestUtil;
 
 /**
  * {@link TMember}のサービスクラスです。
@@ -201,5 +210,10 @@ public class TMemberService extends AbstractService<TMember> {
     	}return getMemberMap();
     }
     
-    
+    @Override
+    public int insert(TMember entity) {
+    	//パスワードのハッシュ化
+    	entity.password = DigestUtil.md5(entity.password);
+    	return super.insert(entity);
+    }
 }
