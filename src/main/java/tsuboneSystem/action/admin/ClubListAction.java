@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
-import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.ClubForm;
 import tsuboneSystem.service.TClubService;
