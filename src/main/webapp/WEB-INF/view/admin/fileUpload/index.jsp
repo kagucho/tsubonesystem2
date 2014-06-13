@@ -23,15 +23,17 @@
             
             //画像を読み込む
             reader.onload = function(event){
-                document.getElementById("image").src = reader.result;
+                document.getElementById("file").src = reader.result;
             }
-            var file = document.getElementById("file").files[0];
+            //var file = document.getElementById("file").files[0];
+            var form = $('#ajaxform').get(0);
+            var formData = new FormData(form);
             $.ajax({  
                 url: '${f:url('/api/imageUpload')}',  
                 type: 'post',
                 processData: false,
                 contentType: false,
-                data: file,
+                data: formData,
                 dataType: "json",
                 error: function(){  
                     alert("jsonファイルの読み込みに失敗しました");  
@@ -51,7 +53,7 @@
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
-	<form class="form-horizontal">
+	<form class="form-horizontal" id="ajaxform">
 		<div class="form-group">
 			<label class="control-label col-sm-4" for=file>画像</label>
 			<div class="col-sm-8 memberF" >

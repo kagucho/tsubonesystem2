@@ -12,10 +12,10 @@ public class ImageUploadForm implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	/** 画像ファイル **/
-	public FormFile formFile;
+	public FormFile file;
 	
 	/** 画像ファイル **/
-	public String file;
+	public String Formfile;
 
 	
 }
