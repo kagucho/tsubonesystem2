@@ -36,17 +36,39 @@
                 data: formData,
                 dataType: "json",
                 error: function(){  
-                    alert("jsonファイルの読み込みに失敗しました");  
+                    //alert("jsonファイルの読み込みに失敗しました");  
                 },  
                 success: function(json){  
                     
                     }
                 }  
               );  
-            
             reader.readAsDataURL(file);
         }, true);
     }, true);
+
+// 		window.onload = function(){
+// 		    var $addImage = document.getElementById("file"); // input type="file" の要素
+// 		    var $preview = document.getElementById("preview"); // プレビューのimgを生成するエリア
+		     
+// 		    $addImage.addEventListener("change", function(){ // input要素が変更されたとき実行
+		     
+// 		        //$preview.removeChild($preview.childNodes[0]); // 既にあるプレビュー用imgを削除
+		         
+// 		        var $file = $addImage.files[0]; // inputで選択された要素
+// 		        var reader = new FileReader(); // FileReaderをインスタンス化
+// 		        reader.readAsDataURL($file);
+		         
+// 		        reader.onload = function(){
+// 		            var $img = new Image();
+// 		            $img.src = reader.result;
+// 		            $img.onload = function(){
+// 		                $preview.appendChild($img);
+// 		            }
+// 		        }
+		 
+// 		    });
+// 		}
     </script>
   </head>
 <body>
@@ -60,6 +82,7 @@
 				<input type="file" id="file" name="file">
 				<html:errors property="file"/>
 			</div>
+			<div id="preview"></div>
 		</div>
 	</form>
 </div>
