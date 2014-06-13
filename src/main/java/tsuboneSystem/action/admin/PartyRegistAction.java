@@ -26,7 +26,6 @@ import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyClub;
 import tsuboneSystem.form.PartyForm;
-import tsuboneSystem.original.manager.GoogleCalMain;
 import tsuboneSystem.original.manager.MailManager;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TMailSendMemberService;
@@ -107,7 +106,6 @@ public class PartyRegistAction {
         return "partyInput.jsp";
 	}
     
-    @SuppressWarnings("boxing")
 	@Execute(validator = true, input = "partyInput.jsp", validate="validateBase", stopOnValidationError = false) 
 	public String confirm() {
     	

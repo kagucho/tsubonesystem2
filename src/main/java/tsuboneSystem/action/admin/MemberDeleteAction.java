@@ -94,7 +94,7 @@ public class MemberDeleteAction {
     	
     	TMember member = new TMember();
     	Beans.copy(memberForm, member).execute();
-    	member.deleteFlag = Boolean.valueOf(true);
+    	member.deleteFlag = true;
     	tMemberService.update(member);
     	
     return "memberComplete.jsp";

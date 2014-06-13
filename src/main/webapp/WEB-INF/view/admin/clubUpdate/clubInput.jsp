@@ -23,6 +23,7 @@
 					<input type="text" id="ClubName" name="ClubName" property="ClubName" class="form-control" placeholder="ClubName" value="${ClubName}">
 					<html:errors property="ClubName"/>
 				</div>
+			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-4" for="OfficerId">部の代表者</label>
 				<div class="col-sm-8 memberF">

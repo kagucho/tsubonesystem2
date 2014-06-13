@@ -144,11 +144,11 @@ public class MemberRegistAction {
         	
         	//OBフラグは基本false
         	if (memberForm.obFlag == null) {
-        		member.obFlag = Boolean.valueOf(false);
+        		member.obFlag = false;
         	}
         	
         	//削除フラグはfalse
-        	member.deleteFlag = Boolean.valueOf(false);
+        	member.deleteFlag = false;
         	
         	//エンティティの内容をDBに追加する
         	tMemberService.insert(member);
