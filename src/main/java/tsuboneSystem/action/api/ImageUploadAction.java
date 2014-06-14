@@ -33,7 +33,7 @@ public class ImageUploadAction {
     	String rm = RandomStringUtils.randomAlphabetic(10);
     	
     	//ファイルの格納先フォルダの絶対パスを取得(DBにこのパスを保存しておく)
-        String path = app.getRealPath("/images/upload/" + rm + imageUploadForm.file.getFileName());
+    	String path = app.getRealPath("/images/upload/" + rm + imageUploadForm.file.getFileName());
         
         //ファイル書き込み（ファイルパスが空の場合は何もしません）
         UploadUtil.write(path, imageUploadForm.file);
