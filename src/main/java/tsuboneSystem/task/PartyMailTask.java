@@ -1,4 +1,4 @@
-package tsuboneSystem.batch.task;
+package tsuboneSystem.task;
 
 import java.util.Date;
 import java.util.List;
@@ -21,7 +21,7 @@ import tsuboneSystem.service.TPartyService;
  * 起動時間は毎日午後18時
  * 
  * 
- * @CronTrigger(expression = "0 44 17 * * ?")：17時44分00秒に◯◯()メソッドを実行するよってこと
+ * @CronTrigger(expression = "0 44 17 * * ?")：17時44分00秒にdoExecute()メソッドを実行するよってこと
  */
 
 

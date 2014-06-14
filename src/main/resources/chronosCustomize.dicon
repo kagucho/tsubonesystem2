@@ -4,6 +4,7 @@
 <components>
 	<!-- 1.0.0 -->
 	<component name="schedulerConfiguration" class="org.seasar.chronos.core.SchedulerConfiguration">
+		<property name="hotdeployDisable">true</property><!-- ログ対策(false又はこの行削除で一秒ごとのログが出る) -->
 		<property name="daemon">true</property>
 		<property name="autoFinish">false</property>
 		<property name="autoFinishTimeLimit">5000L</property>
