@@ -21,27 +21,29 @@
 		<div class="alert alert-danger">
 			<h4>以下の会議はまだ出欠を出していません！！</h4>
 		</div>
-		<table class="table">
-			<tr>
-				<th>会議名</th><th>会議内容</th><th>開催日</th><th>締切日</th>
-			</tr>
-			<c:forEach var="e" items="${tPartyNoAttendList}">
+		<div class="table-responsive">
+			<table class="table">
 				<tr>
-					<td>
-						<a href="<c:url value="/admin/partyDetail/"/>${e.id}">${f:h(e.meetingName) }</a>
-					</td>
-					<td>
-						${f:h(e.meetingMemo) }
-					</td>
-					<td>
-						<fmt:formatDate value="${e.meetingDay}" pattern="yyyy/MM/dd" /><br>
-					</td>
-					<td>
-						<fmt:formatDate value="${e.meetingDeadlineDay}" pattern="yyyy/MM/dd" /><br>
-					</td>
+					<th>会議名</th><th>会議内容</th><th>開催日</th><th>締切日</th>
 				</tr>
-			</c:forEach>
-		</table>
+				<c:forEach var="e" items="${tPartyNoAttendList}">
+					<tr>
+						<td>
+							<a href="<c:url value="/admin/partyDetail/"/>${e.id}">${f:h(e.meetingName) }</a>
+						</td>
+						<td>
+							${f:h(e.meetingMemo) }
+						</td>
+						<td>
+							<fmt:formatDate value="${e.meetingDay}" pattern="yyyy/MM/dd" /><br>
+						</td>
+						<td>
+							<fmt:formatDate value="${e.meetingDeadlineDay}" pattern="yyyy/MM/dd" /><br>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
 	</c:if>
 	<c:if test="${tPartyToDayList.size() != 0}">
 		<div class="alert alert-info">
