@@ -11,4 +11,8 @@
       <aspect>fisshplate.interceptor</aspect>
   	</component>
   <component name="actionMessagesThrowsInterceptor" class="org.seasar.struts.interceptor.ActionMessagesThrowsInterceptor"/>
+   <include path="chronos-extension.dicon" />
+    <component
+        name="actionMessagesThrowsInterceptor"
+        class="org.seasar.struts.interceptor.ActionMessagesThrowsInterceptor" />
 </components>
