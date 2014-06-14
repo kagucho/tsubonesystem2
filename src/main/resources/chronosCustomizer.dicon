@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN" 
+        "http://www.seasar.org/dtd/components24.dtd">
+<components>
+        <component name="schedulerConfiguration" class="org.seasar.chronos.core.SchedulerConfiguration">
+                <property name="daemon">true</property>   
+                // スケジューラをデーモンスレッドで起動します．
+                <property name="autoFinish">false</property> 
+                // <- 実行するタスクがない場合自動的にスケジューラを終了させるかどうかのフラグ。
+                         trueの場合自動的に終了します．
+                <property name="autoFinishTimeLimit">5000L</property>
+                // <- 実行するタスクがなくなってからどれぐらいでスケジューラを終了させるかの時間(msec)．
+                <property name="taskScanIntervalTime">2000L</property>
+               // <- タスクを監視する時間間隔(msec).
+                <property name="threadPoolType">@org.seasar.chronos.core.ThreadPoolType@CACHED</property> 
+               // スケジューラのスレッドプールタイプを指定します．
+        </component>
+</components> 

@@ -145,6 +145,11 @@ version="2.4">
     <welcome-file-list>
     </welcome-file-list>
 	-->
+	<servlet>
+        <servlet-name>chronosServlet</servlet-name>
+        <servlet-class>org.seasar.chronos.extension.servlet.S2ChronosServlet</servlet-class>
+        <load-on-startup>3</load-on-startup>
+	</servlet>
     
     <jsp-config>
     	<jsp-property-group>
