@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="lib/cglib-nodep-2.1_3.jar"/>
 	<classpathentry kind="lib" path="lib/easymock-2.4.jar" sourcepath="lib/sources/easymock-2.4-sources.jar"/>
 	<classpathentry kind="lib" path="lib/easymockclassextension-2.4.jar" sourcepath="lib/sources/easymockclassextension-2.4-sources.jar"/>
@@ -65,5 +65,6 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2fisshplate-0.1.4-javadoc.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2fisshplate-0.1.4-sources.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2fisshplate-0.1.4.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2csv-0.0.2-sp2.jar"/>
 	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
 </classpath>

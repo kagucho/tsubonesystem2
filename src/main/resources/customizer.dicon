@@ -132,4 +132,5 @@
       <arg>triggerSupportAspectCustomizer</arg>
     </initMethod>
   </component>
+  <component name="csvCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain"/>
 </components>

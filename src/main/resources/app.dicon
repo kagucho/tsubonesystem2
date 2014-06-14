@@ -8,6 +8,7 @@
   <include path="s2jdbc.dicon"/>
   <include path="s2fisshplate.dicon"/>
   <include path="chronos-extension.dicon"/>
+  <include path="s2csv.dicon"/>
   <component class="tsuboneSystem.fpao.ExcelFpao" >
     <aspect>fisshplate.interceptor</aspect>
   </component>

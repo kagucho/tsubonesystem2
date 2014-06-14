@@ -12,4 +12,5 @@
 	<component class="org.seasar.framework.container.creator.DaoCreator"/>
 	<component class="org.seasar.chronos.core.creator.TaskCreator"/>
 	<component class="org.seasar.chronos.core.creator.TriggerCreator"/>
+	<component class="org.seasar.s2csv.creator.CsvCreator"/>
 </components>
