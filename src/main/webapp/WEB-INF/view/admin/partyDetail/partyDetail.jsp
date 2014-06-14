@@ -13,10 +13,10 @@
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
-<h3 class="col-md-8">${f:h(meetingName)}たんの詳細情報</h3>
+<h3 class="col-md-8 col-xs-12">${f:h(meetingName)}たんの詳細情報</h3>
 <c:if test="${!deadFlag}">
-	<a class="btn btn-danger col-md-1 col-md-offset-1 btnDelete" href="<c:url value="/admin/partyDelete/${id}"/>">削除</a>
-	<a class="btn btn-primary col-md-1 " href="<c:url value="/admin/partyUpdate/${id}"/>">更新</a>
+	<a class="btn btn-danger btnDelete col-md-1 col-xs-12 col-md-offset-1 " href="<c:url value="/admin/partyDelete/${id}"/>">削除</a>
+	<a class="btn btn-primary col-md-1 col-xs-12  " href="<c:url value="/admin/partyUpdate/${id}"/>">更新</a>
 </c:if>
 <div class="col-sm-12">
 <table class="table">
