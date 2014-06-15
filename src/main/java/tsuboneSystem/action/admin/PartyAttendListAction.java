@@ -257,7 +257,7 @@ public class PartyAttendListAction {
         	}
         	
         	//メールを送信する
-        	MailManager manager = new MailManager(loginAdminDto.memberId);
+        	MailManager manager = new MailManager();
         	manager.setTitle(partyAttendForm.title);
         	manager.setContent(partyAttendForm.content);
         	manager.setToAddress(partyAttendForm.tMemberSendList.toArray(new TMember[0]));

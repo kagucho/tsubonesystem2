@@ -113,7 +113,7 @@ public class MailRegistAction {
         	}
         	
         	//メールを送信する
-        	MailManager manager = new MailManager(loginAdminDto.memberId);
+        	MailManager manager = new MailManager();
         	manager.setTitle(mailForm.title);
         	manager.setContent(mailForm.content);
         	manager.setToAddress(mailForm.tMemberSendList.toArray(new TMember[0]));
