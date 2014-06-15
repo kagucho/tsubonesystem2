@@ -219,7 +219,7 @@ public class PartyRegistAction {
     	}
    
     	//メールを送信する
-    	MailManager manager = new MailManager(loginAdminDto.memberId);
+    	MailManager manager = new MailManager();
     	manager.setTitle(partyForm.title);
     	manager.setContent(partyForm.content);
     	manager.setToAddress(partyForm.tMemberSendList.toArray(new TMember[0]));

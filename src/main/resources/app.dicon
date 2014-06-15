@@ -7,8 +7,10 @@
   <include path="j2ee.dicon"/>
   <include path="s2jdbc.dicon"/>
   <include path="s2fisshplate.dicon"/>
-    <component class="tsuboneSystem.fpao.ExcelFpao" >
-      <aspect>fisshplate.interceptor</aspect>
-  	</component>
+  <include path="chronos-extension.dicon"/>
+  <include path="s2csv.dicon"/>
+  <component class="tsuboneSystem.fpao.ExcelFpao" >
+    <aspect>fisshplate.interceptor</aspect>
+  </component>
   <component name="actionMessagesThrowsInterceptor" class="org.seasar.struts.interceptor.ActionMessagesThrowsInterceptor"/>
 </components>

@@ -57,6 +57,14 @@ version="2.4">
     <filter>
         <filter-name>requestDumpFilter</filter-name>
         <filter-class>org.seasar.extension.filter.RequestDumpFilter</filter-class>
+        <init-param>
+        	<param-name>beforeContextAttribute</param-name>
+        	<param-value>false</param-value>
+        </init-param>
+        <init-param>
+        	<param-name>afterContextAttribute</param-name>
+        	<param-value>false</param-value>
+        </init-param>
     </filter>
         
     <filter-mapping>
@@ -145,6 +153,11 @@ version="2.4">
     <welcome-file-list>
     </welcome-file-list>
 	-->
+	<servlet>
+        <servlet-name>chronosServlet</servlet-name>
+        <servlet-class>org.seasar.chronos.extension.servlet.S2ChronosServlet</servlet-class>
+        <load-on-startup>3</load-on-startup>
+	</servlet>
     
     <jsp-config>
     	<jsp-property-group>

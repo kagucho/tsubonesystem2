@@ -131,6 +131,7 @@ public class TMemberService extends AbstractService<TMember> {
     	return select().where(where).getSingleResult();
     }
     
+    
     /**
      * 検索条件ですべてのエンティティを検索します。(OB抜き)
      * 
