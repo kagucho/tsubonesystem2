@@ -11,10 +11,15 @@
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
-
-<s:form method="POST" enctype="multipart/form-data">
-	<html:file property="file"/>
-	<html:submit property="upload" value="アップロード"/>
-</s:form>
+<div class="container">
+	<form class="form-horizontal">
+		<s:form method="POST" enctype="multipart/form-data">
+			<div class="form-group">
+				<input type="file" id="file" name="file" property="file">
+				<input type="submit" value="確認" property="upload" class="btn btn-primary">
+			</div>
+		</s:form>
+	</form>
+</div>
 </body>
 </html>
