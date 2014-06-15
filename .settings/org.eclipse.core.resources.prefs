@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java/tsuboneSystem/action/admin/MemberUploadAction.java=UTF-8
 encoding//src/main/webapp/WEB-INF/view/admin/attend/AttendComplete.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/admin/attend/AttendConfirm.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/admin/clubDelete/clubComplete.jsp=UTF-8
@@ -30,6 +31,7 @@ encoding//src/main/webapp/WEB-INF/view/admin/memberRegist/memberInput.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/admin/memberUpdate/memberComplete.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/admin/memberUpdate/memberConfirm.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/admin/memberUpdate/memberInput.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/view/admin/memberUpload/memberUpload.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/admin/officerList/OfficerList.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/admin/officerUpdate/officerComplete.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/admin/officerUpdate/officerConfirm.jsp=UTF-8
