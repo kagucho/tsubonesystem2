@@ -141,7 +141,7 @@ public class ClubDetailAction {
         	}
         	
         	//メールを送信する
-        	MailManager manager = new MailManager(loginAdminDto.memberId);
+        	MailManager manager = new MailManager();
         	manager.setTitle(clubForm.title);
         	manager.setContent(clubForm.content);
         	manager.setToAddress(clubForm.tMemberSendList.toArray(new TMember[0]));
