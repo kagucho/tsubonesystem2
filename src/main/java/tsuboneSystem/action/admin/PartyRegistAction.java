@@ -208,7 +208,7 @@ public class PartyRegistAction {
     	//TMailにメールの内容を追加する
     	TMail tMail = new TMail();
     	Beans.copy(partyForm, tMail).execute();
-    	tMailService.insert(tMail);
+    	
     	
     	//TMailSendAttendにメールの送信相手を追加する
     	for (TMember tMemberOne : partyForm.tMemberSendList) {
@@ -225,9 +225,12 @@ public class PartyRegistAction {
     	manager.setToAddress(partyForm.tMemberSendList.toArray(new TMember[0]));
     	if (manager.sendMail()) {
     		mailMsg = "メールを正常に送信しました。";
+    		tMail.errorFlag = false;
     	} else {
     		mailMsg = "メールの送信に失敗しました。";
-    	}   	
+    		tMail.errorFlag = true;
+    	}   
+    	tMailService.insert(tMail);
     return "partyComplete.jsp";	
     }
 }

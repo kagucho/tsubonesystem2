@@ -10,7 +10,7 @@ import tsuboneSystem.names.TMemberNames._TMemberNames;
  * {@link TMail}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/12 19:08:29")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/16 17:41:04")
 public class TMailNames {
 
     /**
@@ -47,6 +47,15 @@ public class TMailNames {
      */
     public static PropertyName<String> content() {
         return new PropertyName<String>("content");
+    }
+
+    /**
+     * errorFlagのプロパティ名を返します。
+     * 
+     * @return errorFlagのプロパティ名
+     */
+    public static PropertyName<Boolean> errorFlag() {
+        return new PropertyName<Boolean>("errorFlag");
     }
 
     /**
@@ -134,6 +143,15 @@ public class TMailNames {
          */
         public PropertyName<String> content() {
             return new PropertyName<String>(this, "content");
+        }
+
+        /**
+         * errorFlagのプロパティ名を返します。
+         *
+         * @return errorFlagのプロパティ名
+         */
+        public PropertyName<Boolean> errorFlag() {
+            return new PropertyName<Boolean>(this, "errorFlag");
         }
 
         /**

@@ -102,7 +102,7 @@ public class MailRegistAction {
         	//TMailにメールの内容を追加する
         	TMail tMail = new TMail();
         	Beans.copy(mailForm, tMail).execute();
-        	tMailService.insert(tMail);
+        	
         	
         	//TMailSendAttendにメールの送信相手を追加する
         	for (TMember tMemberOne : mailForm.tMemberSendList) {
@@ -119,9 +119,13 @@ public class MailRegistAction {
         	manager.setToAddress(mailForm.tMemberSendList.toArray(new TMember[0]));
         	if (manager.sendMail()) {
         		mailMsg = "メールを正常に送信しました。";
+        		tMail.errorFlag = false;
         	} else {
         		mailMsg = "メールの送信に失敗しました。";
+        		tMail.errorFlag = true;
         	}
+        	
+        	tMailService.insert(tMail);
         	
         	
         }

@@ -246,7 +246,7 @@ public class PartyAttendListAction {
         	//TMailにメールの内容を追加する
         	TMail tMail = new TMail();
         	Beans.copy(partyAttendForm, tMail).execute();
-        	tMailService.insert(tMail);
+        	
         	
         	//TMailSendAttendにメールの送信相手を追加する
         	for (TMember tMemberOne : partyAttendForm.tMemberSendList) {
@@ -263,9 +263,12 @@ public class PartyAttendListAction {
         	manager.setToAddress(partyAttendForm.tMemberSendList.toArray(new TMember[0]));
         	if (manager.sendMail()) {
         		mailMsg = "メールを正常に送信しました。";
+        		tMail.errorFlag = false;
         	} else {
         		mailMsg = "メールの送信に失敗しました。";
+        		tMail.errorFlag = true;
         	}
+        	tMailService.insert(tMail);
         	
         }
         

@@ -13,6 +13,8 @@ import javax.annotation.Resource;
 import org.seasar.chronos.core.annotation.task.Task;
 import org.seasar.chronos.core.annotation.trigger.CronTrigger;
 
+import tsuboneSystem.entity.TMail;
+import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.entity.TParty;
@@ -79,6 +81,8 @@ public class PartyMailTask {
 	
 	/** 出席対象者 */
 	public List<TMember> tSendMember = new ArrayList<TMember>();
+	
+	public boolean errorFlag;
 	
 	
 	// タスク処理
@@ -179,13 +183,31 @@ public class PartyMailTask {
     	    	sbc.append("以上の会議にまだ出欠を出していません。とっとと出欠を出しましょう。");
     	    	String content = new String(sbc);
     	    	
-    	    	
     	    	//メールを送信する
             	MailManager manager = new MailManager();
             	manager.setTitle(title);
             	manager.setContent(content);
             	manager.setToAddress(tSendMember.toArray(new TMember[0]));
-            	manager.sendMail();
+            	if (manager.sendMail()){
+            		errorFlag = false;
+            	}else{
+            		errorFlag = true;
+            	}
+            	
+            	//以下メールの送信履歴を残す
+            	TMail tMail = new TMail();
+            	tMail.title = title;
+            	tMail.content = content;
+            	tMail.errorFlag = errorFlag;
+            	tMailService.insert(tMail);
+            	
+            	for (TMember tMemberOne : tSendMember) {
+            		TMailSendMember tMailSendMember = new TMailSendMember();
+            		tMailSendMember.mailId = tMail.id;
+            		tMailSendMember.memberId = tMemberOne.id;
+            		tMailSendMemberService.insert(tMailSendMember);
+            	}
+	
     		}
     		
     	}

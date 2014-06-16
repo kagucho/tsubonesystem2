@@ -41,6 +41,10 @@ public class TMail implements Serializable {
     @Column(nullable = true, unique = false, columnDefinition ="mediumtext")
     public String  content;
     
+    /* 送信成功可否 */
+    @Column(columnDefinition ="boolean default '0'")
+    public boolean  errorFlag;
+    
     /** TMail(ID) = TMailSendMember(mailId) */
     @OneToMany(mappedBy = "TMail")
     public List<TMailSendMember> tMailSendMember;

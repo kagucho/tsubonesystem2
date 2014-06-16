@@ -19,11 +19,16 @@ public class FileUploadAction {
 
 	
     @Execute(validator = false)
-	public String index() {
-    	
-    	
-    	
+	public String index() {    	
         return "index.jsp";
 	}
+    
+    @Execute(validator = false)
+   	public String complete() {  
+    	if (imageUploadForm.name == null){
+    		
+    	}
+           return "index.jsp";
+   	}
 
 }

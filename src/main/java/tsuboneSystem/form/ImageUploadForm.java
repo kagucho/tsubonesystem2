@@ -16,6 +16,9 @@ public class ImageUploadForm implements Serializable{
 	
 	/** 画像ファイル **/
 	public String Formfile;
+	
+	
+	public String name;
 
 	
 }

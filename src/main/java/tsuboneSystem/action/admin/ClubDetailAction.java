@@ -130,7 +130,6 @@ public class ClubDetailAction {
         	//TMailにメールの内容を追加する
         	TMail tMail = new TMail();
         	Beans.copy(clubForm, tMail).execute();
-        	tMailService.insert(tMail);
         	
         	//TMailSendAttendにメールの送信相手を追加する
         	for (TMember tMemberOne : clubForm.tMemberSendList) {
@@ -147,9 +146,12 @@ public class ClubDetailAction {
         	manager.setToAddress(clubForm.tMemberSendList.toArray(new TMember[0]));
         	if (manager.sendMail()) {
         		mailMsg = "メールを正常に送信しました。";
+        		tMail.errorFlag = false;
         	} else {
         		mailMsg = "メールの送信に失敗しました。";
+        		tMail.errorFlag = true;
         	}	
+        	tMailService.insert(tMail);
         }  
     return "clubMailComplete.jsp";	
     }
