@@ -171,7 +171,9 @@ public class TMemberService extends AbstractService<TMember> {
     public List<TMember> findBySearchOnOB(String name,String hname, String entrance) {
     	//OBを含めるチェックがある上で、その他の検索条件が入力されていない場合は、OBを含めた一覧を取得する
     	if (name.isEmpty() && hname.isEmpty() && entrance.isEmpty()) {
-    		return select().orderBy(asc(id())).getResultList();
+    		SimpleWhere where = new SimpleWhere();
+    		where.eq(deleteFlag(), Boolean.valueOf(false));
+    		return select().where(where).orderBy(asc(id())).getResultList();
     	}
     	//以下から文字をNULLに置き換える
     	if (name.isEmpty()) {

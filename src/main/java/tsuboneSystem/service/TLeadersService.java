@@ -77,7 +77,7 @@ public class TLeadersService extends AbstractService<TLeaders> {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(MemberId(), id);
         return select()
-        		.innerJoin("TClub",new SimpleWhere().eq("TClub.deleteFlag",  Boolean.valueOf(false)))
+        		.leftOuterJoin("TClub",new SimpleWhere().eq("TClub.deleteFlag",  Boolean.valueOf(false)))
         		.where(where)
         		.getResultList();
     }
