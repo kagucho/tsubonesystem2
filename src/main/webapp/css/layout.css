@@ -8,6 +8,21 @@ a.btn.btn-primary{
 	margin-bottom:20px;
 }
 
+.btnYOKO{
+	margin-right:20px;
+	
+}
+
+.btnMAOUTO{
+	margin-left:auto;
+	margin-right:auto; 
+	
+}
+
+.CENTER{
+	text-align: center !important;
+}
+
 img.bgmaximage{
   position:fixed !important;
 }

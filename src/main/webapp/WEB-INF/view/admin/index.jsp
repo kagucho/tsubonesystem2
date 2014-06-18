@@ -78,17 +78,17 @@
 		    	<p class="text-danger">出欠を出してない会議が存在します！</p>
 		    </c:if>
 		    <p>会議の出欠や、会議の内容を確認するのはこちらから</p>
-		    <p><a class="btn btn-primary" href="<c:url value="/admin/partyList"/>" role="button">PartyList &raquo;</a></p>
+		    <p><a class="col-xs-12 btn btn-primary" href="<c:url value="/admin/partyList"/>" role="button">PartyList &raquo;</a></p>
 	    </div>
 	    <div class="col-lg-4">
 		    <h2>MemberInfo</h2>
 		    <p>連絡先や、諸情報を更新するにはこちらから。また他のメンバーの連絡先を検索するのもこちら。</p>
-		    <p><a class="btn btn-primary" href="<c:url value="/admin/memberList"/>" role="button">MemberList &raquo;</a></p>
+		    <p><a class="col-xs-12 btn btn-primary" href="<c:url value="/admin/memberList"/>" role="button">MemberList &raquo;</a></p>
 	    </div>
 	    <div class="col-lg-4">
 		    <h2>OfficerInfo</h2>
 		    <p>代表や、部長に連絡を取るにはこちらから。</p>
-		    <p><a class="btn btn-primary" href="<c:url value="/admin/officerList"/>" role="button">OfficerList &raquo;</a></p>
+		    <p><a class="col-xs-12 btn btn-primary" href="<c:url value="/admin/officerList"/>" role="button">OfficerList &raquo;</a></p>
 	    </div>
     </div>
 </div>

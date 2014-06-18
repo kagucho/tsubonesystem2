@@ -13,9 +13,11 @@
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
-<h3 class="col-md-8">${f:h(hname)}ちゃんの詳細情報</h3>
-<a class="btn btn-danger col-md-1 col-md-offset-1 btnDelete" href="<c:url value="/admin/memberDelete/${id}"/>">削除</a>
-<a class="btn btn-primary col-md-1" href="<c:url value="/admin/memberUpdate/${id}"/>">更新</a>
+<div class="row CENTER">
+	<h3 class="col-md-6">${f:h(hname)}ちゃんの詳細情報</h3>
+	<a class="col-md-2 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-danger btnYOKO btnMRC" href="<c:url value="/admin/memberDelete/${id}"/>">削除</a>
+	<a class="col-md-2 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/admin/memberUpdate/${id}"/>">更新</a>
+</div>
 <div class="col-sm-12">
 <table class="table">
 	<tr>
