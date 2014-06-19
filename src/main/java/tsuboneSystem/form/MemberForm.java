@@ -75,7 +75,7 @@ public class MemberForm implements Serializable{
 	/* ID　*/
 	@Required(msg=@Msg(key="errors.id", resource=true))
 	@Mask(mask = "^[\u0020-\u007E]+$", msg = @Msg(key = "errors.eisu", resource=true))
-	@Maxlength(maxlength=10)
+	@Maxlength(maxlength=30)
 	public String userName;
 	
 	/* メール不達フラグ　*/

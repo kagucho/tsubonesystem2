@@ -14,7 +14,8 @@
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
 <div class="col-sm-12">
-<h3>新しい局長、もしくは副局長を選択してください。</h3>
+<h3>新しく任命するメンバーを選択してください。</h3>
+<h4>※局長、副局長、会計は重複して任命できません。(部長との兼任は可)</h4>
 <html:errors property="leadersOld"/>
 <html:errors property="leadersConnection"/>
 <s:form method="POST">
