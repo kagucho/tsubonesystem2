@@ -55,6 +55,17 @@
 		<td><h5>${f:h(tel1)}-${f:h(tel2)}-${f:h(tel3)}</h5></td>
 	</tr>
 	<tr>
+		<th><h4>OB宣言</h4></th>
+	　	<td>
+			<c:if test="${obFlag}">
+				<h5>OB宣言済み</h5>
+			</c:if>
+			<c:if test="${!obFlag}">
+				<h5>(現役部員)</h5>
+			</c:if>
+		</td>
+	</tr>
+	<tr>
 		<th><h4>UserName</h4></th>
 		<td><h5>${f:h(userName)}</h5></td>
 	</tr>

@@ -131,6 +131,7 @@ public class MemberForm implements Serializable{
 		tel3 = null;
 		userName = null;
 		password = null;
+		clubListCheck = new String[0];
 		clubListChecked = new ArrayList<String>();
 		obFlag = null;
 		sendErrorFlag = false;

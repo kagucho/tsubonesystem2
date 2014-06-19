@@ -82,7 +82,7 @@
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="obFlag">OB宣言</label>
 		<div class="col-sm-8 memberF">
-			<input type="checkbox" id="obFlag" name="obFlag" value="true" />
+			<input type="checkbox" id="obFlag" name="obFlag" value="true" />&nbsp;&nbsp;OB宣言をする
 		</div>
 	</div>
 	<div class="form-group">
@@ -100,9 +100,9 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-sm-8">
-			<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="btn btn-primary">
-		</div>
+		
+			<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-3 col-xs-12  btn btn-primary">
+		
 	</div>
 </form>
 </s:form>
