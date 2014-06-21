@@ -96,6 +96,13 @@ public class MemberUpdateAction {
         	memberForm.clubListChecked.add(tMemberClubUpOldOne.ClubId.toString());
         };
 		
+        //部長の場合該当の部のチェックボックスはグレーアウト
+        List<TLeaders> tLeaders = tLeadersService.findByMemberId_OfficerKindList(memberForm.id.toString(),LeadersKindCode.DIRECTOR.getCode());
+        if (tLeaders.size() > 0){
+        	//TODO
+        }
+        
+   
         memberForm.sexMap = new HashMap<String, String>();
         for (Integer i=1; i<=3; i++) {
         	memberForm.sexMap.put(i.toString(), SexCode.getnameByCode(i.toString()));

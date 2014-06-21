@@ -11,7 +11,7 @@ import tsuboneSystem.names.TMemberNames._TMemberNames;
  * {@link TLeaders}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/16 17:41:04")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/21 13:40:43")
 public class TLeadersNames {
 
     /**
