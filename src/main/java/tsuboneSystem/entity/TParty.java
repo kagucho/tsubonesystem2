@@ -70,14 +70,13 @@ public class TParty implements Serializable {
     @Temporal(TemporalType.DATE)
 	public Date meetingDeadlineDay;
     
-    /** 会議出欠席締め切り時間　*/
-    @Column()
-    @Temporal(TemporalType.TIME)
-	public Date meetingDeadlineTime;
-    
     /** OB出席フラグ */
     @Column(columnDefinition ="boolean default '0'")
     public Boolean  ObAttendFlag;
+    
+    /** 会議結果　*/
+    @Column(columnDefinition ="mediumtext")
+	public String meetingResult;
     
     /** 削除フラグ */
     @Column(columnDefinition ="boolean default '0'")
@@ -91,5 +90,9 @@ public class TParty implements Serializable {
     /* IdをTPatyClubに結びつける */
     @OneToMany(mappedBy = "TParty")
     public List<TPartyClub> tPartyClubList;
+    
+    /* IdをTPartySendMailに結びつける */
+    @OneToMany(mappedBy = "TParty")
+    public List<TPartySendMail> tPartySendMailList;
     
 }

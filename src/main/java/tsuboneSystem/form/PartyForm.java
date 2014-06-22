@@ -64,6 +64,9 @@ public class PartyForm implements Serializable{
 	@DateType(datePattern = "HH:mm",msg=@Msg(key="errors.time", resource=true))
 	public String meetingDeadlineTime;
 	
+	/** 審議結果 */
+    public String  meetingResult;
+	
 	/** 削除フラグ */
     public String  deleteFlag;
     
@@ -119,6 +122,9 @@ public class PartyForm implements Serializable{
 	/** 部のマップ **/
 	public Map<Integer, String> clubMapIS;
 	
+	/** 出席対象が部で選択されている場合　**/
+	public Set<Integer> MemberSet = new HashSet<Integer>();
+	
 	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
 	public void resetInput() {
 		meetingName = null;
@@ -128,7 +134,7 @@ public class PartyForm implements Serializable{
 		meetingDeadlineTime = null;
 		meetingRoom = null;
 		clubListCheck = new String[0];
-		attendClub = new String[0];
+		attendClub = null;
 		mailSendFlag = false;
 		mailSendAllFlag = null;
 		mailSendOBFlag = null;

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.dto.LoginIndividualsDto;
 import tsuboneSystem.dto.PartyDto;
 import tsuboneSystem.entity.TParty;
@@ -52,7 +53,7 @@ public class AttendAction {
     @Execute(validator = false)
 	public String yes() {
     	
-    	attendForm.attendFlag = true;
+    	attendForm.attendFlag = Integer.valueOf(PartyAttendCode.YES_ATTEND.getCode());
     	attendForm.meetingName = partyDto.meetingName;
     	attendForm.attendMessege = "出席する";
     			
@@ -62,18 +63,17 @@ public class AttendAction {
     @Execute(validator = false)
 	public String no() {
     	
-    	attendForm.attendFlag = false;
+    	attendForm.attendFlag = Integer.valueOf(PartyAttendCode.NO_ATTEND.getCode());
     	attendForm.meetingName = partyDto.meetingName;
     	attendForm.attendMessege = "欠席する";
     	
     return "AttendConfirm.jsp";
 	}
     
-    @SuppressWarnings("boxing")
 	@Execute(validator = false)
    	public String complete() {
     	
-       	//すでに出欠席が登録されている場合にはアップデートする
+       	//すでに出欠席が登録されている場合にはアップデートする。(されていない場合は出席対象外の人間)
     	TPartyAttend tPartyAttendOld = tPartyAttendService.findByMemberIdWithPartyId(loginIndividualsDto.memberId.toString(), partyDto.id);
     	if ( tPartyAttendOld == null) {
     		TPartyAttend tPartyAttend = new TPartyAttend();

@@ -57,6 +57,9 @@ public class PartyDto implements Serializable {
 	
 	/* 欠席してる人のリスト　*/
 	public List<TMember> tMemberOff = new ArrayList<TMember>();
+
+	/* 未提出　*/
+	public List<TMember> tMemberKuzu = new ArrayList<TMember>();
 	
 	/* 出欠席を返さないゴミのmap　*/
 	public Map<String, String> mapKuzuSS;

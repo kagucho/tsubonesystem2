@@ -14,7 +14,7 @@ public class AttendForm implements Serializable {
 	public Integer id;
 	
 	/* 出欠席　*/
-	public boolean attendFlag;
+	public Integer attendFlag;
 	
 	/* メッセージ　*/
 	public String meetingName;

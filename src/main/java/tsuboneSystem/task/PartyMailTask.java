@@ -2,12 +2,8 @@ package tsuboneSystem.task;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import javax.annotation.Resource;
 
 import org.seasar.chronos.core.annotation.task.Task;
@@ -16,10 +12,8 @@ import org.seasar.chronos.core.annotation.trigger.CronTrigger;
 import tsuboneSystem.entity.TMail;
 import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
-import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyAttend;
-import tsuboneSystem.entity.TPartyClub;
 import tsuboneSystem.original.manager.MailManager;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
@@ -95,67 +89,12 @@ public class PartyMailTask {
     	if (tPartyList.size() > 0) {
     		//締め切られていいない会議が存在したら以下を実行
     		for (TParty tPartyOne : tPartyList) {
-    			//全員のリストを取得し、以下の処理の中で該当のメンバーは削除してき、残ったメンバーが出欠席を返さないクズ。
-    	    	if (tPartyOne.ObAttendFlag){
-    	    		//OBの出席を含む
-    	    		if (tPartyOne.tPartyClubList.size() > 0) {
-    	    			//部によって出席対象が絞られている場合
-    	    			List<TPartyClub> tPartyClub = tPartyClubService.findByPartyId(tPartyOne.id);
-    	    			Set<TMember> tMemberSet = new HashSet<TMember>();
-    	    			for (TPartyClub tPartyClubOne : tPartyClub) {
-    	    				for (TMemberClub tMemberClubOne : tPartyClubOne.tClub.tMemberClubList) {
-    	    					tMemberSet.add(tMemberClubOne.tMember);
-    	        				}
-    	    			}
-    	    			tMemberKuzu = new ArrayList<TMember>();
-    	    			for (TMember tMember : tMemberSet) {
-    	    				tMemberKuzu.add(tMember);
-    	    			}
-    	    		}else{
-    	    			//全員が出席対象
-    	    			tMemberKuzu = tMemberService.findByIdAll();
-    	    		}	
-    	    	}else{
-    	    		//OBの出席を含まない
-    	    		if (tPartyOne.tPartyClubList.size() > 0) {
-    	    			//部によって出席対象が絞られている場合
-    	    			List<TPartyClub> tPartyClub = tPartyClubService.findByPartyIdNoOB(tPartyOne.id);
-    	    			Set<TMember> tMemberSet = new HashSet<TMember>();
-    	    			for (TPartyClub tPartyClubOne : tPartyClub) {
-    	    				for (TMemberClub tMemberClubOne : tPartyClubOne.tClub.tMemberClubList) {
-    	    					tMemberSet.add(tMemberClubOne.tMember);
-    	        				}
-    	    			}
-    	    			tMemberKuzu = new ArrayList<TMember>();
-    	    			for (TMember tMember : tMemberSet) {
-    	    				tMemberKuzu.add(tMember);
-    	    			}
-    	    		}else{
-    	    			//全員が出席対象
-    	    			tMemberKuzu = tMemberService.findByIdNoOBAll();
-    	    		}	
-    	    	}
-    	    	
-    	    	mapKuzuSS = new HashMap<String,String>();
-    	    	
-    	    	for (TMember memberKuzuOne : tMemberKuzu) {
-    	    		mapKuzuSS.put(memberKuzuOne.id.toString(), memberKuzuOne.hname);
-    	    	}
-    	    	
-    	    	//出席している人のリスト
-    	    	tAttendOn = tPartyAttendService.findByPartyIdAndAttendOn(tPartyOne.id);
-    	    	for (TPartyAttend attendOn : tAttendOn){
-    	    		mapKuzuSS.remove(attendOn.memberId.toString());	
-    	    	}
-    	    	
-    	    	//欠席している人のリスト
-    	    	tAttendOn = tPartyAttendService.findByPartyIdAndAttendOff(tPartyOne.id);
-    	    	for (TPartyAttend attendOff : tAttendOn){
-    	    		mapKuzuSS.remove(attendOff.memberId.toString());
-    	    	}
+    			//該当の会議で、まだ出欠席を出していないメンバー一覧を取得
+    			List<TPartyAttend> tPartyAttends = tPartyAttendService.findByPartyId_UNSUBMITTED(tPartyOne.id);
     			
-    	    	for (String key : mapKuzuSS.keySet()) {
-    	    		tSendMember.add(tMemberService.findById(Integer.valueOf(key)));
+    	    	for (TPartyAttend tPartyAttendOne : tPartyAttends) {
+    	    		//メンバー情報を取り出し
+    	    		tSendMember.add(tPartyAttendOne.tMember);
     	    	}
     	    	
     	    	//タイトルを作る
@@ -176,7 +115,7 @@ public class PartyMailTask {
     	    	sbc.append(tPartyOne.meetingDay);
     	    	sbc.append(tPartyOne.meetingTime);
     	    	sbc.append("\n");
-    	    	sbc.append("開催日時: ");
+    	    	sbc.append("締め切り日時: ");
     	    	sbc.append(tPartyOne.meetingDeadlineDay);
     	    	sbc.append("\n");
     	    	sbc.append("\n");

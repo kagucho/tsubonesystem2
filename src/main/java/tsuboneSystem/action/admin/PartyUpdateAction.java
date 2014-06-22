@@ -116,11 +116,11 @@ public class PartyUpdateAction {
 			Date meetingDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDay.toString()).getTime());
 			Date meetingTime = new Date(new SimpleDateFormat("HH:mm").parse(partyForm.meetingTime.toString()).getTime());
 			Date meetingDeadlineDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDeadlineDay.toString()).getTime());
-			Date meetingDeadlineTime = new Date(new SimpleDateFormat("HH:mm").parse(partyForm.meetingDeadlineTime.toString()).getTime());
+			
 			UpParty.meetingDay = meetingDay;
 			UpParty.meetingTime = meetingTime;
 			UpParty.meetingDeadlineDay = meetingDeadlineDay;
-			UpParty.meetingDeadlineTime = meetingDeadlineTime;
+			
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

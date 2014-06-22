@@ -6,6 +6,7 @@ import javax.annotation.Generated;
 
 import org.seasar.extension.jdbc.where.SimpleWhere;
 
+import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.entity.TPartyAttend;
 import static org.seasar.extension.jdbc.operation.Operations.*;
 import static tsuboneSystem.names.TMemberClubNames.MemberId;
@@ -60,6 +61,18 @@ public class TPartyAttendService extends AbstractService<TPartyAttend> {
     	where.eq(partyId(),partyId);
         return select().where(where).getResultList();
     }
+	
+	/**
+     * PartyIdですべてのエンティティを検索します。(未提出)
+     * 
+     * @return エンティティのリスト
+     */
+	public List<TPartyAttend> findByPartyId_UNSUBMITTED(Integer partyId) {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(partyId(),partyId);
+    	where.eq(attend(), Integer.valueOf(PartyAttendCode.UNSUBMITTED.getCode()));
+        return select().innerJoin("TMember").where(where).getResultList();
+    }
     
     /**
      * PartyIdですべてのエンティティを検索します。(出席)
@@ -69,8 +82,8 @@ public class TPartyAttendService extends AbstractService<TPartyAttend> {
 	public List<TPartyAttend> findByPartyIdAndAttendOn(Integer partyId) {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(partyId(),partyId);
-    	where.eq(attend(), Boolean.valueOf(true));
-        return select().where(where).getResultList();
+    	where.eq(attend(), Integer.valueOf(PartyAttendCode.YES_ATTEND.getCode()));
+        return select().innerJoin("TMember").where(where).getResultList();
     }
     
     /**
@@ -81,8 +94,8 @@ public class TPartyAttendService extends AbstractService<TPartyAttend> {
 	public List<TPartyAttend> findByPartyIdAndAttendOff(Integer partyId) {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(partyId(),partyId);
-    	where.eq(attend(), Boolean.valueOf(false));
-        return select().where(where).getResultList();
+    	where.eq(attend(), Integer.valueOf(PartyAttendCode.NO_ATTEND.getCode()));
+        return select().innerJoin("TMember").where(where).getResultList();
     }
     
     /**

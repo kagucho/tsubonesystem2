@@ -17,6 +17,7 @@ import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMail;
@@ -24,7 +25,9 @@ import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.entity.TParty;
+import tsuboneSystem.entity.TPartyAttend;
 import tsuboneSystem.entity.TPartyClub;
+import tsuboneSystem.entity.TPartySendMail;
 import tsuboneSystem.form.PartyForm;
 import tsuboneSystem.original.manager.MailManager;
 import tsuboneSystem.service.TClubService;
@@ -32,7 +35,9 @@ import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
 import tsuboneSystem.service.TMemberClubService;
 import tsuboneSystem.service.TMemberService;
+import tsuboneSystem.service.TPartyAttendService;
 import tsuboneSystem.service.TPartyClubService;
+import tsuboneSystem.service.TPartySendMailService;
 import tsuboneSystem.service.TPartyService;
 
 public class PartyRegistAction {
@@ -64,6 +69,10 @@ public class PartyRegistAction {
 	@Resource
 	protected TMemberClubService tMemberClubService;
 	
+	/** tMailServiceのサービスクラス */
+	@Resource
+	protected TPartySendMailService tPartySendMailService;
+	
 	/** TMailのサービスクラス */
 	@Resource
 	protected TMailService tMailService;
@@ -76,6 +85,10 @@ public class PartyRegistAction {
 	@Resource
 	protected TPartyClubService tPartyClubService;
 	
+	/** TPartyAttendServiceのサービスクラス */
+	@Resource
+	protected TPartyAttendService tPartyAttendService;
+	
 	/** HttpServlet */
 	@Resource
 	protected HttpServletRequest request;
@@ -83,6 +96,8 @@ public class PartyRegistAction {
 	/** LoginAdminDto */
 	@Resource
 	protected LoginAdminDto loginAdminDto;
+	
+	public TParty tParty = new TParty();
 	
 	@Execute(validator = false, reset = "resetInput")
 	public String index() {
@@ -164,11 +179,9 @@ public class PartyRegistAction {
 				Date meetingDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDay.toString()).getTime());
 				Date meetingTime = new Date(new SimpleDateFormat("HH:mm").parse(partyForm.meetingTime.toString()).getTime());
 				Date meetingDeadlineDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDeadlineDay.toString()).getTime());
-				Date meetingDeadlineTime = new Date(new SimpleDateFormat("HH:mm").parse(partyForm.meetingDeadlineTime.toString()).getTime());
 				party.meetingDay = meetingDay;
 				party.meetingTime = meetingTime;
 				party.meetingDeadlineDay = meetingDeadlineDay;
-				party.meetingDeadlineTime = meetingDeadlineTime;
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -180,21 +193,70 @@ public class PartyRegistAction {
         	
         	if (partyForm.attendClub != null) {
         		//出席対象者に指定があった場合
+        		partyForm.MemberSet = new HashSet<Integer>();
         		for (String clubId : partyForm.attendClub) {
         			//partyIdとclubIdをセットで格納する
         			TPartyClub tPartyClub = new TPartyClub();
         			tPartyClub.PartyId = party.id;
         			tPartyClub.ClubId = Integer.valueOf(clubId);
         			tPartyClubService.insert(tPartyClub);
+        			
+        			List<TMemberClub> tMemberClubList = new ArrayList<TMemberClub>();
+    				tMemberClubList = tMemberClubService.findByClubId(clubId);
+    				for (TMemberClub tMemberClubOne : tMemberClubList) {
+    					if (partyForm.ObAttendFlag) {
+    						//OBが出席対象に入る	
+        					partyForm.MemberSet.add(tMemberClubOne.MemberId);
+    					}else{
+    						//OBが出席対象に入らない
+    						if (!tMemberClubOne.tMember.obFlag) {
+    							partyForm.MemberSet.add(tMemberClubOne.MemberId);
+    						}
+    					}
+    				}
+        		}
+        		//出席対象者の未提出として出欠管理DBに登録する。
+        		for (Integer id : partyForm.MemberSet) {
+        			TPartyAttend tPartyAttend = new TPartyAttend();
+            		tPartyAttend.memberId = id;
+            		tPartyAttend.partyId = party.id;
+            		tPartyAttend.attend = Integer.valueOf(PartyAttendCode.UNSUBMITTED.getCode());
+            		tPartyAttendService.insert(tPartyAttend);
+        		}
+        	}else{
+        		//全員が出席対象の場合
+        		if (partyForm.ObAttendFlag) {
+        			//出席対象にOBあり
+        			List<TMember> tMemberList = tMemberService.findByIdAll();
+        			//出席対象者の未提出として出欠管理DBに登録する。
+                	for (TMember tMemberOne : tMemberList) {
+                		TPartyAttend tPartyAttend = new TPartyAttend();
+                		tPartyAttend.memberId = tMemberOne.id;
+                		tPartyAttend.partyId = party.id;
+                		tPartyAttend.attend = Integer.valueOf(PartyAttendCode.UNSUBMITTED.getCode());
+                		tPartyAttendService.insert(tPartyAttend);
+                	}
+        		}else {
+        			//出席対象にOBなし
+        			List<TMember> tMemberList = tMemberService.findByIdNoOBAll();
+        			//出席対象者の未提出として出欠管理DBに登録する。
+                	for (TMember tMemberOne : tMemberList) {
+                		TPartyAttend tPartyAttend = new TPartyAttend();
+                		tPartyAttend.memberId = tMemberOne.id;
+                		tPartyAttend.partyId = party.id;
+                		tPartyAttend.attend = Integer.valueOf(PartyAttendCode.UNSUBMITTED.getCode());
+                		tPartyAttendService.insert(tPartyAttend);
+                	}
         		}
         	}
-        	
+        	tParty = new TParty();
+        	tParty = party;
         }
         //メールの送信がない場合はそのまま完了画面に遷移
         if (!partyForm.mailSendFlag) {
         	return "partyComplete.jsp";	
         }else {
-        	return sendMail();
+			return sendMail();
 		}
 	}
     
@@ -208,7 +270,6 @@ public class PartyRegistAction {
     	//TMailにメールの内容を追加する
     	TMail tMail = new TMail();
     	Beans.copy(partyForm, tMail).execute();
-    	
     	
     	//TMailSendAttendにメールの送信相手を追加する
     	for (TMember tMemberOne : partyForm.tMemberSendList) {
@@ -230,7 +291,16 @@ public class PartyRegistAction {
     		mailMsg = "メールの送信に失敗しました。";
     		tMail.errorFlag = true;
     	}   
+    	
+    	//メールの内容を登録する
     	tMailService.insert(tMail);
+    	
+    	//会議とメールを紐付けるDBに登録する
+    	TPartySendMail tPartySendMail = new TPartySendMail();
+    	tPartySendMail.PartyId = tParty.id;
+    	tPartySendMail.MailId = tMail.id;
+    	tPartySendMailService.insert(tPartySendMail);
+    	
     return "partyComplete.jsp";	
     }
 }

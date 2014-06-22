@@ -26,6 +26,7 @@
 				<a href="<c:url value="/admin/mailDetail/"/>${e.id}">${f:h(e.title) }</a>
 			</td>
 			<td class="hidden-xs">
+				<c:if test="${e.registMemberId == null}"><p class="hidden-xs">(自動配信)</p></c:if>
 				<p class="hidden-xs">${f:h(memberMapIS[e.registMemberId]) }</p>
 			</td>
 		</tr>

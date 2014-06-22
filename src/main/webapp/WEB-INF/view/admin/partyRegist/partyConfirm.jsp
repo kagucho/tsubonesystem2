@@ -67,10 +67,6 @@
 		<th><h4>締切日</h4></th>
 		<td><h5>${f:h(meetingDeadlineDay)}</h5></td>
 	</tr>
-	<tr>
-		<th><h4>締切時間</h4></th>
-		<td><h5>${f:h(meetingDeadlineTime)}</h5></td>
-	</tr>
 </table>
 <c:if test="${mailSendFlag}">
 	<h3 class="col-md-4">メール</h3>

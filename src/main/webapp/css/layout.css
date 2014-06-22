@@ -93,5 +93,8 @@ img.bgmaximage{
 @media screen and (min-width: 768px) {
 	.jumbotron{
 	background-color:white;
-	}
+}
+.hissu{
+	color:#FF0000;
+}	
 }

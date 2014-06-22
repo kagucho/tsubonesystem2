@@ -56,10 +56,12 @@
 		<th><h4>会議の締切時間</h4></th>
 		<td><h5>${f:h(meetingDeadlineDay)}</h5></td>
 	</tr>
-	<tr>
-		<th><h4>締切時間</h4></th>
-		<td><h5>${f:h(meetingDeadlineTime)}</h5></td>
-	</tr>
+	<c:if test="${deadFlag}">
+		<tr>
+			<th><h4>審議の結果</h4></th>
+			<td><h5><pre>${f:h(meetingResult)}</pre></h5></td>
+		</tr>
+	</c:if>
 </table>
 <c:if test="${!deadFlag}">
 	<div class="row CENTER">

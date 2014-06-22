@@ -19,6 +19,9 @@
 		<a class="col-md-2 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-danger btnYOKO btnMRC" href="<c:url value="/admin/partyDelete/${id}"/>" role="button">削除</a>
 		<a class="col-md-2 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/admin/partyUpdate/${id}"/>" role="button">更新</a>
 	</c:if>
+	<c:if test="${deadFlag}">
+		<a class="col-md-2 col-sm-5 col-sm-offset-4 col-xs-12  btn btn-primary btnMRC" href="<c:url value="/admin/partyResult/${id}"/>" role="button">会議の結果を入力する</a>
+	</c:if>
 </div>
 <div class="col-sm-12">
 <table class="table">
@@ -72,10 +75,12 @@
 		<th><h4>会議の締切時間</h4></th>
 		<td><h5>${f:h(meetingDeadlineDay)}</h5></td>
 	</tr>
-	<tr>
-		<th><h4>締切時間</h4></th>
-		<td><h5>${f:h(meetingDeadlineTime)}</h5></td>
-	</tr>
+	<c:if test="${deadFlag}">
+		<tr>
+			<th><h4>審議の結果</h4></th>
+			<td><h5><pre>${f:h(meetingResult)}</pre></h5></td>
+		</tr>
+	</c:if>
 </table>
 <c:if test="${!deadFlag}">
 	<div class="row CENTER">
