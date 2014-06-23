@@ -67,8 +67,33 @@
 		<td><h5>${f:h(meetingDeadlineDay)}</h5></td>
 	</tr>
 </table>
+<c:if test="${mailSendFlag}">
+	<h3 class="col-md-4">メール</h3>
+	<table class="table">
+		<tr>
+			<th><h4>メールのタイトル</h4></th>
+			<td><h5>${f:h(title)}</h5></td>
+		</tr>
+		<tr>
+			<th><h4>メールの内容</h4></th>
+			<td><h5>${f:h(content)}</h5></td>
+		</tr>
+	</table>
+	
+	<h4 class="col-md-4">メールを送る相手一覧</h4>
+	<table class="table table-striped">
+		<tr>
+			<th><h4>ハンドルネーム</h4></th><th><h4>本名</h4></th>
+		</tr>
+		<c:forEach var="e" items="${tMemberSendList}">
+			<tr>
+				<td>${f:h(e.hname)}</td><td>${f:h(e.name)}</td>
+			</tr>
+		</c:forEach>
+	</table>
+</c:if>
 <s:form method="POST" >
-<input type="submit" value="登録" id="complete" name="complete" property="complete" class="btn btn-primary">
+<input type="submit" value="登録" id="complete" name="complete" property="complete" class="col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-3 col-xs-12  btn btn-primary">
 </s:form>
 </div>
 </div>

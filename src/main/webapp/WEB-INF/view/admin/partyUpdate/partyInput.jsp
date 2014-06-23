@@ -12,7 +12,7 @@
     <script type="text/javascript">
 	    $(function(){
 	        // 初期表示でチェックボックスが空だったら非表示エリアを隠す
-	        if ($('#mailSendFlag').val() != '1') {
+	        if ($('#check').val() != '1') {
 	            $('#mailInput').hide();
 	        }
 	    });
@@ -77,13 +77,15 @@
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="attendClub">出席対象者を部に絞る</label>
 			<div class="col-sm-8 memberF">
-				<span>(再選択は不可)</span>
+				<c:forEach var="e" items="${clubMapSS}">
+					<html:multibox property="attendClub" value="${e.key}" disabled="true"/>&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
+				</c:forEach>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="ObAttendFlag">OB出席</label>
 			<div class="col-sm-8 memberF">
-				<input type="checkbox" id="ObAttendFlag" name="ObAttendFlag" <c:if test="${ObAttendFlag}"> checked="checked"</c:if> value="true" />&nbsp;OBも出席対象とする
+				<input type="checkbox" id="ObAttendFlag" name="ObAttendFlag" <c:if test="${ObAttendFlag}"> checked="checked"</c:if> value="true" disabled="disabled"/>&nbsp;OBも出席対象とする
 			</div>
 		</div>
 		<div class="form-group">
@@ -96,7 +98,7 @@
 		<div class="form-group">
 			<label class="control-label col-sm-4">メール配信可否</label>
 			<div class="col-sm-8 memberF">
-				<input type="checkbox" id="mailSendFlag" name="mailSendFlag" value="mailSendFlag" property="mailSendFlag" onclick="hideToggle($('#mailInput'));" />&nbsp;メールを配信する※チェクしないとメールは配信されません！！
+				<input type="checkbox" id="mailSendFlag" name="mailSendFlag" value="mailSendFlag" property="mailSendFlag"  onclick="hideToggle($('#mailInput'));"  <c:if test="${mailSendAllFlag}"> checked="checked"</c:if>/>&nbsp;メールを配信する※チェクしないとメールは配信されません！！
 			</div>
 		</div>
 	</div>
@@ -106,7 +108,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-4" for="mailSendAllFlag">全体に送信する</label>
 				<div class="col-sm-8 memberF">
-					<input type="checkbox" id="mailSendAllFlag" name="mailSendAllFlag" value="true"  />&nbsp;全員に送信する
+					<input type="checkbox" id="mailSendAllFlag"  name="mailSendAllFlag" value="true"  />&nbsp;全員に送信する
 					<html:errors property="sendTo"/>
 				</div>
 			</div>
@@ -122,28 +124,28 @@
 			<div class="form-group">
 				<label class="control-label col-sm-4" for="Title">メールのタイトル&nbsp;<span class="hissu">＊</span></label>
 				<div class="col-sm-8 memberF" >
-					<input type="text" id="title" name="title" property="title" class="form-control" placeholder="Title" >
+					<input type="text" id="title" name="title" property="title" class="form-control" placeholder="Title" value="${title}" >
 					<html:errors property="title"/>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-4" for="Content">メールの内容&nbsp;<span class="hissu">＊</span></label>
 				<div class="col-sm-8 memberF">
-					<textarea class="form-control" name="content" rows="10" property="content" placeholder="Content" ></textarea>
+					<textarea class="form-control" name="content" rows="10" property="content" placeholder="Content" >${f:h(content)}</textarea>
 					<html:errors property="content"/>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-4" for="mailSendAllFlag">OBにも送信する&nbsp;<span class="hissu">＊</span></label>
+				<label class="control-label col-sm-4" for="mailSendAllFlag">OBにも送信する&nbsp;</label>
 				<div class="col-sm-8 memberF">
-					<input type="checkbox" id="mailSendOBFlag" name="mailSendOBFlag" value="true" />&nbsp;OBを含める
+					<input type="checkbox" id="mailSendOBFlag" <c:if test="${mailSendOBFlag}"> checked="checked"</c:if>  name="mailSendOBFlag" value="true" />&nbsp;OBを含める
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="form-group">
 			<div class="col-sm-8">
-				<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="btn btn-primary">
+				<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-3 col-xs-12  btn btn-primary">
 			</div>
 		</div>
 </form>

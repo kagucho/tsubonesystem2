@@ -270,14 +270,6 @@ public class PartyRegistAction {
     	//TMailにメールの内容を追加する
     	TMail tMail = new TMail();
     	Beans.copy(partyForm, tMail).execute();
-    	
-    	//TMailSendAttendにメールの送信相手を追加する
-    	for (TMember tMemberOne : partyForm.tMemberSendList) {
-    		TMailSendMember tMailSendMember = new TMailSendMember();
-    		tMailSendMember.mailId = tMail.id;
-    		tMailSendMember.memberId = tMemberOne.id;
-    		tMailSendMemberService.insert(tMailSendMember);
-    	}
    
     	//メールを送信する
     	MailManager manager = new MailManager();
@@ -294,6 +286,14 @@ public class PartyRegistAction {
     	
     	//メールの内容を登録する
     	tMailService.insert(tMail);
+    	
+    	//TMailSendAttendにメールの送信相手を追加する
+    	TMailSendMember tMailSendMember = new TMailSendMember();
+    	for (TMember tMemberOne : partyForm.tMemberSendList) {
+    		tMailSendMember.mailId = tMail.id;
+    		tMailSendMember.memberId = tMemberOne.id;
+    		tMailSendMemberService.insert(tMailSendMember);
+    	}
     	
     	//会議とメールを紐付けるDBに登録する
     	TPartySendMail tPartySendMail = new TPartySendMail();

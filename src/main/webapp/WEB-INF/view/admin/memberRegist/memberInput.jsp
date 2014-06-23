@@ -96,14 +96,12 @@
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="password">Password&nbsp;<span class="hissu">＊</span></label>
 		<div class="col-sm-8 memberF">
-			<input type="text" id="password" name="password" property="password" class="form-control" placeholder="Password" value="${password}">
+			<input type="password" id="password" name="password" property="password" class="form-control" placeholder="Password" value="${password}">
 			<html:errors property="password"/>
 		</div>
 	</div>
 	<div class="form-group">
-		
-			<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-3 col-xs-12  btn btn-primary">
-		
+		<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-3 col-xs-12  btn btn-primary">
 	</div>
 </form>
 </s:form>

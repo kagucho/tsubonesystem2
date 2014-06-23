@@ -18,6 +18,9 @@ import tsuboneSystem.form.MemberUploadForm;
 import tsuboneSystem.service.TMemberService;
 
 public class MemberUploadAction {
+	
+	public String actionName = "MemberUpload";
+	
 	@ActionForm
 	@Resource
 	protected MemberUploadForm memberUploadForm;

@@ -163,7 +163,7 @@ public class PartyForm implements Serializable{
         }
        
         //会議開催日と開催時間
-		if (!meetingDeadlineDay.isEmpty() || !meetingDeadlineTime.isEmpty()) {
+		if (!meetingDeadlineDay.isEmpty()) {
 			//締め切りが設定されている時は開催日を空白にできない
 			if (meetingDay.isEmpty()) {
 				errors.add("meetingDay",new ActionMessage("締め切りが決まっている場合には、開催日は必須です",false));
@@ -171,15 +171,6 @@ public class PartyForm implements Serializable{
 			if (meetingTime.isEmpty()) {
 				errors.add("meetingTime",new ActionMessage("締め切りが決まっている場合には、開催時間は必須です",false));
 			}		
-		}
-		
-		//日時の空白確認(締め切り)
-		if (meetingDeadlineDay.isEmpty() && !meetingDeadlineTime.isEmpty()) {
-			//どちらか一方を空白にはできない
-			errors.add("meetingDeadlineDay",new ActionMessage("日時はどちらかを空白にはできません",false));
-		}else if (!meetingDeadlineDay.isEmpty() && meetingDeadlineTime.isEmpty()) {
-			//どちらか一方を空白にはできない
-			errors.add("meetingDeadlineTime",new ActionMessage("日時はどちらかを空白にはできません",false));
 		}
 		
 		//日時の空白確認(開催日)

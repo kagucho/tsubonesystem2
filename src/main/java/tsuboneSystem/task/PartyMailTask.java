@@ -28,6 +28,9 @@ import tsuboneSystem.service.TPartyService;
  * 起動時間は毎日午後18時
  * 
  * 
+ * 必須にされている会議は5日前に一回、3日前から一日一通
+ * 必須にされていない会議は3日前に一回、当日に一回
+ * 
  * @CronTrigger(expression = "0 44 17 * * ?")：17時44分00秒にdoExecute()メソッドを実行するよってこと
  */
 
@@ -76,7 +79,17 @@ public class PartyMailTask {
 	/** 出席対象者 */
 	public List<TMember> tSendMember = new ArrayList<TMember>();
 	
+	/** 送信エラーフラグ */
 	public boolean errorFlag;
+	
+	/** 5日前 */
+	public final static int FIVE_DAY = 5;
+	
+	/** 3日前 */
+	public final static int TREE_DAY = 3;
+	
+	/** 1日前 */
+	public final static int TO_DAY = 1;
 	
 	
 	// タスク処理
@@ -84,8 +97,26 @@ public class PartyMailTask {
     	
     	//実行された時点で、締め切られていない会議の一覧を取得
     	Date dateNow = new Date();
-    	List<TParty>  tPartyList = tPartyService.findBy_Deadline_GE_Now(dateNow);
     	
+    	//出欠必須であり締め切り日の5日前の会議一覧
+    	List<TParty>  tPartyListHISSU_FIVE = tPartyService.findBy_Deadline_PULS(dateNow, FIVE_DAY, true);
+    	sendMail(tPartyListHISSU_FIVE);
+    	
+    	//出欠必須であり締め切り日の3日前から締め切り日までに存在する会議一覧
+    	List<TParty>  tPartyListHISSU_TREE = tPartyService.findBy_Deadline_PULS_BETWEEN(dateNow, TREE_DAY, true);
+    	sendMail(tPartyListHISSU_TREE);
+    	
+    	//締め切り日の3日前の会議一覧
+    	List<TParty>  tPartyListTREE = tPartyService.findBy_Deadline_PULS(dateNow, TREE_DAY, false);
+    	sendMail(tPartyListTREE);
+    	
+    	//締め切り日当日の会議一覧
+    	List<TParty>  tPartyListTODAY = tPartyService.findBy_Deadline_PULS(dateNow, TO_DAY, false);
+    	sendMail(tPartyListTODAY);
+      
+    }
+    
+    public void sendMail(List<TParty> tPartyList){
     	if (tPartyList.size() > 0) {
     		//締め切られていいない会議が存在したら以下を実行
     		for (TParty tPartyOne : tPartyList) {
@@ -150,7 +181,6 @@ public class PartyMailTask {
     		}
     		
     	}
-        
     }
     
 }

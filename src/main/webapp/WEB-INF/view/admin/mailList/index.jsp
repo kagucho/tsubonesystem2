@@ -19,7 +19,7 @@
 <div class="table-responsive">
 <table class="table">
 <tr>
-	<th>メールのタイトル</th><th class="hidden-xs">送信者名</th>
+	<th>メールのタイトル</th><th class="hidden-xs">送信者名</th><th>送信ステータス</th>
 	<c:forEach var="e" items="${tMailItem}">
 		<tr>
 			<td>
@@ -28,6 +28,14 @@
 			<td class="hidden-xs">
 				<c:if test="${e.registMemberId == null}"><p class="hidden-xs">(自動配信)</p></c:if>
 				<p class="hidden-xs">${f:h(memberMapIS[e.registMemberId]) }</p>
+			</td>
+			<td>
+				<c:if test="${e.errorFlag}">
+					<span class="glyphicon glyphicon-remove"></span>
+				</c:if>
+				<c:if test="${!e.errorFlag}">
+					<span class="glyphicon glyphicon-ok"></span>
+				</c:if>
 			</td>
 		</tr>
 	</c:forEach>

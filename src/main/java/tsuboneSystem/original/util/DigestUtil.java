@@ -11,7 +11,8 @@ public class DigestUtil {
      * @return ダイジェスト文字列
      * @throws NoSuchAlgorithmException
      */
-    public static String md5(String src) {
+    @SuppressWarnings("boxing")
+	public static String md5(String src) {
         
         String rtn = "";
         try {

@@ -130,14 +130,14 @@
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="Title">メールのタイトル&nbsp;<span class="hissu">＊</span></label>
 						<div class="col-sm-8 memberF" >
-							<input type="text" id="title" name="title" property="title" class="form-control" placeholder="Title" >
+							<input type="text" id="title" name="title" property="title" class="form-control" placeholder="Title" value="${title}">
 							<html:errors property="title"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="Content">メールの内容&nbsp;<span class="hissu">＊</span></label>
 						<div class="col-sm-8 memberF">
-							<textarea class="form-control" name="content" rows="10" property="content" placeholder="Content" ></textarea>
+							<textarea class="form-control" name="content" rows="10" property="content" placeholder="Content" >${f:h(content)}</textarea>
 							<html:errors property="content"/>
 						</div>
 					</div>
@@ -151,7 +151,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-8">
-					<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="btn btn-primary">
+					<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="col-md-6 col-md-offset-6 col-sm-10 col-sm-offset-4 col-xs-12  btn btn-primary">
 				</div>
 			</div>
 		</form>
