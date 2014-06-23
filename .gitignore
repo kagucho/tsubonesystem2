@@ -19,3 +19,7 @@ src/main/webapp/WEB-INF/classes/mailProperties.dicon
 src/main/webapp/WEB-INF/classes/s2container.dicon
 src/main/webapp/WEB-INF/classes/s2jdbc.dicon
 src/main/webapp/WEB-INF/classes/tsuboneSystem/fpao/ExcelFpao_excelTemplate.xls
+work/org/apache/jsp/WEB_002dINF/view/admin/fileUpload/index_jsp.java
+work/org/apache/jsp/WEB_002dINF/view/admin/index_jsp.java
+work/org/apache/jsp/WEB_002dINF/view/admin/memberUpload/memberUpload_jsp.java
+work/org/apache/jsp/WEB_002dINF/view/login/login_jsp.java
