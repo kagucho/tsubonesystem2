@@ -3,6 +3,7 @@ package tsuboneSystem.action.admin;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 
@@ -23,46 +24,79 @@ public class MemberUploadAction {
 	protected MemberUploadForm memberUploadForm;
 	
 	//アップロードされたファイルを格納する
-	protected FormFile file;
+	protected FormFile formFile;
 	
 	@Resource
-	protected S2CSVCtrlFactory ctrlFactory;
+	protected S2CSVCtrlFactory s2csvCtrlFactory;
+	
+	/** TMemberのサービスクラス */
+	@Resource
+	protected TMemberService tMemberService;
 	
 	@Execute(validator = false)
 	public String index() {
 		return "memberUpload.jsp";
 	}
 	
+	//画面に表示するエラーを格納する
+	ArrayList<String> errorMsgList = new ArrayList<String>();
+	
 	@Execute(validator = false)
 	public String upload() {
-		file = memberUploadForm.form;
-		if (check()) {
-			try (Reader reader = new InputStreamReader(file.getInputStream())) {
-				S2CSVParseCtrl<MemberUploadCsv> controller = ctrlFactory.getParseController(MemberUploadCsv.class, reader);
-				while (controller.readNext()) {
-					MemberUploadCsv csv = controller.parse();
-					uploadMember(csv);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-				setError("ファイル入出力中にエラーが発生しました。");
+		try {
+			formFile = memberUploadForm.file;
+			//チェックが通ればアップロードを実行する
+			if (check()) {
+				uploadMember();
 			}
+		} finally {
+			
 		}
 		
 		return "memberUpload.jsp";
 	}
 
-	private void uploadMember(MemberUploadCsv csv) {
+	/**
+	 * アップロードされたCSVを全件アップロードする
+	 */
+	protected void uploadMember() {
+		try (Reader reader = new InputStreamReader(formFile.getInputStream())) {
+			S2CSVParseCtrl<MemberUploadCsv> controller = s2csvCtrlFactory.getParseController(MemberUploadCsv.class, reader);
+			while (controller.readNext()) {
+				MemberUploadCsv csv = controller.parse();
+				uploadOneRecordMember(csv);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			setError("ファイル入出力中にエラーが発生しました。");
+		}
+	}
+
+	/**
+	 * csvを1レコードDBにセットする
+	 * @param csv
+	 */
+	private void uploadOneRecordMember(MemberUploadCsv csv) {
 		TMember member = new TMember();
 		member.hname = csv.hname;
 		member.password = csv.password;
 		member.mail = csv.mail;
 		member.userName = csv.userName;
-		new TMemberService().insert(member);
+		try {
+			tMemberService.insert(member);
+		} catch(Exception e) {
+			e.printStackTrace();
+			//画面に表示するエラーを表示
+			setError("EXCEPTIONが発生しました。\n " + csv.toString() + "\n" + e.getStackTrace());
+		}
 	}
 
+	/**
+	 * エラーメッセージをセットする
+	 * @param errorMsg
+	 */
 	protected void setError(String errorMsg) {
-		//TODO 未実装
+		errorMsgList.add(errorMsg);
 	}
 
 	/**
@@ -71,12 +105,12 @@ public class MemberUploadAction {
 	 */
 	protected boolean check() {
 		//ファイルがアップロードされていないならエラー
-		if (file == null) {
+		if (formFile == null) {
 			return false;
 		}
 		
 		//CSVファイルでないならエラー
-		if (!file.getFileName().toLowerCase().endsWith(".csv")) {
+		if (!formFile.getFileName().toLowerCase().endsWith(".csv")) {
 			return false;
 		}
 		

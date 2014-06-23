@@ -6,5 +6,5 @@ import org.seasar.struts.annotation.Required;
 public class MemberUploadForm {
 	
 	@Required
-	public FormFile form;
+	public FormFile file;
 }
