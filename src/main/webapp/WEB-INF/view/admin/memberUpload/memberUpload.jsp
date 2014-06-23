@@ -13,8 +13,10 @@
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
 	<s:form method="POST" enctype="multipart/form-data">
-			<input type="file" id="file" name="file" property="file">
-			<input type="submit" value="確認"  name="upload" id="upload"  property="upload" class="btn btn-primary">
+		<font color="red">${f:br(f:nbsp(f:h(errorMsg)))}</font>
+		<font color="blue">${f:br(f:nbsp(f:h(infoMsg)))}</font>
+		<input type="file" id="file" name="file" property="file">
+		<input type="submit" value="確認"  name="upload" id="upload"  property="upload" class="btn btn-primary">
 	</s:form>
 </div>
 </body>
