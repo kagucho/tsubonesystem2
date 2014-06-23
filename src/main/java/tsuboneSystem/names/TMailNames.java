@@ -5,12 +5,13 @@ import org.seasar.extension.jdbc.name.PropertyName;
 import tsuboneSystem.entity.TMail;
 import tsuboneSystem.names.TMailSendMemberNames._TMailSendMemberNames;
 import tsuboneSystem.names.TMemberNames._TMemberNames;
+import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
 
 /**
  * {@link TMail}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/16 17:41:04")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/22 19:38:34")
 public class TMailNames {
 
     /**
@@ -74,6 +75,15 @@ public class TMailNames {
      */
     public static _TMemberNames tMember() {
         return new _TMemberNames("tMember");
+    }
+
+    /**
+     * tPartySendMailのプロパティ名を返します。
+     * 
+     * @return tPartySendMailのプロパティ名
+     */
+    public static _TPartySendMailNames tPartySendMail() {
+        return new _TPartySendMailNames("tPartySendMail");
     }
 
     /**
@@ -170,6 +180,15 @@ public class TMailNames {
          */
         public _TMemberNames tMember() {
             return new _TMemberNames(this, "tMember");
+        }
+
+        /**
+         * tPartySendMailのプロパティ名を返します。
+         * 
+         * @return tPartySendMailのプロパティ名
+         */
+        public _TPartySendMailNames tPartySendMail() {
+            return new _TPartySendMailNames(this, "tPartySendMail");
         }
     }
 }

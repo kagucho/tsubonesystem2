@@ -77,7 +77,23 @@ public class TLeadersService extends AbstractService<TLeaders> {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(MemberId(), id);
         return select()
-        		.innerJoin("TClub",new SimpleWhere().eq("TClub.deleteFlag",  Boolean.valueOf(false)))
+        		.leftOuterJoin("TClub",new SimpleWhere().eq("TClub.deleteFlag",  Boolean.valueOf(false)))
+        		.where(where)
+        		.getResultList();
+    }
+    
+    /**
+     * MemberId、officerKindでエンティティを検索します。
+     * 
+     * @param MemerId
+     * @return エンティティのリスト
+     */
+    public List<TLeaders> findByMemberId_OfficerKindList(String id,String officerKind) {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(OfficerKind(), officerKind);
+    	where.eq(MemberId(), id);
+        return select()
+        		.leftOuterJoin("TClub",new SimpleWhere().eq("TClub.deleteFlag",  Boolean.valueOf(false)))
         		.where(where)
         		.getResultList();
     }

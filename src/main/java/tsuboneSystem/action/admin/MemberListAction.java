@@ -73,14 +73,10 @@ public class MemberListAction {
         	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
         	memberListForm.clubMap.put(club.id, club.ClubName);
         }
-        
-        
-    	
+	
         /**　登録されているメンバーの一覧を取得する。　**/
     	memberItems = tMemberService.findByAllOrderEntrance();
-    	
-    	
-    	
+
     	 /**　以下ページャーの作成　**/
     	// 表示するページ数を計算。
     	int pgs = memberItems.size() / PAGE_LIMIT;

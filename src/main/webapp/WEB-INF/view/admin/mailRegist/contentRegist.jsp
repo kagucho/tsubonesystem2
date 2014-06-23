@@ -14,19 +14,20 @@
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
 <h3>メールの内容を入力してください。</h3>
+<h5 class="hissu">＊がついている項目は必須です</h5>
 <div class="col-sm-12">
 <table class="table">
 <s:form method="POST" >
 <form class="form-horizontal">
 	<div class="form-group">
-		<label class="control-label col-sm-4" for="Title">メールのタイトル</label>
+		<label class="control-label col-sm-4" for="Title">メールのタイトル&nbsp;<span class="hissu">＊</span></label>
 		<div class="col-sm-8 memberF" >
 			<input type="text" id="title" name="title" property="title" class="form-control" placeholder="Title">
 			<html:errors property="title"/>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-4" for="Content">メールの内容</label>
+		<label class="control-label col-sm-4" for="Content">メールの内容&nbsp;<span class="hissu">＊</span></label>
 		<div class="col-sm-8 memberF">
 			<textarea class="form-control" name="content" rows="10" property="content" placeholder="Content"></textarea>
 			<html:errors property="content"/>

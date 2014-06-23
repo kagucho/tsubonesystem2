@@ -40,13 +40,13 @@
 			</td>
 		</tr>
 	</c:forEach>
-	<c:forEach var="d" items="${mapKuzuSS}">
+	<c:forEach var="d" items="${tMemberKuzu}">
 		<tr>
 			<td>
- 				<html:checkbox property="offCheck" value="${d.key}" />
+ 				<html:checkbox property="offCheck" value="${d.id}" />
 			</td>
 			<td>
-				<a href="<c:url value="/admin/memberDetail/detail"/>/${d.key}">${f:h(d.value) }</a>
+				<a href="<c:url value="/admin/memberDetail/detail"/>/${d.id}">${f:h(d.hname) }</a>
 			</td>
 		</tr>
 	</c:forEach>

@@ -64,6 +64,9 @@ public class PartyForm implements Serializable{
 	@DateType(datePattern = "HH:mm",msg=@Msg(key="errors.time", resource=true))
 	public String meetingDeadlineTime;
 	
+	/** 審議結果 */
+    public String  meetingResult;
+	
 	/** 削除フラグ */
     public String  deleteFlag;
     
@@ -119,6 +122,9 @@ public class PartyForm implements Serializable{
 	/** 部のマップ **/
 	public Map<Integer, String> clubMapIS;
 	
+	/** 出席対象が部で選択されている場合　**/
+	public Set<Integer> MemberSet = new HashSet<Integer>();
+	
 	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
 	public void resetInput() {
 		meetingName = null;
@@ -128,7 +134,7 @@ public class PartyForm implements Serializable{
 		meetingDeadlineTime = null;
 		meetingRoom = null;
 		clubListCheck = new String[0];
-		attendClub = new String[0];
+		attendClub = null;
 		mailSendFlag = false;
 		mailSendAllFlag = null;
 		mailSendOBFlag = null;
@@ -157,7 +163,7 @@ public class PartyForm implements Serializable{
         }
        
         //会議開催日と開催時間
-		if (!meetingDeadlineDay.isEmpty() || !meetingDeadlineTime.isEmpty()) {
+		if (!meetingDeadlineDay.isEmpty()) {
 			//締め切りが設定されている時は開催日を空白にできない
 			if (meetingDay.isEmpty()) {
 				errors.add("meetingDay",new ActionMessage("締め切りが決まっている場合には、開催日は必須です",false));
@@ -165,15 +171,6 @@ public class PartyForm implements Serializable{
 			if (meetingTime.isEmpty()) {
 				errors.add("meetingTime",new ActionMessage("締め切りが決まっている場合には、開催時間は必須です",false));
 			}		
-		}
-		
-		//日時の空白確認(締め切り)
-		if (meetingDeadlineDay.isEmpty() && !meetingDeadlineTime.isEmpty()) {
-			//どちらか一方を空白にはできない
-			errors.add("meetingDeadlineDay",new ActionMessage("日時はどちらかを空白にはできません",false));
-		}else if (!meetingDeadlineDay.isEmpty() && meetingDeadlineTime.isEmpty()) {
-			//どちらか一方を空白にはできない
-			errors.add("meetingDeadlineTime",new ActionMessage("日時はどちらかを空白にはできません",false));
 		}
 		
 		//日時の空白確認(開催日)

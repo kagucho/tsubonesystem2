@@ -67,10 +67,6 @@
 		<th><h4>締切日</h4></th>
 		<td><h5>${f:h(meetingDeadlineDay)}</h5></td>
 	</tr>
-	<tr>
-		<th><h4>締切時間</h4></th>
-		<td><h5>${f:h(meetingDeadlineTime)}</h5></td>
-	</tr>
 </table>
 <c:if test="${mailSendFlag}">
 	<h3 class="col-md-4">メール</h3>
@@ -97,7 +93,7 @@
 		</c:forEach>
 	</table>
 </c:if>
-	<input type="submit" value="登録" id="complete" name="complete" property="complete" class="btn btn-primary">
+	<input type="submit" value="登録" id="complete" name="complete" property="complete" class="col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-3 col-xs-12  btn btn-primary">
 </s:form>
 </div>
 </div>

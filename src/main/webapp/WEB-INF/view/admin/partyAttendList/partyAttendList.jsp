@@ -23,10 +23,10 @@
 <table class="table">
 <tr>
 <th>ハンドルネーム</th>
-	<c:forEach var="e" items="${tMemberOn}">
+	<c:forEach var="e" items="${tAttendOn}">
 		<tr>
 			<td>
-				<a href="<c:url value="/admin/memberDetail/detail"/>/${e.id}">${f:h(e.hname) }</a>
+				<a href="<c:url value="/admin/memberDetail/detail"/>/${e.tMember.id}">${f:h(e.tMember.hname) }</a>
 			</td>
 		</tr>
 	</c:forEach>
@@ -46,10 +46,10 @@
 <table class="table">
 <tr>
 <th>ハンドルネーム</th>
-	<c:forEach var="e" items="${tMemberOff}">
+	<c:forEach var="e" items="${tAttendOff}">
 		<tr>
 			<td>
-				<a href="<c:url value="/admin/memberDetail/detail"/>/${e.id}">${f:h(e.hname) }</a>
+				<a href="<c:url value="/admin/memberDetail/detail"/>/${e.tMember.id}">${f:h(e.tMember.hname) }</a>
 			</td>
 		</tr>
 	</c:forEach>
@@ -63,10 +63,10 @@
 <table class="table">
 <tr>
 <th>ハンドルネーム</th>
-	<c:forEach var="e" items="${mapKuzuSS}">
+	<c:forEach var="e" items="${tAttendKuzu}">
 		<tr>
 			<td>
-				<a href="<c:url value="/admin/memberDetail/detail"/>/${e.key}">${f:h(e.value) }</a>
+				<a href="<c:url value="/admin/memberDetail/detail"/>/${e.tMember.id}">${f:h(e.tMember.hname) }</a>
 			</td>
 		</tr>
 	</c:forEach>

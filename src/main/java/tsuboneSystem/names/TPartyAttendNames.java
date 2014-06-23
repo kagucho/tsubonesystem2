@@ -10,7 +10,7 @@ import tsuboneSystem.names.TPartyNames._TPartyNames;
  * {@link TPartyAttend}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/16 17:41:04")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/22 19:38:34")
 public class TPartyAttendNames {
 
     /**
@@ -45,8 +45,8 @@ public class TPartyAttendNames {
      * 
      * @return attendのプロパティ名
      */
-    public static PropertyName<Boolean> attend() {
-        return new PropertyName<Boolean>("attend");
+    public static PropertyName<Integer> attend() {
+        return new PropertyName<Integer>("attend");
     }
 
     /**
@@ -132,8 +132,8 @@ public class TPartyAttendNames {
          *
          * @return attendのプロパティ名
          */
-        public PropertyName<Boolean> attend() {
-            return new PropertyName<Boolean>(this, "attend");
+        public PropertyName<Integer> attend() {
+            return new PropertyName<Integer>(this, "attend");
         }
 
         /**

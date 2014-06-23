@@ -1,11 +1,14 @@
 package tsuboneSystem.service;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.Generated;
 
 import org.seasar.extension.jdbc.where.SimpleWhere;
+
 import tsuboneSystem.entity.TParty;
 import static org.seasar.extension.jdbc.operation.Operations.*;
 import static tsuboneSystem.names.TPartyNames.*;
@@ -47,6 +50,57 @@ public class TPartyService extends AbstractService<TParty> {
     public List<TParty> findBy_Deadline_GE_Now(Date dateNow) {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	where.ge(meetingDeadlineDay(), dateNow);
+        return select()
+        		.innerJoin("TMember")
+        		.leftOuterJoin("tPartyClubList")
+        		.where(where).orderBy(desc(id())).getResultList();
+    }
+    
+    /**
+     * 実行された日が、指定された日数分(beforDay)締め切り日より前である会議を検索する。
+     * 
+     * @return エンティティのリスト
+     */
+    public List<TParty> findBy_Deadline_PULS(Date dateNow, int beforDay, boolean necessaryFlag) {
+    	
+    	//現在時刻に任意の日にち分足す
+    	GregorianCalendar calendar=new GregorianCalendar();
+		calendar.setTime(dateNow);
+		calendar.add(Calendar.DATE, beforDay);
+		Date dateadd = new Date();
+		dateadd=calendar.getTime();
+		
+		//検索 
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	where.eq(meetingNecessaryFlag(), Boolean.valueOf(necessaryFlag));
+    	where.eq(meetingDeadlineDay(), dateadd);
+        return select()
+        		.innerJoin("TMember")
+        		.leftOuterJoin("tPartyClubList")
+        		.where(where).orderBy(desc(id())).getResultList();
+    }
+    
+    /**
+     * 実行された日が、指定された日数分(beforDay)締め切り日より前(between)である会議を検索する。
+     * 
+     * @return エンティティのリスト
+     */
+    public List<TParty> findBy_Deadline_PULS_BETWEEN(Date dateNow, int beforDay, boolean necessaryFlag) {
+    	
+    	//現在時刻に任意の日にち分足す
+    	GregorianCalendar calendar=new GregorianCalendar();
+		calendar.setTime(dateNow);
+		calendar.add(Calendar.DATE, beforDay);
+		Date dateadd = new Date();
+		dateadd=calendar.getTime();
+		
+		//検索 
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	where.eq(meetingNecessaryFlag(), Boolean.valueOf(necessaryFlag));
+    	where.le(meetingDeadlineDay(), dateadd);
     	where.ge(meetingDeadlineDay(), dateNow);
         return select()
         		.innerJoin("TMember")

@@ -101,7 +101,6 @@ public class MemberRegistAction {
         	memberForm.sexMap.put(i.toString(), SexCode.getnameByCode(i.toString()));
         }
         
-        
         /** 登録画面に登録できる部の一覧を作成する　**/
         //登録されている部をすべてリストの形で呼び出す
         memberForm.clubList = tClubService.findAllOrderById();

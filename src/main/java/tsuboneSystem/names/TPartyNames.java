@@ -6,12 +6,13 @@ import org.seasar.extension.jdbc.name.PropertyName;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.names.TMemberNames._TMemberNames;
 import tsuboneSystem.names.TPartyClubNames._TPartyClubNames;
+import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
 
 /**
  * {@link TParty}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/16 17:41:04")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/22 19:38:34")
 public class TPartyNames {
 
     /**
@@ -96,21 +97,21 @@ public class TPartyNames {
     }
 
     /**
-     * meetingDeadlineTimeのプロパティ名を返します。
-     * 
-     * @return meetingDeadlineTimeのプロパティ名
-     */
-    public static PropertyName<Date> meetingDeadlineTime() {
-        return new PropertyName<Date>("meetingDeadlineTime");
-    }
-
-    /**
      * ObAttendFlagのプロパティ名を返します。
      * 
      * @return ObAttendFlagのプロパティ名
      */
     public static PropertyName<Boolean> ObAttendFlag() {
         return new PropertyName<Boolean>("ObAttendFlag");
+    }
+
+    /**
+     * meetingResultのプロパティ名を返します。
+     * 
+     * @return meetingResultのプロパティ名
+     */
+    public static PropertyName<String> meetingResult() {
+        return new PropertyName<String>("meetingResult");
     }
 
     /**
@@ -138,6 +139,15 @@ public class TPartyNames {
      */
     public static _TPartyClubNames tPartyClubList() {
         return new _TPartyClubNames("tPartyClubList");
+    }
+
+    /**
+     * tPartySendMailListのプロパティ名を返します。
+     * 
+     * @return tPartySendMailListのプロパティ名
+     */
+    public static _TPartySendMailNames tPartySendMailList() {
+        return new _TPartySendMailNames("tPartySendMailList");
     }
 
     /**
@@ -255,21 +265,21 @@ public class TPartyNames {
         }
 
         /**
-         * meetingDeadlineTimeのプロパティ名を返します。
-         *
-         * @return meetingDeadlineTimeのプロパティ名
-         */
-        public PropertyName<Date> meetingDeadlineTime() {
-            return new PropertyName<Date>(this, "meetingDeadlineTime");
-        }
-
-        /**
          * ObAttendFlagのプロパティ名を返します。
          *
          * @return ObAttendFlagのプロパティ名
          */
         public PropertyName<Boolean> ObAttendFlag() {
             return new PropertyName<Boolean>(this, "ObAttendFlag");
+        }
+
+        /**
+         * meetingResultのプロパティ名を返します。
+         *
+         * @return meetingResultのプロパティ名
+         */
+        public PropertyName<String> meetingResult() {
+            return new PropertyName<String>(this, "meetingResult");
         }
 
         /**
@@ -297,6 +307,15 @@ public class TPartyNames {
          */
         public _TPartyClubNames tPartyClubList() {
             return new _TPartyClubNames(this, "tPartyClubList");
+        }
+
+        /**
+         * tPartySendMailListのプロパティ名を返します。
+         * 
+         * @return tPartySendMailListのプロパティ名
+         */
+        public _TPartySendMailNames tPartySendMailList() {
+            return new _TPartySendMailNames(this, "tPartySendMailList");
         }
     }
 }

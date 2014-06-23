@@ -13,7 +13,7 @@
 <%@ include file="/WEB-INF/view/common/indeividualsHeader.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
-<h3>${f:h(meetingName)}たんの詳細情報</h3>
+<h3 class="col-md-6 col-xs-12">${f:h(meetingName)}たんの詳細情報</h3>
 <div class="col-sm-12">
 <table class="table">
 	<tr>
@@ -56,14 +56,18 @@
 		<th><h4>会議の締切時間</h4></th>
 		<td><h5>${f:h(meetingDeadlineDay)}</h5></td>
 	</tr>
-	<tr>
-		<th><h4>締切時間</h4></th>
-		<td><h5>${f:h(meetingDeadlineTime)}</h5></td>
-	</tr>
+	<c:if test="${deadFlag}">
+		<tr>
+			<th><h4>審議の結果</h4></th>
+			<td><h5><pre>${f:h(meetingResult)}</pre></h5></td>
+		</tr>
+	</c:if>
 </table>
 <c:if test="${!deadFlag}">
-	<a class="btn btn-primary" href="<c:url value="/individuals/attend/yes"/>">出席する</a>
-	<a class="btn btn-primary" href="<c:url value="/individuals/attend/no"/>">欠席する</a>
+	<div class="row CENTER">
+		<a class="col-md-3 col-md-offset-3 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-primary btnYOKO btnMRC" href="<c:url value="/individuals/attend/yes"/>">出席する</a>
+		<a class="col-md-3 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/individuals/attend/no"/>">欠席する</a>
+	</div>
 </c:if>
 <c:if test="${deadFlag}">
 	<div class="alert alert-danger"><h4>この会議は締め切り時間を過ぎています</h4></div>

@@ -11,6 +11,7 @@ import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyAttend;
 import tsuboneSystem.entity.TPartyClub;
+import tsuboneSystem.entity.TPartySendMail;
 import tsuboneSystem.names.TClubNames._TClubNames;
 import tsuboneSystem.names.TLeadersKindNames._TLeadersKindNames;
 import tsuboneSystem.names.TLeadersNames._TLeadersNames;
@@ -21,12 +22,13 @@ import tsuboneSystem.names.TMemberNames._TMemberNames;
 import tsuboneSystem.names.TPartyAttendNames._TPartyAttendNames;
 import tsuboneSystem.names.TPartyClubNames._TPartyClubNames;
 import tsuboneSystem.names.TPartyNames._TPartyNames;
+import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
 
 /**
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/06/16 17:41:04")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/06/22 19:38:34")
 public class Names {
 
     /**
@@ -117,5 +119,14 @@ public class Names {
      */
     public static _TPartyClubNames tPartyClub() {
         return new _TPartyClubNames();
+    }
+
+    /**
+     * {@link TPartySendMail}の名前クラスを返します。
+     * 
+     * @return TPartySendMailの名前クラス
+     */
+    public static _TPartySendMailNames tPartySendMail() {
+        return new _TPartySendMailNames();
     }
 }

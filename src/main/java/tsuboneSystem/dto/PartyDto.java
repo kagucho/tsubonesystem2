@@ -2,7 +2,9 @@ package tsuboneSystem.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -57,6 +59,9 @@ public class PartyDto implements Serializable {
 	
 	/* 欠席してる人のリスト　*/
 	public List<TMember> tMemberOff = new ArrayList<TMember>();
+
+	/* 未提出　*/
+	public List<TMember> tMemberKuzu = new ArrayList<TMember>();
 	
 	/* 出欠席を返さないゴミのmap　*/
 	public Map<String, String> mapKuzuSS;
@@ -64,7 +69,13 @@ public class PartyDto implements Serializable {
 
 	public boolean deadFlag(TParty tParty,Date dateNow) {
 		
-		if (tParty.meetingDeadlineDay.after(dateNow)) {
+		GregorianCalendar calendar=new GregorianCalendar();
+		calendar.setTime(dateNow);
+		calendar.add(Calendar.DATE, -1);
+		Date dateadd = new Date();
+		dateadd=calendar.getTime();
+		
+		if (tParty.meetingDeadlineDay.after(dateadd)) {
 			return false;
 		}else{
 			return true;

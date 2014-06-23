@@ -27,13 +27,13 @@
             }
             //var file = document.getElementById("file").files[0];
             var form = $('#ajaxform').get(0);
-            var formData = new FormData(form);
+            var file = new FormData(form);
             $.ajax({  
                 url: '${f:url('/api/imageUpload')}',  
                 type: 'post',
                 processData: false,
                 contentType: false,
-                data: formData,
+                data: file,
                 dataType: "json",
                 error: function(){  
                     //alert("jsonファイルの読み込みに失敗しました");  
@@ -54,32 +54,32 @@
 <div class="container">
 
 
-<s:form method="POST" >
-<!-- 	<form class="form-horizontal" id="ajaxform"> -->
-<!-- 		<div class="form-group"> -->
-<!-- 			<label class="control-label col-sm-4" for=file>画像</label> -->
-<!-- 			<div class="col-sm-8 memberF" > -->
-<!-- 				<input type="file" id="file" name="file"> -->
-<%-- 				<html:errors property="file"/> --%>
-<!-- 			</div> -->
-<!-- 			<div id="preview"></div> -->
-<!-- 		</div> -->
-<!-- 	</form> -->
+
+	<form class="form-horizontal" id="ajaxform">
 		<div class="form-group">
-			<label class="control-label col-sm-4" for="name">名前</label>
+			<label class="control-label col-sm-4" for=file>画像</label>
 			<div class="col-sm-8 memberF" >
-				<input type="text" id="name" name="name" property="name" class="form-control" placeholder="Name" value="${name}">
-				
-				<html:errors property="name"/>
+				<input type="file" id="file" name="file">
+				<html:errors property="file"/>
 			</div>
+			<div id="preview"></div>
 		</div>
+	</form>
+<!-- 		<div class="form-group"> -->
+<!-- 			<label class="control-label col-sm-4" for="name">名前</label> -->
+<!-- 			<div class="col-sm-8 memberF" > -->
+<%-- 				<input type="text" id="name" name="name" property="name" class="form-control" placeholder="Name" value="${name}"> --%>
+				
+<%-- 				<html:errors property="name"/> --%>
+<!-- 			</div> -->
+<!-- 		</div> -->
 	
-	<div class="form-group">
-		<div class="col-sm-8">
-			<input type="submit" value="確認" id="complete" name="complete" property="complete" class="btn btn-primary">
-		</div>
-	</div>
-</s:form>
+<!-- 	<div class="form-group"> -->
+<!-- 		<div class="col-sm-8"> -->
+<!-- 			<input type="submit" value="確認" id="complete" name="complete" property="complete" class="btn btn-primary"> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+
 		
 		
 	</div>

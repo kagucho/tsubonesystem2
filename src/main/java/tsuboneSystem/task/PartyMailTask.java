@@ -2,12 +2,8 @@ package tsuboneSystem.task;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import javax.annotation.Resource;
 
 import org.seasar.chronos.core.annotation.task.Task;
@@ -16,10 +12,8 @@ import org.seasar.chronos.core.annotation.trigger.CronTrigger;
 import tsuboneSystem.entity.TMail;
 import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
-import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyAttend;
-import tsuboneSystem.entity.TPartyClub;
 import tsuboneSystem.original.manager.MailManager;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
@@ -33,6 +27,9 @@ import tsuboneSystem.service.TPartyService;
  * 会議締め切り確認時の自動メール送信
  * 起動時間は毎日午後18時
  * 
+ * 
+ * 必須にされている会議は5日前に一回、3日前から一日一通
+ * 必須にされていない会議は3日前に一回、当日に一回
  * 
  * @CronTrigger(expression = "0 44 17 * * ?")：17時44分00秒にdoExecute()メソッドを実行するよってこと
  */
@@ -82,7 +79,17 @@ public class PartyMailTask {
 	/** 出席対象者 */
 	public List<TMember> tSendMember = new ArrayList<TMember>();
 	
+	/** 送信エラーフラグ */
 	public boolean errorFlag;
+	
+	/** 5日前 */
+	public final static int FIVE_DAY = 5;
+	
+	/** 3日前 */
+	public final static int TREE_DAY = 3;
+	
+	/** 1日前 */
+	public final static int TO_DAY = 1;
 	
 	
 	// タスク処理
@@ -90,72 +97,35 @@ public class PartyMailTask {
     	
     	//実行された時点で、締め切られていない会議の一覧を取得
     	Date dateNow = new Date();
-    	List<TParty>  tPartyList = tPartyService.findBy_Deadline_GE_Now(dateNow);
     	
+    	//出欠必須であり締め切り日の5日前の会議一覧
+    	List<TParty>  tPartyListHISSU_FIVE = tPartyService.findBy_Deadline_PULS(dateNow, FIVE_DAY, true);
+    	sendMail(tPartyListHISSU_FIVE);
+    	
+    	//出欠必須であり締め切り日の3日前から締め切り日までに存在する会議一覧
+    	List<TParty>  tPartyListHISSU_TREE = tPartyService.findBy_Deadline_PULS_BETWEEN(dateNow, TREE_DAY, true);
+    	sendMail(tPartyListHISSU_TREE);
+    	
+    	//締め切り日の3日前の会議一覧
+    	List<TParty>  tPartyListTREE = tPartyService.findBy_Deadline_PULS(dateNow, TREE_DAY, false);
+    	sendMail(tPartyListTREE);
+    	
+    	//締め切り日当日の会議一覧
+    	List<TParty>  tPartyListTODAY = tPartyService.findBy_Deadline_PULS(dateNow, TO_DAY, false);
+    	sendMail(tPartyListTODAY);
+      
+    }
+    
+    public void sendMail(List<TParty> tPartyList){
     	if (tPartyList.size() > 0) {
     		//締め切られていいない会議が存在したら以下を実行
     		for (TParty tPartyOne : tPartyList) {
-    			//全員のリストを取得し、以下の処理の中で該当のメンバーは削除してき、残ったメンバーが出欠席を返さないクズ。
-    	    	if (tPartyOne.ObAttendFlag){
-    	    		//OBの出席を含む
-    	    		if (tPartyOne.tPartyClubList.size() > 0) {
-    	    			//部によって出席対象が絞られている場合
-    	    			List<TPartyClub> tPartyClub = tPartyClubService.findByPartyId(tPartyOne.id);
-    	    			Set<TMember> tMemberSet = new HashSet<TMember>();
-    	    			for (TPartyClub tPartyClubOne : tPartyClub) {
-    	    				for (TMemberClub tMemberClubOne : tPartyClubOne.tClub.tMemberClubList) {
-    	    					tMemberSet.add(tMemberClubOne.tMember);
-    	        				}
-    	    			}
-    	    			tMemberKuzu = new ArrayList<TMember>();
-    	    			for (TMember tMember : tMemberSet) {
-    	    				tMemberKuzu.add(tMember);
-    	    			}
-    	    		}else{
-    	    			//全員が出席対象
-    	    			tMemberKuzu = tMemberService.findByIdAll();
-    	    		}	
-    	    	}else{
-    	    		//OBの出席を含まない
-    	    		if (tPartyOne.tPartyClubList.size() > 0) {
-    	    			//部によって出席対象が絞られている場合
-    	    			List<TPartyClub> tPartyClub = tPartyClubService.findByPartyIdNoOB(tPartyOne.id);
-    	    			Set<TMember> tMemberSet = new HashSet<TMember>();
-    	    			for (TPartyClub tPartyClubOne : tPartyClub) {
-    	    				for (TMemberClub tMemberClubOne : tPartyClubOne.tClub.tMemberClubList) {
-    	    					tMemberSet.add(tMemberClubOne.tMember);
-    	        				}
-    	    			}
-    	    			tMemberKuzu = new ArrayList<TMember>();
-    	    			for (TMember tMember : tMemberSet) {
-    	    				tMemberKuzu.add(tMember);
-    	    			}
-    	    		}else{
-    	    			//全員が出席対象
-    	    			tMemberKuzu = tMemberService.findByIdNoOBAll();
-    	    		}	
-    	    	}
-    	    	
-    	    	mapKuzuSS = new HashMap<String,String>();
-    	    	
-    	    	for (TMember memberKuzuOne : tMemberKuzu) {
-    	    		mapKuzuSS.put(memberKuzuOne.id.toString(), memberKuzuOne.hname);
-    	    	}
-    	    	
-    	    	//出席している人のリスト
-    	    	tAttendOn = tPartyAttendService.findByPartyIdAndAttendOn(tPartyOne.id);
-    	    	for (TPartyAttend attendOn : tAttendOn){
-    	    		mapKuzuSS.remove(attendOn.memberId.toString());	
-    	    	}
-    	    	
-    	    	//欠席している人のリスト
-    	    	tAttendOn = tPartyAttendService.findByPartyIdAndAttendOff(tPartyOne.id);
-    	    	for (TPartyAttend attendOff : tAttendOn){
-    	    		mapKuzuSS.remove(attendOff.memberId.toString());
-    	    	}
+    			//該当の会議で、まだ出欠席を出していないメンバー一覧を取得
+    			List<TPartyAttend> tPartyAttends = tPartyAttendService.findByPartyId_UNSUBMITTED(tPartyOne.id);
     			
-    	    	for (String key : mapKuzuSS.keySet()) {
-    	    		tSendMember.add(tMemberService.findById(Integer.valueOf(key)));
+    	    	for (TPartyAttend tPartyAttendOne : tPartyAttends) {
+    	    		//メンバー情報を取り出し
+    	    		tSendMember.add(tPartyAttendOne.tMember);
     	    	}
     	    	
     	    	//タイトルを作る
@@ -176,7 +146,7 @@ public class PartyMailTask {
     	    	sbc.append(tPartyOne.meetingDay);
     	    	sbc.append(tPartyOne.meetingTime);
     	    	sbc.append("\n");
-    	    	sbc.append("開催日時: ");
+    	    	sbc.append("締め切り日時: ");
     	    	sbc.append(tPartyOne.meetingDeadlineDay);
     	    	sbc.append("\n");
     	    	sbc.append("\n");
@@ -211,7 +181,6 @@ public class PartyMailTask {
     		}
     		
     	}
-        
     }
     
 }

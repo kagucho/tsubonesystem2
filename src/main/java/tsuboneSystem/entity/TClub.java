@@ -30,7 +30,7 @@ public class TClub implements Serializable {
     public Integer id;
     
     /** 部名 */
-    @Column(nullable = true, unique = true)
+    @Column(nullable = true, unique = false)
     public String  ClubName;
     
     /** 部長のID */

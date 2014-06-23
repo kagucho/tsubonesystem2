@@ -65,6 +65,9 @@ public class PartyAttendForm implements Serializable{
 	/* 欠席してる人のリスト　*/
 	public List<TMember> tMemberOff = new ArrayList<TMember>();
 	
+	/* 出欠席を返さないゴミのリスト　*/
+	public List<TMember> tMemberKuzu = new ArrayList<TMember>();;
+	
 	/* 更新対象メンバー　*/
 	public List<TMember> tMemberNew = new ArrayList<TMember>();
 	
@@ -76,9 +79,6 @@ public class PartyAttendForm implements Serializable{
 	
 	/* 更新対象　*/
 	public List<TPartyAttend> tPartyAttendNewNo = new ArrayList<TPartyAttend>();
-	
-	/* 出欠席を返さないゴミのリスト　*/
-	public List<TMember> tMemberKuzu;
 	
 	/* 出席している人を移動させるための配列　*/
 	public String[] onCheck = new String[10];

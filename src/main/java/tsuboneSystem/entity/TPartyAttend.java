@@ -37,7 +37,7 @@ public class TPartyAttend implements Serializable {
     
     /** 出欠席状況 */
     @Column(nullable = true, unique = false)
-    public Boolean attend;
+    public Integer attend;
     
     @ManyToOne
     @JoinColumn(name = "PARTY_ID", referencedColumnName = "ID")

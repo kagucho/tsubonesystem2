@@ -8,6 +8,7 @@ import org.seasar.framework.aop.annotation.RemoveSession;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.dto.PartyDto;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyAttend;
@@ -64,7 +65,7 @@ public class PartyAttendUpdateAction {
 			partyAttendForm.btn2Key = "2";
 			break;
 		case 3:
-			partyAttendForm.mapKuzuSS = partyDto.mapKuzuSS;
+			partyAttendForm.tMemberKuzu = partyDto.tMemberKuzu;
 			partyAttendForm.btn1 = "出席に変更する";
 			partyAttendForm.btn1Key = "3";
 			partyAttendForm.btn2 = "欠席に変更する";
@@ -84,14 +85,7 @@ public class PartyAttendUpdateAction {
 		case 1:
 			for (String offMemberId : partyAttendForm.offCheck) {
 				TPartyAttend tPartyAttendNew = tPartyAttendService.findByMemberIdWithPartyId(offMemberId, partyDto.id);
-				//未回答からの移動の場合は該当がないので新規にエンティティを作成
-				if (tPartyAttendNew == null){
-					TPartyAttend tPartyAttend = new TPartyAttend();
-					tPartyAttend.memberId = Integer.valueOf(offMemberId);
-					tPartyAttend.partyId = partyDto.id;
-					tPartyAttendNew = tPartyAttend;
-				}
-				tPartyAttendNew.attend = false;
+				tPartyAttendNew.attend = Integer.valueOf(PartyAttendCode.NO_ATTEND.getCode());
 				partyAttendForm.tPartyAttendNew.add(tPartyAttendNew);
 				partyAttendForm.tMemberNew.add(tMemberService.findById(Integer.valueOf(offMemberId)));
 			}	
@@ -100,7 +94,8 @@ public class PartyAttendUpdateAction {
 		case 2:
 			for (String noAttendMemberIdOne : partyAttendForm.offCheck){
 				TPartyAttend tPartyAttendNew = tPartyAttendService.findByMemberIdWithPartyId(noAttendMemberIdOne, partyDto.id);
-				partyAttendForm.tPartyAttendNewNo.add(tPartyAttendNew);
+				tPartyAttendNew.attend = Integer.valueOf(PartyAttendCode.UNSUBMITTED.getCode());
+				partyAttendForm.tPartyAttendNew.add(tPartyAttendNew);
 				partyAttendForm.tMemberNew.add(tMemberService.findById(Integer.valueOf(noAttendMemberIdOne)));
 			}
 			
@@ -109,14 +104,7 @@ public class PartyAttendUpdateAction {
 		case 3:
 			for (String onMemberId : partyAttendForm.offCheck) {
 				TPartyAttend tPartyAttendNew = tPartyAttendService.findByMemberIdWithPartyId(onMemberId, partyDto.id);
-				//未回答からの移動の場合は該当がないので新規にエンティティを作成
-				if (tPartyAttendNew == null){
-					TPartyAttend tPartyAttend = new TPartyAttend();
-					tPartyAttend.memberId = Integer.valueOf(onMemberId);
-					tPartyAttend.partyId = partyDto.id;
-					tPartyAttendNew = tPartyAttend;
-				}
-				tPartyAttendNew.attend = true;
+				tPartyAttendNew.attend = Integer.valueOf(PartyAttendCode.YES_ATTEND.getCode());
 				partyAttendForm.tPartyAttendNew.add(tPartyAttendNew);
 				partyAttendForm.tMemberNew.add(tMemberService.findById(Integer.valueOf(onMemberId)));
 			}
@@ -127,20 +115,10 @@ public class PartyAttendUpdateAction {
     
     @Execute(validator = false)
 	public String complete() {
-    	
     	if (partyAttendForm.tPartyAttendNew.size() > 0) {
     		for (TPartyAttend tPartyAttendNewOne : partyAttendForm.tPartyAttendNew) {
-    			//未回答からの出席、欠席は新規追加になる。
-    			if (tPartyAttendNewOne.id == null){
-    				tPartyAttendService.insert(tPartyAttendNewOne);
-    			}else{
     				tPartyAttendService.update(tPartyAttendNewOne);
-    			}
     		} 
-    	}else if (partyAttendForm.tPartyAttendNewNo.size() > 0) {
-    		for (TPartyAttend tPartyAttendNewNoOne : partyAttendForm.tPartyAttendNewNo) {
-        		tPartyAttendService.delete(tPartyAttendNewNoOne);
-    		}
     	}
         return "partyAttendUpdateComplete.jsp";
 	}

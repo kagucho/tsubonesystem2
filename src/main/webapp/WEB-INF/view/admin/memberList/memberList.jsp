@@ -15,6 +15,7 @@
 <div class="container">
 <div class="col-sm-8">
 <a class="btn btn-primary" href="<c:url value="/admin/memberRegist/index"/>">新規登録</a>
+<a class="btn btn-primary" href="<c:url value="/admin/memberUpload/index"/>">CSV一括登録</a>
 <s:form method="POST">
 <div class="table-responsive">
 <table class="table">

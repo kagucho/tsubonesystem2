@@ -8,26 +8,37 @@
     <link href="${f:url('/css/bootstrap.min.css')}" type="text/css" rel="stylesheet">
     <link href="${f:url('/css/layout.css')}" type="text/css" rel="stylesheet">
     <link href="${f:url('/css/signin.css')}" type="text/css" rel="stylesheet">
-	<SCRIPT language="JavaScript">
- 	function chg(){
- 		if (document.party.mailSendFlag.checked){
- 			document.party.mailSendAllFlag.disabled = "";
- 		}
- 		else{
- 			document.party.mailSendAllFlag.disabled = "true"; 
- 		}
-	</SCRIPT> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript">
+	    $(function(){
+	        // 初期表示でチェックボックスが空だったら非表示エリアを隠す
+	        if ($('#mailSendFlag').val() != '1') {
+	            $('#mailInput').hide();
+	        }
+	    });
+	    // 表示/非表示
+	    var speed = 500; //表示アニメのスピード（ミリ秒）
+	    var stateDeliv = 1;
+	    function hideToggle(hidearea) {
+	        hidearea.toggle(speed);
+	    }
+	    function changehoge(value) {
+	        $("#hoge").disabled(value); // チェックされたら無効化する
+	        $("#hoge").val($("#hoge").disabled()); // 今の無効化状態をhogeに書く
+	    }
+	</script> 
   </head>
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
 	<h3>会議の情報を入力してください。</h3>
+	<h5 class="hissu">＊がついている項目は必須です</h5>
 	<s:form method="POST" >
 		<form name="party" class="form-horizontal">
 			<div class="col-sm-12">
 				<div class="form-group">
-					<label class="control-label col-sm-4" for=meetingName>会議の題名</label>
+					<label class="control-label col-sm-4" for=meetingName>会議の題名&nbsp;<span class="hissu">＊</span></label>
 					<div class="col-sm-8 memberF" >
 						<input type="text" id="meetingName" name="meetingName" property="meetingName" class="form-control" placeholder="meetingName" value="${meetingName}">
 						<html:errors property="meetingName"/>
@@ -61,7 +72,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-4" for="password">会議の内容</label>
+					<label class="control-label col-sm-4" for="password">会議の内容&nbsp;<span class="hissu">＊</span></label>
 					<div class="col-sm-8 memberF">
 						<textarea class="form-control" name="meetingMemo" rows="5" property="meetingMemo" placeholder="MeetingMemo" value="${MeetingMemo}"></textarea>
 						<html:errors property="meetingMemo"/>
@@ -91,26 +102,19 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-4" for="meetingDeadlineTime">締切時間</label>
+					<label class="control-label col-sm-4">メール配信可否</label>
 					<div class="col-sm-8 memberF">
-						<input type="text" id="meetingDeadlineTime" name="meetingDeadlineTime" property="meetingDeadlineTime" class="form-control" placeholder="meetingDeadlineTime" value="${meetingDeadlineTime}">	
-						<html:errors property="meetingDeadlineTime"/>
+						<input type="checkbox" name="mailSendFlag" value="mailSendFlag" property="mailSendFlag"  onclick="hideToggle($('#mailInput'));" />&nbsp;メールを配信する※チェクしないとメールは配信されません！！
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-12">
 				<div id="mailInput">
-					<h4>※メールを配信する場合は、送信する相手と内容を入力してください。</h4>
-					<div class="form-group">
-						<label class="control-label col-sm-4">メール配信可否</label>
-						<div class="col-sm-8 memberF">
-							<input type="checkbox" name="mailSendFlag" value="mailSendFlag" property="mailSendFlag"  onclick="chg()" />&nbsp;メールを配信する※チェクしないとメールは配信されません！！
-						</div>
-					</div>
+					<h4>メールを配信する場合は、送信する相手と内容を入力してください。</h4>
 					<div class="form-group">
 						<label class="control-label col-sm-4" for="mailSendAllFlag">全体に送信する</label>
 						<div class="col-sm-8 memberF">
-							<input type="checkbox" id="mailSendAllFlag" name="mailSendAllFlag" value="true"  />&nbsp;全員に送信する
+							<input type="checkbox" id="mailSendAllFlag" name="mailSendAllFlag" value="true" onclick="this.blur();this.focus();" onchange="changehoge(this.checked)"/>&nbsp;全員に送信する
 							<html:errors property="sendTo"/>
 						</div>
 					</div>
@@ -118,27 +122,27 @@
 						<label class="control-label col-sm-4" for="clubListCheck">部で選択する</label>
 						<div class="col-sm-8 memberF">
 							<c:forEach var="e" items="${clubMapSS}">
-							<html:multibox property="clubListCheck" value="${e.key}" />&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
+								<html:multibox property="clubListCheck" value="${e.key}" />&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
 							</c:forEach>
 							<html:errors property="sendTo"/>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-4" for="Title">メールのタイトル</label>
+						<label class="control-label col-sm-4" for="Title">メールのタイトル&nbsp;<span class="hissu">＊</span></label>
 						<div class="col-sm-8 memberF" >
-							<input type="text" id="title" name="title" property="title" class="form-control" placeholder="Title" >
+							<input type="text" id="title" name="title" property="title" class="form-control" placeholder="Title" value="${title}">
 							<html:errors property="title"/>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-4" for="Content">メールの内容</label>
+						<label class="control-label col-sm-4" for="Content">メールの内容&nbsp;<span class="hissu">＊</span></label>
 						<div class="col-sm-8 memberF">
-							<textarea class="form-control" name="content" rows="10" property="content" placeholder="Content" ></textarea>
+							<textarea class="form-control" name="content" rows="10" property="content" placeholder="Content" >${f:h(content)}</textarea>
 							<html:errors property="content"/>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-4" for="mailSendAllFlag">OBにも送信する</label>
+						<label class="control-label col-sm-4" for="mailSendAllFlag">OBにも送信する&nbsp;<span class="hissu">＊</span></label>
 						<div class="col-sm-8 memberF">
 							<input type="checkbox" id="mailSendOBFlag" name="mailSendOBFlag" value="true" />&nbsp;OBを含める
 						</div>
@@ -147,7 +151,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-8">
-					<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="btn btn-primary">
+					<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="col-md-6 col-md-offset-6 col-sm-10 col-sm-offset-4 col-xs-12  btn btn-primary">
 				</div>
 			</div>
 		</form>
