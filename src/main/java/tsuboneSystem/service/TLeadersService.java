@@ -73,7 +73,7 @@ public class TLeadersService extends AbstractService<TLeaders> {
      * @param MemerId
      * @return エンティティのリスト
      */
-    public List<TLeaders> findByMemberIdList(String id) {
+    public List<TLeaders> findByMemberIdList(Integer id) {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(MemberId(), id);
         return select()

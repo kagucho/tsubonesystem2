@@ -70,7 +70,7 @@ public class LoginAction {
     	if (member != null ) {
     		
     		//メンバーに該当がいたら、そのメンバーが役職に付いているかを判定する
-    		List<TLeaders> leaderList = tLeadersService.findByMemberIdList(member.id.toString());
+    		List<TLeaders> leaderList = tLeadersService.findByMemberIdList(member.id);
 
         	//部長以上の場合はadmin
         	if (leaderList.size() > 0) {

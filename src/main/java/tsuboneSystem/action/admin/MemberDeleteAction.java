@@ -106,7 +106,7 @@ public class MemberDeleteAction {
         ActionMessages errors = new ActionMessages();
     	
     	//選択されたMemberが現役の部長以上の役職に付いている場合、連絡先をすべて登録しているかを確認する。
-    	List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(memberForm.id.toString());
+    	List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(memberForm.id);
     	if (tLeadersList.size() > 0) {
     		for (TLeaders tLeadersOne : tLeadersList) {
     			TClub tClub = tClubService.findByLeadersId(tLeadersOne.id);

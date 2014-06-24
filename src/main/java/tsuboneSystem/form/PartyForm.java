@@ -1,6 +1,9 @@
 package tsuboneSystem.form;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -60,9 +63,6 @@ public class PartyForm implements Serializable{
 	@DateType(datePatternStrict="yyyy/MM/dd",msg=@Msg(key="errors.date", resource=true))
 	public String meetingDeadlineDay;
 	
-	/** 会議出欠席締め切り時間　*/
-	@DateType(datePattern = "HH:mm",msg=@Msg(key="errors.time", resource=true))
-	public String meetingDeadlineTime;
 	
 	/** 審議結果 */
     public String  meetingResult;
@@ -131,7 +131,6 @@ public class PartyForm implements Serializable{
 		meetingDay = null;
 		meetingTime = null;
 		meetingDeadlineDay = null;
-		meetingDeadlineTime = null;
 		meetingRoom = null;
 		clubListCheck = new String[0];
 		attendClub = null;
@@ -170,7 +169,48 @@ public class PartyForm implements Serializable{
 			}
 			if (meetingTime.isEmpty()) {
 				errors.add("meetingTime",new ActionMessage("締め切りが決まっている場合には、開催時間は必須です",false));
-			}		
+			}
+		}
+		
+		//会議日と締め切り日の間は五日以上離れていなければならない
+		if (!meetingDeadlineDay.isEmpty() && !meetingDay.isEmpty()) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		    Date mDay = null;
+		    Date dDay = null;
+		    Date dateNow = new Date();
+		    
+		    // 日付を作成します。
+		    try {
+		        dDay = sdf.parse(meetingDeadlineDay);
+		        mDay = sdf.parse(meetingDay);
+		    } catch (ParseException e) {
+		        e.printStackTrace();
+		    }
+			
+		    // 日付をlong値に変換します。
+		    long dateTimeMDay = mDay.getTime();
+		    long dateTimeDDay = dDay.getTime();
+		    long now = dateNow.getTime();
+		    
+		    if (dateTimeMDay < now || dateTimeDDay < now) {
+		    	if (dateTimeMDay < now) {
+		    		errors.add("meetingDay",new ActionMessage("過去に会議を予定したければタイムマシンを作ってからにしてください",false));
+		    	}
+		    	if (dateTimeDDay < now) {
+		    		errors.add("meetingDeadlineDay",new ActionMessage("過去に会議を予定したければタイムマシンを作ってからにしてください",false));
+		    	}
+		    }else{
+		    	if (dateTimeMDay > dateTimeDDay) {
+			    	 long dayDiff = ( dateTimeMDay - dateTimeDDay  ) / (1000 * 60 * 60 * 24);
+			    	 if (dayDiff < 5) {
+			    		 errors.add("meetingDay",new ActionMessage("会議の開催日と締め切り日は5日以上離れていなければなりません",false));
+			    		 errors.add("meetingDeadlineDay",new ActionMessage("会議の開催日と締め切り日は5日以上離れていなければなりません",false));
+			    	 }
+			    }else{
+			    	errors.add("meetingDay",new ActionMessage("締め切りの方が開催日より後になるとか意味がわかりません",false));
+			    	errors.add("meetingDeadlineDay",new ActionMessage("締め切りの方が開催日より後になるとか意味がわかりません",false));
+			    }
+		    }
 		}
 		
 		//日時の空白確認(開催日)
