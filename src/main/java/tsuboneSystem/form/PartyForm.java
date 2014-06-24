@@ -132,6 +132,7 @@ public class PartyForm implements Serializable{
 		meetingTime = null;
 		meetingDeadlineDay = null;
 		meetingRoom = null;
+		meetingMemo = null;
 		clubListCheck = new String[0];
 		attendClub = null;
 		mailSendFlag = false;

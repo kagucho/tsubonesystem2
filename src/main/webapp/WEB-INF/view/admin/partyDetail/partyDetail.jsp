@@ -24,64 +24,9 @@
 	</c:if>
 </div>
 <div class="col-sm-12">
-<table class="table">
-	<tr>
-		<th><h4>会議の名前</h4></th>
-		<td><h5>${f:h(meetingName)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>必須判定</h4></th>
-	　	<td>
-			<c:if test="${meetingNecessaryFlag}">
-				<h5>出席を必須とする</h5>
-			</c:if>
-		</td>
-	</tr>
-	<tr>
-		<th><h4>会議の開催日時</h4></th>
-		<td><h5>${f:h(meetingDay)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>開催時間</h4></th>
-		<td><h5>${f:h(meetingTime)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>会議の開催場所</h4></th>
-		<td><h5>${f:h(meetingRoom)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>会議の内容</h4></th>
-		<td><h5>${f:h(meetingMemo)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>出席対象者を部に絞る</h4></th>
-		<td>
-			<h5>
-				<c:forEach var="e" items="${tPartyClubList}">
-					${f:h(clubMapIS[e.ClubId])}
-				</c:forEach>
-			</h5>
-		</td>
-	</tr>
-	<tr>
-		<th><h4>OB出席</h4></th>
-		<td>
-			<c:if test="${ObAttendFlag}">
-				<h5>OBを出席対象とする</h5>
-			</c:if>
-		</td>
-	</tr>
-	<tr>
-		<th><h4>会議の締切時間</h4></th>
-		<td><h5>${f:h(meetingDeadlineDay)}</h5></td>
-	</tr>
-	<c:if test="${deadFlag}">
-		<tr>
-			<th><h4>審議の結果</h4></th>
-			<td><h5><pre>${f:h(meetingResult)}</pre></h5></td>
-		</tr>
-	</c:if>
-</table>
+
+<%@ include file="/WEB-INF/view/common/partyFormConfirm.jsp"%>
+
 <c:if test="${!deadFlag}">
 	<div class="row CENTER">
 		<a class="col-md-3 col-md-offset-3 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-primary btnYOKO btnMRC " href="<c:url value="/admin/attend/yes"/>">出席する</a>
