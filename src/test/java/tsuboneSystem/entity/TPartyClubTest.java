@@ -3,7 +3,7 @@ package tsuboneSystem.entity;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.JdbcManager;
 import org.seasar.extension.unit.S2TestCase;
-
+import static tsuboneSystem.names.TPartyClubNames.*;
 /**
  * {@link TPartyClub}のテストクラスです。
  * 
@@ -43,11 +43,11 @@ public class TPartyClubTest extends S2TestCase {
     }
 
     /**
-     * tMemberとの外部結合をテストします。
+     * tClubとの外部結合をテストします。
      * 
      * @throws Exception
      */
     public void testLeftOuterJoin_tMember() throws Exception {
-        jdbcManager.from(TPartyClub.class).leftOuterJoin(tMember()).id(1).getSingleResult();
+        jdbcManager.from(TPartyClub.class).leftOuterJoin(tClub()).id(1).getSingleResult();
     }
 }
