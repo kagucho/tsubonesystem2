@@ -131,6 +131,12 @@ public class TMemberService extends AbstractService<TMember> {
     	return select().where(where).getSingleResult();
     }
     
+    public List<TMember> findByMailAddres(String[] mailAddress) {
+    	SimpleWhere where = new SimpleWhere();
+    	where.in("MAIL", (Object[])mailAddress);
+		return select().where(where).getResultList();
+    	
+    }
     
     /**
      * 検索条件ですべてのエンティティを検索します。(OB抜き)
