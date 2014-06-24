@@ -9,11 +9,13 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.struts.upload.FormFile;
+import org.seasar.framework.exception.IORuntimeException;
 import org.seasar.s2csv.csv.S2CSVParseCtrl;
 import org.seasar.s2csv.csv.exception.runtime.CSVValidationResultRuntimeException;
 import org.seasar.s2csv.csv.factory.S2CSVCtrlFactory;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
+import org.seasar.struts.util.ResponseUtil;
 
 import tsuboneSystem.csv.MemberUploadCsv;
 import tsuboneSystem.entity.TMember;
@@ -190,5 +192,16 @@ public class MemberUploadAction {
 		}
 		
 		return true;
+	}
+	
+	@Execute(validator = false)
+	public String download() {
+		try {
+			ResponseUtil.download(new String("memberUpload.csv".getBytes("Shift_JIS"), "ISO-8859-1"),
+					"hname,mail,id,pw".getBytes());
+		} catch (IOException e) {
+			throw new IORuntimeException(e);
+		}
+		return null;
 	}
 }
