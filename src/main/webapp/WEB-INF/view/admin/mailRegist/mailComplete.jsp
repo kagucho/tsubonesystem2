@@ -12,7 +12,7 @@
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
-<div class="container">
+<div class="container CENTER">
 	<h3>${f:h(mailMsg)}</h3>
 <div class="col-sm-12">
 	<div class="col-sm-5 col-sm-offset-3" id="compBtn">

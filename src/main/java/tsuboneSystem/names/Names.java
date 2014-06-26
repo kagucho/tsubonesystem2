@@ -28,7 +28,7 @@ import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/06/26 15:34:28")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/06/26 21:22:18")
 public class Names {
 
     /**

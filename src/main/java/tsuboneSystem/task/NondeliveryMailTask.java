@@ -1,5 +1,7 @@
 package tsuboneSystem.task;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,8 +14,9 @@ import tsuboneSystem.original.util.MailUtil;
 import tsuboneSystem.service.TMemberService;
 
 @Task
-@CronTrigger(expression = "00 00 12 * * ?")
+@CronTrigger(expression = "00 44 23 * * ?")
 public class NondeliveryMailTask extends AbstractTask {
+	
 	@Resource
 	TMemberService tMemberService;
 	
@@ -21,15 +24,19 @@ public class NondeliveryMailTask extends AbstractTask {
 	String getTascName() {
 		return "不到達メールを検索しフラグを立てる";
 	}
-
+	
 	@Override
 	void process() throws Exception {
 		//メールが送れていない人を取得
-		List<TMember> member = tMemberService.findByMailAddres(MailUtil.getFaledSendAddressList().toArray(new String[0]));
+		HashSet<String> sendErrorset  = MailUtil.getFaledSendAddressList();
+		List<TMember> member = new ArrayList<TMember>();
+		for(String one : sendErrorset){
+			member.add(tMemberService.findByEmail(one));
+		}
 		
 		//不到達フラグを書き換えてアップデートを行う
 		for (TMember tMember : member) {
-			tMember.sendErrorFlag = false;
+			tMember.sendErrorFlag = true;
 			tMemberService.update(tMember);
 		}
 	}

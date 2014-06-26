@@ -18,7 +18,7 @@
 <div class="table-responsive">
 	<%@ include file="/WEB-INF/view/common/partyMailFormInput.jsp"%>
 </div>
-<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-6 col-xs-12  btn btn-primary">
+<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12  btn btn-primary">
 </s:form>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

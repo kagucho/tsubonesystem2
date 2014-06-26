@@ -10,7 +10,7 @@
     <link href="${f:url('/css/signin.css')}" type="text/css" rel="stylesheet">
   </head>
 <body>
-<%@ include file="/WEB-INF/view/common/header.jsp"%>
+<%@ include file="/WEB-INF/view/common/indeividualsHeader.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
 <h3>以下の内容でよろしいですか？</h3>
@@ -27,7 +27,7 @@
 
 </table>
 <s:form method="POST" >
-	<input type="submit" value="登録" id="complete" name="complete" property="complete" class="btn btn-primary">
+	<input type="submit" value="登録" id="complete" name="complete" property="complete" class="col-md-4 col-md-offset-4 col-sm-4　col-sm-offset-4 col-xs-12 btn btn-primary">
 </s:form>
 </div>
 </div>

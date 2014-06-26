@@ -157,6 +157,7 @@ public class MemberUpdateAction {
         	
         	//DB更新
         	tMemberService.update(memberUp);
+        	memberForm.id = memberUp.id;
 
         	/** メンバーが所属していた情報を一回削除した上で、選択された部とメンバーのIDをtMemberClubに登録していく。複数なので選択した回数だけレコードを登録する。*/
         	//メンバーが所属していた情報を削除する

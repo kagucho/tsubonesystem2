@@ -49,7 +49,7 @@
 		<div class="alert alert-info">
 			<h4>本日開催予定の会議一覧</h4>
 		</div>
-		<table class="table">
+		<table class="table-responsive">
 			<tr>
 				<th>会議名</th><th>会議内容</th><th>開催場所</th><th>締切日</th>
 			</tr>

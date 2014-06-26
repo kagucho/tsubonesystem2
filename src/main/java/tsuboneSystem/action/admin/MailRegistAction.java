@@ -161,6 +161,7 @@ public class MailRegistAction {
         		tMail.errorFlag = true;
         	}
         	
+        	//DBに書き込む
         	tMailService.insert(tMail);
         	
         	//TMailSendAttendにメールの送信相手を追加する
@@ -170,8 +171,6 @@ public class MailRegistAction {
         		tMailSendMember.memberId = tMemberOne.id;
         		tMailSendMemberService.insert(tMailSendMember);
         	}
-        	
-        	
         }
         return "mailComplete.jsp";
 	}

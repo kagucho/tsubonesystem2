@@ -76,5 +76,13 @@ public class ClubForm implements Serializable {
 
 		/* メールの内容　*/
 		public String content;
+	
+	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
+	public void resetInput() {
+		ClubName = null;
+		deleteFlag = null;
+		OfficerId = null;
+		ClubMemo = null;
+    }
 
 }

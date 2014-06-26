@@ -16,11 +16,13 @@
 package tsuboneSystem.action.admin;
 
 import java.util.HashMap;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+import org.apache.struts.util.TokenProcessor;
 import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
@@ -65,8 +67,11 @@ public class ClubRegistAction {
 	@Resource
 	protected HttpServletRequest request;
 	
-	@Execute(validator = false)
+	@Execute(validator = false, reset = "resetInput")
 	public String index() {
+		
+		// 2重登録防止のためのTokenの生成
+        TokenProcessor.getInstance().saveToken(request);
 		
 		//部長になり得るメンバーのマップを作成する。
 		clubForm.memberMap = new HashMap<String,String>();
@@ -75,8 +80,14 @@ public class ClubRegistAction {
 		 clubForm.memberMap.put(memberOne.id.toString(), memberOne.hname);	
 		}
 		
-        return "clubInput.jsp";
+        return viewinput();
 	}
+	
+	//confirmのバリデータに引っかかった時はここに戻ってくる。(入力した値保持のため)
+    @Execute(validator = false)
+	public String viewinput() {
+    	return "clubInput.jsp";
+    }
     
     @Execute(validator = true, validate="validateBase", input="clubInput.jsp", stopOnValidationError = false)
 	public String confirm() {
@@ -86,24 +97,30 @@ public class ClubRegistAction {
     @Execute(validator = false)
 	public String complete() {
     	
-    	//新しい部長を登録する
-    	TLeaders tLeader = new TLeaders();
-    	tLeader.OfficerKind = Integer.valueOf(LeadersKindCode.getCodeByName("部長"));
-    	tLeader.MemberId = Integer.valueOf(clubForm.OfficerId);
-    	tLeadersService.insert(tLeader);
-    	
-    	//新しいブを登録する
-    	TClub tClub = Beans.createAndCopy(TClub.class, clubForm).execute();	
-    	tClub.deleteFlag = Boolean.valueOf(false);
-    	tClub.LeadersId = tLeader.id;
-    	tClubService.insert(tClub);
-    	
-    	//新しい部の部員一号(必然的に部長)を登録する
-    	TMemberClub memberClub = new TMemberClub();
-    	memberClub.MemberId = Integer.valueOf(clubForm.OfficerId);
-    	memberClub.ClubId = tClub.id;
-    	tMemberClubService.insert(memberClub);
-    	
+    	/** 2重登録防止のためTokenが正常な場合にのみ レコード追加処理を行う	　**/
+        if (TokenProcessor.getInstance().isTokenValid(request, true)){  	
+        	//新しい部長を登録する
+        	TLeaders tLeader = new TLeaders();
+        	tLeader.OfficerKind = Integer.valueOf(LeadersKindCode.getCodeByName("部長"));
+        	tLeader.MemberId = Integer.valueOf(clubForm.OfficerId);
+        	tLeadersService.insert(tLeader);
+        	
+        	//新しいブを登録する
+        	TClub tClub = Beans.createAndCopy(TClub.class, clubForm).execute();	
+        	tClub.deleteFlag = Boolean.valueOf(false);
+        	tClub.LeadersId = tLeader.id;
+        	tClubService.insert(tClub);
+        	
+        	//完了画面から詳細画面のためのID
+        	clubForm.id = tClub.id;
+        	
+        	//新しい部の部員一号(必然的に部長)を登録する
+        	TMemberClub memberClub = new TMemberClub();
+        	memberClub.MemberId = Integer.valueOf(clubForm.OfficerId);
+        	memberClub.ClubId = tClub.id;
+        	tMemberClubService.insert(memberClub);
+        }
+        
         return "clubComplete.jsp";
 	}
     

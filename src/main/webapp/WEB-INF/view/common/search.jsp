@@ -1,4 +1,4 @@
-<div id="searchWindow" class="col-sm-4">
+<div id="searchWindow" class="col-sm-12">
 	<h4>メンバー検索</h4>
 	<s:form method="POST">
 	<form class="form-horizontal">

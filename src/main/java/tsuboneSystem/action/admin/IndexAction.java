@@ -128,13 +128,19 @@ public class IndexAction {
     	myPageForm.tPartyList.addAll(tPartyListYesClub);
     	myPageForm.tPartyList.addAll(tPartyListNoClub);
     	
-    	for (TParty tParty : myPageForm.tPartyList){
-    		TPartyAttend tPartyAttend = tPartyAttendService.findByPartyIdMemberId(tParty.id,loginAdminDto.memberId);
-    		if (tPartyAttend.attend.toString().equals(PartyAttendCode.UNSUBMITTED.getCode())){
-    			//会議に対する出欠席ステータスが未提出だった場合のみ追加
-    			myPageForm.tPartyNoAttendList.add(tParty);
-    		}
+    	if(myPageForm.tPartyList.size() != 0){
+    		for (TParty tParty : myPageForm.tPartyList){
+        		TPartyAttend tPartyAttend = tPartyAttendService.findByPartyIdMemberId(tParty.id,loginAdminDto.memberId);
+        		if(tPartyAttend != null){
+        			//会議が作られた後に加入したメンバーには出欠レコードがない
+        			if (PartyAttendCode.UNSUBMITTED.getCode().equals(tPartyAttend.attend.toString())){
+            			//会議に対する出欠席ステータスが未提出だった場合のみ追加
+            			myPageForm.tPartyNoAttendList.add(tParty);
+            		}
+        		}
+        	}
     	}
+    	
     	
     	//実行日に開催されている会議一覧
     	myPageForm.tPartyToDayList = tPartyService.findBy_MeetingDay_EQ_Now(dateNow);

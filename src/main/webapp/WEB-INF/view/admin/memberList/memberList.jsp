@@ -13,7 +13,7 @@
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
-<div class="col-sm-8">
+<div class="col-sm-12">
 <a class="btn btn-primary" href="<c:url value="/admin/memberRegist/index"/>">新規登録</a>
 <a class="btn btn-primary" href="<c:url value="/admin/memberUpload/index"/>">CSV一括登録</a>
 <s:form method="POST">

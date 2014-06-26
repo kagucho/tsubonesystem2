@@ -104,7 +104,8 @@ public class GoogleCalMain {
      * Google カレンダーAPIを使用して、
      * 登録と登録したデータの参照を行います。
      */
-    private void googleCal() {
+    @SuppressWarnings("boxing")
+	private void googleCal() {
         
         try {
             URL postURL = new URL(GOOGLE_CAL_URL);

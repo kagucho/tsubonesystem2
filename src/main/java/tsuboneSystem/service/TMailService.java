@@ -31,6 +31,6 @@ public class TMailService extends AbstractService<TMail> {
      * @return エンティティのリスト
      */
     public List<TMail> findAllOrderById() {
-        return select().orderBy(desc(id())).getResultList();
+        return select().orderBy(desc(id())).limit(20).getResultList();
     }
 }

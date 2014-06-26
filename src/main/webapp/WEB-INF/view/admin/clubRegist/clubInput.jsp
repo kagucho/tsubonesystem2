@@ -21,7 +21,7 @@
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="ClubName">部の名前&nbsp;<span class="hissu">＊</span></label>
 		<div class="col-sm-8 memberF" >
-			<input type="text" id="ClubName" name="ClubName" property="ClubName" class="form-control" placeholder="ClubName">
+			<input type="text" id="ClubName" name="ClubName" property="ClubName" class="form-control" placeholder="ClubName" value="${ClubName}">
 			<html:errors property="ClubName"/>
 		</div>
 	</div>
@@ -39,7 +39,7 @@
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="ClubMemo">部の概要&nbsp;<span class="hissu">＊</span></label>
 		<div class="col-sm-8 memberF">
-			<textarea class="form-control" name="ClubMemo" rows="10" property="ClubMemo" placeholder="ClubMemo"></textarea>
+			<textarea class="form-control" name="ClubMemo" rows="10" property="ClubMemo" placeholder="ClubMemo" value="${ClubName}">${ClubName}</textarea>
 			<html:errors property="ClubMemo"/>
 		</div>
 	</div>

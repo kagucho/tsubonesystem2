@@ -77,6 +77,18 @@ public class TMemberService extends AbstractService<TMember> {
     	where.eq(deleteFlag(), Boolean.valueOf(false));
         return select().where(where).getResultList();
     }
+	
+	/**
+     * メンバーの一覧を返す
+     * 
+     * @return エンティティのリスト
+     */
+	public TMember findByEmail(String email) {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	where.eq("mail", email);
+        return select().where(where).getSingleResult();
+    }
     
     /**
      * 現役メンバーの一覧を入学年度順に返す
