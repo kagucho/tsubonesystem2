@@ -47,8 +47,20 @@ public class PartyListAction {
     	//期限内
     	partyItemOn = tPartyService.findBy_Deadline_GE_Now(dateNow);
     	
+	    	//(開催日が設定されず、作成日から一ヶ月以内の会議)
+    		List<TParty> partyItemNOMeetingDay = tPartyService.findBy_NOMeetingDay_GE(dateNow);
+			if (partyItemNOMeetingDay.size() != 0 ) {
+				partyItemOn.addAll(partyItemNOMeetingDay);
+			}
+    	
     	//期限外
     	partyItemOff = tPartyService.findBy_Deadline_LE_Now(dateNow);
+    	
+    		//(開催日が設定されず、作成日から一ヶ月以上たった会議)
+    		List<TParty> tPartyNOmeetingDay = tPartyService.findBy_NOMeetingDay_LE(dateNow);
+    		if (tPartyNOmeetingDay.size() != 0 ) {
+    			partyItemOff.addAll(tPartyNOmeetingDay);
+    		}
     	
         return "partyList.jsp";
 	}

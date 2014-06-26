@@ -131,4 +131,46 @@ public class TPartyService extends AbstractService<TParty> {
     	where.eq(meetingDay(), dateNow);
         return select().innerJoin("TMember").where(where).orderBy(desc(id())).getResultList();
     }
+    
+    /**
+     * 実行された日時に対して一ヶ月より前に作成され、開催日が設定されなかった会議のエンティティを検索します。
+     * 
+     * @return エンティティのリスト
+     */
+    public List<TParty> findBy_NOMeetingDay_LE(Date dateNow) {
+    	
+    	//現在時刻に任意の日にち分足す
+    	GregorianCalendar calendar=new GregorianCalendar();
+		calendar.setTime(dateNow);
+		calendar.add(Calendar.MONTH, -1);
+		Date dateadd = new Date();
+		dateadd=calendar.getTime();
+		
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	where.isNull(meetingDay(), Boolean.valueOf(true));
+    	where.le(updateTime(), dateadd);
+        return select().innerJoin("TMember").where(where).orderBy(desc(id())).getResultList();
+    }
+    
+    /**
+     * 実行された日時に対して一ヶ月以内に作成され、開催日が設定されなかった会議のエンティティを検索します。
+     * 
+     * @return エンティティのリスト
+     */
+    public List<TParty> findBy_NOMeetingDay_GE(Date dateNow) {
+    	
+    	//現在時刻に任意の日にち分足す
+    	GregorianCalendar calendar=new GregorianCalendar();
+		calendar.setTime(dateNow);
+		calendar.add(Calendar.MONTH, -1);
+		Date dateadd = new Date();
+		dateadd=calendar.getTime();
+		
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	where.isNull(meetingDay(), Boolean.valueOf(true));
+    	where.ge(updateTime(), dateadd);
+        return select().innerJoin("TMember").where(where).orderBy(desc(id())).getResultList();
+    }
 }
