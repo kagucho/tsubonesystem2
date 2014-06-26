@@ -112,7 +112,7 @@ public class IndexAction {
     	List<TParty> tPartyListYesClub = new ArrayList<TParty>(partySet);
     	
     	//出席対象が部で絞られていない場合の会議一覧
-    	List<TParty> tPartyList = tPartyService.findBy_Deadline_GE_Now(dateNow);
+    	List<TParty> tPartyList = tPartyService.findBy_Deadline_GE_Now(dateNow, loginIndividualsDto.memberId);
     	List<TParty> tPartyListNoClub = new ArrayList<TParty>();
     	for (TParty tPartyOne : tPartyList) {
     		if (tPartyOne.tPartyClubList.size() == 0) {

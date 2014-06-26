@@ -18,7 +18,7 @@
 <div class="table-responsive">
 <table class="table">
 <tr>
-	<th>会議名</th><th class="hidden-xs">必須</th><th>会議日</th><th class="hidden-xs">会議場所</th><th>会議内容</th><th class="hidden-xs">締切日</th><th>出欠席状況</th>
+	<th>会議名</th><th class="hidden-xs">必須</th><th>会議日</th><th class="hidden-xs">会議場所</th><th>出欠席</th><th class="hidden-xs">締切日</th><th>出欠席状況</th>
 	<c:forEach var="e" items="${partyItemOn}">
 		<tr>
 			<td>
@@ -36,7 +36,14 @@
 				${f:h(e.meetingRoom) }
 			</td>
 			<td>
-				${f:h(e.meetingMemo) }
+				<c:if test="${e.tPartyAttendList.size() > 0}">
+					<c:if test="${e.tPartyAttendList.get(0).attend == 1}">
+						<span class="glyphicon glyphicon-ok"></span>
+					</c:if>
+					<c:if test="${e.tPartyAttendList.get(0).attend == 2}">
+						<span class="glyphicon glyphicon-remove"></span>
+					</c:if>
+				</c:if>
 			</td>
 			<td class="hidden-xs">
 				<fmt:formatDate value="${e.meetingDeadlineDay}" pattern="yyyy/MM/dd HH:mm" /><br>
@@ -50,7 +57,7 @@
 <h3>過去の会議</h3>
 <table class="table">
 <tr>
-	<th>会議名</th><th class="hidden-xs">必須</th><th>会議日</th><th class="hidden-xs">会議場所</th><th>会議内容</th><th class="hidden-xs">締切日</th><th>出欠席状況</th>
+	<th>会議名</th><th class="hidden-xs">必須</th><th>会議日</th><th class="hidden-xs">会議場所</th><th>出欠席</th><th class="hidden-xs">締切日</th><th>出欠席状況</th>
 	<c:forEach var="e" items="${partyItemOff}">
 		<tr>
 			<td>
@@ -68,7 +75,14 @@
 				${f:h(e.meetingRoom) }
 			</td>
 			<td>
-				${f:h(e.meetingMemo) }
+				<c:if test="${e.tPartyAttendList.size() > 0}">
+					<c:if test="${e.tPartyAttendList.get(0).attend == 1}">
+						<span class="glyphicon glyphicon-ok"></span>
+					</c:if>
+					<c:if test="${e.tPartyAttendList.get(0).attend == 2}">
+						<span class="glyphicon glyphicon-remove"></span>
+					</c:if>
+				</c:if>
 			</td>
 			<td class="hidden-xs">
 				<fmt:formatDate value="${e.meetingDeadlineDay}" pattern="yyyy/MM/dd HH:mm" /><br>
