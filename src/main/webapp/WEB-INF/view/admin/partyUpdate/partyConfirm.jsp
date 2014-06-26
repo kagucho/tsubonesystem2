@@ -15,9 +15,7 @@
 <div class="container">
 <h3>以下の内容で登録します。よろしいですか？</h3>
 <div class="col-sm-12">
-
-<%@ include file="/WEB-INF/view/common/partyFormConfirm.jsp"%>
-
+	<%@ include file="/WEB-INF/view/common/partyFormConfirm.jsp"%>
 <c:if test="${mailSendFlag}">
 	<h3 class="col-md-4">メール</h3>
 	<table class="table">
@@ -43,7 +41,7 @@
 	</table>
 </c:if>
 <s:form method="POST" >
-<input type="submit" value="登録" id="complete" name="complete" property="complete" class="col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-3 col-xs-12  btn btn-primary">
+	<%@ include file="/WEB-INF/view/common/confirmButton.jsp"%>
 </s:form>
 </div>
 </div>

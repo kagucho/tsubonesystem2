@@ -15,6 +15,7 @@
  */
 package tsuboneSystem.action.admin;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -131,8 +132,14 @@ public class PartyUpdateAction {
         	i++;
         }
 		
-        return "partyInput.jsp";
+        return viewinput();
 	}
+	
+	//confirmのバリデータに引っかかった時はここに戻ってくる。(入力した値保持のため)
+    @Execute(validator = false)
+	public String viewinput() {
+    	return "partyInput.jsp";
+    }
     
     @Execute(validator = true, input = "partyInput.jsp", validate="validateBase", stopOnValidationError = false, reset = "resetInput")
 	public String confirm() {
@@ -194,6 +201,11 @@ public class PartyUpdateAction {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+    	
+    	//現在時刻を取得し、更新日とする。
+       	Date dateNow = new Date();
+       	Timestamp time = new Timestamp(dateNow.getTime());
+       	UpParty.updateTime = time;
     	
     	//DBに書き込む
     	tPartyService.update(UpParty);

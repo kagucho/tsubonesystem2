@@ -82,14 +82,14 @@
 			<label class="control-label col-sm-4" for="attendClub">出席対象者を部に絞る</label>
 			<div class="col-sm-8 memberF">
 				<c:forEach var="e" items="${clubMapSS}">
-					<html:multibox property="attendClub" value="${e.key}" disabled="disabled"/>&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
+					<html:multibox property="attendClub" value="${e.key}" disabled="true"/>&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
 				</c:forEach>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="ObAttendFlag">OB出席</label>
 			<div class="col-sm-8 memberF">
-				<input type="checkbox" id="ObAttendFlag" name="ObAttendFlag" <c:if test="${ObAttendFlag}"> checked="checked"</c:if> value="true" <c:if test="${disabledFlag}">disabled="disabled"</c:if>/>&nbsp;OBも出席対象とする
+				<input type="checkbox" id="ObAttendFlag" name="ObAttendFlag" <c:if test="${ObAttendFlag}"> checked="checked"</c:if> value="true" disabled="disabled"/>&nbsp;OBも出席対象とする
 			</div>
 		</div>
 		<div class="form-group">

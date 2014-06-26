@@ -151,6 +151,9 @@ public class MemberRegistAction {
         	
         	//エンティティの内容をDBに追加する
         	tMemberService.insert(member);
+        	
+        	//完了画面から詳細画面に遷移するためにIDを取得する
+        	memberForm.id = member.id;
         	      	
         	//選択された部とメンバーのIDをtMemberClubに登録していく。複数なので選択した回数だけレコードを登録する。
         	for (String check : memberForm.clubListCheck){

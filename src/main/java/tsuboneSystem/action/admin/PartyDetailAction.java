@@ -80,8 +80,9 @@ public class PartyDetailAction {
          }
     	
     	//現在時刻を取得し、期限内か判断する
-    	Date dateNow = new Date();
-    	partyForm.deadFlag = partyDto.deadFlag(party, dateNow);
+       	Date dateNow = new Date();
+        partyForm.deadFlag = partyDto.deadFlag(party, dateNow);
+         
     	
     	/** 詳細画面にて部の表示のためにmapを作成する　**/
         //登録されている部をすべてリストの形で呼び出す

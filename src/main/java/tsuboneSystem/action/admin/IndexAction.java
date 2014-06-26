@@ -26,6 +26,7 @@ import javax.annotation.Resource;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMemberClub;
@@ -90,6 +91,7 @@ public class IndexAction {
     	//ログインしているメンバー情報
     	myPageForm.tMember = loginAdminDto.tMemberLogin;
     	actionNameSub = myPageForm.tMember.hname;
+    	
     	//ログインしているメンバーの所属部一覧
     	myPageForm.tMemberClubList = tMemberClubService.findByMemberId(loginAdminDto.tMemberLogin.id.toString());
     	myPageForm.tClubList = new ArrayList<TClub>();
@@ -120,16 +122,20 @@ public class IndexAction {
     			tPartyListNoClub.add(tPartyOne);
     			}
     	}
+    	
+    	//以上で得られた会議を一つの一覧とする
     	myPageForm.tPartyList = new ArrayList<TParty>();
     	myPageForm.tPartyList.addAll(tPartyListYesClub);
     	myPageForm.tPartyList.addAll(tPartyListNoClub);
     	
     	for (TParty tParty : myPageForm.tPartyList){
     		TPartyAttend tPartyAttend = tPartyAttendService.findByPartyIdMemberId(tParty.id,loginAdminDto.memberId);
-    		if (tPartyAttend == null){
+    		if (tPartyAttend.attend.toString().equals(PartyAttendCode.UNSUBMITTED.getCode())){
+    			//会議に対する出欠席ステータスが未提出だった場合のみ追加
     			myPageForm.tPartyNoAttendList.add(tParty);
     		}
     	}
+    	
     	//実行日に開催されている会議一覧
     	myPageForm.tPartyToDayList = tPartyService.findBy_MeetingDay_EQ_Now(dateNow);
     	

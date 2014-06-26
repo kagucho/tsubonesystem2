@@ -1,5 +1,6 @@
 package tsuboneSystem.names;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
@@ -13,7 +14,7 @@ import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
  * {@link TParty}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/26 13:48:32")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/26 15:34:28")
 public class TPartyNames {
 
     /**
@@ -122,6 +123,15 @@ public class TPartyNames {
      */
     public static PropertyName<Boolean> deleteFlag() {
         return new PropertyName<Boolean>("deleteFlag");
+    }
+
+    /**
+     * updateTimeのプロパティ名を返します。
+     * 
+     * @return updateTimeのプロパティ名
+     */
+    public static PropertyName<Timestamp> updateTime() {
+        return new PropertyName<Timestamp>("updateTime");
     }
 
     /**
@@ -299,6 +309,15 @@ public class TPartyNames {
          */
         public PropertyName<Boolean> deleteFlag() {
             return new PropertyName<Boolean>(this, "deleteFlag");
+        }
+
+        /**
+         * updateTimeのプロパティ名を返します。
+         *
+         * @return updateTimeのプロパティ名
+         */
+        public PropertyName<Timestamp> updateTime() {
+            return new PropertyName<Timestamp>(this, "updateTime");
         }
 
         /**

@@ -2,6 +2,7 @@
 
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -81,6 +82,11 @@ public class TParty implements Serializable {
     /** 削除フラグ */
     @Column(columnDefinition ="boolean default '0'")
     public Boolean  deleteFlag;
+    
+    /** 最終更新日　*/
+    @Column()
+    @Temporal(TemporalType.TIMESTAMP)
+	public Timestamp updateTime;
     
     /* memberIdをTPatyAttendに結びつける */
     @ManyToOne

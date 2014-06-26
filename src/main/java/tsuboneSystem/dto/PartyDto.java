@@ -69,17 +69,35 @@ public class PartyDto implements Serializable {
 
 	public boolean deadFlag(TParty tParty,Date dateNow) {
 		
-		GregorianCalendar calendar=new GregorianCalendar();
-		calendar.setTime(dateNow);
-		calendar.add(Calendar.DATE, -1);
-		Date dateadd = new Date();
-		dateadd=calendar.getTime();
-		
-		if (tParty.meetingDeadlineDay.after(dateadd)) {
-			return false;
+		if(tParty.meetingDeadlineDay != null){
+			GregorianCalendar calendar=new GregorianCalendar();
+			calendar.setTime(dateNow);
+			calendar.add(Calendar.DATE, -1);
+			Date dateadd = new Date();
+			dateadd=calendar.getTime();
+			
+			
+			if (tParty.meetingDeadlineDay.after(dateadd)) {
+				return false;
+			}else{
+				return true;
+			}
 		}else{
-			return true;
+			//締め切り日が設定されていない会議は編集されてから一ヶ月で締め切りとする
+			GregorianCalendar calendar=new GregorianCalendar();
+			calendar.setTime(dateNow);
+			calendar.add(Calendar.MONTH, -1);
+			Date dateadd = new Date();
+			dateadd=calendar.getTime();
+			
+			
+			if (tParty.updateTime.after(dateadd)) {
+				return false;
+			}else{
+				return true;
+			}
 		}
+		
 	}
 	
 }

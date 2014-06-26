@@ -122,8 +122,14 @@ public class PartyRegistAction {
         	partyForm.clubMapSS.put(club.id.toString(), club.ClubName);
         }
          
-        return "partyInput.jsp";
+        return viewinput();
 	}
+	
+	//confirmのバリデータに引っかかった時はここに戻ってくる。(入力した値保持のため)
+    @Execute(validator = false)
+	public String viewinput() {
+    	return "partyInput.jsp";
+    }
     
 	@Execute(validator = true, input = "partyInput.jsp", validate="validateBase", stopOnValidationError = false, reset = "resetInput") 
 	public String confirm() {
@@ -194,6 +200,9 @@ public class PartyRegistAction {
         	
         	//DBに追加
         	tPartyService.insert(party);
+        	
+        	//完了画面から詳細画面遷移のためにIDを取得
+        	partyForm.id = party.id;
         	
         	if (partyForm.attendClub != null) {
         		//出席対象者に指定があった場合
