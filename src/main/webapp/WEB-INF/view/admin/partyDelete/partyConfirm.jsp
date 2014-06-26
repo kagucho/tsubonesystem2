@@ -15,32 +15,9 @@
 <div class="container">
 <h3 class="col-md-8">以下の内容を削除しますか？</h3>
 <div class="col-sm-12">
-<table class="table">
-	<tr>
-		<th><h4>会議の名前</h4></th>
-		<td><h5>${f:h(meetingName)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>会議の必須判定</h4></th>
-		<td><h5>${f:h(meetingNecessaryFlag)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>会議の開催日時</h4></th>
-		<td><h5>${f:h(meetingDay)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>会議の開催場所</h4></th>
-		<td><h5>${f:h(meetingRoom)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>会議の内容</h4></th>
-		<td><h5>${f:h(meetingMemo)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>会議の締切時間</h4></th>
-		<td><h5>${f:h(meetingDeadlineDay)}</h5></td>
-	</tr>
-</table>
+
+<%@ include file="/WEB-INF/view/common/partyFormConfirm.jsp"%>
+
 <s:form method="POST" >
 <input type="submit" value="削除" id="complete" name="complete" property="complete" class="col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-3 col-xs-12  btn btn-primary">
 </s:form>

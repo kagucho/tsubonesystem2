@@ -102,16 +102,7 @@ public class MailRegistAction {
         	//TMailにメールの内容を追加する
         	TMail tMail = new TMail();
         	Beans.copy(mailForm, tMail).execute();
-        	
-        	
-        	//TMailSendAttendにメールの送信相手を追加する
-        	for (TMember tMemberOne : mailForm.tMemberSendList) {
-        		TMailSendMember tMailSendMember = new TMailSendMember();
-        		tMailSendMember.mailId = tMail.id;
-        		tMailSendMember.memberId = tMemberOne.id;
-        		tMailSendMemberService.insert(tMailSendMember);
-        	}
-        	
+
         	//メールを送信する
         	MailManager manager = new MailManager();
         	manager.setTitle(mailForm.title);
@@ -126,6 +117,14 @@ public class MailRegistAction {
         	}
         	
         	tMailService.insert(tMail);
+        	
+        	//TMailSendAttendにメールの送信相手を追加する
+        	for (TMember tMemberOne : mailForm.tMemberSendList) {
+        		TMailSendMember tMailSendMember = new TMailSendMember();
+        		tMailSendMember.mailId = tMail.id;
+        		tMailSendMember.memberId = tMemberOne.id;
+        		tMailSendMemberService.insert(tMailSendMember);
+        	}
         	
         	
         }

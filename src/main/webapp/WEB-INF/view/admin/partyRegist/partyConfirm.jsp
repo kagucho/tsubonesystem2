@@ -43,7 +43,7 @@
 	</tr>
 	<tr>
 		<th><h4>会議の内容</h4></th>
-		<td><h5>${f:h(meetingMemo)}</h5></td>
+		<td><h5><pre>${f:h(meetingMemo)}</pre></h5></td>
 	</tr>
 	<tr>
 		<th><h4>出席対象者を部に絞る</h4></th>

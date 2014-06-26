@@ -1,10 +1,11 @@
 package tsuboneSystem.entity;
 
 import javax.annotation.Generated;
+
 import org.seasar.extension.jdbc.JdbcManager;
 import org.seasar.extension.unit.S2TestCase;
 
-import static tsuboneSystem.entity.TPartySendMailNames.*;
+import static tsuboneSystem.names.TPartySendMailNames.*;
 
 /**
  * {@link TPartySendMail}のテストクラスです。
@@ -44,7 +45,8 @@ public class TPartySendMailTest extends S2TestCase {
         jdbcManager.from(TPartySendMail.class).leftOuterJoin(tParty()).id(1).getSingleResult();
     }
 
-    /**
+
+	/**
      * tMailとの外部結合をテストします。
      * 
      * @throws Exception
@@ -52,4 +54,5 @@ public class TPartySendMailTest extends S2TestCase {
     public void testLeftOuterJoin_tMail() throws Exception {
         jdbcManager.from(TPartySendMail.class).leftOuterJoin(tMail()).id(1).getSingleResult();
     }
+
 }
