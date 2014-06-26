@@ -10,7 +10,6 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginAdminDto;
-import tsuboneSystem.dto.LoginIndividualsDto;
 import tsuboneSystem.dto.PartyDto;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.form.PartyForm;
@@ -50,23 +49,31 @@ public class PartyListAction {
     	Date dateNow = new Date();
     	
     	//期限内
-    	partyItemOn = tPartyService.findBy_Deadline_GE_Now(dateNow, loginAdminDto.memberId);
+    	partyItemOn = tPartyService.findBy_Deadline_GE_Now(dateNow, getLoginMemberId());
     	
 	    	//(開催日が設定されず、作成日から一ヶ月以内の会議)
-    		List<TParty> partyItemNOMeetingDay = tPartyService.findBy_NOMeetingDay_GE(dateNow, loginAdminDto.memberId);
+    		List<TParty> partyItemNOMeetingDay = tPartyService.findBy_NOMeetingDay_GE(dateNow, getLoginMemberId());
 			if (partyItemNOMeetingDay.size() != 0 ) {
 				partyItemOn.addAll(partyItemNOMeetingDay);
 			}
     	
     	//期限外
-    	partyItemOff = tPartyService.findBy_Deadline_LE_Now(dateNow, loginAdminDto.memberId);
+    	partyItemOff = tPartyService.findBy_Deadline_LE_Now(dateNow, getLoginMemberId());
     	
     		//(開催日が設定されず、作成日から一ヶ月以上たった会議)
-    		List<TParty> tPartyNOmeetingDay = tPartyService.findBy_NOMeetingDay_LE(dateNow, loginAdminDto.memberId);
+    		List<TParty> tPartyNOmeetingDay = tPartyService.findBy_NOMeetingDay_LE(dateNow, getLoginMemberId());
     		if (tPartyNOmeetingDay.size() != 0 ) {
     			partyItemOff.addAll(tPartyNOmeetingDay);
     		}
     	
         return "partyList.jsp";
 	}
+    
+    /**
+     * ログイン者のIDを取得するカットポイント
+     * @return
+     */
+    protected Integer getLoginMemberId() {
+    	return loginAdminDto.memberId;
+    }
 }
