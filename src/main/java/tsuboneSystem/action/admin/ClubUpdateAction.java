@@ -70,8 +70,14 @@ public class ClubUpdateAction {
 			clubForm.memberMap.put(memberOne.id.toString(), memberOne.hname);	
 		}
 				
-        return "clubInput.jsp";
+        return viewinput();
 	}
+	
+	//confirmのバリデータに引っかかった時はここに戻ってくる。(入力した値保持のため)
+    @Execute(validator = false)
+	public String viewinput() {
+    	return "clubInput.jsp";
+    }
     
     @Execute(validator = true, validate="validateBase", input="clubInput.jsp", stopOnValidationError = false)
 	public String confirm() {

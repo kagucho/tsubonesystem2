@@ -77,6 +77,9 @@ public class MemberDetailAction {
         
         /** Idから対象のメンバーが所属している部の一覧を検索する　**/
         memberForm.tMemberClubList = tMemberClubService.findByMemberId(memberForm.id.toString());
+        
+        //パスワードは表示しない
+        memberForm.password = "(パスワードは初期化のみ可能です)";
         	
         return "memberDetail.jsp";
 	}

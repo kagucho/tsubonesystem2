@@ -19,7 +19,7 @@
 <%@ include file="/WEB-INF/view/common/partyFormConfirm.jsp"%>
 
 <s:form method="POST" >
-<input type="submit" value="削除" id="complete" name="complete" property="complete" class="col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-3 col-xs-12  btn btn-primary">
+<input type="submit" value="削除" id="complete" name="complete" property="complete" class="col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-3 col-xs-12  btn btn-danger">
 </s:form>
 </div>
 </div>

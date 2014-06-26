@@ -9,10 +9,10 @@
     <link href="${f:url('/css/layout.css')}" type="text/css" rel="stylesheet">
     <link href="${f:url('/css/signin.css')}" type="text/css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript">
+     <script type="text/javascript">
 	    $(function(){
 	        // 初期表示でチェックボックスが空だったら非表示エリアを隠す
-	        if ($('#check').val() != '1') {
+	        if ('${mailSendFlag}' == 'false') {
 	            $('#mailInput').hide();
 	        }
 	    });
@@ -22,14 +22,18 @@
 	    function hideToggle(hidearea) {
 	        hidearea.toggle(speed);
 	    }
-	</script>
+	    function changehoge(value) {
+	        $("#mailInput").disabled(value); // チェックされたら無効化する
+	        $("#mailInput").val($("#mailInput").disabled()); // 今の無効化状態をhogeに書く
+	    }
+	</script> 
   </head>
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
 <h3>会議の情報を入力してください。</h3>
-<div class="col-sm-12">
+<div class="col-md-12">
 <s:form method="POST" >
 <form class="form-horizontal">
 	<div class="col-sm-12">
@@ -78,14 +82,14 @@
 			<label class="control-label col-sm-4" for="attendClub">出席対象者を部に絞る</label>
 			<div class="col-sm-8 memberF">
 				<c:forEach var="e" items="${clubMapSS}">
-					<html:multibox property="attendClub" value="${e.key}" disabled="true"/>&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
+					<html:multibox property="attendClub" value="${e.key}" disabled="disabled"/>&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
 				</c:forEach>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="ObAttendFlag">OB出席</label>
 			<div class="col-sm-8 memberF">
-				<input type="checkbox" id="ObAttendFlag" name="ObAttendFlag" <c:if test="${ObAttendFlag}"> checked="checked"</c:if> value="true" disabled="disabled"/>&nbsp;OBも出席対象とする
+				<input type="checkbox" id="ObAttendFlag" name="ObAttendFlag" <c:if test="${ObAttendFlag}"> checked="checked"</c:if> value="true" <c:if test="${disabledFlag}">disabled="disabled"</c:if>/>&nbsp;OBも出席対象とする
 			</div>
 		</div>
 		<div class="form-group">
@@ -98,54 +102,14 @@
 		<div class="form-group">
 			<label class="control-label col-sm-4">メール配信可否</label>
 			<div class="col-sm-8 memberF">
-				<input type="checkbox" id="mailSendFlag" name="mailSendFlag" value="mailSendFlag" property="mailSendFlag"  onclick="hideToggle($('#mailInput'));"  <c:if test="${mailSendAllFlag}"> checked="checked"</c:if>/>&nbsp;メールを配信する※チェクしないとメールは配信されません！！
+				<input type="checkbox" id="mailSendFlag" name="mailSendFlag" value="mailSendFlag" property="mailSendFlag"  onclick="hideToggle($('#mailInput'));"  <c:if test="${mailSendFlag}"> checked="checked"</c:if>/>&nbsp;メールを配信する※チェクしないとメールは配信されません！！
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-12">
-		<div id="mailInput">
-			<h4>メールを配信する場合は、送信する相手と内容を入力してください。</h4>
-			<div class="form-group">
-				<label class="control-label col-sm-4" for="mailSendAllFlag">全体に送信する</label>
-				<div class="col-sm-8 memberF">
-					<input type="checkbox" id="mailSendAllFlag"  name="mailSendAllFlag" value="true"  />&nbsp;全員に送信する
-					<html:errors property="sendTo"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-4" for="clubListCheck">部で選択する</label>
-				<div class="col-sm-8 memberF">
-					<c:forEach var="e" items="${clubMapSS}">
-					<html:multibox property="clubListCheck" value="${e.key}" />&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
-					</c:forEach>
-					<html:errors property="sendTo"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-4" for="Title">メールのタイトル&nbsp;<span class="hissu">＊</span></label>
-				<div class="col-sm-8 memberF" >
-					<input type="text" id="title" name="title" property="title" class="form-control" placeholder="Title" value="${title}" >
-					<html:errors property="title"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-4" for="Content">メールの内容&nbsp;<span class="hissu">＊</span></label>
-				<div class="col-sm-8 memberF">
-					<textarea class="form-control" name="content" rows="10" property="content" placeholder="Content" >${f:h(content)}</textarea>
-					<html:errors property="content"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-4" for="mailSendAllFlag">OBにも送信する&nbsp;</label>
-				<div class="col-sm-8 memberF">
-					<input type="checkbox" id="mailSendOBFlag" <c:if test="${mailSendOBFlag}"> checked="checked"</c:if>  name="mailSendOBFlag" value="true" />&nbsp;OBを含める
-				</div>
-			</div>
-		</div>
-	</div>
+	<%@ include file="/WEB-INF/view/common/partyMailFormInput.jsp"%>
 	<div class="form-group">
 			<div class="col-sm-8">
-				<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-3 col-xs-12  btn btn-primary">
+				<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="col-md-5 col-md-offset-6 col-sm-5 col-sm-offset-3 col-xs-12  btn btn-primary">
 			</div>
 		</div>
 </form>

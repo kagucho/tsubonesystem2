@@ -111,8 +111,14 @@ public class MemberUpdateAction {
 		TMember member = tMemberService.findById(memberForm.id);
 		Beans.copy(member, memberForm).excludes("password").execute();
 		
-        return "memberInput.jsp";
+        return viewinput();
 	}
+	
+	//confirmのバリデータに引っかかった時はここに戻ってくる。(入力した値保持のため)
+    @Execute(validator = false)
+	public String viewinput() {
+    	return "memberInput.jsp";
+    }
     
     @Execute(validator = true, validate="validateBase", input="memberInput.jsp", stopOnValidationError = false)
 	public String confirmUp() {

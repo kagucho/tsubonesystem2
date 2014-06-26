@@ -1,4 +1,4 @@
-package tsuboneSystem.entity;
+ package tsuboneSystem.entity;
 
 
 import java.io.Serializable;
@@ -94,5 +94,9 @@ public class TParty implements Serializable {
     /* IdをTPartySendMailに結びつける */
     @OneToMany(mappedBy = "TParty")
     public List<TPartySendMail> tPartySendMailList;
+    
+    /* IdをTPartySendMailに結びつける */
+    @OneToMany(mappedBy = "TParty")
+    public List<TPartyAttend> tPartyAttendList;
     
 }

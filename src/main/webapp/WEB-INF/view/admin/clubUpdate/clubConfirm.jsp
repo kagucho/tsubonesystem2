@@ -30,7 +30,7 @@
 	</tr>
 </table>
 <s:form method="POST" >
-<input type="submit" value="登録" id="complete" name="complete" property="complete" class="btn btn-primary">
+	<%@ include file="/WEB-INF/view/common/confirmButton.jsp"%>
 </s:form>
 </div>
 </div>

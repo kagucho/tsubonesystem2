@@ -5,6 +5,7 @@ import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.names.TMemberNames._TMemberNames;
+import tsuboneSystem.names.TPartyAttendNames._TPartyAttendNames;
 import tsuboneSystem.names.TPartyClubNames._TPartyClubNames;
 import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
 
@@ -12,7 +13,7 @@ import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
  * {@link TParty}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/22 19:38:34")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/26 13:48:32")
 public class TPartyNames {
 
     /**
@@ -148,6 +149,15 @@ public class TPartyNames {
      */
     public static _TPartySendMailNames tPartySendMailList() {
         return new _TPartySendMailNames("tPartySendMailList");
+    }
+
+    /**
+     * tPartyAttendListのプロパティ名を返します。
+     * 
+     * @return tPartyAttendListのプロパティ名
+     */
+    public static _TPartyAttendNames tPartyAttendList() {
+        return new _TPartyAttendNames("tPartyAttendList");
     }
 
     /**
@@ -316,6 +326,15 @@ public class TPartyNames {
          */
         public _TPartySendMailNames tPartySendMailList() {
             return new _TPartySendMailNames(this, "tPartySendMailList");
+        }
+
+        /**
+         * tPartyAttendListのプロパティ名を返します。
+         * 
+         * @return tPartyAttendListのプロパティ名
+         */
+        public _TPartyAttendNames tPartyAttendList() {
+            return new _TPartyAttendNames(this, "tPartyAttendList");
         }
     }
 }

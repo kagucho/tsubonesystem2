@@ -15,33 +15,11 @@
 <div class="container">
 	<h3 class="col-md-4">以下の内容でよろしいですか？</h3>
 	<div class="col-sm-12">
-		<table class="table">
-			<tr>
-				<th><h4>メールのタイトル</h4></th>
-				<td><h5>${f:h(title)}</h5></td>
-			</tr>
-			<tr>
-				<th><h4>メールの内容</h4></th>
-				<td><pre>${f:h(content)}</pre></td>
-			</tr>
-		</table>
-	</div>
-	<div class="col-sm-12">
-		<h4 class="col-md-4">メールを送る相手一覧</h4>
-		<table class="table table-striped">
-			<tr>
-				<th><h4>ハンドルネーム</h4></th><th><h4>本名</h4></th>
-			</tr>
-			<c:forEach var="e" items="${tMemberSendList}">
-				<tr>
-					<td>${f:h(e.hname)}</td><td>${f:h(e.name)}</td>
-				</tr>
-			</c:forEach>
-		</table>
+		<%@ include file="/WEB-INF/view/common/mailFormConfirm.jsp"%>
 	</div>
 <div class="col-sm-12">
 	<s:form method="POST" >
-		<input type="submit" value="送信" id="complete" name="complete" property="complete" class="btn btn-primary">
+		<%@ include file="/WEB-INF/view/common/confirmButton.jsp"%>
 	</s:form>
 </div>
 </div>

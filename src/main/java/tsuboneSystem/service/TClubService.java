@@ -1,5 +1,7 @@
 package tsuboneSystem.service;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -69,5 +71,15 @@ public class TClubService extends AbstractService<TClub> {
     	where.eq(deleteFlag(), Boolean.valueOf(false));
         return select().where(where).getSingleResult();
     }
-
+    
+    public HashMap<String, String> getMapSS(){
+    	this.getClass();
+    	List<TClub> list = findAllOrderById();
+    	//for文でリストのリストの情報を１つずつマップに入れ込んでいく
+        for ( TClub club : list) {
+        	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
+        	getMapSS().put(club.id.toString(), club.ClubName);
+        }
+		return getMapSS();
+    }
 }

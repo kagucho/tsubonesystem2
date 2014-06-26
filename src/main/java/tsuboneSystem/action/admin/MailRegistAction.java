@@ -1,6 +1,9 @@
 package tsuboneSystem.action.admin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -11,14 +14,17 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMail;
 import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
+import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.form.MailForm;
 import tsuboneSystem.original.manager.MailManager;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
+import tsuboneSystem.service.TMemberClubService;
 import tsuboneSystem.service.TMemberService;
 
 public class MailRegistAction {
@@ -46,6 +52,10 @@ public class MailRegistAction {
 	@Resource
 	protected TMemberService tMemberService;
 	
+	/** TMemberのサービスクラス */
+	@Resource
+	protected TMemberClubService tMemberClubService;
+	
 	/** TMailのサービスクラス */
 	@Resource
 	protected TMailService tMailService;
@@ -59,7 +69,7 @@ public class MailRegistAction {
 	protected HttpServletRequest request;
 	
 	/** 入力画面(送信先選択) */
-    @Execute(validator = false)
+    @Execute(validator = false, reset = "resetInput")
 	public String index() {
     	
     	/** 2重送信防止のためのTokenの生成　**/
@@ -67,26 +77,61 @@ public class MailRegistAction {
         
         /* メンバーの一覧を取得する　*/
         mailForm.tMemberItem = tMemberService.findAllOrderById();
+        
+      //登録されている部をすべてリストの形で呼び出す
+        mailForm.clubList = tClubService.findAllOrderById();
+        
+        //マップを作る。形はkey(数値)とvalu(名称)の２個セットの形
+        mailForm.clubMapSS = new HashMap<String,String>();
+        
+        //for文でリストのリストの情報を１つずつマップに入れ込んでいく
+        for ( TClub club : mailForm.clubList) {
+        	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
+        	mailForm.clubMapSS.put(club.id.toString(), club.ClubName);
+        }
  
-        return "index.jsp";
+        return viewinput();
 	}
     
-    /** 入力画面(メール内容) */
+  //confirmのバリデータに引っかかった時はここに戻ってくる。(入力した値保持のため)
     @Execute(validator = false)
-	public String contentRegist() {
-        return "contentRegist.jsp";
-	}
+	public String viewinput() {
+    	return "index.jsp";
+    }
     
     /** 確認画面 */
-    @Execute(validator = false)
+    @Execute(validator = true, input = "index.jsp", validate="validateBase", stopOnValidationError = false, reset = "resetInput")
 	public String confirm() {
     	
-    	mailForm.tMemberSendList = new ArrayList<TMember>();
-    	for (String one : mailForm.memberSelect) {
-    		mailForm.tMemberSendList.add(tMemberService.findById(Integer.valueOf(one)));
-    	}
-    	
-        return "mailConfirm.jsp";
+    	//OBを除いた全員
+		if (mailForm.mailSendAllFlag != null && mailForm.mailSendOBFlag == null) {
+			mailForm.tMemberSendList = tMemberService.findByIdNoOBAll();	
+		//OBを含めた全員
+		}else if (mailForm.mailSendAllFlag != null && mailForm.mailSendOBFlag != null) {
+			mailForm.tMemberSendList = tMemberService.findAllOrderById();	
+		//部で指定されていた場合
+		}else if (mailForm.clubListCheck != null) {
+			mailForm.MemberSendSet = new HashSet<Integer>();
+			//選択された部をひとつ取り、それらに紐づくメンバーIDをsetに入れる
+			for (String cLubIDOne : mailForm.clubListCheck) {
+				List<TMemberClub> tMemberClubList = new ArrayList<TMemberClub>();
+				tMemberClubList = tMemberClubService.findByClubId(cLubIDOne);
+				for (TMemberClub tMemberClubOne : tMemberClubList) {
+					if (mailForm.mailSendOBFlag == null) {
+						if (!tMemberClubOne.tMember.obFlag) {
+    						mailForm.MemberSendSet.add(tMemberClubOne.MemberId);
+    					}	
+					}else{
+						mailForm.MemberSendSet.add(tMemberClubOne.MemberId);
+					}
+				}
+			}
+			mailForm.tMemberSendList = new ArrayList<TMember>();
+			for (Integer one : mailForm.MemberSendSet) {
+				mailForm.tMemberSendList.add(tMemberService.findById(one));
+			}
+		}	
+		return "mailConfirm.jsp";
 	}
     
     /** 完了画面 */

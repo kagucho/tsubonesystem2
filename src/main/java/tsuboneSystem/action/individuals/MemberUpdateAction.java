@@ -109,8 +109,14 @@ public class MemberUpdateAction {
 		Beans.copy(member, memberForm).excludes("password").execute();
 		memberForm.password = null;
 
-        return "memberInput.jsp";
+        return viewinput();
 	}
+	
+	 //confirmのバリデータに引っかかった時はここに戻ってくる。(入力した値保持のため)
+    @Execute(validator = false)
+	public String viewinput() {
+    	return "memberInput.jsp";
+    }
     
     @Execute(validator = true, input="memberInput.jsp")
 	public String confirmUp() {

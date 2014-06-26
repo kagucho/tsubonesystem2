@@ -52,8 +52,8 @@
 	</c:forEach>
 </table>
 </div>
-<input type="submit" value="${f:h(btn1) }" id="confirm" name="confirm" property="confirm" formaction="<c:url value="/admin/partyAttendUpdate/confirm/${btn1Key }"/>" class="btn btn-primary">
-<input type="submit" value="${f:h(btn2) }" id="confirm" name="confirm" property="confirm" formaction="<c:url value="/admin/partyAttendUpdate/confirm/${btn2Key }"/>" class="btn btn-primary">
+<input type="submit" value="${f:h(btn1) }" id="confirm" name="confirm" property="confirm" formaction="<c:url value="/admin/partyAttendUpdate/confirm/${btn1Key }"/>" class="col-md-3 col-md-offset-3 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-primary btnYOKO btnMRC ">
+<input type="submit" value="${f:h(btn2) }" id="confirm" name="confirm" property="confirm" formaction="<c:url value="/admin/partyAttendUpdate/confirm/${btn2Key }"/>" class="col-md-3 col-sm-5 col-xs-12 btn btn-primary">
 </s:form>
 </div>
 </div>

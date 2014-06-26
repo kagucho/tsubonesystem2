@@ -99,11 +99,15 @@ public class PartyRegistAction {
 	
 	public TParty tParty = new TParty();
 	
+	boolean disabledFlag = false;
+	
 	@Execute(validator = false, reset = "resetInput")
 	public String index() {
 		
 		/** 2重登録防止のためのTokenの生成　**/
         TokenProcessor.getInstance().saveToken(request);
+        
+        partyForm.mailSendFlag = false;
         
         /** 詳細画面にて部の表示のためにmapを作成する　**/
         //登録されている部をすべてリストの形で呼び出す
@@ -121,7 +125,7 @@ public class PartyRegistAction {
         return "partyInput.jsp";
 	}
     
-	@Execute(validator = true, input = "partyInput.jsp", validate="validateBase", stopOnValidationError = false) 
+	@Execute(validator = true, input = "partyInput.jsp", validate="validateBase", stopOnValidationError = false, reset = "resetInput") 
 	public String confirm() {
     	
     	if (partyForm.mailSendFlag) {

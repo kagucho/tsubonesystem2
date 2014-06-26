@@ -9,7 +9,7 @@ import tsuboneSystem.names.TLeadersNames._TLeadersNames;
  * {@link TLeadersKind}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/22 19:38:34")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/26 13:48:32")
 public class TLeadersKindNames {
 
     /**

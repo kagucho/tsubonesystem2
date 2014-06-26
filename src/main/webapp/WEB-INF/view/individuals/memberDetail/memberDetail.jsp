@@ -16,57 +16,7 @@
 <h3 class="col-md-4">${f:h(hname)}ちゃんの詳細情報</h3>
 <a class="btn btn-primary col-md-1 col-md-offset-7" href="<c:url value="/individuals/memberUpdate/input"/>/">更新</a>
 <div class="col-sm-12">
-<table class="table">
-	<tr>
-		<th><h4>名前</h4></th>
-		<td><h5>${f:h(name)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>性別</h4></th>
-		<td><h5>${f:h(sexMap[sex])}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>ハンドネーム</h4></th>
-		<td><h5>${f:h(hname)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>メールアドレス</h4></th>
-		<td><h5>${f:h(mail)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>所属部</h4></th>
-		<td>
-			<h5>
-				<c:forEach var="e" items="${tMemberClubList}">
-					${f:h(clubMap[e.ClubId])}
-				</c:forEach>
-			</h5>
-		</td>
-	</tr>
-	<tr>
-		<th><h4>学科</h4></th>
-		<td><h5>${f:h(curriculum)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>電話番号</h4></th>
-		<td><h5>${f:h(tel1)}-${f:h(tel2)}-${f:h(tel3)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>OB宣言</h4></th>
-	　	<td>
-			<c:if test="${obFlag}">
-				<h5>OB宣言済み</h5>
-			</c:if>
-			<c:if test="${!obFlag}">
-				<h5>(現役部員)</h5>
-			</c:if>
-		</td>
-	</tr>
-	<tr>
-		<th><h4>入学年度</h4></th>
-		<td><h5>${f:h(entrance)}</h5></td>
-	</tr>
-</table>
+	<jsp:include page="/WEB-INF/view/common/memberFormConfirm.jsp" flush="true" />
 </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

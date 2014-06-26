@@ -1,0 +1,2 @@
+<input type="submit" value="戻る" id="viewinput" name="viewinput" property="viewinput" class="col-md-3 col-md-offset-3 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-primary btnYOKO btnMRC ">
+<input type="submit" value="登録" id="complete" name="complete" property="complete" class="col-md-3 col-sm-5 col-xs-12 btn btn-primary">

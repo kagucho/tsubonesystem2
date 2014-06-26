@@ -34,9 +34,9 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-sm-8">
-			<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="btn btn-primary">
-		</div>
+		
+			<input type="submit" value="戻る" id="index" name="index" property="index" class="col-md-3 col-md-offset-3 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-primary btnYOKO btnMRC ">
+			<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="col-md-3 col-sm-5 col-xs-12 btn btn-primary">
 	</div>
 </form>
 </s:form>

@@ -103,6 +103,7 @@ public class PartyUpdateAction {
 	@Resource
 	protected HttpServletRequest request;
 	
+	boolean disabledFlag = true;
 	
 	@Execute(validator = false, reset = "resetInput", urlPattern = "{id}")
 	public String input() {
@@ -135,7 +136,7 @@ public class PartyUpdateAction {
     
     @Execute(validator = true, input = "partyInput.jsp", validate="validateBase", stopOnValidationError = false, reset = "resetInput")
 	public String confirm() {
-if (partyForm.mailSendFlag) {
+    	if (partyForm.mailSendFlag) {
     		
     		//OBを除いた全員
     		if (partyForm.mailSendAllFlag != null && partyForm.mailSendOBFlag == null) {

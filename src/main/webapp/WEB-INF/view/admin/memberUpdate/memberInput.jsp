@@ -18,13 +18,14 @@
 <div class="col-sm-12">
 <html:errors property="OfficerCheck"/>
 <s:form method="POST" >
-<form class="form-horizontal">
+	<form class="form-horizontal">
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="name">名前&nbsp;<span class="hissu">＊</span></label>
 		<div class="col-sm-8 memberF" >
 			<input type="text" id="name" name="name" property="name" class="form-control" placeholder="Name" value="${name}">
 			<html:errors property="name"/>
 		</div>
+	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="sex">性別&nbsp;<span class="hissu">＊</span></label>
 		<div class="col-sm-8 memberF">
@@ -105,7 +106,7 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-8">
-			<input type="submit" value="確認" id="confirmUp" name="confirmUp" property="confirmUp" class="col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-3 col-xs-12  btn btn-primary">
+			<input type="submit" value="確認" id="confirmUp" name="confirmUp" property="confirmUp" class="col-md-6 col-md-offset-6 col-sm-6 col-sm-offset-6 col-xs-12  btn btn-primary">
 		</div>
 	</div>
 </form>

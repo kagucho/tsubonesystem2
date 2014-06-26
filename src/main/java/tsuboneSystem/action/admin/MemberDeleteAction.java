@@ -39,7 +39,7 @@ import tsuboneSystem.service.TMemberService;
 
 public class MemberDeleteAction {
 	
-	public String actionName = "MemberUpdate";
+	public String actionName = "MemberDelete";
 	
 	/** Memberのアクションフォーム */
 	@ActionForm
@@ -84,6 +84,9 @@ public class MemberDeleteAction {
         for ( TClub club : memberForm.clubList) {
         	memberForm.clubMap.put(club.id, club.ClubName);
         }
+        
+        //パスワードは表示しない
+        memberForm.password = "(パスワードは初期化のみ可能です)";
        
 		
         return "memberConfirm.jsp";
@@ -92,8 +95,7 @@ public class MemberDeleteAction {
     @Execute(validator = false, validate="validateBase", input="memberConfirm.jsp", stopOnValidationError = false)
 	public String complete() {
     	
-    	TMember member = new TMember();
-    	Beans.copy(memberForm, member).execute();
+    	TMember member = tMemberService.findById(memberForm.id);
     	member.deleteFlag = true;
     	tMemberService.update(member);
     	
