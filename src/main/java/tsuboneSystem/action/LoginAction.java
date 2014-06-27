@@ -86,6 +86,10 @@ public class LoginAction {
             	if (loginIndividualsDto.tMemberLogin.sendErrorFlag) {
             		return "/individuals/memberUpdate/input/?redirect=true";
             	}
+            	//CSV登録で登録されたメンバーだったら更新画面に飛ばす
+            	if(loginIndividualsDto.tMemberLogin.name == null && loginIndividualsDto.tMemberLogin.sex == null){
+            		return "/individuals/memberUpdate/input/?redirect=true";
+            	}
            		return "/individuals/?redirect=true";
         	}
         	

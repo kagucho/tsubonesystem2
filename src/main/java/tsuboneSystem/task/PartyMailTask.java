@@ -3,7 +3,6 @@ package tsuboneSystem.task;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.Resource;
 
 import org.seasar.chronos.core.annotation.task.Task;
@@ -68,15 +67,6 @@ public class PartyMailTask {
 	protected TPartyClubService tPartyClubService;
 	
 	/** 出席対象者 */
-	public List<TMember> tMemberKuzu;
-
-	/** 既出欠者 */
-	public List<TPartyAttend> tAttendOn;
-	
-	/** 未出欠者 */
-	public Map<String, String> mapKuzuSS;
-	
-	/** 出席対象者 */
 	public List<TMember> tSendMember = new ArrayList<TMember>();
 	
 	/** 送信エラーフラグ */
@@ -88,8 +78,14 @@ public class PartyMailTask {
 	/** 3日前 */
 	public final static int TREE_DAY = 3;
 	
+	/** 2日前 */
+	public final static int TWO_DAY = 2;
+	
 	/** 1日前 */
-	public final static int TO_DAY = 1;
+	public final static int ONE_DAY = 1;
+	
+	/** 当日 */
+	public final static int TODAY = 0;
 	
 	
 	// タスク処理
@@ -103,15 +99,27 @@ public class PartyMailTask {
     	sendMail(tPartyListHISSU_FIVE);
     	
     	//出欠必須であり締め切り日の3日前から締め切り日までに存在する会議一覧
-    	List<TParty>  tPartyListHISSU_TREE = tPartyService.findBy_Deadline_PULS_BETWEEN(dateNow, TREE_DAY, true);
+    	List<TParty>  tPartyListHISSU_TREE = tPartyService.findBy_Deadline_PULS(dateNow, TREE_DAY, true);
     	sendMail(tPartyListHISSU_TREE);
+    	
+    	//出欠必須であり締め切り日の2日前から締め切り日までに存在する会議一覧
+    	List<TParty>  tPartyListHISSU_TWO_TREE = tPartyService.findBy_Deadline_PULS(dateNow, TWO_DAY, true);
+    	sendMail(tPartyListHISSU_TWO_TREE);
+    		
+    	//出欠必須であり締め切り日の1日前から締め切り日までに存在する会議一覧
+    	List<TParty>  tPartyListHISSU_ONE_TREE = tPartyService.findBy_Deadline_PULS(dateNow, ONE_DAY, true);
+    	sendMail(tPartyListHISSU_ONE_TREE);
+    	
+    	//出欠必須であり締め切り日当日の会議一覧
+    	List<TParty>  tPartyListHISSU_TODAY = tPartyService.findBy_Deadline_PULS(dateNow, TODAY, true);
+    	sendMail(tPartyListHISSU_TODAY);
     	
     	//締め切り日の3日前の会議一覧
     	List<TParty>  tPartyListTREE = tPartyService.findBy_Deadline_PULS(dateNow, TREE_DAY, false);
     	sendMail(tPartyListTREE);
     	
-    	//締め切り日当日の会議一覧
-    	List<TParty>  tPartyListTODAY = tPartyService.findBy_Deadline_PULS(dateNow, TO_DAY, false);
+    	//締め切り日の1日前の会議一覧
+    	List<TParty>  tPartyListTODAY = tPartyService.findBy_Deadline_PULS(dateNow, TODAY, false);
     	sendMail(tPartyListTODAY);
       
     }
@@ -142,8 +150,10 @@ public class PartyMailTask {
     	    	sbc.append("会議内容: ");
     	    	sbc.append(tPartyOne.meetingMemo);
     	    	sbc.append("\n");
-    	    	sbc.append("開催日時: ");
+    	    	sbc.append("開催日: ");
     	    	sbc.append(tPartyOne.meetingDay);
+    	    	sbc.append("\n");
+    	    	sbc.append("開催時間: ");
     	    	sbc.append(tPartyOne.meetingTime);
     	    	sbc.append("\n");
     	    	sbc.append("締め切り日時: ");
@@ -151,6 +161,12 @@ public class PartyMailTask {
     	    	sbc.append("\n");
     	    	sbc.append("\n");
     	    	sbc.append("以上の会議にまだ出欠を出していません。とっとと出欠を出しましょう。");
+    	    	sbc.append("\n");
+    	    	sbc.append("\n");
+    	    	sbc.append("出欠の提出は以下のサイトにログインしてください。");
+    	    	sbc.append("\n");
+    	    	sbc.append("http://153.121.53.57/TsuboneSystem/login/");
+    	    	sbc.append("\n");
     	    	String content = new String(sbc);
     	    	
     	    	//メールを送信する
@@ -177,9 +193,7 @@ public class PartyMailTask {
             		tMailSendMember.memberId = tMemberOne.id;
             		tMailSendMemberService.insert(tMailSendMember);
             	}
-	
     		}
-    		
     	}
     }
     
