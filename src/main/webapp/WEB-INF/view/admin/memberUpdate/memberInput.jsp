@@ -55,7 +55,7 @@
 		<c:forEach var="e" items="${clubMap}">
 			<html:multibox property="clubListChecked" value="${e.key}"/>&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
 		</c:forEach>
-		<html:errors property="clubListChecked"/>
+		<html:errors property="department"/>
 		</div>
 	</div>
 	<div class="form-group">

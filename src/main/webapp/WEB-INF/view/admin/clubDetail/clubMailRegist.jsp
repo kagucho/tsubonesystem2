@@ -34,7 +34,7 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-8">
-			<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="btn btn-primary">
+			<input type="submit" value="確認" id="confirmMail" name="confirmMail" property="confirmMail" class="col-md-6 col-md-offset-6 col-sm-10 col-sm-offset-4 col-xs-12  btn btn-primary">
 		</div>
 	</div>
 </form>

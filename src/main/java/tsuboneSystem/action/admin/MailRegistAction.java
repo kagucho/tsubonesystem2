@@ -20,6 +20,7 @@ import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.form.MailForm;
+import tsuboneSystem.mail.MailRegistDefault;
 import tsuboneSystem.original.manager.MailManager;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TMailSendMemberService;
@@ -67,6 +68,8 @@ public class MailRegistAction {
 	/** HttpServlet */
 	@Resource
 	protected HttpServletRequest request;
+	
+	//protected  MailRegistDefault mailRegistDefault;
 	
 	/** 入力画面(送信先選択) */
     @Execute(validator = false, reset = "resetInput")
@@ -143,7 +146,12 @@ public class MailRegistAction {
         	
         	//メールの送信者のID
         	mailForm.registMemberId = loginAdminDto.memberId;
-        	
+
+//        	if(mailRegistDefault.mailSend(mailForm.tMemberSendList, mailForm.title, mailForm.content, mailForm.registMemberId)){
+//        		mailMsg = "メールを正常に送信しました。";
+//        	}else{
+//        		mailMsg = "メールの送信に失敗しました。";
+//        	}
         	//TMailにメールの内容を追加する
         	TMail tMail = new TMail();
         	Beans.copy(mailForm, tMail).execute();

@@ -117,7 +117,7 @@ public class ClubDetailAction {
  
     //確認画面
     @Execute(validator = false)
-    public String confirm(){
+    public String confirmMail(){
     	//部の所属する人にメールを送る
     	clubForm.tMemberSendList = clubForm.tMemberList;
     return "clubMailConfirm.jsp";	

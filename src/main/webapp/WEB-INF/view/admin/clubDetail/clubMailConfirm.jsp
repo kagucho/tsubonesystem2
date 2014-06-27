@@ -40,11 +40,9 @@
 	</c:forEach>
 </table>
 </div>
-<div class="col-sm-12">
-	<s:form method="POST" >
-		<input type="submit" value="送信" id="complete" name="complete" property="complete" class="btn btn-primary">
-	</s:form>
-</div>
+<s:form method="POST" >
+	<%@ include file="/WEB-INF/view/common/confirmButton.jsp"%>
+</s:form>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${f:url('/js/bootstrap.min.js')}"></script>
