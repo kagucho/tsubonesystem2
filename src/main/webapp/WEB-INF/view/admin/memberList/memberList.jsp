@@ -18,16 +18,17 @@
 <a class="btn btn-primary" href="<c:url value="/admin/memberUpload/index"/>">CSV一括登録</a>
 <s:form method="POST">
 <div class="table-responsive">
+全部で<strong>${total}件のデータが有ります。</strong>
 <table class="table">
 <tr>
 	<th>名前</th><th>ハンドルネーム</th><th>入学年度</th>
 	<c:forEach var="e" items="${memberItems}">
 		<tr>
 			<td>
-				<a href="<c:url value="/admin/memberDetail/detail"/>/${e.id}">${f:h(e.name) }</a>
+				${f:h(e.name) }
 			</td>
 			<td>
-				${f:h(e.hname) }
+				<a href="<c:url value="/admin/memberDetail/detail"/>/${e.id}">${f:h(e.hname) }</a>
 			</td>
 			<td>
 				${f:h(e.entrance) }
@@ -35,6 +36,12 @@
 		</tr>
 	</c:forEach>
 </table>
+<c:if test="${hasPrev}">
+	<a href="?page=${page - 1}">&lt;前へ</a>
+</c:if>
+<c:if test="${hasNext}">
+	<a href="?page=${page + 1}">次へ&gt;</a>
+</c:if>
 </div>
 </s:form>
 </div>

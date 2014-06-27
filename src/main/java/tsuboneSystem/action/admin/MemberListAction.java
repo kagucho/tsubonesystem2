@@ -15,16 +15,15 @@
  */
 package tsuboneSystem.action.admin;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.seasar.extension.jdbc.JdbcManager;
+import org.seasar.framework.util.IntegerConversionUtil;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
-import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.MemberListForm;
 import tsuboneSystem.service.TClubService;
@@ -47,97 +46,57 @@ public class MemberListAction {
 	@Resource
 	protected TMemberService tMemberService;
 	
-	/** TClubのサービスクラス */
-	@Resource
-	protected TClubService tClubService;
-	
-	/** TMemberClubServiceのサービスクラス */
-	@Resource
-	protected TMemberClubService tMemberClubService;
-	
 	/** 一覧表示件数 */
-	final int PAGE_LIMIT = 10;
+	final int PAGE_LIMIT = 20;
+	
+	@Resource
+	JdbcManager jdbcManager;
+	
+	//次のページがあればTRUE
+	public boolean hasNext = false;
+	
+	//前のページがあればTRUE
+	public boolean hasPrev = false;
+	
+	public long total;
 	
     @Execute(validator = false)
 	public String index() {
-    	
-    	/** 一覧画面にて部の表示のためにmapを作成する　**/
-        //登録されている部をすべてリストの形で呼び出す
-    	memberListForm.clubList = tClubService.findAllOrderById();
-    	
-        //マップを作る。形はkey(数値)とvalu(名称)の２個セットの形
-    	memberListForm.clubMap = new HashMap<Integer,String>();
-    	
-        //for文でリストのリストの情報を１つずつマップに入れ込んでいく
-        for ( TClub club : memberListForm.clubList) {
-        	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
-        	memberListForm.clubMap.put(club.id, club.ClubName);
-        }
-	
-        /**　登録されているメンバーの一覧を取得する。　**/
-    	memberItems = tMemberService.findByAllOrderEntrance();
+        //現在のページ番号
+        int page = IntegerConversionUtil.toPrimitiveInt(this.memberListForm.page);
 
-    	 /**　以下ページャーの作成　**/
-    	// 表示するページ数を計算。
-    	int pgs = memberItems.size() / PAGE_LIMIT;
-    	if (memberItems.size() % PAGE_LIMIT != 0) {
-    		pgs = pgs + 1;
-    	}
-    	
-    	// １から最終ページまでの数字を格納するための配列
-    	int[] allpages = new int[pgs];
-    	for (int i = 0; i < pgs; i++) {
-    		allpages[i] = i + 1;
-    	}
-    	memberListForm.setAllpages(allpages);
-    	
-    	// 指定ページに該当するデータをリストに入れる
-    	ArrayList<TMember> arr = new ArrayList<TMember>();
-    	
-    	// 指定ページ番号を取得
-    	int pages = memberListForm.getPages();
-    	
-    	// 表示させるデータの最初の番号を計算 ３ページ目ならリストの２０番目
-    	int times = PAGE_LIMIT * pages;
-    	
-    	// リストに入っているbeanの分だけループ
-    	for (int l = 0; l < memberItems.size(); l++) {
-    		// 指定ページのデータ番号になったらリストに追加
-    		if (l >= times) {
-    			TMember tMemberOne = memberItems.get(l);
-    			arr.add(tMemberOne);
-    		}
-    		// データ件数が１０件になったら取得終了
-    		if (arr.size() == PAGE_LIMIT) {
-    		break;
-    		}
-    	}
+        //全てのメンバーを取得する
+        memberItems = tMemberService.findByAllOrderEntrance(PAGE_LIMIT, page * PAGE_LIMIT);
+
+        setPagger(tMemberService.findByAllOrderEntrance(-1, -1).size(), page);
     	
         return "memberList.jsp";
+	}
+
+	protected void setPagger(int total, int nowPage) {
+		this.total = total;
+    	//前のページがあるかどうかを判定
+    	if (nowPage != 0) {
+    		hasPrev = true;
+    	}
+    	//次のページが有るかどうかを判定
+    	if ((nowPage + 1) * PAGE_LIMIT < total) {
+    		hasNext = true;
+    	}
 	}
     
     //検索
     @Execute(validator = false)
    	public String onSearch() {
-       	
-       	/** 一覧画面にて部の表示のためにmapを作成する　**/
-           //登録されている部をすべてリストの形で呼び出す
-       	memberListForm.clubList = tClubService.findAllOrderById();
-           //マップを作る。形はkey(数値)とvalu(名称)の２個セットの形
-       	memberListForm.clubMap = new HashMap<Integer,String>();
-           //for文でリストのリストの情報を１つずつマップに入れ込んでいく
-           for ( TClub club : memberListForm.clubList) {
-           	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
-           	memberListForm.clubMap.put(club.id, club.ClubName);
-           }
-
-       /**　登録されているメンバーの検索条件に一致するメンバーを一覧表示する。　**/
-       if (memberListForm.obFlag == null) {   
-    	   memberItems = tMemberService.findBySearch(memberListForm.name,memberListForm.hname,memberListForm.entrance);   
-       }else{
-    	   memberItems = tMemberService.findBySearchOnOB(memberListForm.name,memberListForm.hname,memberListForm.entrance);
-       }
-           return "memberList.jsp";
+    	//現在のページ番号
+        int page = IntegerConversionUtil.toPrimitiveInt(this.memberListForm.page);
+    	
+    	//登録されているメンバーの検索条件に一致するメンバーを一覧表示する。
+    	memberItems = tMemberService.findBySearch(memberListForm, PAGE_LIMIT, page * PAGE_LIMIT);
+    	
+    	setPagger(tMemberService.findBySearch(memberListForm, -1, -1).size(), page);
+    	
+    	return "memberList.jsp";
    	}
     
 }
