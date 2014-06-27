@@ -13,7 +13,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-4" for="meetingDay">会議の開催日</label>
+					<label class="control-label col-sm-4" for="meetingDay">会議の開催日(yyyy/dd/mm:例2014/07/05)</label>
 					<div class="col-sm-8 memberF">
 						<input type="text" id="meetingDay" name="meetingDay" property="meetingDay" class="form-control" placeholder="meetingDay" value="${meetingDay}">
 						<html:errors property="meetingDay"/>
@@ -57,7 +57,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-4" for="meetingDeadlineDay">出欠席締め切り日</label>
+					<label class="control-label col-sm-4" for="meetingDeadlineDay">出欠席締め切り日(yyyy/dd/mm:例2014/07/04)</label>
 					<div class="col-sm-8 memberF">
 						<input type="text" id="meetingDeadlineDay" name="meetingDeadlineDay" property="meetingDeadlineDay" class="form-control" placeholder="meetingDeadlineDay" value="${meetingDeadlineDay}">
 						<html:errors property="meetingDeadlineDay"/>
@@ -66,7 +66,7 @@
 				<div class="form-group">
 					<label class="control-label col-sm-4">メール配信可否</label>
 					<div class="col-sm-8 memberF">
-						<input type="checkbox" name="mailSendFlag" value="mailSendFlag" property="mailSendFlag"  onclick="hideToggle($('#mailInput'));" <c:if test="${mailSendFlag}"> checked="checked"</c:if>/>&nbsp;メールを配信する※チェクしないとメールは配信されません！！
+						<input type="checkbox" name="mailSendFlag" value="mailSendFlag" property="mailSendFlag"  onclick="hideToggle($('#mailInput'));" <c:if test="${mailSendFlag}"> checked="checked"</c:if>/>&nbsp;メールを配信する※チェックしないとメールは配信されません！！
 					</div>
 				</div>
 			</div>

@@ -4,7 +4,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-4" for="mailSendAllFlag">全体に送信する</label>
 				<div class="col-sm-8 memberF">
-					<input type="checkbox" id="mailSendAllFlag"  name="mailSendAllFlag" value="true"  />&nbsp;全員に送信する
+					<input type="checkbox" id="mailSendAllFlag"  name="mailSendAllFlag" value="true"  />&nbsp;全員に送信する(対象者関係なく全員に送信されます)
 					<html:errors property="sendTo"/>
 				</div>
 			</div>

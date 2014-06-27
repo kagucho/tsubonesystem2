@@ -51,19 +51,26 @@ public class TMemberClubService extends AbstractService<TMemberClub> {
     
     /**
      * ClubIdですべてのエンティティを検索します。
-     * 
+     * @param containsOb OBを含めるならTRUE
      * @return エンティティのリスト
      */
-    public List<TMemberClub> findByClubId(String clubId) {
+    public List<TMemberClub> findByClubId(String clubId, boolean containsOb) {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(ClubId(),clubId);
         return select()
         		.where(where)
-        		.innerJoin(
-        				"TMember",
-        				new SimpleWhere().eq("TMember.deleteFlag", Boolean.valueOf(false)))
+        		.innerJoin("TMember", getWhereMember(containsOb))
         		.getResultList();
     }
+
+	private SimpleWhere getWhereMember(boolean containsOb) {
+		SimpleWhere where = new SimpleWhere().eq("TMember.deleteFlag", Boolean.valueOf(false));
+		//OBを含めないなら検索条件に含める
+		if (!containsOb) {
+			where.eq("TMember.obFlag", Boolean.valueOf(false));
+		}
+		return where; 
+	}
     
     /**
      * ClubIdですべてのエンティティを検索し、紐づくメンバーの内、OBでなく、削除されていないメンバーをinnerjoin。

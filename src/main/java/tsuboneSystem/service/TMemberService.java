@@ -16,6 +16,7 @@ import java.util.Map;
 
 import javax.annotation.Generated;
 
+import org.seasar.extension.jdbc.AutoSelect;
 import org.seasar.extension.jdbc.where.SimpleWhere;
 
 import tsuboneSystem.entity.TMember;
@@ -54,10 +55,34 @@ public class TMemberService extends AbstractService<TMember> {
         return select().where(where).getSingleResult();
     }
     
+    /**
+     * 全ての会員を検索します。
+     * @param containsOB OBを含めるならTRUE
+     * @return
+     */
+    public List<TMember> findAllOrderById(boolean containsOB) {
+    	SimpleWhere where = new SimpleWhere();
+    	//OBを含めない時
+    	if (!containsOB) {
+    		where.eq(deleteFlag(), Boolean.valueOf(false));
+    	}
+        return select().where(where).orderBy(asc(id())).getResultList();
+    }
+    
+    /**
+     * 識別子の昇順ですべてのエンティティを検索します。
+     * @deprecated 今後は{@link TMemberService#findAllOrderById(boolean)}の引数をtrueにして使ってください
+     * @return エンティティのリスト
+     */
+    public List<TMember> findAllOrderById() {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+        return select().where(where).orderBy(asc(id())).getResultList();
+    }
     
     /**
      * OB宣言していないメンバーの一覧を返す
-     * 
+     * @deprecated 今後は{@link TMemberService#findAllOrderById(boolean)}の引数をfalseにして使ってください
      * @return エンティティのリスト
      */
 	public List<TMember> findByIdNoOBAll() {
@@ -100,36 +125,18 @@ public class TMemberService extends AbstractService<TMember> {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(obFlag(), Boolean.toString(false));
     	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	AutoSelect<TMember> autoSelect = select()
+    			.where(where)
+    			.orderBy(asc(id()))
+				.orderBy(asc(hname()))
+				.orderBy(desc(entrance()));
     	if (limit == -1 || offset == -1) {
-    		return select()
-    				.where(where)
-    				.orderBy(asc(id()))
-    				.orderBy(asc(hname()))
-    				.orderBy(desc(entrance()))
-    				.getResultList();
+    		return autoSelect.getResultList();
     	} else {
-    		return select()
-    				.where(where)
-    				.orderBy(asc(id()))
-    				.orderBy(asc(hname()))
-    				.orderBy(desc(entrance()))
-    				.limit(limit)
-    				.offset(offset)
-    				.getResultList();
+    		return autoSelect.limit(limit).offset(offset).getResultList();
     	}
     }
 
-    /**
-     * 識別子の昇順ですべてのエンティティを検索します。
-     * 
-     * @return エンティティのリスト
-     */
-    public List<TMember> findAllOrderById() {
-    	SimpleWhere where = new SimpleWhere();
-    	where.eq(deleteFlag(), Boolean.valueOf(false));
-        return select().where(where).orderBy(asc(id())).getResultList();
-    }
-    
     /**
      * userNmaeですべてのエンティティを検索します。loginに使用
      * 
@@ -196,25 +203,17 @@ public class TMemberService extends AbstractService<TMember> {
     	
     	//削除済みを入れないのは共通処理
     	where = where.eq(deleteFlag(), Boolean.valueOf(false));
-    	
+    	AutoSelect<TMember> autoSelect = select().where(where).orderBy(asc(id()));
     	if (limit == -1 || offset == -1) {
-    		return select()
-    				.where(where)
-    				.orderBy(asc(id()))
-    				.getResultList();
+    		return autoSelect.getResultList();
     	} else {
-    		return select()
-    				.where(where)
-    				.orderBy(asc(id()))
-    				.limit(limit)
-    				.offset(offset)
-    				.getResultList();
+    		return autoSelect.limit(limit).offset(offset).getResultList();
     	}
     }
     
     /**
      * OB宣言していないメンバーのマップを返す
-     * 
+     * @deprecated 無限ループします
      * @return Map
      */
     public Map<String,String> getMemberMap(){
