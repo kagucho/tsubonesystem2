@@ -16,8 +16,6 @@
 <div class="container">
 <div class="col-sm-12">
 <s:form method="POST">
-<!-- このhiddenタグは絶対に消さないでください -->
-<html:hidden property="referePage" value="memberList" />
 
 <div class="table-responsive">
 <table class="table">

@@ -16,6 +16,7 @@ import java.util.Map;
 
 import javax.annotation.Generated;
 
+import org.seasar.extension.jdbc.AutoSelect;
 import org.seasar.extension.jdbc.where.SimpleWhere;
 
 import tsuboneSystem.entity.TMember;
@@ -100,22 +101,15 @@ public class TMemberService extends AbstractService<TMember> {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(obFlag(), Boolean.toString(false));
     	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	AutoSelect<TMember> autoSelect = select()
+    			.where(where)
+    			.orderBy(asc(id()))
+				.orderBy(asc(hname()))
+				.orderBy(desc(entrance()));
     	if (limit == -1 || offset == -1) {
-    		return select()
-    				.where(where)
-    				.orderBy(asc(id()))
-    				.orderBy(asc(hname()))
-    				.orderBy(desc(entrance()))
-    				.getResultList();
+    		return autoSelect.getResultList();
     	} else {
-    		return select()
-    				.where(where)
-    				.orderBy(asc(id()))
-    				.orderBy(asc(hname()))
-    				.orderBy(desc(entrance()))
-    				.limit(limit)
-    				.offset(offset)
-    				.getResultList();
+    		return autoSelect.limit(limit).offset(offset).getResultList();
     	}
     }
 
@@ -196,25 +190,17 @@ public class TMemberService extends AbstractService<TMember> {
     	
     	//削除済みを入れないのは共通処理
     	where = where.eq(deleteFlag(), Boolean.valueOf(false));
-    	
+    	AutoSelect<TMember> autoSelect = select().where(where).orderBy(asc(id()));
     	if (limit == -1 || offset == -1) {
-    		return select()
-    				.where(where)
-    				.orderBy(asc(id()))
-    				.getResultList();
+    		return autoSelect.getResultList();
     	} else {
-    		return select()
-    				.where(where)
-    				.orderBy(asc(id()))
-    				.limit(limit)
-    				.offset(offset)
-    				.getResultList();
+    		return autoSelect.limit(limit).offset(offset).getResultList();
     	}
     }
     
     /**
      * OB宣言していないメンバーのマップを返す
-     * 
+     * @deprecated 無限ループします
      * @return Map
      */
     public Map<String,String> getMemberMap(){
