@@ -13,8 +13,6 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.container.annotation.tiger.InstanceType;
-import org.seasar.struts.annotation.DateType;
-import org.seasar.struts.annotation.Maxlength;
 import org.seasar.struts.annotation.Msg;
 import org.seasar.struts.annotation.Required;
 
@@ -44,12 +42,14 @@ public class PartyForm implements Serializable{
 	public String[] attendClub = new String[0];
 	
 	/** 会議日時　*/
-	@Maxlength(maxlength=10)
-	@DateType(datePatternStrict="yyyy/MM/dd",msg=@Msg(key="errors.date", resource=true))
+	//オリジナルチェックの方でチェックしているのでチェックしない
+//	@Maxlength(maxlength=10)
+//	@DateType(datePatternStrict="yyyy/MM/dd",msg=@Msg(key="errors.date", resource=true))
 	public String meetingDay;
 	
 	/** 会議時間　*/
-	@DateType(datePattern = "HH:mm",msg=@Msg(key="errors.time", resource=true))
+	//オリジナルチェックの方でチェックしているのでチェックしない
+//	@DateType(datePattern = "HH:mm",msg=@Msg(key="errors.time", resource=true))
 	public String meetingTime;
 	
 	/** 会議場所　*/
@@ -60,7 +60,8 @@ public class PartyForm implements Serializable{
 	public String meetingMemo;
 	
 	/** 会議出欠席締め切り日　*/
-	@DateType(datePatternStrict="yyyy/MM/dd",msg=@Msg(key="errors.date", resource=true))
+	//オリジナルチェックの方でチェックしているのでチェックしない
+//	@DateType(datePatternStrict="yyyy/MM/dd",msg=@Msg(key="errors.date", resource=true))
 	public String meetingDeadlineDay;
 	
 	
@@ -161,66 +162,45 @@ public class PartyForm implements Serializable{
         	}
         	
         }
-		
-		//会議日は過去にはできない
-		if (!meetingDay.isEmpty()) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		    Date mDay = null;
-		    Date dateNow = new Date();
-		    
-		    // 日付を作成します。
-		    try {
-		        mDay = sdf.parse(meetingDay);
-		    } catch (ParseException e) {
-//		        e.printStackTrace();
-		    }
-			
-		    // 日付をlong値に変換します。
-		    long dateTimeMDay = mDay.getTime();
-		    long now = dateNow.getTime();
-		    
-		   
-		    if (dateTimeMDay < now) {
-		    	errors.add("meetingDay",new ActionMessage("過去に会議を予定したければタイムマシンを作ってからにしてください",false));
-		    }
-		}
-		
-		//締め切り日を過去にはできない
-		if (!meetingDeadlineDay.isEmpty()) {
-			
-			//締め切りが設定されている時は開催日を空白にできない
-			if (meetingDay.isEmpty()) {
+        
+        //開催日が空の時の処理
+		if (meetingDay.isEmpty()) {
+			if (!meetingTime.isEmpty()) {
+				errors.add("meetingDay",new ActionMessage("開始時間を入力するときは開催日も入力してください。",false));
+			}
+			if (!meetingDeadlineDay.isEmpty()) {
 				errors.add("meetingDay",new ActionMessage("締め切りが決まっている場合には、開催日は必須です",false));
 			}
-			if (meetingTime.isEmpty()) {
-				errors.add("meetingTime",new ActionMessage("締め切りが決まっている場合には、開催時間は必須です",false));
-			}
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		    Date dDay = null;
-		    Date dateNow = new Date();
-				    
-		    // 日付を作成します。
-		    try {
-		        dDay = sdf.parse(meetingDeadlineDay);
-		        
-		    } catch (ParseException e) {
-		        e.printStackTrace();
-		    }
-					
-		    // 日付をlong値に変換します。
-		    
-		    long dateTimeDDay = dDay.getTime();
-		    long now = dateNow.getTime();
-			
-		   	if (dateTimeDDay < now) {
-		   		errors.add("meetingDeadlineDay",new ActionMessage("過去に会議を予定したければタイムマシンを作ってからにしてください",false));
-	    	}
 		}
 		
-		//会議日と締め切り日の間は五日以上離れていなければならない
-		if (!meetingDeadlineDay.isEmpty() && !meetingDay.isEmpty()) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		
+		// 会議日は過去にはできない
+		if (!meetingDay.isEmpty()) {
+			try {
+				Date mDay = sdf.parse(meetingDay);
+				if (mDay.before(new Date())) {
+					errors.add("meetingDay", new ActionMessage("過去に会議を予定したければタイムマシンを作ってからにしてください", false));
+				}
+			} catch (ParseException e) {
+				errors.add("meetingDay", new ActionMessage("開催日はyyyy/mm/ddで入力する必要があります。(例:2014/05/11)", false));
+			}
+		}
+		
+		// 締め切り日を過去にはできない
+		if (!meetingDeadlineDay.isEmpty()) {
+			try {
+				Date dDay = sdf.parse(meetingDeadlineDay);
+				if (dDay.before(new Date())) {
+					errors.add("meetingDeadlineDay", new ActionMessage("過去に会議を予定したければタイムマシンを作ってからにしてください", false));
+				}
+			} catch (ParseException e) {
+				errors.add("meetingDeadlineDay", new ActionMessage("締切日はyyyy/mm/ddで入力する必要があります。(例:2014/05/12)", false));
+			}
+		}
+		
+		if (!meetingDeadlineDay.isEmpty() && !meetingDay.isEmpty() 
+				&& errors.size("meetingDay") == 0 && errors.size("meetingDeadlineDay") == 0) {
 		    Date mDay = null;
 		    Date dDay = null;
 		    
@@ -229,35 +209,25 @@ public class PartyForm implements Serializable{
 		        dDay = sdf.parse(meetingDeadlineDay);
 		        mDay = sdf.parse(meetingDay);
 		    } catch (ParseException e) {
-		        e.printStackTrace();
+		    	//上でチェックしているので起こりえない
 		    }
 			
-		    // 日付をlong値に変換します。
-		    long dateTimeMDay = mDay.getTime();
-		    long dateTimeDDay = dDay.getTime();
-		    
 		    //開催日と締め切り日の差を取り割る
-		    if (dateTimeMDay > dateTimeDDay) {
-			   	 long dayDiff = ( dateTimeMDay - dateTimeDDay  ) / (1000 * 60 * 60 * 24);
-			   	 if (dayDiff < 5) {
-			   		 errors.add("meetingDay",new ActionMessage("会議の開催日と締め切り日は5日以上離れていなければなりません",false));
-			   		 errors.add("meetingDeadlineDay",new ActionMessage("会議の開催日と締め切り日は5日以上離れていなければなりません",false));
-			   	 }
-		    }else{
+		    if (dDay.before(mDay)) {
 		    	errors.add("meetingDay",new ActionMessage("締め切りの方が開催日より後になるとか意味がわかりません",false));
 			    errors.add("meetingDeadlineDay",new ActionMessage("締め切りの方が開催日より後になるとか意味がわかりません",false));
 			}
 		}
 		
-		//日時の空白確認(開催日)
-		if (meetingDay.isEmpty() && !meetingTime.isEmpty()) {
-			//どちらか一方を空白にはできない
-			errors.add("meetingDay",new ActionMessage("日時はどちらかを空白にはできません",false));
-		}else if (!meetingDay.isEmpty() && meetingTime.isEmpty()) {
-			//どちらか一方を空白にはできない
-			errors.add("meetingTime",new ActionMessage("日時はどちらかを空白にはできません",false));
+		//型チェック
+		if (!meetingTime.isEmpty()) {
+			try {
+				new SimpleDateFormat("HH:mm").parse(meetingTime);
+			} catch (ParseException e) {
+				errors.add("meetingTime",new ActionMessage("開催時間はhh:mmで入力する必要があります。(例：09:21)",false));
+			}
 		}
-	
+		
         return errors;
     }
 	

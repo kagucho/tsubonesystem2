@@ -37,7 +37,8 @@
 		</tr>
 		<c:forEach var="e" items="${tMemberSendList}">
 			<tr>
-				<td>${f:h(e.hname)}</td><td>${f:h(e.name)}</td>
+				<td>${f:h(e.hname)}<c:if test="${e.obFlag}"><font color="blue">(OB)</font></c:if></td>
+				<td>${f:h(e.name)}</td>
 			</tr>
 		</c:forEach>
 	</table>

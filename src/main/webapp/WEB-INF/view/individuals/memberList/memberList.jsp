@@ -18,18 +18,18 @@
 <s:form method="POST">
 
 <div class="table-responsive">
-<table class="table">
-<tr>
+<table class="table table-bordered">
+<tr class="info">
 <th></th><th>名前</th><th>ハンドルネーム</th><th>入学年度</th>
 		<tr>
-			<td>
+			<td align="center">
 				<a href="<c:url value="/individuals/memberDetail/detail"/>/${loginMember.id}"><span class="glyphicon glyphicon-user"></span></a>
 			</td>
 			<td>
 				${f:h(loginMember.name) }
 			</td>
 			<td>
-				${f:h(loginMember.hname) }
+				<a href="<c:url value="/individuals/memberDetail/detail"/>/${loginMember.id}">${f:h(loginMember.hname) }</a>
 			</td>
 			<td>
 				${f:h(loginMember.entrance) }
@@ -46,7 +46,7 @@
 	<a href="?page=${page + 1}">次へ<span class="glyphicon glyphicon-chevron-right"></span></a>
 </c:if>
 <table class="table">
-<tr>
+<tr class="info">
 	<th></th><th>名前</th><th>ハンドルネーム</th><th>入学年度</th>
 	<c:forEach var="e" items="${memberItems}">
 		<tr>

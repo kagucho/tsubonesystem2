@@ -186,7 +186,7 @@ public class PartyRegistAction {
         		party.meetingTime = new SimpleDateFormat("HH:mm").parse(partyForm.meetingTime);
         		party.meetingDeadlineDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDeadlineDay);
 			} catch (ParseException e) {
-				//TODO エラー処理
+				//起こりえない
 				e.printStackTrace();
 			}
         	party.deleteFlag = Boolean.valueOf(false);
@@ -218,13 +218,16 @@ public class PartyRegistAction {
         	
         	tParty = new TParty();
         	tParty = party;
+        	
+	        //メールの送信がない場合はそのまま完了画面に遷移
+	        if (!partyForm.mailSendFlag) {
+	        	return "partyComplete.jsp";	
+	        }else {
+				return sendMail();
+			}
+        } else {
+        	return "/common/error.jsp";
         }
-        //メールの送信がない場合はそのまま完了画面に遷移
-        if (!partyForm.mailSendFlag) {
-        	return "partyComplete.jsp";	
-        }else {
-			return sendMail();
-		}
 	}
 
 	/**
