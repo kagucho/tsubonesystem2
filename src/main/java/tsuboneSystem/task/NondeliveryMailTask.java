@@ -14,7 +14,7 @@ import tsuboneSystem.original.util.MailUtil;
 import tsuboneSystem.service.TMemberService;
 
 @Task
-@CronTrigger(expression = "00 44 23 * * ?")
+@CronTrigger(expression = "00 00 12 * * ?")
 public class NondeliveryMailTask extends AbstractTask {
 	
 	@Resource

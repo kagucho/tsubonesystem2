@@ -70,14 +70,16 @@ public class PartyDeleteAction {
     	Beans.copy(partyForm, partyDelete).excludes("meetingDay","meetingTime","meetingDeadlineDay","meetingDeadlineTime").execute();
     	//日付と日時をString型からDate型に変換
     	try {
-			Date meetingDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDay.toString()).getTime());
-			Date meetingTime = new Date(new SimpleDateFormat("HH:mm").parse(partyForm.meetingTime.toString()).getTime());
-			Date meetingDeadlineDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDeadlineDay.toString()).getTime());
-			
-			partyDelete.meetingDay = meetingDay;
-			partyDelete.meetingTime = meetingTime;
-			partyDelete.meetingDeadlineDay = meetingDeadlineDay;
-			
+    		if(partyForm.meetingDay != null){
+    			Date meetingDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDay.toString()).getTime());
+    			Date meetingTime = new Date(new SimpleDateFormat("HH:mm").parse(partyForm.meetingTime.toString()).getTime());
+    			partyDelete.meetingDay = meetingDay;
+    			partyDelete.meetingTime = meetingTime;
+    		}
+			if(partyForm.meetingDeadlineDay != null){
+				Date meetingDeadlineDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDeadlineDay.toString()).getTime());
+				partyDelete.meetingDeadlineDay = meetingDeadlineDay;
+			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

@@ -120,7 +120,7 @@ public class MemberUpdateAction {
     	return "memberInput.jsp";
     }
     
-    @Execute(validator = true, validate="validateBase", input="memberInput.jsp", stopOnValidationError = false)
+    @Execute(validator = true, validate="validateBase", input="memberInput.jsp", stopOnValidationError = false, reset = "resetInput")
 	public String confirmUp() {
     	
     	/** 詳細画面にて部の表示のためにmapを作成する　**/
@@ -183,6 +183,17 @@ public class MemberUpdateAction {
     	
         ActionMessages errors = new ActionMessages();
     	
+        // userNameの重複チェック
+        TMember tMember = tMemberService.findByUserName(memberForm.userName);	
+		if (tMember != null && !tMember.id.equals(memberForm.id)) {
+			errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
+		}
+		
+		//所属部の必須チェック
+		if(memberForm.clubListChecked.size() == 0){
+			errors.add("department",new ActionMessage("部の選択は必須です。",false));
+		}
+        
     	//選択されたMemberが現役の部長以上の役職に付いている場合、連絡先をすべて登録しているかを確認する。
     	List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(memberForm.id);
     	if (tLeadersList.size() > 0) {
