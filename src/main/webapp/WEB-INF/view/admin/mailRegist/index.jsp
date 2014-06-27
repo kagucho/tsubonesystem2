@@ -13,7 +13,7 @@
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
-<h3>送信するメンバーを選択してください。</h3>
+<h3>メール内容作成</h3>
 <s:form method="POST">
 <div class="table-responsive">
 	<%@ include file="/WEB-INF/view/common/partyMailFormInput.jsp"%>

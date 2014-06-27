@@ -15,12 +15,31 @@
  */
 package tsuboneSystem.action;
 
+import javax.annotation.Resource;
+
+import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
+
+import tsuboneSystem.form.TopForm;
+import tsuboneSystem.service.TClubService;
 
 public class IndexAction {
 	
+	/** TopFormのアクションフォーム */
+	@ActionForm
+	@Resource
+	protected TopForm topForm;
+	
+	/** TClubServiceのサービスクラス */
+	@Resource
+	protected TClubService tClubService;
+	
     @Execute(validator = false)
 	public String index() {
+    	
+    	//部の紹介のために一覧を取得する
+    	topForm.clubList = tClubService.findAllOrderById();
+    	
         return "index.jsp";
 	}
 }
