@@ -106,7 +106,13 @@ public class ClubDetailAction {
     public String contentRegist(){	
     	// 2重送信防止のためのTokenの生成
         TokenProcessor.getInstance().saveToken(request);
-    return "clubMailRegist.jsp";	
+    return viewinput();	
+    }
+    
+  //confirmのバリデータに引っかかった時はここに戻ってくる。(入力した値保持のため)
+    @Execute(validator = false)
+	public String viewinput() {
+    	return "clubMailRegist.jsp";
     }
  
     //確認画面

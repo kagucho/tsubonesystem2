@@ -16,10 +16,10 @@ import java.util.Map;
 
 import javax.annotation.Generated;
 
-import org.seasar.extension.jdbc.where.ComplexWhere;
 import org.seasar.extension.jdbc.where.SimpleWhere;
 
 import tsuboneSystem.entity.TMember;
+import tsuboneSystem.form.MemberListForm;
 import tsuboneSystem.original.util.DigestUtil;
 
 /**
@@ -91,20 +91,32 @@ public class TMemberService extends AbstractService<TMember> {
     }
     
     /**
-     * 現役メンバーの一覧を入学年度順に返す
-     * 
+     * 現役メンバーの一覧を入学年度順に返す。引数のどちらかが-1の時は全件検索します
+     * @param limit
+     * @param offset
      * @return エンティティのリスト
      */
-    public List<TMember> findByAllOrderEntrance() {
+    public List<TMember> findByAllOrderEntrance(int limit, int offset) {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(obFlag(), Boolean.toString(false));
     	where.eq(deleteFlag(), Boolean.valueOf(false));
-        return select()
-        		.where(where)
-        		.orderBy(asc(id()))
-        		.orderBy(asc(hname()))
-        		.orderBy(desc(entrance()))
-        		.getResultList();
+    	if (limit == -1 || offset == -1) {
+    		return select()
+    				.where(where)
+    				.orderBy(asc(id()))
+    				.orderBy(asc(hname()))
+    				.orderBy(desc(entrance()))
+    				.getResultList();
+    	} else {
+    		return select()
+    				.where(where)
+    				.orderBy(asc(id()))
+    				.orderBy(asc(hname()))
+    				.orderBy(desc(entrance()))
+    				.limit(limit)
+    				.offset(offset)
+    				.getResultList();
+    	}
     }
 
     /**
@@ -151,72 +163,55 @@ public class TMemberService extends AbstractService<TMember> {
     }
     
     /**
-     * 検索条件ですべてのエンティティを検索します。(OB抜き)
-     * 
+     * 検索条件ですべてのエンティティを検索します。もしlimitとoffsetのどちらかが-1の場合は全てのデータを検索します。
+     * @param memberListForm 検索条件格納
      * @return エンティティのリスト
      */
-    public List<TMember> findBySearch(String name,String hname, String entrance) {
-    	//以下から文字をNULLに置き換える
-    	if (name.isEmpty()) {
-    		name = null;
+    public List<TMember> findBySearch(MemberListForm memberListForm, int limit, int offset) {
+    	//検索条件：名前
+    	String name = memberListForm.name;
+    	//検索条件：ハンドルネーム
+    	String hname = memberListForm.hname;
+    	//検索条件：入学年度
+    	String entrance = memberListForm.entrance;
+    	//検索条件：OBフラグ
+    	boolean containsOB = (memberListForm.obFlag != null);
+    	
+    	SimpleWhere where = new SimpleWhere();
+    	//引数が空じゃなかったら検索条件に含める
+    	if (!name.isEmpty()) {
+    		where = where.contains(name(), name);
     	}
-    	if (hname.isEmpty()) {
-    		hname = null;
+    	if (!hname.isEmpty()) {
+    		where = where.contains(hname(), hname);
     	}
-    	if (entrance.isEmpty()) {
-    		entrance = null;
+    	if (!entrance.isEmpty()) {
+    		where = where.eq(entrance(), entrance);
     	}
-    	ComplexWhere where = new ComplexWhere();
-    	where.and(
-    			new ComplexWhere()
-	    			.contains(name(), name)
-	    			.contains(hname(), hname)
-	    			.eq(entrance(), entrance)
-    			);
-    	where.and(
-    			new ComplexWhere()
-    				.eq(deleteFlag(), Boolean.valueOf(false))
-    				.eq(obFlag(), Boolean.toString(false))
-    			);
-    	return select().where(where).orderBy(asc(id())).getResultList();
+    	
+    	//OBを含めるかどうかの処理
+    	if (!containsOB) {
+    		where = where.eq(obFlag(), false);
+    	}
+    	
+    	//削除済みを入れないのは共通処理
+    	where = where.eq(deleteFlag(), Boolean.valueOf(false));
+    	
+    	if (limit == -1 || offset == -1) {
+    		return select()
+    				.where(where)
+    				.orderBy(asc(id()))
+    				.getResultList();
+    	} else {
+    		return select()
+    				.where(where)
+    				.orderBy(asc(id()))
+    				.limit(limit)
+    				.offset(offset)
+    				.getResultList();
+    	}
     }
     
-    /**
-     * 検索条件ですべてのエンティティを検索します。(OBあり)
-     * 
-     * @return エンティティのリスト
-     */
-    public List<TMember> findBySearchOnOB(String name,String hname, String entrance) {
-    	//OBを含めるチェックがある上で、その他の検索条件が入力されていない場合は、OBを含めた一覧を取得する
-    	if (name.isEmpty() && hname.isEmpty() && entrance.isEmpty()) {
-    		SimpleWhere where = new SimpleWhere();
-    		where.eq(deleteFlag(), Boolean.valueOf(false));
-    		return select().where(where).orderBy(asc(id())).getResultList();
-    	}
-    	//以下から文字をNULLに置き換える
-    	if (name.isEmpty()) {
-    		name = null;
-    	}
-    	if (hname.isEmpty()) {
-    		hname = null;
-    	}
-    	if (entrance.isEmpty()) {
-    		entrance = null;
-    	}
-    	ComplexWhere where = new ComplexWhere();
-    	where.and(
-    			new ComplexWhere()
-	    			.contains(name(), name)
-	    			.contains(hname(), hname)
-	    			.eq(entrance(), entrance)
-    			);
-    	where.and(
-    			new ComplexWhere()
-    				.eq(deleteFlag(), Boolean.valueOf(false))
-    			);
-    	return select().where(where).orderBy(asc(id())).getResultList();
-    }
-
     /**
      * OB宣言していないメンバーのマップを返す
      * 

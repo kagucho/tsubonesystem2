@@ -72,9 +72,11 @@ public class ClubForm implements Serializable {
 		public Integer registMemberId;
 		
 		/* メールのタイトル　*/
+		@Required
 		public String title;
 
 		/* メールの内容　*/
+		@Required
 		public String content;
 	
 	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
