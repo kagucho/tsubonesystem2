@@ -55,10 +55,34 @@ public class TMemberService extends AbstractService<TMember> {
         return select().where(where).getSingleResult();
     }
     
+    /**
+     * 全ての会員を検索します。
+     * @param containsOB OBを含めるならTRUE
+     * @return
+     */
+    public List<TMember> findAllOrderById(boolean containsOB) {
+    	SimpleWhere where = new SimpleWhere();
+    	//OBを含めない時
+    	if (!containsOB) {
+    		where.eq(deleteFlag(), Boolean.valueOf(false));
+    	}
+        return select().where(where).orderBy(asc(id())).getResultList();
+    }
+    
+    /**
+     * 識別子の昇順ですべてのエンティティを検索します。
+     * @deprecated 今後は{@link TMemberService#findAllOrderById(boolean)}の引数をtrueにして使ってください
+     * @return エンティティのリスト
+     */
+    public List<TMember> findAllOrderById() {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+        return select().where(where).orderBy(asc(id())).getResultList();
+    }
     
     /**
      * OB宣言していないメンバーの一覧を返す
-     * 
+     * @deprecated 今後は{@link TMemberService#findAllOrderById(boolean)}の引数をfalseにして使ってください
      * @return エンティティのリスト
      */
 	public List<TMember> findByIdNoOBAll() {
@@ -113,17 +137,6 @@ public class TMemberService extends AbstractService<TMember> {
     	}
     }
 
-    /**
-     * 識別子の昇順ですべてのエンティティを検索します。
-     * 
-     * @return エンティティのリスト
-     */
-    public List<TMember> findAllOrderById() {
-    	SimpleWhere where = new SimpleWhere();
-    	where.eq(deleteFlag(), Boolean.valueOf(false));
-        return select().where(where).orderBy(asc(id())).getResultList();
-    }
-    
     /**
      * userNmaeですべてのエンティティを検索します。loginに使用
      * 

@@ -172,7 +172,7 @@ public class PartyForm implements Serializable{
 		    try {
 		        mDay = sdf.parse(meetingDay);
 		    } catch (ParseException e) {
-		        e.printStackTrace();
+//		        e.printStackTrace();
 		    }
 			
 		    // 日付をlong値に変換します。

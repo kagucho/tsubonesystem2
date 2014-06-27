@@ -4,7 +4,7 @@ package tsuboneSystem.action.admin;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -109,16 +109,9 @@ public class PartyRegistAction {
         
         partyForm.mailSendFlag = false;
         
-        /** 詳細画面にて部の表示のためにmapを作成する　**/
-        //登録されている部をすべてリストの形で呼び出す
-        partyForm.clubList = tClubService.findAllOrderById();
-        
-        //マップを作る。形はkey(数値)とvalu(名称)の２個セットの形
+        //keyをclubId, valueをclubNameとしてマップを作成する
         partyForm.clubMapSS = new HashMap<String,String>();
-        
-        //for文でリストのリストの情報を１つずつマップに入れ込んでいく
-        for ( TClub club : partyForm.clubList) {
-        	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
+        for ( TClub club : tClubService.findAllOrderById()) {
         	partyForm.clubMapSS.put(club.id.toString(), club.ClubName);
         }
          
@@ -134,42 +127,45 @@ public class PartyRegistAction {
 	@Execute(validator = true, input = "partyInput.jsp", validate="validateBase", stopOnValidationError = false, reset = "resetInput") 
 	public String confirm() {
     	
+		//メールを送る場合は送信対象者をリストに格納する
     	if (partyForm.mailSendFlag) {
+    		//OBを含めるかどうか
+    		boolean containsOB = (partyForm.mailSendOBFlag != null);
     		
-    		//OBを除いた全員
-    		if (partyForm.mailSendAllFlag != null && partyForm.mailSendOBFlag == null) {
-    			partyForm.tMemberSendList = tMemberService.findByIdNoOBAll();	
-    		//OBを含めた全員
-    		}else if (partyForm.mailSendAllFlag != null && partyForm.mailSendOBFlag != null) {
-    			partyForm.tMemberSendList = tMemberService.findAllOrderById();	
-    		//部で指定されていた場合
-    		}else if (partyForm.clubListCheck != null) {
-    			partyForm.MemberSendSet = new HashSet<Integer>();
-    			//選択された部をひとつ取り、それらに紐づくメンバーIDをsetに入れる
-    			for (String cLubIDOne : partyForm.clubListCheck) {
-    				List<TMemberClub> tMemberClubList = new ArrayList<TMemberClub>();
-    				tMemberClubList = tMemberClubService.findByClubId(cLubIDOne);
-    				for (TMemberClub tMemberClubOne : tMemberClubList) {
-    					if (partyForm.mailSendOBFlag == null) {
-    						if (!tMemberClubOne.tMember.obFlag) {
-        						partyForm.MemberSendSet.add(tMemberClubOne.MemberId);
-        					}	
-    					}else{
-    						partyForm.MemberSendSet.add(tMemberClubOne.MemberId);
-    					}
-    				}
+    		//全員にメールが送られる場合
+    		if (partyForm.mailSendAllFlag != null) {
+    			partyForm.tMemberSendList = tMemberService.findAllOrderById(containsOB);
+    			return "partyConfirm.jsp";
+    		}
+    		
+    		//メールを送る人のリスト
+    		HashSet<TMember> sendTMemberSet = new HashSet<TMember>();
+    		//部で選択されていた場合は部ごとに会員を検索してsetに格納する
+    		if (partyForm.clubListCheck != null) {
+    			for (String cLubId : partyForm.clubListCheck) {
+    				List<TMemberClub> tMemberClubList = tMemberClubService.findByClubId(cLubId, containsOB);
+    				sendTMemberSet.addAll(getTMmeberByTMemberClubList(tMemberClubList));
     			}
-    			partyForm.tMemberSendList = new ArrayList<TMember>();
-    			for (Integer one : partyForm.MemberSendSet) {
-    				partyForm.tMemberSendList.add(tMemberService.findById(one));
-    			}
-    		}	
+    		}
+    		
+			partyForm.tMemberSendList = new ArrayList<TMember>(sendTMemberSet);
+    	}
     		return "partyConfirm.jsp";
-    	}else{
-    		return "partyConfirm.jsp";
-    	}   
 	}
     
+	/**
+	 * TMemberClubリストからTMemberのリストを取得
+	 * @param tMemberClubList
+	 * @return
+	 */
+	protected ArrayList<TMember> getTMmeberByTMemberClubList(List<TMemberClub> tMemberClubList) {
+		ArrayList<TMember> rtnList = new ArrayList<TMember>();
+		for (TMemberClub tMemberClub : tMemberClubList) {
+			rtnList.add(tMemberClub.tMember);
+		}
+		return rtnList;
+	}
+
 	@Execute(validator = false)
 	public String complete() {
     	
@@ -179,89 +175,47 @@ public class PartyRegistAction {
         	/** 入力された情報をエンティティにコピー　**/
         	TParty party = new TParty();
         	//例外として.excludes()内に書いてある要素は省く(コピーしない)。日時関係はyyyy/mm/dd hh:mm:ssの形にしてTimestamp型に変化する必要がある。
-        	Beans.copy(partyForm, party).excludes("meetingDay","meetingTime","meetingDeadlineDay","meetingDeadlineTime").execute();
+        	Beans.copy(partyForm, party).excludes("meetingDay","meetingTime","meetingDeadlineDay").execute();
         	
         	//編集者のIDを入れる
         	party.creatorId = loginAdminDto.memberId;
         	
         	//日付と日時をString型からDate型に変換
         	try {
-				Date meetingDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDay.toString()).getTime());
-				Date meetingTime = new Date(new SimpleDateFormat("HH:mm").parse(partyForm.meetingTime.toString()).getTime());
-				Date meetingDeadlineDay = new Date(new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDeadlineDay.toString()).getTime());
-				party.meetingDay = meetingDay;
-				party.meetingTime = meetingTime;
-				party.meetingDeadlineDay = meetingDeadlineDay;
+        		party.meetingDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDay);
+        		party.meetingTime = new SimpleDateFormat("HH:mm").parse(partyForm.meetingTime);
+        		party.meetingDeadlineDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDeadlineDay);
 			} catch (ParseException e) {
+				//TODO エラー処理
 				e.printStackTrace();
 			}
-        	
         	party.deleteFlag = Boolean.valueOf(false);
-        	
         	//DBに追加
         	tPartyService.insert(party);
         	
         	//完了画面から詳細画面遷移のためにIDを取得
         	partyForm.id = party.id;
         	
+        	//obを含めるかどうか
+        	boolean containsOb = partyForm.ObAttendFlag;
+        	
+        	Collection<TMember> tMemberList;
         	if (partyForm.attendClub != null) {
-        		//出席対象者に指定があった場合
-        		partyForm.MemberSet = new HashSet<Integer>();
-        		for (String clubId : partyForm.attendClub) {
-        			//partyIdとclubIdをセットで格納する
-        			TPartyClub tPartyClub = new TPartyClub();
-        			tPartyClub.PartyId = party.id;
-        			tPartyClub.ClubId = Integer.valueOf(clubId);
-        			tPartyClubService.insert(tPartyClub);
-        			
-        			List<TMemberClub> tMemberClubList = new ArrayList<TMemberClub>();
-    				tMemberClubList = tMemberClubService.findByClubId(clubId);
-    				for (TMemberClub tMemberClubOne : tMemberClubList) {
-    					if (partyForm.ObAttendFlag) {
-    						//OBが出席対象に入る	
-        					partyForm.MemberSet.add(tMemberClubOne.MemberId);
-    					}else{
-    						//OBが出席対象に入らない
-    						if (!tMemberClubOne.tMember.obFlag) {
-    							partyForm.MemberSet.add(tMemberClubOne.MemberId);
-    						}
-    					}
-    				}
-        		}
-        		//出席対象者の未提出として出欠管理DBに登録する。
-        		for (Integer id : partyForm.MemberSet) {
-        			TPartyAttend tPartyAttend = new TPartyAttend();
-            		tPartyAttend.memberId = id;
-            		tPartyAttend.partyId = party.id;
-            		tPartyAttend.attend = Integer.valueOf(PartyAttendCode.UNSUBMITTED.getCode());
-            		tPartyAttendService.insert(tPartyAttend);
-        		}
-        	}else{
-        		//全員が出席対象の場合
-        		if (partyForm.ObAttendFlag) {
-        			//出席対象にOBあり
-        			List<TMember> tMemberList = tMemberService.findByIdAll();
-        			//出席対象者の未提出として出欠管理DBに登録する。
-                	for (TMember tMemberOne : tMemberList) {
-                		TPartyAttend tPartyAttend = new TPartyAttend();
-                		tPartyAttend.memberId = tMemberOne.id;
-                		tPartyAttend.partyId = party.id;
-                		tPartyAttend.attend = Integer.valueOf(PartyAttendCode.UNSUBMITTED.getCode());
-                		tPartyAttendService.insert(tPartyAttend);
-                	}
-        		}else {
-        			//出席対象にOBなし
-        			List<TMember> tMemberList = tMemberService.findByIdNoOBAll();
-        			//出席対象者の未提出として出欠管理DBに登録する。
-                	for (TMember tMemberOne : tMemberList) {
-                		TPartyAttend tPartyAttend = new TPartyAttend();
-                		tPartyAttend.memberId = tMemberOne.id;
-                		tPartyAttend.partyId = party.id;
-                		tPartyAttend.attend = Integer.valueOf(PartyAttendCode.UNSUBMITTED.getCode());
-                		tPartyAttendService.insert(tPartyAttend);
-                	}
-        		}
+        		tMemberList = new HashSet<TMember>();
+        		
+        		//PartyClubテーブルにレコードを挿入する
+        		insertTPartyClub(party.id);
+        		//部ごとに会員をセットする
+        		for (String cLubId : partyForm.clubListCheck) {
+    				List<TMemberClub> tMemberClubList = tMemberClubService.findByClubId(cLubId, containsOb);
+    				tMemberList.addAll(getTMmeberByTMemberClubList(tMemberClubList));
+    			}
+        	} else {
+        		tMemberList = tMemberService.findAllOrderById(containsOb);
         	}
+        	//PartyAttendテーブルに未回答として対象者を登録する
+        	insertPartyAttend(tMemberList, party.id);
+        	
         	tParty = new TParty();
         	tParty = party;
         }
@@ -272,8 +226,39 @@ public class PartyRegistAction {
 			return sendMail();
 		}
 	}
-    
-    //以下メールの配信処理
+
+	/**
+	 * PartyAttendに未回答として登録する
+	 * @param tMemberList
+	 * @param partyId
+	 */
+	protected void insertPartyAttend(Collection<TMember> tMemberList, Integer partyId) {
+		for (TMember tMemberOne : tMemberList) {
+    		TPartyAttend tPartyAttend = new TPartyAttend();
+    		tPartyAttend.memberId = tMemberOne.id;
+    		tPartyAttend.partyId = partyId;
+    		tPartyAttend.attend = Integer.valueOf(PartyAttendCode.UNSUBMITTED.getCode());
+    		tPartyAttendService.insert(tPartyAttend);
+    	}
+	}
+
+	/**
+	 * PartClubテーブルに情報を挿入する
+	 * @param partyId
+	 */
+    protected void insertTPartyClub(Integer partyId) {
+    	if (partyForm.attendClub == null) {
+    		return;
+    	}
+    	for (String clubId : partyForm.attendClub) {
+    		TPartyClub tPartyClub = new TPartyClub();
+			tPartyClub.PartyId = partyId;
+			tPartyClub.ClubId = Integer.valueOf(clubId);
+			tPartyClubService.insert(tPartyClub);
+    	}
+	}
+
+	//以下メールの配信処理
     @Execute(validator = false)
 	public String sendMail() {
     	

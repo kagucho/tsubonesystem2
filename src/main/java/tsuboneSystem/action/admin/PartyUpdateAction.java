@@ -157,7 +157,7 @@ public class PartyUpdateAction {
     			//選択された部をひとつ取り、それらに紐づくメンバーIDをsetに入れる
     			for (String cLubIDOne : partyForm.clubListCheck) {
     				List<TMemberClub> tMemberClubList = new ArrayList<TMemberClub>();
-    				tMemberClubList = tMemberClubService.findByClubId(cLubIDOne);
+    				tMemberClubList = tMemberClubService.findByClubId(cLubIDOne, true);
     				for (TMemberClub tMemberClubOne : tMemberClubList) {
     					if (partyForm.mailSendOBFlag == null) {
     						if (!tMemberClubOne.tMember.obFlag) {

@@ -115,7 +115,7 @@ public class MailRegistAction {
 			//選択された部をひとつ取り、それらに紐づくメンバーIDをsetに入れる
 			for (String cLubIDOne : mailForm.clubListCheck) {
 				List<TMemberClub> tMemberClubList = new ArrayList<TMemberClub>();
-				tMemberClubList = tMemberClubService.findByClubId(cLubIDOne);
+				tMemberClubList = tMemberClubService.findByClubId(cLubIDOne, true);
 				for (TMemberClub tMemberClubOne : tMemberClubList) {
 					if (mailForm.mailSendOBFlag == null) {
 						if (!tMemberClubOne.tMember.obFlag) {
