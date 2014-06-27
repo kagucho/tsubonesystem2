@@ -148,7 +148,7 @@ public abstract class PartyOperateAbstractAction {
 		Beans.copy(partyForm, party).excludes("meetingDay","meetingTime","meetingDeadlineDay").execute();
 		
 		//編集者のIDを入れる
-		party.creatorId = creatorId;
+		party.creatorId = Integer.valueOf(creatorId);
 		
 		//日付と日時をString型からDate型に変換
 		try {
@@ -169,7 +169,7 @@ public abstract class PartyOperateAbstractAction {
 	protected boolean sendMail(PartyForm partyForm, int registMemberId) {
     	
     	//メールの送信者のID
-    	partyForm.registMemberId = registMemberId;
+    	partyForm.registMemberId = Integer.valueOf(registMemberId);
     	
     	//TMailにメールの内容を追加する
     	TMail tMail = new TMail();

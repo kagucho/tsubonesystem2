@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Slidefolio</title>
+    <title>神楽坂一丁目通信局</title>
     <!-- Bootstrap core CSS -->
     <link href="${f:url('/css/topcss/bootstrap.css')}" rel="stylesheet">
     <!-- Add custom CSS here -->
