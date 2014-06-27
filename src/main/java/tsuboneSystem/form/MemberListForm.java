@@ -29,4 +29,16 @@ public class MemberListForm implements Serializable{
 	//現在のページ番号
 	public int page;
 	
+	//前のページがmemberList.jspならmemberListが入る
+	public String referePage;
+	
+	/**
+	 * 検索条件をクリアする
+	 */
+	public void clearSearchConditon() {
+		name = null;
+		hname = null;
+		entrance = null;
+		obFlag = null;
+	}
 }

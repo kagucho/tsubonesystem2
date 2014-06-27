@@ -31,6 +31,7 @@
 	</div>
 		<div class="form-group col-sm-offset-10">
 			<input type="submit" value="検索" id="onSearch" name="onSearch" property="onSearch" class="btn btn-primary">
+			<input type="submit" value="クリア" id="index" name="index" property="index" class="btn btn-primary">
 		</div>
 	</form>
 	</s:form>

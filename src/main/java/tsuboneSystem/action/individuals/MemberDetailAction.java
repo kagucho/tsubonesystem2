@@ -15,79 +15,40 @@
  */
 package tsuboneSystem.action.individuals;
 
-import java.util.HashMap;
-
 import javax.annotation.Resource;
 
-import org.seasar.framework.beans.util.Beans;
-import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginIndividualsDto;
-import tsuboneSystem.code.SexCode;
-import tsuboneSystem.entity.TClub;
-import tsuboneSystem.entity.TMember;
-import tsuboneSystem.form.MemberForm;
-import tsuboneSystem.service.TClubService;
-import tsuboneSystem.service.TMemberClubService;
-import tsuboneSystem.service.TMemberService;
 
-public class MemberDetailAction {
+public class MemberDetailAction extends tsuboneSystem.action.admin.MemberDetailAction{
 	
 	public String actionName = "MemberDetail";
 	
-	/** Memberフォーム */
-	@ActionForm
-	@Resource
-	protected MemberForm memberForm;
-	
-	/** LoginIndividualsDtoのDto */
+	//ログイン者の情報
 	@Resource
 	protected LoginIndividualsDto loginIndividualsDto;
 	
-	/** TClubのサービスクラス */
-	@Resource
-	protected TClubService tClubService;
-	
-	/** TMemberのサービスクラス */
-	@Resource
-	protected TMemberService tMemberService;
-	
-	/** TMemberClubServiceのサービスクラス */
-	@Resource
-	protected TMemberClubService tMemberClubService;
-
+	//現在見ている情報が自分のものならTRUE
+	public boolean isMyInfo = true;
 	
 	@SuppressWarnings("boxing")
-	@Execute(validator = false)
+	@Execute(validator = false, urlPattern = "detail/{id}")
 	public String detail() {
-			
-		memberForm.id = loginIndividualsDto.tMemberLogin.id;
-		// 詳細画面にて部の表示のためにmapを作成する
-		memberForm.clubList = tClubService.findAllOrderById();
-	    memberForm.clubMap = new HashMap<Integer,String>();
-	    for ( TClub club : memberForm.clubList) {
-	    	memberForm.clubMap.put(club.id, club.ClubName);
-	    }
-	        
-	    // Idから対象のメンバー情報を検索する
-	    TMember memberDetail = new TMember();
-	    memberDetail = tMemberService.findById(memberForm.id);
-	       
-	    //検索した結果をformにコピー
-	    Beans.copy(memberDetail, memberForm).execute();	
-	        
-	    memberForm.sexMap = new HashMap<String, String>();
-	    for (Integer i=1; i<=3; i++) {
-	      	memberForm.sexMap.put(i.toString(), SexCode.getnameByCode(i.toString()));
-	    }
-	        
-	    // Idから対象のメンバーが所属している部の一覧を検索する
-	    memberForm.tMemberClubList = tMemberClubService.findByMemberId(memberForm.id.toString());
-	   
-	    //パスワードは表示しない
-        memberForm.password = "(パスワードは初期化のみ可能です)";
-        
-	    return "memberDetail.jsp";
+		//まずは詳細を表示するメンバーの情報を格納
+		super.detail();
+		
+		//もし表示する情報が自分でなければ一部の情報を隠す
+		if (!memberForm.id.equals(loginIndividualsDto.memberId)) {
+			memberForm.password = "*****";
+			memberForm.tel1 = "***";
+			memberForm.tel2 = "****";
+			memberForm.tel3 = "****";
+			memberForm.userName = "*****";
+			//フラグを書き換える
+			isMyInfo = false;
+		}
+		
+		return "memberDetail.jsp";
 	}
 }
