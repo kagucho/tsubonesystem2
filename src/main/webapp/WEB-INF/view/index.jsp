@@ -146,15 +146,10 @@
 $.vegas('slideshow', {
   delay:5000,
   backgrounds:[
-     { src:'./images/top/nature1.jpg', fade:2000 },
-	 { src:'./images/top/bw1.jpg', fade:2000 },
-     { src:'./images/top/portrait1.jpg', fade:2000 },
-	 { src:'./images/top/portrait5.jpg', fade:2000 },
-     { src:'./images/top/portrait2.jpg', fade:2000 },
-     { src:'./images/top/portrait3.jpg', fade:2000 },
-	 { src:'./images/top/portrait4.jpg', fade:2000 },
-	 { src:'./images/top/forest.jpg', fade:2000 }
-	   
+	 <c:forEach var="e" items="${imageList}">
+	 { src:'./images/top/${e.fileName}', fade:5000 },
+	 </c:forEach>
+	 { src:'./images/top/2.png', fade:5000 }  
   ]
 })('overlay', {
 src:'./images/top/overlay.png'

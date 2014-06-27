@@ -1,7 +1,6 @@
 package tsuboneSystem.action.admin;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -14,13 +13,11 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginAdminDto;
-import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMail;
 import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.form.MailForm;
-import tsuboneSystem.mail.MailRegistDefault;
 import tsuboneSystem.original.manager.MailManager;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TMailSendMemberService;
@@ -69,8 +66,6 @@ public class MailRegistAction {
 	@Resource
 	protected HttpServletRequest request;
 	
-	//protected  MailRegistDefault mailRegistDefault;
-	
 	/** 入力画面(送信先選択) */
     @Execute(validator = false, reset = "resetInput")
 	public String index() {
@@ -78,25 +73,13 @@ public class MailRegistAction {
     	/** 2重送信防止のためのTokenの生成　**/
         TokenProcessor.getInstance().saveToken(request);
         
-        /* メンバーの一覧を取得する　*/
-        mailForm.tMemberItem = tMemberService.findAllOrderById();
-        
-      //登録されている部をすべてリストの形で呼び出す
-        mailForm.clubList = tClubService.findAllOrderById();
-        
         //マップを作る。形はkey(数値)とvalu(名称)の２個セットの形
-        mailForm.clubMapSS = new HashMap<String,String>();
-        
-        //for文でリストのリストの情報を１つずつマップに入れ込んでいく
-        for ( TClub club : mailForm.clubList) {
-        	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
-        	mailForm.clubMapSS.put(club.id.toString(), club.ClubName);
-        }
- 
+        mailForm.clubMapSS = tClubService.getClubMapSS();
+
         return viewinput();
 	}
     
-  //confirmのバリデータに引っかかった時はここに戻ってくる。(入力した値保持のため)
+    //confirmのバリデータに引っかかった時はここに戻ってくる。(入力した値保持のため)
     @Execute(validator = false)
 	public String viewinput() {
     	return "index.jsp";
@@ -108,10 +91,10 @@ public class MailRegistAction {
     	
     	//OBを除いた全員
 		if (mailForm.mailSendAllFlag != null && mailForm.mailSendOBFlag == null) {
-			mailForm.tMemberSendList = tMemberService.findByIdNoOBAll();	
+			mailForm.tMemberSendList = tMemberService.findAllOrderById(false);	
 		//OBを含めた全員
 		}else if (mailForm.mailSendAllFlag != null && mailForm.mailSendOBFlag != null) {
-			mailForm.tMemberSendList = tMemberService.findAllOrderById();	
+			mailForm.tMemberSendList = tMemberService.findAllOrderById(true);	
 		//部で指定されていた場合
 		}else if (mailForm.clubListCheck != null) {
 			mailForm.MemberSendSet = new HashSet<Integer>();
@@ -121,10 +104,12 @@ public class MailRegistAction {
 				tMemberClubList = tMemberClubService.findByClubId(cLubIDOne, true);
 				for (TMemberClub tMemberClubOne : tMemberClubList) {
 					if (mailForm.mailSendOBFlag == null) {
+						//OBを含めない
 						if (!tMemberClubOne.tMember.obFlag) {
     						mailForm.MemberSendSet.add(tMemberClubOne.MemberId);
     					}	
 					}else{
+						//OBを含める
 						mailForm.MemberSendSet.add(tMemberClubOne.MemberId);
 					}
 				}
@@ -147,11 +132,6 @@ public class MailRegistAction {
         	//メールの送信者のID
         	mailForm.registMemberId = loginAdminDto.memberId;
 
-//        	if(mailRegistDefault.mailSend(mailForm.tMemberSendList, mailForm.title, mailForm.content, mailForm.registMemberId)){
-//        		mailMsg = "メールを正常に送信しました。";
-//        	}else{
-//        		mailMsg = "メールの送信に失敗しました。";
-//        	}
         	//TMailにメールの内容を追加する
         	TMail tMail = new TMail();
         	Beans.copy(mailForm, tMail).execute();

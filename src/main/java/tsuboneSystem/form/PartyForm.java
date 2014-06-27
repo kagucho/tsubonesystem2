@@ -213,7 +213,7 @@ public class PartyForm implements Serializable{
 		    }
 			
 		    //開催日と締め切り日の差を取り割る
-		    if (dDay.before(mDay)) {
+		    if (dDay.after(mDay)) {
 		    	errors.add("meetingDay",new ActionMessage("締め切りの方が開催日より後になるとか意味がわかりません",false));
 			    errors.add("meetingDeadlineDay",new ActionMessage("締め切りの方が開催日より後になるとか意味がわかりません",false));
 			}

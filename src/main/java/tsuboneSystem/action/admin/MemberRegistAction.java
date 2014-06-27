@@ -15,6 +15,7 @@
  */
 package tsuboneSystem.action.admin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -82,28 +83,15 @@ public class MemberRegistAction {
     	/** 2重登録防止のためのTokenの生成　**/
         TokenProcessor.getInstance().saveToken(request);
         
-        
-        /** 詳細画面にて部の表示のためにmapを作成する　**/
-        //登録されている部をすべてリストの形で呼び出す
-        memberForm.clubList = tClubService.findAllOrderById();
-        
-        //マップを作る。形はkey(数値)とvalu(名称)の２個セットの形
-        memberForm.clubMapSS = new HashMap<String,String>();
-        
-        //for文でリストのリストの情報を１つずつマップに入れ込んでいく
-        for ( TClub club : memberForm.clubList) {
-        	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
-        	memberForm.clubMapSS.put(club.id.toString(), club.ClubName);
-        }
-        
+        //部のマップ
+        memberForm.clubMapSS = tClubService.getClubMapSS();
+
+        //性別のマップ
         memberForm.sexMap = new HashMap<String, String>();
         for (Integer i=1; i<=3; i++) {
         	memberForm.sexMap.put(i.toString(), SexCode.getnameByCode(i.toString()));
         }
         
-        /** 登録画面に登録できる部の一覧を作成する　**/
-        //登録されている部をすべてリストの形で呼び出す
-        memberForm.clubList = tClubService.findAllOrderById();
         
         return viewinput();
 	}
@@ -118,17 +106,14 @@ public class MemberRegistAction {
     @Execute(validator = true, validate="validateBase", input="viewinput", stopOnValidationError = false)
 	public String confirm() {
     	
-    	
-    	/** 詳細画面にて部の表示のためにmapを作成する　**/
-        //登録されている部をすべてリストの形で呼び出す
-        memberForm.clubList = tClubService.findAllOrderById();
-        //マップを作る。形はkey(数値)とvalu(名称)の２個セットの形
-        memberForm.clubMapSS = new HashMap<String,String>();
-        //for文でリストのリストの情報を１つずつマップに入れ込んでいく
-        for ( TClub club : memberForm.clubList) {
-        	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
-        	memberForm.clubMapSS.put(club.id.toString(), club.ClubName);
+    	//選択した部を表示する
+    	memberForm.tMemberClubList = new ArrayList<TMemberClub>();
+        for(String one : memberForm.clubListCheck){
+        	TMemberClub tMemberClub = new TMemberClub();
+        	tMemberClub.tClub = tClubService.findById(Integer.valueOf(one));
+        	memberForm.tMemberClubList.add(tMemberClub);
         }
+        
         return "memberConfirm.jsp";
 	}
     

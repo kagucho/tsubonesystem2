@@ -1,20 +1,6 @@
-/*
- * Copyright 2004-2008 the Seasar Foundation and the Others.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
 package tsuboneSystem.action.admin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -84,23 +70,14 @@ public class MemberUpdateAction {
         TokenProcessor.getInstance().saveToken(request);
         
         // 詳細画面にて部の表示のためにmapを作成する
-        memberForm.clubList = tClubService.findAllOrderById();
-        memberForm.clubMap = new HashMap<Integer,String>();
-        for ( TClub club : memberForm.clubList) {
-        	memberForm.clubMap.put(club.id, club.ClubName);
-        }
+        memberForm.clubMap = tClubService.getClubMapIS();
+
         
         // すでに所属している部のチェックボックスはonにする
         memberForm.tMemberClubUpOldId = tMemberClubService.findByMemberId(memberForm.id.toString());
         for (TMemberClub tMemberClubUpOldOne : memberForm.tMemberClubUpOldId){
         	memberForm.clubListChecked.add(tMemberClubUpOldOne.ClubId.toString());
         };
-		
-        //部長の場合該当の部のチェックボックスはグレーアウト
-        List<TLeaders> tLeaders = tLeadersService.findByMemberId_OfficerKindList(memberForm.id.toString(),LeadersKindCode.DIRECTOR.getCode());
-        if (tLeaders.size() > 0){
-        	//TODO
-        }
         
    
         memberForm.sexMap = new HashMap<String, String>();
@@ -123,15 +100,12 @@ public class MemberUpdateAction {
     @Execute(validator = true, validate="validateBase", input="memberInput.jsp", stopOnValidationError = false, reset = "resetInput")
 	public String confirmUp() {
     	
-    	/** 詳細画面にて部の表示のためにmapを作成する　**/
-        //登録されている部をすべてリストの形で呼び出す
-        memberForm.clubList = tClubService.findAllOrderById();
-        //マップを作る。形はkey(数値)とvalu(名称)の２個セットの形
-        memberForm.clubMapSS = new HashMap<String,String>(); 
-        //for文でリストのリストの情報を１つずつマップに入れ込んでいく
-        for ( TClub club : memberForm.clubList) {
-        	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
-        	memberForm.clubMapSS.put(club.id.toString(), club.ClubName);
+    	//選択した部を表示する
+    	memberForm.tMemberClubList = new ArrayList<TMemberClub>();
+        for(String one : memberForm.clubListChecked){
+        	TMemberClub tMemberClub = new TMemberClub();
+        	tMemberClub.tClub = tClubService.findById(Integer.valueOf(one));
+        	memberForm.tMemberClubList.add(tMemberClub);
         }
         
         return "memberConfirm.jsp";

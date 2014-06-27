@@ -1,18 +1,3 @@
-/*
- * Copyright 2004-2008 the Seasar Foundation and the Others.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
 package tsuboneSystem.action.admin;
 
 import java.sql.Timestamp;
@@ -147,10 +132,10 @@ public class PartyUpdateAction {
     		
     		//OBを除いた全員
     		if (partyForm.mailSendAllFlag != null && partyForm.mailSendOBFlag == null) {
-    			partyForm.tMemberSendList = tMemberService.findByIdNoOBAll();	
+    			partyForm.tMemberSendList = tMemberService.findAllOrderById(false);	
     		//OBを含めた全員
     		}else if (partyForm.mailSendAllFlag != null && partyForm.mailSendOBFlag != null) {
-    			partyForm.tMemberSendList = tMemberService.findAllOrderById();	
+    			partyForm.tMemberSendList = tMemberService.findAllOrderById(true);	
     		//部で指定されていた場合
     		}else if (partyForm.clubListCheck != null) {
     			partyForm.MemberSendSet = new HashSet<Integer>();
@@ -160,10 +145,12 @@ public class PartyUpdateAction {
     				tMemberClubList = tMemberClubService.findByClubId(cLubIDOne, true);
     				for (TMemberClub tMemberClubOne : tMemberClubList) {
     					if (partyForm.mailSendOBFlag == null) {
+    						//OBを含めない
     						if (!tMemberClubOne.tMember.obFlag) {
         						partyForm.MemberSendSet.add(tMemberClubOne.MemberId);
         					}	
     					}else{
+    						//OBを含める
     						partyForm.MemberSendSet.add(tMemberClubOne.MemberId);
     					}
     				}

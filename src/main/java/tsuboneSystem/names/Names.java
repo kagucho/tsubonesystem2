@@ -2,6 +2,7 @@ package tsuboneSystem.names;
 
 import javax.annotation.Generated;
 import tsuboneSystem.entity.TClub;
+import tsuboneSystem.entity.TImageUpload;
 import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TLeadersKind;
 import tsuboneSystem.entity.TMail;
@@ -13,6 +14,7 @@ import tsuboneSystem.entity.TPartyAttend;
 import tsuboneSystem.entity.TPartyClub;
 import tsuboneSystem.entity.TPartySendMail;
 import tsuboneSystem.names.TClubNames._TClubNames;
+import tsuboneSystem.names.TImageUploadNames._TImageUploadNames;
 import tsuboneSystem.names.TLeadersKindNames._TLeadersKindNames;
 import tsuboneSystem.names.TLeadersNames._TLeadersNames;
 import tsuboneSystem.names.TMailNames._TMailNames;
@@ -28,7 +30,7 @@ import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/06/26 21:22:18")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/06/28 2:21:07")
 public class Names {
 
     /**
@@ -38,6 +40,15 @@ public class Names {
      */
     public static _TClubNames tClub() {
         return new _TClubNames();
+    }
+
+    /**
+     * {@link TImageUpload}の名前クラスを返します。
+     * 
+     * @return TImageUploadの名前クラス
+     */
+    public static _TImageUploadNames tImageUpload() {
+        return new _TImageUploadNames();
     }
 
     /**

@@ -90,7 +90,7 @@ public class PartyAttendListAction {
     			}
     		}else{
     			//全員が出席対象
-    			partyAttendForm.tMemberKuzu = tMemberService.findByIdAll();
+    			partyAttendForm.tMemberKuzu = tMemberService.findAllOrderById(true);
     		}	
     	}else{
     		//OBの出席を含まない
@@ -109,7 +109,7 @@ public class PartyAttendListAction {
     			}
     		}else{
     			//全員が出席対象
-    			partyAttendForm.tMemberKuzu = tMemberService.findByIdNoOBAll();
+    			partyAttendForm.tMemberKuzu = tMemberService.findAllOrderById(false);
     		}	
     	}
 

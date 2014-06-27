@@ -25,7 +25,7 @@
 				<a href="<c:url value="/admin/clubDetail/"/>${e.id}">${f:h(e.ClubName) }</a>
 			</td>
 			<td>
-				${f:h(memberMapIS[e.tLeaders.tMember.id])}
+				${f:h(e.tLeaders.tMember.hname)}
 			</td>
 			<td>
 				${f:h(e.ClubMemo) }

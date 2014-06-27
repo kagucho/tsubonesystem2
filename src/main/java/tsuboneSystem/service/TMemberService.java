@@ -11,9 +11,8 @@ import static tsuboneSystem.names.TMemberNames.obFlag;
 import static tsuboneSystem.names.TMemberNames.password;
 import static tsuboneSystem.names.TMemberNames.userName;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Generated;
 
 import org.seasar.extension.jdbc.AutoSelect;
@@ -62,34 +61,12 @@ public class TMemberService extends AbstractService<TMember> {
      */
     public List<TMember> findAllOrderById(boolean containsOB) {
     	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
     	//OBを含めない時
     	if (!containsOB) {
-    		where.eq(deleteFlag(), Boolean.valueOf(false));
+    		where.eq(obFlag(), Boolean.valueOf(false));
     	}
         return select().where(where).orderBy(asc(id())).getResultList();
-    }
-    
-    /**
-     * 識別子の昇順ですべてのエンティティを検索します。
-     * @deprecated 今後は{@link TMemberService#findAllOrderById(boolean)}の引数をtrueにして使ってください
-     * @return エンティティのリスト
-     */
-    public List<TMember> findAllOrderById() {
-    	SimpleWhere where = new SimpleWhere();
-    	where.eq(deleteFlag(), Boolean.valueOf(false));
-        return select().where(where).orderBy(asc(id())).getResultList();
-    }
-    
-    /**
-     * OB宣言していないメンバーの一覧を返す
-     * @deprecated 今後は{@link TMemberService#findAllOrderById(boolean)}の引数をfalseにして使ってください
-     * @return エンティティのリスト
-     */
-	public List<TMember> findByIdNoOBAll() {
-    	SimpleWhere where = new SimpleWhere();
-    	where.eq(obFlag(), Boolean.toString(false));
-    	where.eq(deleteFlag(), Boolean.valueOf(false));
-        return select().where(where).getResultList();
     }
 	
 	/**
@@ -198,7 +175,7 @@ public class TMemberService extends AbstractService<TMember> {
     	
     	//OBを含めるかどうかの処理
     	if (!containsOB) {
-    		where = where.eq(obFlag(), false);
+    		where = where.eq(obFlag(), Boolean.valueOf(false));
     	}
     	
     	//削除済みを入れないのは共通処理
@@ -213,16 +190,44 @@ public class TMemberService extends AbstractService<TMember> {
     
     /**
      * OB宣言していないメンバーのマップを返す
-     * @deprecated 無限ループします
      * @return Map
      */
-    public Map<String,String> getMemberMap(){
-    	SimpleWhere where = new SimpleWhere();
-    	where.eq(obFlag(),Character.valueOf('0'));
+    
+    public HashMap<String, String> getMemberMapSS(){
+		//戻り値を格納するmap
+		HashMap<String, String> rtnMap = new HashMap<String, String>();
+		
+		SimpleWhere where = new SimpleWhere();
+		where.eq(deleteFlag(), Boolean.valueOf(false));
+		where.eq(obFlag(), Boolean.valueOf(false));
     	List<TMember> list = select().where(where).getResultList();
-    	for (TMember member : list){
-    	getMemberMap().put(member.id.toString(), member.hname);
-    	}return getMemberMap();
+    	//for文でリストのリストの情報を１つずつマップに入れ込んでいく
+        for ( TMember tMember : list) {
+        	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
+        	rtnMap.put(tMember.id.toString(), tMember.hname);
+        }
+		return rtnMap;
+    }
+    
+    /**
+     * OB宣言していないメンバーのマップを返す
+     * @return Map
+     */
+    
+    public HashMap<Integer, String> getMemberMapIS(){
+		//戻り値を格納するmap
+		HashMap<Integer, String> rtnMap = new HashMap<Integer, String>();
+		
+		SimpleWhere where = new SimpleWhere();
+		where.eq(deleteFlag(), Boolean.valueOf(false));
+		where.eq(obFlag(), Boolean.valueOf(false));
+    	List<TMember> list = select().where(where).getResultList();
+    	//for文でリストのリストの情報を１つずつマップに入れ込んでいく
+        for ( TMember tMember : list) {
+        	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
+        	rtnMap.put(tMember.id, tMember.hname);
+        }
+		return rtnMap;
     }
     
     @Override

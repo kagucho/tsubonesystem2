@@ -10,7 +10,9 @@ import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.util.ServletContextUtil;
 import org.seasar.struts.util.UploadUtil;
 
+import tsuboneSystem.entity.TImageUpload;
 import tsuboneSystem.form.ImageUploadForm;
+import tsuboneSystem.service.TImageUploadService;
 
 public class ImageUploadAction {
 	
@@ -19,6 +21,10 @@ public class ImageUploadAction {
 	@ActionForm
 	@Resource
 	protected ImageUploadForm imageUploadForm;
+	
+	/** TImageUploadServiceのサービスクラス */
+	@Resource
+	protected TImageUploadService tImageUploadService;
 	
 	@Resource
     HttpServletRequest req;
@@ -33,9 +39,15 @@ public class ImageUploadAction {
     	String rm = RandomStringUtils.randomAlphabetic(10);
     	
     	//ファイルの格納先フォルダの絶対パスを取得(DBにこのパスを保存しておく)
-    	String path = app.getRealPath("/images/upload/" + rm + imageUploadForm.file.getFileName());
+    	String path = app.getRealPath("/images/top/" + rm + imageUploadForm.file.getFileName());
         
-        //ファイル書き込み（ファイルパスが空の場合は何もしません）
+        //ファイル名とファイルパスをDBに追加
+    	TImageUpload imageUpload = new TImageUpload();
+    	imageUpload.fileName = rm + imageUploadForm.file.getFileName();
+    	imageUpload.filePath = path;
+    	tImageUploadService.insert(imageUpload);
+    	
+    	//ファイル書き込み（ファイルパスが空の場合は何もしません）
         UploadUtil.write(path, imageUploadForm.file);
     	
         return null;

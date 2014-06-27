@@ -1,11 +1,9 @@
-
 package tsuboneSystem.action.admin;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -19,7 +17,6 @@ import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.dto.LoginAdminDto;
-import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMail;
 import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
@@ -110,11 +107,8 @@ public class PartyRegistAction {
         partyForm.mailSendFlag = false;
         
         //keyをclubId, valueをclubNameとしてマップを作成する
-        partyForm.clubMapSS = new HashMap<String,String>();
-        for ( TClub club : tClubService.findAllOrderById()) {
-        	partyForm.clubMapSS.put(club.id.toString(), club.ClubName);
-        }
-         
+        partyForm.clubMapSS = tClubService.getClubMapSS();
+
         return viewinput();
 	}
 	

@@ -15,15 +15,12 @@
  */
 package tsuboneSystem.action.admin;
 
-import java.util.HashMap;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
-import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.ClubForm;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TMemberClubService;
@@ -59,12 +56,6 @@ public class ClubListAction {
     	
     	clubForm.clubItems = tClubService.findAllInTmember();
 
-    	//部長の名前を表示するためのマップ
-    	clubForm.memberMapIS = new HashMap<Integer,String>();
-    	clubForm.tMemberAllList = tMemberService.findByIdNoOBAll();
-    	for (TMember memberOne : clubForm.tMemberAllList) {
-    		 clubForm.memberMapIS.put(memberOne.id, memberOne.hname);	
-    	}
 	
         return "clubList.jsp";
 	}
