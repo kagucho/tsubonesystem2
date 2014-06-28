@@ -19,55 +19,54 @@
 <a class="btn btn-primary" href="<c:url value="/admin/memberRegist/index"/>">新規登録</a>
 <a class="btn btn-primary" href="<c:url value="/admin/memberUpload/index"/>">CSV一括登録</a>
 <div class="table-responsive">
-<table class="table table-bordered">
-<tr class="info">
-<th></th><th>名前</th><th>ハンドルネーム</th><th>入学年度</th>
-		<tr>
-			<td align="center">
-				<a href="<c:url value="/admin/memberDetail/detail"/>/${loginMember.id}"><span class="glyphicon glyphicon-user"></span></a>
-			</td>
-			<td>
-				${f:h(loginMember.name) }
-			</td>
-			<td>
-				<a href="<c:url value="/admin/memberDetail/detail"/>/${loginMember.id}">${f:h(loginMember.hname) }</a>
-			</td>
-			<td>
-				${f:h(loginMember.entrance) }
-			</td>
-		</tr>
-</table>
+	<table class="table table-bordered">
+		<tr class="info">
+		<th></th><th>名前</th><th>ハンドルネーム</th><th>入学年度</th>
+				<tr>
+					<td align="center">
+						<a href="<c:url value="/admin/memberDetail/detail"/>/${loginMember.id}"><span class="glyphicon glyphicon-user"></span></a>
+					</td>
+					<td>
+						${f:h(loginMember.name) }
+					</td>
+					<td>
+						<a href="<c:url value="/admin/memberDetail/detail"/>/${loginMember.id}">${f:h(loginMember.hname) }</a>
+					</td>
+					<td>
+						${f:h(loginMember.entrance) }
+					</td>
+				</tr>
+	</table>
+</div>
 <div class="table-responsive">
-全部で<strong>${total}件</strong>のデータが有ります。<br />
-<c:if test="${hasPrev}">
-	<a href="?page=${page - 1}"><i class="glyphicon glyphicon-chevron-left"></i>前へ</a>
-	　　　
-</c:if>
-<c:if test="${hasNext}">
-	<a href="?page=${page + 1}">次へ<span class="glyphicon glyphicon-chevron-right"></span></a>
-</c:if>
-<table class="table">
-<tr class="info">
-	<th></th><th>名前</th><th>ハンドルネーム</th><th>入学年度</th>
-	<c:forEach var="e" items="${memberItems}">
-		<tr>
-			<td>
-				<span class="glyphicon glyphicon-user" style="visibility:hidden"></span>
-			<td>
-				${f:h(e.name) }
-			</td>
-			<td>
-				<a href="<c:url value="/admin/memberDetail/detail"/>/${e.id}">${f:h(e.hname) }</a>
-			</td>
-			<td>
-				${f:h(e.entrance) }
-			</td>
-		</tr>
-	</c:forEach>
-</table>
+	全部で<strong>${total}件</strong>のデータが有ります。<br />
+	<c:if test="${hasPrev}">
+		<a href="?page=${page - 1}"><i class="glyphicon glyphicon-chevron-left"></i>前へ</a>		　　　
+	</c:if>
+	<c:if test="${hasNext}">
+		<a href="?page=${page + 1}">次へ<span class="glyphicon glyphicon-chevron-right"></span></a>
+	</c:if>
+	<table class="table">
+		<tr class="info">
+			<th></th><th>名前</th><th>ハンドルネーム</th><th>入学年度</th>
+			<c:forEach var="e" items="${memberItems}">
+				<tr>
+					<td>
+						<span class="glyphicon glyphicon-user" style="visibility:hidden"></span>
+					<td>
+						${f:h(e.name) }
+					</td>
+					<td>
+						<a href="<c:url value="/admin/memberDetail/detail"/>/${e.id}">${f:h(e.hname) }</a>
+					</td>
+					<td>
+						${f:h(e.entrance) }
+					</td>
+				</tr>
+			</c:forEach>
+	</table>
+</div>
 
-</div>
-</div>
 </s:form>
 </div>
 <%@ include file="/WEB-INF/view/common/search.jsp"%>

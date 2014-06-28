@@ -10,6 +10,7 @@ import org.seasar.struts.annotation.Maxlength;
 import org.seasar.struts.annotation.Required;
 
 import tsuboneSystem.entity.TClub;
+import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
 
@@ -36,6 +37,8 @@ public class ClubForm implements Serializable {
 	/* 削除フラグ　*/
 	public String deleteFlag;
 	
+	/* 部長　*/
+	public TLeaders tLeaders;
 	
 	/** Clubのリスト */
 	public List<TClub> clubItems;
@@ -85,6 +88,7 @@ public class ClubForm implements Serializable {
 		deleteFlag = null;
 		OfficerId = null;
 		ClubMemo = null;
+		tLeaders =null;
     }
 
 }

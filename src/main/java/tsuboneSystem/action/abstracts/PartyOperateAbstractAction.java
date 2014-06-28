@@ -114,7 +114,7 @@ public abstract class PartyOperateAbstractAction {
 				for (String cLubId : partyForm.clubListCheck) {
 					List<TMemberClub> tMemberClubList = tMemberClubService
 							.findByClubId(cLubId, containsOB);
-					sendTMemberSet.addAll(getTMmeberByTMemberClubList(tMemberClubList));
+					sendTMemberSet.addAll(getTMemberByTMemberClubList(tMemberClubList));
 				}
 			}
 
@@ -128,7 +128,7 @@ public abstract class PartyOperateAbstractAction {
 	 * @param tMemberClubList
 	 * @return
 	 */
-	protected ArrayList<TMember> getTMmeberByTMemberClubList(List<TMemberClub> tMemberClubList) {
+	protected ArrayList<TMember> getTMemberByTMemberClubList(List<TMemberClub> tMemberClubList) {
 		ArrayList<TMember> rtnList = new ArrayList<TMember>();
 		for (TMemberClub tMemberClub : tMemberClubList) {
 			rtnList.add(tMemberClub.tMember);

@@ -17,16 +17,16 @@
 <div class="col-sm-12">
 <table class="table">
 	<tr>
-		<th><h4>部の名前</h4></th>
+		<th class="col-md-2 col-sm-2"><h4>部の名前</h4></th>
 		<td><h5>${f:h(ClubName)}</h5></td>
 	</tr>
 	<tr>
-		<th><h4>部の代表者</h4></th>
+		<th class="col-md-2 col-sm-2"><h4>部の代表者</h4></th>
 		<td><a href="<c:url value="/individuals/memberDetail/detail/${tMember.id}"/>"><h5>${f:h(tMember.hname)}(本名:${f:h(tMember.name)})</h5></a></td>
 	</tr>
 	<tr>
-		<th><h4>部の概要</h4></th>
-		<td><h5>${f:h(ClubMemo)}</h5></td>
+		<th class="col-md-2 col-sm-2"><h4>部の概要</h4></th>
+		<td class="col-md-10 col-sm-10"><h5>${f:h(ClubMemo)}</h5></td>
 	</tr>
 </table>
 </div>

@@ -46,8 +46,14 @@ public class PartyResultAction {
 	
 	@Execute(validator = false, urlPattern = "{id}")
 	public String input() {
-        return "partyInput.jsp";
+        return viewinput();
 	}
+	
+	
+    @Execute(validator = false)
+	public String viewinput() {
+    	return "partyInput.jsp";
+    }
     
     @Execute(validator = true, input = "partyInput.jsp")
 	public String confirm() {

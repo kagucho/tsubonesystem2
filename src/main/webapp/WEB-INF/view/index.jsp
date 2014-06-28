@@ -19,21 +19,21 @@
     <!-- Header Area -->
     <div id="top" class="header">
       <div class="vert-text">
-	  <img class="img-rounded" alt="Company Logo" src="./images/top/logo.jpg"/>
+	  <img class="img-rounded" alt="Company Logo" src="./images/top/rogo.png"/>
         <h2><em>Kagutyo</em></h2>
 		 <ul class="list-inline">
               <li><i class="fa fa-facebook fa-3x"></i></li>
               <li><i class="fa fa-twitter fa-3x"></i></li>
             </ul>	
 			<br>
-			<a href="#about" class="btn btn-top">Learn More</a>
+			<a href="#about" class="btn btn-top">What's KAGUTYO</a>
       </div>
     </div>
     <!-- /Header Area -->
     
     <!-- About -->
     <div id="about" class="about_us">
-      <div class="container">
+      <div class="container">	
         <div class="row">
           <div class="col-md-12 text-center">
             <h2>神楽坂一丁目通信局について</h2>
