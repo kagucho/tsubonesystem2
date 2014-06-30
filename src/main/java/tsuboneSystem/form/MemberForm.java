@@ -53,7 +53,7 @@ public class MemberForm implements Serializable{
 	
 	/* 入学年度　*/
 	@Required(msg=@Msg(key="errors.entrance", resource=true))
-	@DateType(datePatternStrict="yyyy",msg=@Msg(key="errors.date", resource=true))
+	@DateType(datePatternStrict="yyyy",msg=@Msg(key="errors.dateYYYY", resource=true))
 	public String entrance;
 	
 	/* 電話番号1　*/

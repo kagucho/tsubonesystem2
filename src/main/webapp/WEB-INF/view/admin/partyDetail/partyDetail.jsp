@@ -23,19 +23,28 @@
 		<a class="col-md-2 col-sm-5 col-sm-offset-4 col-xs-12  btn btn-primary btnMRC" href="<c:url value="/admin/partyResult/${id}"/>" role="button">会議の結果を入力する</a>
 	</c:if>
 </div>
-<div class="col-sm-12">
-
-<%@ include file="/WEB-INF/view/common/partyFormConfirm.jsp"%>
-
-<c:if test="${!deadFlag}">
-	<div class="row CENTER">
-		<a class="col-md-3 col-md-offset-3 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-primary btnYOKO btnMRC " href="<c:url value="/admin/attend/yes"/>">出席する</a>
-		<a class="col-md-3 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/admin/attend/no"/>">欠席する</a>
-	</div>
+<div class="col-md-12">
+	<%@ include file="/WEB-INF/view/common/partyFormConfirm.jsp"%>
+	<c:if test="${!deadFlag}">
+		<div class="row CENTER">
+			<a class="col-md-3 col-md-offset-3 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-primary btnYOKO btnMRC " href="<c:url value="/admin/attend/yes"/>">出席する</a>
+			<a class="col-md-3 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/admin/attend/no"/>">欠席する</a>
+		</div>
+		<s:form method="POST" >
+			<form name="party" class="form-horizontal">
+				<%@ include file="/WEB-INF/view/common/partyQuestionFormInput.jsp"%>
+				<div class="form-group">
+					<div class="col-sm-8">
+						<input type="submit" value="質問する" id="questionConfirm" name="questionConfirm" property="questionConfirm" class="col-md-6 col-md-offset-6 col-sm-10 col-sm-offset-4 col-xs-12  btn btn-primary">
+					</div>
+				</div>
+			</form>
+		</s:form>
 </c:if>
 <c:if test="${deadFlag}">
 	<div class="alert alert-danger">この会議は締め切り時間を過ぎています</div>
 </c:if>
+<%@ include file="/WEB-INF/view/common/questionList.jsp"%>
 </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

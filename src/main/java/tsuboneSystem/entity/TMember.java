@@ -104,5 +104,12 @@ public class TMember implements Serializable {
     @OneToMany(mappedBy = "TMember")
     public List<TMail> tMailList;
     
+    /** memberIdをTPartyQuestionに結びつける */
+    @OneToMany(mappedBy = "TMember")
+    public List<TPartyQuestion> tPartyQuestionList;
+    
+    /** memberIdをTPartyAnswerに結びつける */
+    @OneToMany(mappedBy = "TMember")
+    public List<TPartyAnswer> tPartyAnswerList;
 
 }

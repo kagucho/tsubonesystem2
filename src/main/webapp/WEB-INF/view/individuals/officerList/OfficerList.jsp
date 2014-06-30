@@ -19,7 +19,7 @@
 <h3>局長</h3>
 <table class="table">
 <tr>
-	<th>本名</th><th>ハンドルネーム</th><th>連絡先（mail）</th><th>連絡先（電話番号）</th>
+	<th class="col-md-2 col-ms-2">本名</th><th class="col-md-2 col-ms-2">ハンドルネーム</th><th class="col-md-5 col-ms-5">連絡先（mail）</th><th class="col-md-3 col-ms-3">連絡先（電話番号）</th>
 		<c:forEach var="e" items="${tLeadersChief}">
 		<tr>
 			<td>
@@ -40,8 +40,29 @@
 <h3>副局長</h3>
 <table class="table">
 <tr>
-	<th>本名</th><th>ハンドルネーム</th><th>連絡先（mail）</th><th>連絡先（電話番号）</th>
+	<th class="col-md-2 col-ms-2">本名</th><th class="col-md-2 col-ms-2">ハンドルネーム</th><th class="col-md-5 col-ms-5">連絡先（mail）</th><th class="col-md-3 col-ms-3">連絡先（電話番号）</th>
 	<c:forEach var="e" items="${tLeadersSubChief}">
+		<tr>
+			<td>
+				${f:h(e.tMember.name) }
+			</td>
+			<td>
+				${f:h(e.tMember.hname) }
+			</td>
+			<td>
+				${f:h(e.tMember.mail) }
+			</td>
+			<td>
+				${f:h(e.tMember.tel1) }-${f:h(e.tMember.tel2) }-${f:h(e.tMember.tel3) }
+			</td>
+		</tr>
+	</c:forEach>
+</table>
+<h3>会計</h3>
+<table class="table">
+<tr>
+	<th class="col-md-2 col-ms-2">本名</th><th class="col-md-2 col-ms-2">ハンドルネーム</th><th class="col-md-5 col-ms-5">連絡先（mail）</th><th class="col-md-3 col-ms-3">連絡先（電話番号）</th>
+	<c:forEach var="e" items="${tLeadersAccount}">
 		<tr>
 			<td>
 				${f:h(e.tMember.name) }
@@ -61,7 +82,7 @@
 <h3>各部長</h3>
 <table class="table">
 <tr>
-	<th>部名</th><th>部の代表者</th><th>代表者の連絡先（mail）</th><th>代表者の連絡先（電話番号）</th>
+	<th class="col-md-1 col-ms-1">部名</th><th class="col-md-2 col-ms-2">部の代表者</th><th class="col-md-5 col-ms-5">代表者の連絡先（mail）</th><th class="col-md-4 col-ms-4">代表者の連絡先（電話番号）</th>
 	<c:forEach var="e" items="${officerListItem}">
 		<tr>
 			<td>

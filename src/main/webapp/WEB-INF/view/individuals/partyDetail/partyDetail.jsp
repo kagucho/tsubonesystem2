@@ -15,63 +15,47 @@
 <div class="container">
 <h3 class="col-md-6 col-xs-12">${f:h(meetingName)}たんの詳細情報</h3>
 <div class="col-sm-12">
-<table class="table">
-	<tr>
-		<th><h4>会議の名前</h4></th>
-		<td><h5>${f:h(meetingName)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>必須判定</h4></th>
-	　	<td>
-			<c:if test="${meetingNecessaryFlag}">
-				<h5>出席を必須とする</h5>
-			</c:if>
-		</td>
-	</tr>
-	<tr>
-		<th><h4>会議の開催日時</h4></th>
-		<td><h5>${f:h(meetingDay)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>開催時間</h4></th>
-		<td><h5>${f:h(meetingTime)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>会議の開催場所</h4></th>
-		<td><h5>${f:h(meetingRoom)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>会議の内容</h4></th>
-		<td><h5>${f:h(meetingMemo)}</h5></td>
-	</tr>
-	<tr>
-		<th><h4>OB出席</h4></th>
-		<td>
-			<c:if test="${ObAttendFlag}">
-				<h5>OBを出席対象とする</h5>
-			</c:if>
-		</td>
-	</tr>
-	<tr>
-		<th><h4>会議の締切時間</h4></th>
-		<td><h5>${f:h(meetingDeadlineDay)}</h5></td>
-	</tr>
-	<c:if test="${deadFlag}">
-		<tr>
-			<th><h4>審議の結果</h4></th>
-			<td><h5><pre>${f:h(meetingResult)}</pre></h5></td>
-		</tr>
+	<%@ include file="/WEB-INF/view/common/partyFormConfirm.jsp"%>
+	<c:if test="${!deadFlag}">
+		<div class="row CENTER">
+			<a class="col-md-3 col-md-offset-3 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-primary btnYOKO btnMRC" href="<c:url value="/individuals/attend/yes"/>">出席する</a>
+			<a class="col-md-3 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/individuals/attend/no"/>">欠席する</a>
+		</div>
+		<s:form method="POST" >
+			<form name="party" class="form-horizontal">
+				<%@ include file="/WEB-INF/view/common/partyQuestionFormInput.jsp"%>
+				<div class="form-group">
+					<div class="col-sm-8">
+						<input type="submit" value="質問をする" id="questionConfirm" name="questionConfirm" property="questionConfirm" class="col-md-6 col-md-offset-6 col-sm-10 col-sm-offset-4 col-xs-12  btn btn-primary">
+					</div>
+				</div>
+			</form>
+		</s:form>
 	</c:if>
-</table>
-<c:if test="${!deadFlag}">
-	<div class="row CENTER">
-		<a class="col-md-3 col-md-offset-3 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-primary btnYOKO btnMRC" href="<c:url value="/individuals/attend/yes"/>">出席する</a>
-		<a class="col-md-3 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/individuals/attend/no"/>">欠席する</a>
-	</div>
-</c:if>
-<c:if test="${deadFlag}">
-	<div class="alert alert-danger"><h4>この会議は締め切り時間を過ぎています</h4></div>
-</c:if>
+	<c:if test="${deadFlag}">
+		<div class="alert alert-danger"><h4>この会議は締め切り時間を過ぎています</h4></div>
+	</c:if>
+	<div class="col-md-12 col-xs-12">
+<h3 class="col-md-6 col-xs-12">過去の質問一覧</h3>
+	<table class="table">
+		<tr class="info">
+		<th>質問者</th><th>質問内容</th><th></th>
+		<c:forEach var="e" items="${tPartyQuestionList}">
+			<tr>
+				<td class="col-md-2 col-sm-2">
+					${f:h(e.tMember.hname) }
+				</td>
+				<td class="col-md-9 col-sm-9">
+					${f:h(e.question) }
+				</td>
+				<td class="col-md-1 col-sm-1">
+					<a class="btn btn-primary" href="<c:url value="/individuals/partyAnswer/${id}/${e.id}"/>" role="button">回答</a>
+				</td>
+			</tr>
+		</c:forEach>
+		</tr>
+	</table>
+</div>
 </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

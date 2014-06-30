@@ -28,7 +28,12 @@ public class TPartyService extends AbstractService<TParty> {
      * @return エンティティ
      */
     public TParty findById(Integer id) {
-        return select().leftOuterJoin("tPartyClubList").id(id).getSingleResult();
+        return select()
+        		.innerJoin("tMember")
+        		.leftOuterJoin("tPartyClubList")
+        		.leftOuterJoin("tPartyQuestionList")
+        		.leftOuterJoin("tPartyQuestionList.tMember")
+        		.id(id).getSingleResult();
     }
 
     /**

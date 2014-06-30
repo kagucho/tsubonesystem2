@@ -51,9 +51,6 @@ public class PartyDto implements Serializable {
 	/* 会議出欠席締め切り日　*/
 	public String meetingDeadlineDay;
 	
-	/* 会議出欠席締め切り時間　*/
-	public String meetingDeadlineTime;
-	
 	/* 出席してる人のリスト　*/
 	public List<TMember> tMemberOn = new ArrayList<TMember>();
 	
@@ -65,6 +62,9 @@ public class PartyDto implements Serializable {
 	
 	/* 出欠席を返さないゴミのmap　*/
 	public Map<String, String> mapKuzuSS;
+	
+	/* 会議の登録者 */
+	public TMember tMember;
 	
 
 	public boolean deadFlag(TParty tParty,Date dateNow) {

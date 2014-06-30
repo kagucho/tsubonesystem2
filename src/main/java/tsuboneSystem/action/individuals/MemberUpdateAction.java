@@ -138,10 +138,12 @@ public class MemberUpdateAction {
         if (TokenProcessor.getInstance().isTokenValid(request, true)){  	
         	TMember memberUp = new TMember();
         	Beans.copy(memberForm, memberUp).execute();
-        	memberUp.obFlag = false;
+        	
+        	
         	//ログインDTOを入れなおす
         	loginIndividualsDto.tMemberLogin = memberUp;
         	
+        	//パスワードの更新
         	if (!memberForm.password.isEmpty()){
         		//パスワードのハッシュ化
             	memberUp.password = DigestUtil.md5(memberForm.password);
@@ -149,6 +151,8 @@ public class MemberUpdateAction {
         		TMember tMember = tMemberService.findById(memberForm.id);
         		memberUp.password = tMember.password;
         	}
+        	
+        	//不達フラグはfalse
         	memberUp.sendErrorFlag = false;
         	
         	//DB更新

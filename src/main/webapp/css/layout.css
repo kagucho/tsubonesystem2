@@ -100,5 +100,8 @@ img.bgmaximage{
 }
 .hissu{
 	color:#FF0000;
-}	
+}
+.marginUP{
+	margin-top: 20px !important;
+}
 }

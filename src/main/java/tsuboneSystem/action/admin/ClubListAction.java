@@ -56,7 +56,6 @@ public class ClubListAction {
     	
     	clubForm.clubItems = tClubService.findAllInTmember();
 
-	
         return "clubList.jsp";
 	}
 }

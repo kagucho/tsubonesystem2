@@ -19,12 +19,9 @@
     <!-- Header Area -->
     <div id="top" class="header">
       <div class="vert-text">
-	  <img class="img-rounded" alt="Company Logo" src="./images/top/rogo.png"/>
-        <h2><em>Kagutyo</em></h2>
-		 <ul class="list-inline">
-              <li><i class="fa fa-facebook fa-3x"></i></li>
-              <li><i class="fa fa-twitter fa-3x"></i></li>
-            </ul>	
+	  <img class="img-rounded" alt="Company Logo" src="./images/top/logo250c.png"/>
+        <h2>神楽坂一丁目通信局</h2>
+
 			<br>
 			<a href="#about" class="btn btn-top">What's KAGUTYO</a>
       </div>
@@ -147,12 +144,12 @@ $.vegas('slideshow', {
   delay:5000,
   backgrounds:[
 	 <c:forEach var="e" items="${imageList}">
-	 { src:'./images/top/${e.fileName}', fade:5000 },
+	 { src:'./images/top/slideshowimage/${e.fileName}', fade:5000 },
 	 </c:forEach>
 	 { src:'./images/top/2.png', fade:5000 }  
   ]
 })('overlay', {
-src:'./images/top/overlay.png'
+
 });
 
 	</script>

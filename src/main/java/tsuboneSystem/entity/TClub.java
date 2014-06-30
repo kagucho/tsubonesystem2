@@ -37,7 +37,7 @@ public class TClub implements Serializable {
     @Column(nullable = true, unique = false)
     public Integer  LeadersId;
     
-    /** 部名 */
+    /** 部の説明 */
     @Column(nullable = false, unique = false)
     public String  ClubMemo;
     

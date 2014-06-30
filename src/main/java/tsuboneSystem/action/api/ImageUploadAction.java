@@ -39,7 +39,7 @@ public class ImageUploadAction {
     	String rm = RandomStringUtils.randomAlphabetic(10);
     	
     	//ファイルの格納先フォルダの絶対パスを取得(DBにこのパスを保存しておく)
-    	String path = app.getRealPath("/images/top/" + rm + imageUploadForm.file.getFileName());
+    	String path = app.getRealPath("/images/top/slideshowimage/" + rm + imageUploadForm.file.getFileName());
         
         //ファイル名とファイルパスをDBに追加
     	TImageUpload imageUpload = new TImageUpload();

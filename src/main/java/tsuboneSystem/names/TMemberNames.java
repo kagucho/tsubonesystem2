@@ -6,14 +6,16 @@ import tsuboneSystem.entity.TMember;
 import tsuboneSystem.names.TLeadersNames._TLeadersNames;
 import tsuboneSystem.names.TMailNames._TMailNames;
 import tsuboneSystem.names.TMailSendMemberNames._TMailSendMemberNames;
+import tsuboneSystem.names.TPartyAnswerNames._TPartyAnswerNames;
 import tsuboneSystem.names.TPartyAttendNames._TPartyAttendNames;
 import tsuboneSystem.names.TPartyNames._TPartyNames;
+import tsuboneSystem.names.TPartyQuestionNames._TPartyQuestionNames;
 
 /**
  * {@link TMember}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/28 2:21:07")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/30 15:15:44")
 public class TMemberNames {
 
     /**
@@ -194,6 +196,24 @@ public class TMemberNames {
      */
     public static _TMailNames tMailList() {
         return new _TMailNames("tMailList");
+    }
+
+    /**
+     * tPartyQuestionListのプロパティ名を返します。
+     * 
+     * @return tPartyQuestionListのプロパティ名
+     */
+    public static _TPartyQuestionNames tPartyQuestionList() {
+        return new _TPartyQuestionNames("tPartyQuestionList");
+    }
+
+    /**
+     * tPartyAnswerListのプロパティ名を返します。
+     * 
+     * @return tPartyAnswerListのプロパティ名
+     */
+    public static _TPartyAnswerNames tPartyAnswerList() {
+        return new _TPartyAnswerNames("tPartyAnswerList");
     }
 
     /**
@@ -407,6 +427,24 @@ public class TMemberNames {
          */
         public _TMailNames tMailList() {
             return new _TMailNames(this, "tMailList");
+        }
+
+        /**
+         * tPartyQuestionListのプロパティ名を返します。
+         * 
+         * @return tPartyQuestionListのプロパティ名
+         */
+        public _TPartyQuestionNames tPartyQuestionList() {
+            return new _TPartyQuestionNames(this, "tPartyQuestionList");
+        }
+
+        /**
+         * tPartyAnswerListのプロパティ名を返します。
+         * 
+         * @return tPartyAnswerListのプロパティ名
+         */
+        public _TPartyAnswerNames tPartyAnswerList() {
+            return new _TPartyAnswerNames(this, "tPartyAnswerList");
         }
     }
 }

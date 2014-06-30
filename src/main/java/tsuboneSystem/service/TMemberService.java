@@ -134,7 +134,6 @@ public class TMemberService extends AbstractService<TMember> {
      */
     public TMember findByUserName(String UserName){
     	SimpleWhere where = new SimpleWhere();
-    	where.eq(deleteFlag(), Boolean.valueOf(false));
     	where.eq(userName(), UserName);
     	return select().where(where).getSingleResult();
     }

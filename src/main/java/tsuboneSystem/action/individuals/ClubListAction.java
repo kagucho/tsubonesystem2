@@ -39,8 +39,7 @@ public class ClubListAction {
     @Execute(validator = false)
 	public String index() {
     	
-    	clubForm.clubItems = tClubService.findAllOrderById();
- //   	clubForm.memberMap = tMemberService.getMemberMap();
+    	clubForm.clubItems = tClubService.findAllInTmember();
 	
         return "clubList.jsp";
 	}
