@@ -64,6 +64,10 @@
 			</component>
 		</arg>
 	</initMethod>
+	<initMethod name="addAspectCustomizer">
+      <arg>"j2ee.requiredTx"</arg>
+      <arg>"uploadMember"</arg>
+    </initMethod>
 	<initMethod name="addCustomizer">
 		<arg>
 			<component
@@ -110,7 +114,7 @@
     </initMethod>
   </component>
   <!-- for S2Chronos -->
-	 <component name="taskSupportAspectCustomizer" class="org.seasar.framework.container.customizer.AspectCustomizer">
+  <component name="taskSupportAspectCustomizer" class="org.seasar.framework.container.customizer.AspectCustomizer">
     <initMethod name="addInterceptorName">
       <arg>"aop.traceInterceptor"</arg>
     </initMethod>
