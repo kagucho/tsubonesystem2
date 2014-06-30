@@ -69,6 +69,8 @@ public class ClubUpdateAction {
 		for (TMember memberOne : clubForm.tMemberAllList) {
 			clubForm.memberMap.put(memberOne.id.toString(), memberOne.hname);	
 		}
+		
+			
 				
         return viewinput();
 	}

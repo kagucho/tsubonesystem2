@@ -28,9 +28,11 @@ public class TPartyClub implements Serializable {
     public Integer id;
     
     /** PartyのID */
+    @Column()
     public Integer  PartyId;
     
     /** MemberのID */
+    @Column()
     public Integer  ClubId;
     
     /** IDをTParty(ID)に関連付ける☆ */

@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Slidefolio</title>
+    <title>神楽坂一丁目通信局</title>
     <!-- Bootstrap core CSS -->
     <link href="${f:url('/css/topcss/bootstrap.css')}" rel="stylesheet">
     <!-- Add custom CSS here -->
@@ -19,21 +19,18 @@
     <!-- Header Area -->
     <div id="top" class="header">
       <div class="vert-text">
-	  <img class="img-rounded" alt="Company Logo" src="./images/top/logo.jpg"/>
-        <h2><em>Kagutyo</em></h2>
-		 <ul class="list-inline">
-              <li><i class="fa fa-facebook fa-3x"></i></li>
-              <li><i class="fa fa-twitter fa-3x"></i></li>
-            </ul>	
+	  <img class="img-rounded" alt="Company Logo" src="./images/top/logo250c.png"/>
+        <h2>神楽坂一丁目通信局</h2>
+
 			<br>
-			<a href="#about" class="btn btn-top">Learn More</a>
+			<a href="#about" class="btn btn-top">What's KAGUTYO</a>
       </div>
     </div>
     <!-- /Header Area -->
     
     <!-- About -->
     <div id="about" class="about_us">
-      <div class="container">
+      <div class="container">	
         <div class="row">
           <div class="col-md-12 text-center">
             <h2>神楽坂一丁目通信局について</h2>
@@ -146,18 +143,13 @@
 $.vegas('slideshow', {
   delay:5000,
   backgrounds:[
-     { src:'./images/top/nature1.jpg', fade:2000 },
-	 { src:'./images/top/bw1.jpg', fade:2000 },
-     { src:'./images/top/portrait1.jpg', fade:2000 },
-	 { src:'./images/top/portrait5.jpg', fade:2000 },
-     { src:'./images/top/portrait2.jpg', fade:2000 },
-     { src:'./images/top/portrait3.jpg', fade:2000 },
-	 { src:'./images/top/portrait4.jpg', fade:2000 },
-	 { src:'./images/top/forest.jpg', fade:2000 }
-	   
+	 <c:forEach var="e" items="${imageList}">
+	 { src:'./images/top/slideshowimage/${e.fileName}', fade:5000 },
+	 </c:forEach>
+	 { src:'./images/top/2.png', fade:5000 }  
   ]
 })('overlay', {
-src:'./images/top/overlay.png'
+
 });
 
 	</script>

@@ -105,4 +105,8 @@ public class TParty implements Serializable {
     @OneToMany(mappedBy = "TParty")
     public List<TPartyAttend> tPartyAttendList;
     
+    /* IdをTPartyQuestionに結びつける */
+    @OneToMany(mappedBy = "TParty")
+    public List<TPartyQuestion> tPartyQuestionList;
+    
 }

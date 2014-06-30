@@ -44,14 +44,14 @@ cursor:pointer;
 	    -ms-user-select: none;
 	        user-select: none;
 }
-/*Vegas CSS for Slideshow*/
+/*Vegas CSS for Slideshow (”wŒi‘S‘Ì‚É‚©‚©‚é)*/
 
 .vert-text {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
   color:#f1f1f1;
-  background:rgba(0, 0, 0, 0.48);
+  background:rgba(0, 0, 0, 0.1);
 }
 
 .vert-text h1 {

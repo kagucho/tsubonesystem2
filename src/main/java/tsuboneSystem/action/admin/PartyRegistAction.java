@@ -24,8 +24,6 @@ public class PartyRegistAction extends PartyOperateAbstractAction{
 	/** アクションネーム */
 	public String actionName = "PartyRegist";
 	
-	
-	
 	/** LoginAdminDto */
 	@Resource
 	protected LoginAdminDto loginAdminDto;
@@ -101,10 +99,19 @@ public class PartyRegistAction extends PartyOperateAbstractAction{
 		Collection<TMember> tMemberList;
 		if (partyForm.attendClub != null) {
 			tMemberList = new HashSet<TMember>();
+			HashSet<TMember> tMemberListSecond = new HashSet<TMember>();
 			//部ごとに会員をセットする
-			for (String cLubId : partyForm.clubListCheck) {
+			for (String cLubId : partyForm.attendClub) {
 				List<TMemberClub> tMemberClubList = tMemberClubService.findByClubId(cLubId, containsOb);
-				tMemberList.addAll(getTMmeberByTMemberClubList(tMemberClubList));
+				tMemberListSecond.addAll(getTMemberByTMemberClubList(tMemberClubList));
+			}
+			//重複をなくす処理	
+			HashSet<Integer> set = new HashSet<Integer>();
+			for(TMember one : tMemberListSecond){
+				set.add(one.id);
+			}
+			for(Integer one : set){
+				tMemberList.add(tMemberService.findById(one));
 			}
 		} else {
 			tMemberList = tMemberService.findAllOrderById(containsOb);

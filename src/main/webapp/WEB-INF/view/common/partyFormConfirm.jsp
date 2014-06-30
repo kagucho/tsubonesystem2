@@ -1,6 +1,6 @@
 <table class="table">
 	<tr>
-		<th><h4>会議の名前</h4></th>
+		<th class="col-md-3 col-xs-4"><h4>会議の名前</h4></th>
 		<td><h5>${f:h(meetingName)}</h5></td>
 	</tr>
 	<tr>
@@ -55,4 +55,10 @@
 		<th><h4>締切日</h4></th>
 		<td><h5>${f:h(meetingDeadlineDay)}</h5></td>
 	</tr>
+	<c:if test="${deadFlag}">
+	<tr>
+		<th><h4>会議の結果</h4></th>
+		<td><h5><pre>${f:h(meetingResult)}</pre></h5></td>
+	</tr>
+	</c:if>
 </table>

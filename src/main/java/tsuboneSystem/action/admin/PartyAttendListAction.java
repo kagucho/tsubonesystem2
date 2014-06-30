@@ -154,7 +154,7 @@ public class PartyAttendListAction {
     	
     	httpServletResponse.setHeader(
     			"Content-Disposition",
-    			"attachment; filename=" + System.currentTimeMillis() + ".xls");
+    			"attachment; filename=" + partyDto.meetingName + System.currentTimeMillis() + ".xls");
     	
     	try {
     		OutputStream out = httpServletResponse.getOutputStream();

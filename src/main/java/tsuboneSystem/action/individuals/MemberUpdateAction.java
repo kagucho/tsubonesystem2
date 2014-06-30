@@ -15,6 +15,7 @@
  */
 package tsuboneSystem.action.individuals;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -88,15 +89,11 @@ public class MemberUpdateAction {
         TokenProcessor.getInstance().saveToken(request);
         
         memberForm.id = loginIndividualsDto.tMemberLogin.id;
+
+        memberForm.clubMap = tClubService.getClubMapIS();
+
         
-        /** 詳細画面にて部の表示のためにmapを作成する　**/
-        memberForm.clubList = tClubService.findAllOrderById();
-        memberForm.clubMap = new HashMap<Integer,String>();
-        for ( TClub club : memberForm.clubList) {
-        	memberForm.clubMap.put(club.id, club.ClubName);
-        }
-        
-      //すでに所属している部のチェックボックスはonにする
+        //すでに所属している部のチェックボックスはonにする
         memberForm.tMemberClubUpOldId = tMemberClubService.findByMemberId(memberForm.id.toString());
         for (TMemberClub tMemberClubUpOldOne : memberForm.tMemberClubUpOldId){
         	memberForm.clubListChecked.add(tMemberClubUpOldOne.ClubId.toString());
@@ -123,15 +120,12 @@ public class MemberUpdateAction {
     @Execute(validator = true, validate="validateBase", input="memberInput.jsp", stopOnValidationError = false, reset = "resetInput")
 	public String confirmUp() {
     	
-    	/** 詳細画面にて部の表示のためにmapを作成する　**/
-        //登録されている部をすべてリストの形で呼び出す
-        memberForm.clubList = tClubService.findAllOrderById();
-        //マップを作る。形はkey(数値)とvalu(名称)の２個セットの形
-        memberForm.clubMapSS = new HashMap<String,String>(); 
-        //for文でリストのリストの情報を１つずつマップに入れ込んでいく
-        for ( TClub club : memberForm.clubList) {
-        	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
-        	memberForm.clubMapSS.put(club.id.toString(), club.ClubName);
+    	//選択した部を表示する
+    	memberForm.tMemberClubList = new ArrayList<TMemberClub>();
+        for(String one : memberForm.clubListChecked){
+        	TMemberClub tMemberClub = new TMemberClub();
+        	tMemberClub.tClub = tClubService.findById(Integer.valueOf(one));
+        	memberForm.tMemberClubList.add(tMemberClub);
         }
         
         return "memberConfirm.jsp";
@@ -144,10 +138,12 @@ public class MemberUpdateAction {
         if (TokenProcessor.getInstance().isTokenValid(request, true)){  	
         	TMember memberUp = new TMember();
         	Beans.copy(memberForm, memberUp).execute();
-        	memberUp.obFlag = false;
+        	
+        	
         	//ログインDTOを入れなおす
         	loginIndividualsDto.tMemberLogin = memberUp;
         	
+        	//パスワードの更新
         	if (!memberForm.password.isEmpty()){
         		//パスワードのハッシュ化
             	memberUp.password = DigestUtil.md5(memberForm.password);
@@ -155,6 +151,8 @@ public class MemberUpdateAction {
         		TMember tMember = tMemberService.findById(memberForm.id);
         		memberUp.password = tMember.password;
         	}
+        	
+        	//不達フラグはfalse
         	memberUp.sendErrorFlag = false;
         	
         	//DB更新

@@ -19,6 +19,7 @@ import org.seasar.struts.annotation.Required;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TPartyClub;
+import tsuboneSystem.entity.TPartyQuestion;
 
 @Component(instance = InstanceType.SESSION) 
 public class PartyForm implements Serializable{
@@ -42,14 +43,9 @@ public class PartyForm implements Serializable{
 	public String[] attendClub = new String[0];
 	
 	/** 会議日時　*/
-	//オリジナルチェックの方でチェックしているのでチェックしない
-//	@Maxlength(maxlength=10)
-//	@DateType(datePatternStrict="yyyy/MM/dd",msg=@Msg(key="errors.date", resource=true))
 	public String meetingDay;
 	
 	/** 会議時間　*/
-	//オリジナルチェックの方でチェックしているのでチェックしない
-//	@DateType(datePattern = "HH:mm",msg=@Msg(key="errors.time", resource=true))
 	public String meetingTime;
 	
 	/** 会議場所　*/
@@ -60,10 +56,7 @@ public class PartyForm implements Serializable{
 	public String meetingMemo;
 	
 	/** 会議出欠席締め切り日　*/
-	//オリジナルチェックの方でチェックしているのでチェックしない
-//	@DateType(datePatternStrict="yyyy/MM/dd",msg=@Msg(key="errors.date", resource=true))
 	public String meetingDeadlineDay;
-	
 	
 	/** 審議結果 */
     public String  meetingResult;
@@ -76,6 +69,9 @@ public class PartyForm implements Serializable{
     
     /** OB出席フラグ */
     public boolean ObAttendFlag;
+    
+    /** 会議の制作者 */
+    public TMember tMember;
 	
 	//以下の項目はメール配信関係
 		
@@ -110,6 +106,20 @@ public class PartyForm implements Serializable{
 		public Integer registMemberId;
 		
 	//メール配信項目ここまで	
+	
+	//会議質問	
+		
+		//会議質問
+		@Required(target = "questionConfirm")	
+		public String question;
+		
+		//質問を会議登録者に送る
+		public boolean questionSend;
+		
+		//既存の質問一覧
+		public List<TPartyQuestion> tPartyQuestionList;
+		
+	//会議質問ここまで
 
 	/** 部のリスト **/
 	public List<TClub> clubList;
@@ -142,6 +152,8 @@ public class PartyForm implements Serializable{
 		ObAttendFlag = false;
 		meetingDeadlineDay = null;
 		meetingNecessaryFlag = false;
+		question = null;
+		questionSend = false;
 	}
 	
 	//オリジナルチェック
@@ -213,7 +225,7 @@ public class PartyForm implements Serializable{
 		    }
 			
 		    //開催日と締め切り日の差を取り割る
-		    if (dDay.before(mDay)) {
+		    if (dDay.after(mDay)) {
 		    	errors.add("meetingDay",new ActionMessage("締め切りの方が開催日より後になるとか意味がわかりません",false));
 			    errors.add("meetingDeadlineDay",new ActionMessage("締め切りの方が開催日より後になるとか意味がわかりません",false));
 			}

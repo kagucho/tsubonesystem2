@@ -16,22 +16,20 @@
 <h3 class="col-md-6">${f:h(ClubName)}たんの詳細情報</h3>
 <a class="col-md-2 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-danger btnYOKO btnMRC" href="<c:url value="/admin/clubDelete/${id}"/>">削除</a>
 <a class="col-md-2 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/admin/clubUpdate/${id}"/>">更新</a>
-<div class="col-sm-12">
 <table class="table">
 	<tr>
-		<th><h4>部の名前</h4></th>
+		<th class="col-md-2 col-sm-2"><h4>部の名前</h4></th>
 		<td><h5>${f:h(ClubName)}</h5></td>
 	</tr>
 	<tr>
-		<th><h4>部の代表者</h4></th>
+		<th class="col-md-2 col-sm-2"><h4>部の代表者</h4></th>
 		<td><a href="<c:url value="/admin/memberDetail/detail/${tMember.id}"/>"><h5>${f:h(tMember.hname)}(本名:${f:h(tMember.name)})</h5></a></td>
 	</tr>
 	<tr>
-		<th><h4>部の概要</h4></th>
-		<td><h5><pre>${f:h(ClubMemo)}</pre></h5></td>
+		<th class="col-md-2 col-sm-2"><h4>部の概要</h4></th>
+		<td class="col-md-10 col-sm-10">${f:h(ClubMemo)}</td>
 	</tr>
 </table>
-</div>
 <div class="col-md-12 col-sm-12 col-sx-12">
 <h3 class="col-md-5 col-sm-12 col-sx-12">${f:h(ClubName)}に所属しているメンバー</h3>
 <s:form method="POST" >

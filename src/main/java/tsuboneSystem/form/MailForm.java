@@ -88,7 +88,7 @@ public class MailForm implements Serializable{
        ActionMessages errors = new ActionMessages();
        
        //送信相手が選択されていない場合
-       if (mailSendAllFlag.isEmpty() && clubListCheck == null){
+       if (mailSendAllFlag == null && clubListCheck == null){
     	   errors.add("sendTo",new ActionMessage("メールを送る場合は、送り相手を選択してください。",false));
     	   errors.add("sendTo",new ActionMessage("メールを送る場合は、送り相手を選択してください。",false));
        }

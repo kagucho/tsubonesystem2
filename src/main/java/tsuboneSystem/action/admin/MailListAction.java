@@ -54,9 +54,9 @@ public class MailListAction {
     @Execute(validator = false)
 	public String index() {
     	
-    	//名前を表示するためのマップ
+    	//名前を表示するためのマップ(OBを含む)
     	mailListForm.memberMapIS = new HashMap<Integer,String>();
-    	mailListForm.tMemberAllList = tMemberService.findByIdNoOBAll();
+    	mailListForm.tMemberAllList = tMemberService.findAllOrderById(true);
     	for (TMember memberOne : mailListForm.tMemberAllList) {
     		mailListForm.memberMapIS.put(memberOne.id, memberOne.hname);	
     	}

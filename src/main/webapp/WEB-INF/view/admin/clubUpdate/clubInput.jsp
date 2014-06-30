@@ -28,7 +28,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-4" for="OfficerId">部の代表者&nbsp;<span class="hissu">＊</span></label>
 				<div class="col-sm-8 memberF">
-					<html:select property="OfficerId" value="OfficerId">
+					<html:select property="OfficerId" value="${tLeaders.tMember.id}">
 						<c:forEach var="e" items="${memberMap}">
 							<html:option value="${e.key}">${f:h(e.value)}</html:option>
 						</c:forEach>

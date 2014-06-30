@@ -18,14 +18,14 @@
 <div class="table-responsive">
 <table class="table">
 <tr>
-	<th>部名</th><th>部の代表者</th><th>部の概要</th>
+	<th class="col-md-1 col-sm-1">部名</th><th class="col-md-2 col-sm-2">部の代表者</th><th>部の概要</th>
 	<c:forEach var="e" items="${clubItems}">
 		<tr>
 			<td>
 				<a href="<c:url value="/admin/clubDetail/"/>${e.id}">${f:h(e.ClubName) }</a>
 			</td>
 			<td>
-				${f:h(memberMapIS[e.tLeaders.tMember.id])}
+				${f:h(e.tLeaders.tMember.hname)}
 			</td>
 			<td>
 				${f:h(e.ClubMemo) }

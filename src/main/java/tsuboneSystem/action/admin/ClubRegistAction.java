@@ -15,8 +15,6 @@
  */
 package tsuboneSystem.action.admin;
 
-import java.util.HashMap;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -73,12 +71,9 @@ public class ClubRegistAction {
 		// 2重登録防止のためのTokenの生成
         TokenProcessor.getInstance().saveToken(request);
 		
-		//部長になり得るメンバーのマップを作成する。
-		clubForm.memberMap = new HashMap<String,String>();
-		clubForm.tMemberAllList = tMemberService.findByIdNoOBAll();
-		for (TMember memberOne : clubForm.tMemberAllList) {
-		 clubForm.memberMap.put(memberOne.id.toString(), memberOne.hname);	
-		}
+		//部長になり得るメンバーのマップ
+		clubForm.memberMap = tMemberService.getMemberMapSS();
+
 		
         return viewinput();
 	}

@@ -8,13 +8,14 @@ import tsuboneSystem.entity.TParty;
 import tsuboneSystem.names.TMemberNames._TMemberNames;
 import tsuboneSystem.names.TPartyAttendNames._TPartyAttendNames;
 import tsuboneSystem.names.TPartyClubNames._TPartyClubNames;
+import tsuboneSystem.names.TPartyQuestionNames._TPartyQuestionNames;
 import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
 
 /**
  * {@link TParty}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/26 21:22:18")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/30 15:15:44")
 public class TPartyNames {
 
     /**
@@ -168,6 +169,15 @@ public class TPartyNames {
      */
     public static _TPartyAttendNames tPartyAttendList() {
         return new _TPartyAttendNames("tPartyAttendList");
+    }
+
+    /**
+     * tPartyQuestionListのプロパティ名を返します。
+     * 
+     * @return tPartyQuestionListのプロパティ名
+     */
+    public static _TPartyQuestionNames tPartyQuestionList() {
+        return new _TPartyQuestionNames("tPartyQuestionList");
     }
 
     /**
@@ -354,6 +364,15 @@ public class TPartyNames {
          */
         public _TPartyAttendNames tPartyAttendList() {
             return new _TPartyAttendNames(this, "tPartyAttendList");
+        }
+
+        /**
+         * tPartyQuestionListのプロパティ名を返します。
+         * 
+         * @return tPartyQuestionListのプロパティ名
+         */
+        public _TPartyQuestionNames tPartyQuestionList() {
+            return new _TPartyQuestionNames(this, "tPartyQuestionList");
         }
     }
 }

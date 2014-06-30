@@ -66,7 +66,7 @@ public class MemberListAction {
 	@Execute(validator = false)
 	public String index() {
 		// 現在のページ番号
-		int page = IntegerConversionUtil.toPrimitiveInt(this.memberListForm.page);
+		int page = IntegerConversionUtil.toPrimitiveInt(Integer.valueOf(this.memberListForm.page));
 
 		// 別なページから来た場合は常にページ番号は0
 		if (!checkReferePage()) {

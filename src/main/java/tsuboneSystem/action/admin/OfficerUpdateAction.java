@@ -55,7 +55,7 @@ public class OfficerUpdateAction {
 	public String index() {
 		
 		//Memberの選択肢一覧取得
-		officerForm.memberItems = tMemberService.findByIdNoOBAll();
+		officerForm.memberItems = tMemberService.findAllOrderById(false);
 		
 		//渡ってきたidはtLeadersのidであるので、そこからTLeadersに登録されているレコードを検索し、編集対象レコードを特定しておく。
 		officerForm.leadersUp = tLeadersService.findById(officerForm.id);

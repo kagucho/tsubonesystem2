@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.container.annotation.tiger.InstanceType;
+
 import tsuboneSystem.entity.TClub;
+import tsuboneSystem.entity.TImageUpload;
 
 @Component(instance = InstanceType.SESSION) 
 public class TopForm implements Serializable{
@@ -26,5 +28,8 @@ public class TopForm implements Serializable{
 	
 	//トップの部紹介一覧
 	public List<TClub> clubList;
+	
+	//トップ背景画像一覧(画像のファイル名一覧)
+	public List<TImageUpload> imageList;
 	
 }
