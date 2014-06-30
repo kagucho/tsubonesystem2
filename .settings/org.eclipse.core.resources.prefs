@@ -69,6 +69,7 @@ encoding//src/main/webapp/WEB-INF/view/common/jumbotronMenu.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/common/mailFormConfirm.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/common/memberFormConfirm.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/common/memberFormInput.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/view/common/pager.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/common/partyFormConfirm.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/common/partyFormInput.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/common/partyMailFormInput.jsp=UTF-8

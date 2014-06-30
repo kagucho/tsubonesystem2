@@ -51,7 +51,10 @@ public class MemberListAction {
 
 	/** 一覧表示件数 */
 	int PAGE_LIMIT = 15;
-
+	
+	/** 最大ページ数 */
+	public int maxPageCount;
+	
 	// 次のページがあればTRUE
 	public boolean hasNext = false;
 
@@ -67,7 +70,7 @@ public class MemberListAction {
 	public String index() {
 		// 現在のページ番号
 		int page = IntegerConversionUtil.toPrimitiveInt(Integer.valueOf(this.memberListForm.page));
-
+		
 		// 別なページから来た場合は常にページ番号は0
 		if (!checkReferePage()) {
 			memberListForm.page = 0;
@@ -115,6 +118,10 @@ public class MemberListAction {
 		if ((nowPage + 1) * PAGE_LIMIT < total) {
 			hasNext = true;
 		}
+		
+		//最大ページ数を設定
+		maxPageCount = total / PAGE_LIMIT;
+		
 	}
 
 	// 検索
