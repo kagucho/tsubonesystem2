@@ -121,7 +121,7 @@ public class MemberUploadAction {
 		//行番号
 		int i = 0;
 		//csvを一行ずつ読み込みDBに挿入していく
-		try (Reader reader = new InputStreamReader(formFile.getInputStream())) {
+		try (Reader reader = new InputStreamReader(formFile.getInputStream(), "Shift_JIS")) {
 			S2CSVParseCtrl<MemberUploadCsv> controller = s2csvCtrlFactory.getParseController(MemberUploadCsv.class, reader);
 			while (controller.readNext()) {
 				i++;
@@ -197,7 +197,7 @@ public class MemberUploadAction {
 	@Execute(validator = false)
 	public String download() {
 		try {
-			ResponseUtil.download(new String("memberUpload.csv".getBytes("Shift_JIS"), "ISO-8859-1"),
+			ResponseUtil.download(new String("memberUpload.csv".getBytes("Shift_JIS"), "Shift_JIS"),
 					"hname,mail,id,pw".getBytes());
 		} catch (IOException e) {
 			throw new IORuntimeException(e);

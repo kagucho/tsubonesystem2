@@ -11,7 +11,7 @@ import org.seasar.s2csv.csv.annotation.entity.CSVEntity;
 public class MemberUploadCsv {
 	/* ハンドルネーム　*/
 	@CSVRequired
-	@CSVMaxLength(maxlength=10)
+	@CSVMaxLength(maxlength=100)
 	@CSVColumn(columnIndex=0)
 	public String hname;
 	
@@ -23,14 +23,14 @@ public class MemberUploadCsv {
 	/* ID　*/
 	@CSVRequired
 	@CSVMask(mask = "^[\u0020-\u007E]+$")
-	@CSVMaxLength(maxlength=10)
+	@CSVMaxLength(maxlength=100)
 	@CSVColumn(columnIndex=2)
 	public String userName;
 	
 	/* パスワード　*/
 	@CSVRequired
 	@CSVMask(mask = "^[\u0020-\u007E]+$")
-	@CSVMaxLength(maxlength=30)
+	@CSVMaxLength(maxlength=100)
 	@CSVColumn(columnIndex=3)
 	public String password;
 	
