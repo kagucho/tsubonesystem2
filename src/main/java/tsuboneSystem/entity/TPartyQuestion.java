@@ -58,5 +58,44 @@ public class TPartyQuestion implements Serializable {
     /** questionIdをTPartyQuestionに結びつける */
     @OneToMany(mappedBy = "TPartyQuestion")
     public List<TPartyAnswer> tPartyAnswerList;
+    
+    /**
+     * 質問のタイトルを取得
+     * @return
+     */
+    public String getQuesutionTitle() {
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("[");
+    	sb.append(tParty.meetingName);
+    	sb.append("]");
+    	sb.append("に対して解答を受け付けました");
+    	return sb.toString();
+    }
+    
+    /**
+     * 質問と回答の内容を取得
+     * @param answerHName
+     * @param answer
+     * @return
+     */
+    public String getQuestionContent(String answerHName, String answer) {
+    	StringBuilder sbc = new StringBuilder();
+    	sbc.append("会議名:　");
+    	sbc.append(tParty.meetingName);
+    	sbc.append("\n");
+    	sbc.append("質問内容:　");
+    	sbc.append("\n");
+    	sbc.append(question);
+    	sbc.append("\n");
+    	sbc.append("\n");
+    	sbc.append("回答者:　");
+    	sbc.append(answerHName);
+    	sbc.append("\n");
+    	sbc.append("回答内容:　");
+    	sbc.append("\n");
+    	sbc.append(answer);
+    	
+    	return sbc.toString();
+    }
 
 }

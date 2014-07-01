@@ -1,5 +1,7 @@
 package tsuboneSystem.code;
 
+import java.util.HashMap;
+
 import org.apache.commons.lang3.StringUtils;
 
 
@@ -37,6 +39,29 @@ public enum SexCode implements CodeEnum {
 		}
 		return StringUtils.EMPTY;
 	}
+	
+	private static HashMap<String, String> sexCodeMap = null;
+	
+	@SuppressWarnings("unchecked")
+	/**
+	 * 性別のMAPを返す
+	 * @return
+	 */
+	public static HashMap<String, String> getSexCodeMap() {
+		//すでに値が入っているならそのまま返す
+		if (sexCodeMap != null) {
+			return (HashMap<String, String>) sexCodeMap.clone();
+		}
+		
+		//まだ値が入っていないなら値を入れる
+		sexCodeMap = new HashMap<String, String>();
+		for (int i = 1; i <= 3; i++) {
+			sexCodeMap.put(Integer.toString(i), SexCode.getnameByCode(Integer.toString(i)));
+		}
+		
+		return (HashMap<String, String>) sexCodeMap.clone();
+	}
+	
 	
 	public int getCodeNumber(){
 		if (StringUtils.isNumeric(code)) {

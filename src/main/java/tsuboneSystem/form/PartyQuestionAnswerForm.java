@@ -9,7 +9,6 @@ import org.seasar.framework.container.annotation.tiger.InstanceType;
 import org.seasar.struts.annotation.Required;
 
 import tsuboneSystem.code.PartyAnswerCode;
-import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TPartyQuestion;
 
 @Component(instance = InstanceType.SESSION) 
@@ -53,5 +52,5 @@ public class PartyQuestionAnswerForm implements Serializable{
 		
         return errors;
     }
-	
+    
 }

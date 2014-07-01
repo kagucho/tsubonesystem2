@@ -13,6 +13,7 @@ import static tsuboneSystem.names.TMemberNames.userName;
 
 import java.util.HashMap;
 import java.util.List;
+
 import javax.annotation.Generated;
 
 import org.seasar.extension.jdbc.AutoSelect;
@@ -228,6 +229,14 @@ public class TMemberService extends AbstractService<TMember> {
         }
 		return rtnMap;
     }
+    
+    /**
+     * OBでなく削除もされていないメンバーを検索するSimpleWhereを返す
+     * @return
+     */
+	protected SimpleWhere getWhereNoDeleteNoOb() {
+		return new SimpleWhere().eq(deleteFlag(), Boolean.valueOf(false)).eq(obFlag(), Boolean.valueOf(false));
+	}
     
     @Override
     public int insert(TMember entity) {

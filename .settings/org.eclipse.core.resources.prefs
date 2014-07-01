@@ -89,7 +89,8 @@ encoding//src/main/webapp/WEB-INF/view/individuals/memberUpdate/memberComplete.j
 encoding//src/main/webapp/WEB-INF/view/individuals/memberUpdate/memberConfirm.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/individuals/memberUpdate/memberInput.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/individuals/officerList/OfficerList.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/view/individuals/partyAnswer/partyAnswerList.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/view/individuals/partyAnswer/partyAnswerConfirm.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/view/individuals/partyAnswer/partyAnswerInput.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/individuals/partyAttendList/partyAttendList.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/individuals/partyAttendUpdate/partyAttendUpdateComplete.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/individuals/partyAttendUpdate/partyAttendUpdateConfirm.jsp=UTF-8

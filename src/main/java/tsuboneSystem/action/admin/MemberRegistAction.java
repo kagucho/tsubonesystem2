@@ -16,7 +16,6 @@
 package tsuboneSystem.action.admin;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -87,11 +86,7 @@ public class MemberRegistAction {
         memberForm.clubMapSS = tClubService.getClubMapSS();
 
         //性別のマップ
-        memberForm.sexMap = new HashMap<String, String>();
-        for (Integer i=1; i<=3; i++) {
-        	memberForm.sexMap.put(i.toString(), SexCode.getnameByCode(i.toString()));
-        }
-        
+        memberForm.sexMap = SexCode.getSexCodeMap();
         
         return viewinput();
 	}
@@ -116,7 +111,6 @@ public class MemberRegistAction {
         
         return "memberConfirm.jsp";
 	}
-    
     
     @Execute(validator = false)
 	public String complete() {

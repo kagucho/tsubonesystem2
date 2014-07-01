@@ -1,9 +1,11 @@
 package tsuboneSystem.service;
 
 import java.util.List;
-import javax.annotation.Generated;
-import tsuboneSystem.entity.TMailSendMember;
 
+import javax.annotation.Generated;
+
+import tsuboneSystem.entity.TMailSendMember;
+import tsuboneSystem.original.manager.MailManager;
 import static org.seasar.extension.jdbc.operation.Operations.*;
 import static tsuboneSystem.names.TMailSendMemberNames.*;
 
@@ -32,5 +34,14 @@ public class TMailSendMemberService extends AbstractService<TMailSendMember> {
      */
     public List<TMailSendMember> findAllOrderById() {
         return select().orderBy(asc(id())).getResultList();
+    }
+    
+    /**
+     * @deprecated このメソッドは使用する必要がありません
+     * {@link MailManager#setLogFlg(boolean, Integer)} の第一引数をTRUEにして自動的にログが残るようにしてください。
+     */
+    @Override
+    public int insert(TMailSendMember entity) {
+    	return super.insert(entity);
     }
 }
