@@ -13,25 +13,13 @@
 <%@ include file="/WEB-INF/view/common/indeividualsHeader.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
-<div class="col-sm-12">
-<s:form method="POST" >
+<h3>メール内容作成</h3>
+<s:form method="POST">
 <div class="table-responsive">
-<h4>変更したいメンバーは以下でよろしいですか？</h4>
-<table class="table">
-<tr>
-<th>ハンドルネーム</th>
-	<c:forEach var="e" items="${tMemberNew}">
-		<tr>
-			<td>
-				<a href="<c:url value="/admin/memberDetail/detail"/>/${e.id}">${f:h(e.hname) }</a>
-			</td>
-		</tr>
-	</c:forEach>
-</table>
+	<%@ include file="/WEB-INF/view/common/partyMailFormInput.jsp"%>
 </div>
-<input type="submit" value="登録" id="complete" name="complete" property="complete" class="btn btn-primary">
+<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12  btn btn-primary">
 </s:form>
-</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${f:url('/js/bootstrap.min.js')}"></script>

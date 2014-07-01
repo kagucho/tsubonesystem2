@@ -12,14 +12,17 @@ import static tsuboneSystem.names.TMemberNames.password;
 import static tsuboneSystem.names.TMemberNames.userName;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.Generated;
+import javax.annotation.Resource;
 
 import org.seasar.extension.jdbc.AutoSelect;
 import org.seasar.extension.jdbc.where.SimpleWhere;
 
 import tsuboneSystem.entity.TMember;
+import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.form.MemberListForm;
 import tsuboneSystem.original.util.DigestUtil;
 
@@ -30,6 +33,9 @@ import tsuboneSystem.original.util.DigestUtil;
 @Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceModelFactoryImpl"}, date = "2014/04/07 18:14:16")
 public class TMemberService extends AbstractService<TMember> {
 
+	@Resource
+	protected TMemberClubService tMemberClubService;
+	
     /**
      * 識別子でエンティティを検索します。
      * 
@@ -243,5 +249,24 @@ public class TMemberService extends AbstractService<TMember> {
     	//パスワードのハッシュ化
     	entity.password = DigestUtil.md5(entity.password);
     	return super.insert(entity);
+    }
+    
+    /**
+     * clubIDからそれに所属するMemberを重複なしで取得する
+     * @param containsOb
+     * @param clubIdList
+     * @return
+     */
+    public List<TMember> findByClubIds(boolean containsOb, String ...clubIdList) {
+    	HashSet<Integer> memberIdSet = new HashSet<Integer>();
+    	for (String clubId : clubIdList) {
+    		for (TMemberClub tMemberClub : tMemberClubService.findByClubId(clubId, containsOb)) {
+    			memberIdSet.add(tMemberClub.MemberId);
+			}
+		}
+		return select()
+				.where(new SimpleWhere().in(id(), memberIdSet).eq(deleteFlag(), Boolean.valueOf(false)))
+				.getResultList();
+    	
     }
 }

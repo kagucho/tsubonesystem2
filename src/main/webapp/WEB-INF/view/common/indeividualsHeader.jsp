@@ -21,6 +21,9 @@
 						<li><a href="<c:url value="/individuals/clubList"/>">Club</a></li>
 					</ul>
 					<ul class="nav navbar-nav">
+						<li><a href="<c:url value="/individuals/mailList"/>">Mail</a></li>
+					</ul>
+					<ul class="nav navbar-nav">
 						<li><a href="<c:url value="/individuals/officerList"/>">Officer</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">

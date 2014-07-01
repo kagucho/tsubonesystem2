@@ -1,22 +1,14 @@
 package tsuboneSystem.action.admin;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.util.TokenProcessor;
-import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginAdminDto;
-import tsuboneSystem.entity.TMail;
-import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
-import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.form.MailForm;
 import tsuboneSystem.original.manager.MailManager;
 import tsuboneSystem.service.TClubService;
@@ -89,35 +81,15 @@ public class MailRegistAction {
     @Execute(validator = true, input = "index.jsp", validate="validateBase", stopOnValidationError = false, reset = "resetInput")
 	public String confirm() {
     	
-    	//OBを除いた全員
-		if (mailForm.mailSendAllFlag != null && mailForm.mailSendOBFlag == null) {
-			mailForm.tMemberSendList = tMemberService.findAllOrderById(false);	
-		//OBを含めた全員
-		}else if (mailForm.mailSendAllFlag != null && mailForm.mailSendOBFlag != null) {
-			mailForm.tMemberSendList = tMemberService.findAllOrderById(true);	
-		//部で指定されていた場合
-		}else if (mailForm.clubListCheck != null) {
-			mailForm.MemberSendSet = new HashSet<Integer>();
-			//選択された部をひとつ取り、それらに紐づくメンバーIDをsetに入れる
-			for (String cLubIDOne : mailForm.clubListCheck) {
-				List<TMemberClub> tMemberClubList = new ArrayList<TMemberClub>();
-				tMemberClubList = tMemberClubService.findByClubId(cLubIDOne, true);
-				for (TMemberClub tMemberClubOne : tMemberClubList) {
-					if (mailForm.mailSendOBFlag == null) {
-						//OBを含めない
-						if (!tMemberClubOne.tMember.obFlag) {
-    						mailForm.MemberSendSet.add(tMemberClubOne.MemberId);
-    					}	
-					}else{
-						//OBを含める
-						mailForm.MemberSendSet.add(tMemberClubOne.MemberId);
-					}
-				}
-			}
-			mailForm.tMemberSendList = new ArrayList<TMember>();
-			for (Integer one : mailForm.MemberSendSet) {
-				mailForm.tMemberSendList.add(tMemberService.findById(one));
-			}
+    	//obを含めるかどうか
+    	boolean containsOb = (mailForm.mailSendOBFlag != null);
+    	
+    	//全員に送る場合
+    	if (mailForm.mailSendAllFlag != null) {
+    		mailForm.tMemberSendList = tMemberService.findAllOrderById(containsOb);
+    	//部ごとに送る場合
+    	} else if (mailForm.clubListCheck != null) {
+			mailForm.tMemberSendList = tMemberService.findByClubIds(containsOb, mailForm.clubListCheck);
 		}	
 		return "mailConfirm.jsp";
 	}
@@ -130,36 +102,28 @@ public class MailRegistAction {
         if (TokenProcessor.getInstance().isTokenValid(request, true)) {
         	
         	//メールの送信者のID
-        	mailForm.registMemberId = loginAdminDto.memberId;
-
-        	//TMailにメールの内容を追加する
-        	TMail tMail = new TMail();
-        	Beans.copy(mailForm, tMail).execute();
+        	mailForm.registMemberId = getLoginMemberId();
 
         	//メールを送信する
         	MailManager manager = new MailManager();
         	manager.setTitle(mailForm.title);
         	manager.setContent(mailForm.content);
         	manager.setToAddress(mailForm.tMemberSendList.toArray(new TMember[0]));
-        	if (manager.sendMail()) {
-        		mailMsg = "メールを正常に送信しました。";
-        		tMail.errorFlag = false;
-        	} else {
-        		mailMsg = "メールの送信に失敗しました。";
-        		tMail.errorFlag = true;
+        	manager.setLogFlg(true, getLoginMemberId(), tMailSendMemberService, tMailService);
+        	if (!manager.sendMail()) {
+        		//TODO エラー時の処理
         	}
-        	
-        	//DBに書き込む
-        	tMailService.insert(tMail);
-        	
-        	//TMailSendAttendにメールの送信相手を追加する
-        	for (TMember tMemberOne : mailForm.tMemberSendList) {
-        		TMailSendMember tMailSendMember = new TMailSendMember();
-        		tMailSendMember.mailId = tMail.id;
-        		tMailSendMember.memberId = tMemberOne.id;
-        		tMailSendMemberService.insert(tMailSendMember);
-        	}
+        	return "mailComplete.jsp";
+        } else {
+        	return "/common/error.jsp";
         }
-        return "mailComplete.jsp";
+	}
+
+	protected Integer getLoginMemberId() {
+		return loginAdminDto.memberId;
+	}
+	
+	protected TMember getLoginTMember() {
+		return loginAdminDto.tMemberLogin;
 	}
 }

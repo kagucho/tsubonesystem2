@@ -1,4 +1,4 @@
-<html>
+"src/main/webapp/WEB-INF/view/individuals/mailRegist/mailConfirm.jsp"<html>
 <html lang="jp">
   <head>
     <meta charset="utf-8">
@@ -13,9 +13,14 @@
 <%@ include file="/WEB-INF/view/common/indeividualsHeader.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
-	<h3>登録が完了しました。</h3>
-<div class="col-sm-8">
-	<a class="btnMRC" href="<c:url value="/admin/partyList"/>"><button type="button" class="btn btn-default btn-lg btn-block">Back.PartyList </button></a>
+	<h3 class="col-md-4">以下の内容でよろしいですか？</h3>
+	<div class="col-sm-12">
+		<%@ include file="/WEB-INF/view/common/mailFormConfirm.jsp"%>
+	</div>
+<div class="col-sm-12">
+	<s:form method="POST" >
+		<%@ include file="/WEB-INF/view/common/confirmButton.jsp"%>
+	</s:form>
 </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
