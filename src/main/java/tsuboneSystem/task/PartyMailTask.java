@@ -3,6 +3,7 @@ package tsuboneSystem.task;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.seasar.chronos.core.annotation.task.Task;
@@ -36,7 +37,7 @@ import tsuboneSystem.service.TPartyService;
 
 @Task
 @CronTrigger(expression = "0 00 18 * * ?")
-public class PartyMailTask {
+public class PartyMailTask extends AbstractTask{
 	
 	/** TMemberのサービスクラス */
 	@Resource
@@ -87,43 +88,6 @@ public class PartyMailTask {
 	/** 当日 */
 	public final static int TODAY = 0;
 	
-	
-	// タスク処理
-    public void doExecute() {
-    	
-    	//実行された時点で、締め切られていない会議の一覧を取得
-    	Date dateNow = new Date();
-    	
-    	//出欠必須であり締め切り日の5日前の会議一覧
-    	List<TParty>  tPartyListHISSU_FIVE = tPartyService.findBy_Deadline_PULS(dateNow, FIVE_DAY, true);
-    	sendMail(tPartyListHISSU_FIVE);
-    	
-    	//出欠必須であり締め切り日の3日前から締め切り日までに存在する会議一覧
-    	List<TParty>  tPartyListHISSU_TREE = tPartyService.findBy_Deadline_PULS(dateNow, TREE_DAY, true);
-    	sendMail(tPartyListHISSU_TREE);
-    	
-    	//出欠必須であり締め切り日の2日前から締め切り日までに存在する会議一覧
-    	List<TParty>  tPartyListHISSU_TWO_TREE = tPartyService.findBy_Deadline_PULS(dateNow, TWO_DAY, true);
-    	sendMail(tPartyListHISSU_TWO_TREE);
-    		
-    	//出欠必須であり締め切り日の1日前から締め切り日までに存在する会議一覧
-    	List<TParty>  tPartyListHISSU_ONE_TREE = tPartyService.findBy_Deadline_PULS(dateNow, ONE_DAY, true);
-    	sendMail(tPartyListHISSU_ONE_TREE);
-    	
-    	//出欠必須であり締め切り日当日の会議一覧
-    	List<TParty>  tPartyListHISSU_TODAY = tPartyService.findBy_Deadline_PULS(dateNow, TODAY, true);
-    	sendMail(tPartyListHISSU_TODAY);
-    	
-    	//締め切り日の3日前の会議一覧
-    	List<TParty>  tPartyListTREE = tPartyService.findBy_Deadline_PULS(dateNow, TREE_DAY, false);
-    	sendMail(tPartyListTREE);
-    	
-    	//締め切り日の1日前の会議一覧
-    	List<TParty>  tPartyListTODAY = tPartyService.findBy_Deadline_PULS(dateNow, TODAY, false);
-    	sendMail(tPartyListTODAY);
-      
-    }
-    
     public void sendMail(List<TParty> tPartyList){
     	if (tPartyList.size() > 0) {
     		//締め切られていいない会議が存在したら以下を実行
@@ -196,5 +160,44 @@ public class PartyMailTask {
     		}
     	}
     }
+
+	@Override
+	String getTascName() {
+		return "未提出者メール配信";
+	}
+
+	@Override
+	void process() throws Exception {
+		//実行された時点で、締め切られていない会議の一覧を取得
+    	Date dateNow = new Date();
+    	
+    	//出欠必須であり締め切り日の5日前の会議一覧
+    	List<TParty>  tPartyListHISSU_FIVE = tPartyService.findBy_Deadline_PULS(dateNow, FIVE_DAY, true);
+    	sendMail(tPartyListHISSU_FIVE);
+    	
+    	//出欠必須であり締め切り日の3日前から締め切り日までに存在する会議一覧
+    	List<TParty>  tPartyListHISSU_TREE = tPartyService.findBy_Deadline_PULS(dateNow, TREE_DAY, true);
+    	sendMail(tPartyListHISSU_TREE);
+    	
+    	//出欠必須であり締め切り日の2日前から締め切り日までに存在する会議一覧
+    	List<TParty>  tPartyListHISSU_TWO_TREE = tPartyService.findBy_Deadline_PULS(dateNow, TWO_DAY, true);
+    	sendMail(tPartyListHISSU_TWO_TREE);
+    		
+    	//出欠必須であり締め切り日の1日前から締め切り日までに存在する会議一覧
+    	List<TParty>  tPartyListHISSU_ONE_TREE = tPartyService.findBy_Deadline_PULS(dateNow, ONE_DAY, true);
+    	sendMail(tPartyListHISSU_ONE_TREE);
+    	
+    	//出欠必須であり締め切り日当日の会議一覧
+    	List<TParty>  tPartyListHISSU_TODAY = tPartyService.findBy_Deadline_PULS(dateNow, TODAY, true);
+    	sendMail(tPartyListHISSU_TODAY);
+    	
+    	//締め切り日の3日前の会議一覧
+    	List<TParty>  tPartyListTREE = tPartyService.findBy_Deadline_PULS(dateNow, TREE_DAY, false);
+    	sendMail(tPartyListTREE);
+    	
+    	//締め切り日の1日前の会議一覧
+    	List<TParty>  tPartyListTODAY = tPartyService.findBy_Deadline_PULS(dateNow, TODAY, false);
+    	sendMail(tPartyListTODAY);
+	}
     
 }
