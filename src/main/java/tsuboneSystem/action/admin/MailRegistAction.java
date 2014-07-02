@@ -66,7 +66,7 @@ public class MailRegistAction {
         TokenProcessor.getInstance().saveToken(request);
         
         //マップを作る。形はkey(数値)とvalu(名称)の２個セットの形
-        mailForm.clubMapSS = tClubService.getClubMapSS();
+        mailForm.clubMapSS = tClubService.getClubMap();
 
         return viewinput();
 	}

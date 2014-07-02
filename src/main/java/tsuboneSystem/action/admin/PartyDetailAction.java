@@ -102,7 +102,7 @@ public class PartyDetailAction {
         
         //マップを作る。形はkey(数値)とvalu(名称)の２個セットの形
         partyForm.clubMapIS = tClubService.getClubMapIS();
-        partyForm.clubMapSS = tClubService.getClubMapSS();
+        partyForm.clubMapSS = tClubService.getClubMap();
         
         return "partyDetail.jsp";
 	}

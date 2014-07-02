@@ -3,6 +3,8 @@
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +20,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang3.StringUtils;
+import org.seasar.framework.beans.util.Beans;
+
+import tsuboneSystem.form.PartyForm;
+
 
 /**
  * TPartyエンティティクラス
@@ -29,6 +36,41 @@ import javax.persistence.TemporalType;
 public class TParty implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	
+	public TParty() {
+	}
+	
+	/**
+	 * 引数の情報からTPartyエンティティを作成する
+	 * @param creatorId
+	 * @param partyForm
+	 */
+	public TParty(int creatorId, PartyForm partyForm) {
+		/** 入力された情報をエンティティにコピー　**/
+		//例外として.excludes()内に書いてある要素は省く(コピーしない)。日時関係はyyyy/mm/dd hh:mm:ssの形にしてTimestamp型に変化する必要がある。
+		Beans.copy(partyForm, this).excludes("meetingDay","meetingTime","meetingDeadlineDay").execute();
+		
+		//編集者のIDを入れる
+		this.creatorId = Integer.valueOf(creatorId);
+		
+		//日付と日時をString型からDate型に変換
+		try {
+			if (!StringUtils.isEmpty(partyForm.meetingDay.trim())) {
+				meetingDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDay);
+			}
+			if (!StringUtils.isEmpty(partyForm.meetingTime.trim())) {
+				meetingTime = new SimpleDateFormat("HH:mm").parse(partyForm.meetingTime);
+			}
+			if (!StringUtils.isEmpty(partyForm.meetingDeadlineDay.trim())) {
+				meetingDeadlineDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDeadlineDay);
+			}
+		} catch (ParseException e) {
+			//起こりえない
+			e.printStackTrace();
+		}
+		deleteFlag = Boolean.valueOf(false);
+	}
+	
 	
 	/** idプロパティ */
     @Id

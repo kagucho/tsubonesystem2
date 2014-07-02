@@ -95,27 +95,16 @@ public class TClubService extends AbstractService<TClub> {
     }
     
     /**
-     * クラブのマップ<String, String>
-     * @return Map
-     */
-    
-    public HashMap<String, String> getClubMapSS(){
-		
-    	//戻り値を格納するmap
+	 * keyをclubId, valueをclubNameとしてマップを作成する
+	 * @return
+	 */
+	public HashMap<String, String> getClubMap() {
 		HashMap<String, String> rtnMap = new HashMap<String, String>();
-		
-		//検索
-		SimpleWhere where = new SimpleWhere();
-		where.eq(deleteFlag(), Boolean.valueOf(false));
-    	List<TClub> list = select().where(where).getResultList();
-    	
-    	//for文でリストのリストの情報を１つずつマップに入れ込んでいく
-        for ( TClub tClub : list) {
-        	//key(数値)はclubのidを(型をstringに変換)、valu(名称)はclubの名前
-        	rtnMap.put(tClub.id.toString(), tClub.ClubName);
+		for ( TClub club : findAllOrderById()) {
+        	rtnMap.put(club.id.toString(), club.ClubName);
         }
 		return rtnMap;
-    }
+	}
     
     
 }

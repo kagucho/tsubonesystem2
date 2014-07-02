@@ -89,7 +89,9 @@
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="ObAttendFlag">OB出席</label>
 			<div class="col-sm-8 memberF">
-				<input type="checkbox" id="ObAttendFlag" name="ObAttendFlag" <c:if test="${ObAttendFlag}"> checked="checked"</c:if> value="true" disabled="disabled"/>&nbsp;OBも出席対象とする
+				<input type="checkbox" <c:if test="${ObAttendFlag}"> checked="checked"</c:if> disabled="disabled"/>&nbsp;OBも出席対象とする
+				<!-- チェックボックスがdisableのため情報が送信されないのでhiddenで情報を持っておく -->
+				<input type="hidden" id="ObAttendFlag" name="ObAttendFlag" value="${ObAttendFlag}">
 			</div>
 		</div>
 		<div class="form-group">

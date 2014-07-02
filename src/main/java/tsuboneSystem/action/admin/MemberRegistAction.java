@@ -83,7 +83,7 @@ public class MemberRegistAction {
         TokenProcessor.getInstance().saveToken(request);
         
         //部のマップ
-        memberForm.clubMapSS = tClubService.getClubMapSS();
+        memberForm.clubMapSS = tClubService.getClubMap();
 
         //性別のマップ
         memberForm.sexMap = SexCode.getSexCodeMap();
