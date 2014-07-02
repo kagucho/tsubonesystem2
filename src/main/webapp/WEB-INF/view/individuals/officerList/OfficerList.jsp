@@ -29,7 +29,7 @@
 				${f:h(e.tMember.hname) }
 			</td>
 			<td>
-				${f:h(e.tMember.mail) }
+				<a href="mailto:${e.tMember.mail}">${f:h(e.tMember.mail)}</a>
 			</td>
 			<td>
 				${f:h(e.tMember.tel1) }-${f:h(e.tMember.tel2) }-${f:h(e.tMember.tel3) }
@@ -50,7 +50,7 @@
 				${f:h(e.tMember.hname) }
 			</td>
 			<td>
-				${f:h(e.tMember.mail) }
+				<a href="mailto:${e.tMember.mail}">${f:h(e.tMember.mail)}</a>
 			</td>
 			<td>
 				${f:h(e.tMember.tel1) }-${f:h(e.tMember.tel2) }-${f:h(e.tMember.tel3) }
@@ -71,7 +71,7 @@
 				${f:h(e.tMember.hname) }
 			</td>
 			<td>
-				${f:h(e.tMember.mail) }
+				<a href="mailto:${e.tMember.mail}">${f:h(e.tMember.mail)}</a>
 			</td>
 			<td>
 				${f:h(e.tMember.tel1) }-${f:h(e.tMember.tel2) }-${f:h(e.tMember.tel3) }
@@ -92,7 +92,7 @@
 				${f:h(e.tLeaders.tMember.name) }
 			</td>
 			<td>
-				${f:h(e.tLeaders.tMember.mail) }
+				<a href="mailto:${e.tMember.mail}">${f:h(e.tMember.mail)}</a>
 			</td>
 			<td>
 				${f:h(e.tLeaders.tMember.tel1) }-${f:h(e.tLeaders.tMember.tel2) }-${f:h(e.tLeaders.tMember.tel3) }

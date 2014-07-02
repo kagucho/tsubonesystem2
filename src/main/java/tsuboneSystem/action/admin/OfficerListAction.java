@@ -49,19 +49,22 @@ public class OfficerListAction {
 	public String index() {
     	
     	//局長
-    	officerForm.OfficerKind = LeadersKindCode.CHIEF.getCode();
-    	officerForm.tLeadersChief = tLeadersService.findByKind(officerForm.OfficerKind);
+    	officerForm.tLeadersChief = tLeadersService.findByKind(LeadersKindCode.CHIEF.getCode());
     	
     	//副局長
-    	officerForm.OfficerKind = LeadersKindCode.SUB_CHIEF.getCode();
-    	officerForm.tLeadersSubChief = tLeadersService.findByKind(officerForm.OfficerKind);
+    	officerForm.tLeadersSubChief = tLeadersService.findByKind(LeadersKindCode.SUB_CHIEF.getCode());
     	
     	//会計
-    	officerForm.OfficerKind = LeadersKindCode.ACCOUNT.getCode();
-    	officerForm.tLeadersAccount = tLeadersService.findByKind(officerForm.OfficerKind);
+    	officerForm.tLeadersAccount = tLeadersService.findByKind(LeadersKindCode.ACCOUNT.getCode());
 	
     	//以下、各部長の一覧
     	officerForm.officerListItem = tClubService.findAllInTmember();
+    	
+    	//合宿委員
+    	officerForm.tLeadersGassyuku = tLeadersService.findByKind(LeadersKindCode.GASSYUKU.getCode());
+    	
+    	//web管理者
+    	officerForm.tLeadersWebAdmin = tLeadersService.findByKind(LeadersKindCode.WEBADMIN.getCode());
 	
         return "OfficerList.jsp";
 	}

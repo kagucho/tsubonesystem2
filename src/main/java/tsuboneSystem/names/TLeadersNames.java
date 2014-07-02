@@ -4,14 +4,13 @@ import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
 import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.names.TClubNames._TClubNames;
-import tsuboneSystem.names.TLeadersKindNames._TLeadersKindNames;
 import tsuboneSystem.names.TMemberNames._TMemberNames;
 
 /**
  * {@link TLeaders}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/06/30 15:15:44")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/07/01 23:34:20")
 public class TLeadersNames {
 
     /**
@@ -57,15 +56,6 @@ public class TLeadersNames {
      */
     public static _TClubNames tClub() {
         return new _TClubNames("tClub");
-    }
-
-    /**
-     * tLeadersKindのプロパティ名を返します。
-     * 
-     * @return tLeadersKindのプロパティ名
-     */
-    public static _TLeadersKindNames tLeadersKind() {
-        return new _TLeadersKindNames("tLeadersKind");
     }
 
     /**
@@ -144,15 +134,6 @@ public class TLeadersNames {
          */
         public _TClubNames tClub() {
             return new _TClubNames(this, "tClub");
-        }
-
-        /**
-         * tLeadersKindのプロパティ名を返します。
-         * 
-         * @return tLeadersKindのプロパティ名
-         */
-        public _TLeadersKindNames tLeadersKind() {
-            return new _TLeadersKindNames(this, "tLeadersKind");
         }
     }
 }

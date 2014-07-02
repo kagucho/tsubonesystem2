@@ -50,5 +50,11 @@ public class OfficerForm implements Serializable {
 	
 	/* 会計の情報を格納する　*/
 	public List<TLeaders> tLeadersAccount = new ArrayList<TLeaders>();
+	
+	/* 合宿委員の情報を格納する　*/
+	public List<TLeaders> tLeadersGassyuku = new ArrayList<TLeaders>();
+	
+	/* 合宿委員の情報を格納する　*/
+	public List<TLeaders> tLeadersWebAdmin = new ArrayList<TLeaders>();
 
 }

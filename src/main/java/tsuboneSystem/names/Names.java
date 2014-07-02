@@ -4,7 +4,6 @@ import javax.annotation.Generated;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TImageUpload;
 import tsuboneSystem.entity.TLeaders;
-import tsuboneSystem.entity.TLeadersKind;
 import tsuboneSystem.entity.TMail;
 import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
@@ -17,7 +16,6 @@ import tsuboneSystem.entity.TPartyQuestion;
 import tsuboneSystem.entity.TPartySendMail;
 import tsuboneSystem.names.TClubNames._TClubNames;
 import tsuboneSystem.names.TImageUploadNames._TImageUploadNames;
-import tsuboneSystem.names.TLeadersKindNames._TLeadersKindNames;
 import tsuboneSystem.names.TLeadersNames._TLeadersNames;
 import tsuboneSystem.names.TMailNames._TMailNames;
 import tsuboneSystem.names.TMailSendMemberNames._TMailSendMemberNames;
@@ -34,7 +32,7 @@ import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/06/30 15:15:44")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/07/01 23:34:20")
 public class Names {
 
     /**
@@ -62,15 +60,6 @@ public class Names {
      */
     public static _TLeadersNames tLeaders() {
         return new _TLeadersNames();
-    }
-
-    /**
-     * {@link TLeadersKind}の名前クラスを返します。
-     * 
-     * @return TLeadersKindの名前クラス
-     */
-    public static _TLeadersKindNames tLeadersKind() {
-        return new _TLeadersKindNames();
     }
 
     /**

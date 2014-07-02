@@ -46,10 +46,5 @@ public class TLeaders implements Serializable {
     @OneToOne(mappedBy = "TLeaders")
     public TClub tClub;
     
-    /** officerKindをTLeadersKind(ID)に関連付ける */
-    @ManyToOne
-    @JoinColumn(name = "OFFICER_KIND", referencedColumnName = "ID")
-    public TLeadersKind tLeadersKind;
-    
 
 }
