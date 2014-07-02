@@ -14,8 +14,6 @@ import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.PartyDto;
-import tsuboneSystem.entity.TMail;
-import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyClub;
@@ -124,7 +122,7 @@ public class PartyDetailAction {
         	//質問内容を登録する
         	TPartyQuestion tPartyQuestion = new TPartyQuestion();
         	tPartyQuestion.partyId = partyForm.id;
-        	tPartyQuestion.memberId = loginAdminDto.memberId;
+        	tPartyQuestion.memberId = getLoginMemberId();
         	tPartyQuestion.question = partyForm.question;
         	tPartyQuestion.questionSend = partyForm.questionSend;
         	tPartyQuestionService.insert(tPartyQuestion);
@@ -137,54 +135,55 @@ public class PartyDetailAction {
         		tSendMember.add(partyForm.tMember);
         		    		
         		//タイトルを作る
-    	    	StringBuilder sb = new StringBuilder();
-    	    	sb.append("[");
-    	    	sb.append(partyForm.meetingName);
-    	    	sb.append("]");
-    	    	sb.append("に対して質問を受け付けました");
-    	    	String title = new String(sb);
+    	    	String title = getMailtitle();
     	    	
     	    	//内容を作る
-    	    	StringBuilder sbc = new StringBuilder();
-    	    	sbc.append("会議名:　");
-    	    	sbc.append(partyForm.meetingName);
-    	    	sbc.append("\n");
-    	    	sbc.append("質問者:　");
-    	    	sbc.append(loginAdminDto.tMemberLogin.hname);
-    	    	sbc.append("\n");
-    	    	sbc.append("\n");
-    	    	sbc.append("質問内容:　");
-    	    	sbc.append("\n");
-    	    	sbc.append(partyForm.question);
-    	    	String content = new String(sbc);
+    	    	String content = getMailContents();
     	    	
     	    	//メールを送信する
             	MailManager manager = new MailManager();
             	manager.setTitle(title);
             	manager.setContent(content);
             	manager.setToAddress(tSendMember.toArray(new TMember[0]));
+            	manager.setLogFlg(true, getLoginMemberId(), tMailSendMemberService, tMailService);
             	if (manager.sendMail()){
             		errorFlag = false;
             	}else{
             		errorFlag = true;
             	}
-            	
-            	//以下メールの送信履歴を残す
-            	TMail tMail = new TMail();
-            	tMail.title = title;
-            	tMail.content = content;
-            	tMail.errorFlag = errorFlag;
-            	tMail.registMemberId = loginAdminDto.memberId;
-            	tMailService.insert(tMail);
-            	
-            	for (TMember tMemberOne : tSendMember) {
-            		TMailSendMember tMailSendMember = new TMailSendMember();
-            		tMailSendMember.mailId = tMail.id;
-            		tMailSendMember.memberId = tMemberOne.id;
-            		tMailSendMemberService.insert(tMailSendMember);
-            	}	
         	}
         }
     	return "partyQuestionComplete.jsp";
     }
+
+	protected String getMailContents() {
+		StringBuilder sbc = new StringBuilder();
+		sbc.append("会議名:　");
+		sbc.append(partyForm.meetingName);
+		sbc.append("\n");
+		sbc.append("質問者:　");
+		sbc.append(getLoginTMember().hname);
+		sbc.append("\n\n");
+		sbc.append("質問内容:　\n");
+		sbc.append(partyForm.question);
+		String content = new String(sbc);
+		return content;
+	}
+
+	protected String getMailtitle() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		sb.append(partyForm.meetingName);
+		sb.append("]に対して質問を受け付けました");
+		String title = new String(sb);
+		return title;
+	}
+
+	protected Integer getLoginMemberId() {
+		return loginAdminDto.memberId;
+	}
+
+	protected TMember getLoginTMember() {
+		return loginAdminDto.tMemberLogin;
+	}
 }

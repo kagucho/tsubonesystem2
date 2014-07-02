@@ -14,11 +14,12 @@
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
 <div class="col-sm-12">
+<a class="btn btn-primary" href="<c:url value="/individuals/partyRegist/index"/>">新規登録</a>
 <h3>出席受付中の会議</h3>
 <div class="table-responsive">
 <table class="table">
 <tr>
-	<th>会議名</th><th class="hidden-xs">必須</th><th>会議日</th><th class="hidden-xs">会議場所</th><th>出欠席</th><th class="hidden-xs">締切日</th><th>出欠席状況</th>
+	<th>会議名</th><th class="hidden-xs">出席必須</th><th>会議日</th><th class="hidden-xs">会議場所</th><th>出欠席</th><th class="hidden-xs">締切日</th><th>出欠席状況</th>
 	<c:forEach var="e" items="${partyItemOn}">
 		<tr>
 			<td>
@@ -57,7 +58,7 @@
 <h3>過去の会議</h3>
 <table class="table">
 <tr>
-	<th>会議名</th><th class="hidden-xs">必須</th><th>会議日</th><th class="hidden-xs">会議場所</th><th>出欠席</th><th class="hidden-xs">締切日</th><th>出欠席状況</th>
+	<th>会議名</th><th class="hidden-xs">出席必須</th><th>会議日</th><th class="hidden-xs">会議場所</th><th>出欠席</th><th class="hidden-xs">締切日</th><th>出欠席状況</th>
 	<c:forEach var="e" items="${partyItemOff}">
 		<tr>
 			<td>

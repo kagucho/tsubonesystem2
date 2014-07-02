@@ -1,7 +1,6 @@
 package tsuboneSystem.action.admin;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
@@ -9,26 +8,15 @@ import org.seasar.struts.annotation.Execute;
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.form.PartyForm;
-import tsuboneSystem.service.TClubService;
-import tsuboneSystem.service.TPartyClubService;
 import tsuboneSystem.service.TPartyService;
 
 public class PartyResultAction {
-	
 	
 	public String actionName = "PartyResult";
 	
 	/** TPartyのサービスクラス */
 	@Resource
 	protected TPartyService tPartyService;
-	
-	/** TClubのサービスクラス */
-	@Resource
-	protected TClubService tClubService;
-	
-	/** TPartyClubServiceのサービスクラス */
-	@Resource
-	protected TPartyClubService tPartyClubService;
 	
 	/** PartyFormのアクションフォーム */
 	@ActionForm
@@ -39,16 +27,10 @@ public class PartyResultAction {
 	@Resource
 	protected LoginAdminDto loginAdminDto;
 	
-	/** HttpServlet */
-	@Resource
-	protected HttpServletRequest request;
-	
-	
 	@Execute(validator = false, urlPattern = "{id}")
 	public String input() {
         return viewinput();
 	}
-	
 	
     @Execute(validator = false)
 	public String viewinput() {
@@ -70,4 +52,8 @@ public class PartyResultAction {
     	
         return "partyComplete.jsp";
 	}
+   
+    protected Integer getLoginMemberId() {
+    	return loginAdminDto.memberId;
+    }
 }

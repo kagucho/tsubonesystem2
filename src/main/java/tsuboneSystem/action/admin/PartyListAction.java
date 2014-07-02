@@ -48,24 +48,24 @@ public class PartyListAction {
     	//日時を取得する
     	Date dateNow = new Date();
     	
-    	//期限内
+    	//締め切りが指定されていて、まだ締め切りが過ぎていない会議
     	partyItemOn = tPartyService.findBy_Deadline_GE_Now(dateNow, getLoginMemberId());
     	
-	    	//(開催日が設定されず、作成日から一ヶ月以内の会議)
-    		List<TParty> partyItemNOMeetingDay = tPartyService.findBy_NOMeetingDay_GE(dateNow, getLoginMemberId());
-			if (partyItemNOMeetingDay.size() != 0 ) {
-				partyItemOn.addAll(partyItemNOMeetingDay);
-			}
+    	//締め切りが設定されず、作成日から一ヶ月以内の会議
+		List<TParty> partyItemNOMeetingDay = tPartyService.findBy_NODeadline_GE(dateNow, getLoginMemberId());
+		if (partyItemNOMeetingDay.size() != 0 ) {
+			partyItemOn.addAll(partyItemNOMeetingDay);
+		}
     	
-    	//期限外
+    	//締め切りが指定されていて、もう締め切りが過ぎている会議
     	partyItemOff = tPartyService.findBy_Deadline_LE_Now(dateNow, getLoginMemberId());
     	
-    		//(開催日が設定されず、作成日から一ヶ月以上たった会議)
-    		List<TParty> tPartyNOmeetingDay = tPartyService.findBy_NOMeetingDay_LE(dateNow, getLoginMemberId());
-    		if (tPartyNOmeetingDay.size() != 0 ) {
-    			partyItemOff.addAll(tPartyNOmeetingDay);
-    		}
-    	
+		//締め切りが設定されず、作成日から一ヶ月以上たった会議
+		List<TParty> tPartyNOmeetingDay = tPartyService.findBy_NODeadline_LE(dateNow, getLoginMemberId());
+		if (tPartyNOmeetingDay.size() != 0 ) {
+			partyItemOff.addAll(tPartyNOmeetingDay);
+		}
+	
         return "partyList.jsp";
 	}
     

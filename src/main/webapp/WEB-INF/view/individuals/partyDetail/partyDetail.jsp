@@ -14,6 +14,13 @@
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
 <h3 class="col-md-6 col-xs-12">${f:h(meetingName)}たんの詳細情報</h3>
+<c:if test="${!deadFlag && myPartyFlag}">
+	<a class="col-md-2 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-danger btnYOKO btnMRC" href="<c:url value="/individuals/partyDelete/${id}"/>" role="button">削除</a>
+	<a class="col-md-2 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/individuals/partyUpdate/${id}"/>" role="button">更新</a>
+</c:if>
+<c:if test="${deadFlag && myPartyFlag}">
+	<a class="col-md-2 col-sm-5 col-sm-offset-4 col-xs-12  btn btn-primary btnMRC" href="<c:url value="/individuals/partyResult/${id}"/>" role="button">会議の結果を入力する</a>
+</c:if>
 <div class="col-sm-12">
 	<%@ include file="/WEB-INF/view/common/partyFormConfirm.jsp"%>
 	<c:if test="${!deadFlag}">

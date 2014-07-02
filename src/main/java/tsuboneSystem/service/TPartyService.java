@@ -150,18 +150,18 @@ public class TPartyService extends AbstractService<TParty> {
      * 
      * @return エンティティのリスト
      */
-    public List<TParty> findBy_NOMeetingDay_LE(Date dateNow, Integer memberId) {
+    public List<TParty> findBy_NODeadline_LE(Date dateNow, Integer memberId) {
     	
     	//現在時刻に任意の日にち分足す
     	GregorianCalendar calendar=new GregorianCalendar();
 		calendar.setTime(dateNow);
 		calendar.add(Calendar.MONTH, -1);
 		Date dateadd = new Date();
-		dateadd=calendar.getTime();
+		dateadd = calendar.getTime();
 		
     	SimpleWhere where = new SimpleWhere();
     	where.eq(deleteFlag(), Boolean.valueOf(false));
-    	where.isNull(meetingDay(), Boolean.valueOf(true));
+    	where.isNull(meetingDeadlineDay(), Boolean.valueOf(true));
     	where.le(updateTime(), dateadd);
         return select()
         		.innerJoin("TMember")
@@ -176,7 +176,7 @@ public class TPartyService extends AbstractService<TParty> {
      * 
      * @return エンティティのリスト
      */
-    public List<TParty> findBy_NOMeetingDay_GE(Date dateNow, Integer memberId) {
+    public List<TParty> findBy_NODeadline_GE(Date dateNow, Integer memberId) {
     	
     	//現在時刻に任意の日にち分足す
     	GregorianCalendar calendar=new GregorianCalendar();
@@ -187,7 +187,7 @@ public class TPartyService extends AbstractService<TParty> {
 		
     	SimpleWhere where = new SimpleWhere();
     	where.eq(deleteFlag(), Boolean.valueOf(false));
-    	where.isNull(meetingDay(), Boolean.valueOf(true));
+    	where.isNull(meetingDeadlineDay(), Boolean.valueOf(true));
     	where.ge(updateTime(), dateadd);
         return select()
         		.innerJoin("TMember")
