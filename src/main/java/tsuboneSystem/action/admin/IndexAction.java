@@ -102,45 +102,9 @@ public class IndexAction {
     	//現在時刻の取得と、その時点で出欠受付中かつ、まだ出欠を出していないの会議一覧
     	myPageForm.tPartyNoAttendList = new ArrayList<TParty>();
     	Date dateNow = new Date();
-    	  	
-    	//出席対象が部で絞られている場合の会議一覧
-    	Set<TParty> partySet = new  HashSet<TParty>();
-    	List<TMemberClub> tMemberClubList = tMemberClubService.findByMemberId(loginAdminDto.tMemberLogin.id.toString());
-    	for (TMemberClub tMemberClubOne : tMemberClubList) {
-    		List<TPartyClub> tPartyClubList = tPartyClubService.findByClubIdPartyGE(tMemberClubOne.ClubId,dateNow);
-    		for (TPartyClub tPartyClubOne : tPartyClubList) {
-    			partySet.add(tPartyClubOne.tParty);
-    		}
-    	}
-    	List<TParty> tPartyListYesClub = new ArrayList<TParty>(partySet);
     	
-    	//出席対象が部で絞られていない場合の会議一覧
-    	List<TParty> tPartyList = tPartyService.findBy_Deadline_GE_Now(dateNow, loginAdminDto.memberId);
-    	List<TParty> tPartyListNoClub = new ArrayList<TParty>();
-    	for (TParty tPartyOne : tPartyList) {
-    		if (tPartyOne.tPartyClubList.size() == 0) {
-    			tPartyListNoClub.add(tPartyOne);
-    			}
-    	}
-    	
-    	//以上で得られた会議を一つの一覧とする
-    	myPageForm.tPartyList = new ArrayList<TParty>();
-    	myPageForm.tPartyList.addAll(tPartyListYesClub);
-    	myPageForm.tPartyList.addAll(tPartyListNoClub);
-    	
-    	if(myPageForm.tPartyList.size() != 0){
-    		for (TParty tParty : myPageForm.tPartyList){
-        		TPartyAttend tPartyAttend = tPartyAttendService.findByPartyIdMemberId(tParty.id,loginAdminDto.memberId);
-        		if(tPartyAttend != null){
-        			//会議が作られた後に加入したメンバーには出欠レコードがない
-        			if (PartyAttendCode.UNSUBMITTED.getCode().equals(tPartyAttend.attend.toString())){
-            			//会議に対する出欠席ステータスが未提出だった場合のみ追加
-            			myPageForm.tPartyNoAttendList.add(tParty);
-            		}
-        		}
-        	}
-    	}
-    	
+    	//TODO 締切日がないものはどうするか？
+    	myPageForm.tPartyNoAttendList = tPartyService.findNotAttendPartyByMemberId(new Date(), loginAdminDto.memberId);
     	
     	//実行日に開催されている会議一覧
     	myPageForm.tPartyToDayList = tPartyService.findBy_MeetingDay_EQ_Now(dateNow);

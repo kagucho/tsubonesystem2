@@ -9,6 +9,7 @@ import javax.annotation.Generated;
 
 import org.seasar.extension.jdbc.where.SimpleWhere;
 
+import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.entity.TParty;
 import static org.seasar.extension.jdbc.operation.Operations.*;
 import static tsuboneSystem.names.TPartyNames.*;
@@ -62,6 +63,23 @@ public class TPartyService extends AbstractService<TParty> {
         		.leftOuterJoin("tPartyClubList")
         		.leftOuterJoin("tPartyAttendList", new SimpleWhere().eq("tPartyAttendList.memberID", memberId))
         		.where(where).orderBy(desc(id())).getResultList();
+    }
+    
+    /**
+     * まだ締め切り前でかつ,引数の人がが出欠席を提出していないTPartyを取得する
+     * @param dateNow
+     * @param memberId
+     * @return
+     */
+    public List<TParty> findNotAttendPartyByMemberId(Date dateNow, Integer memberId) {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	where.ge(meetingDeadlineDay(), dateNow);
+    	return select()
+    			.innerJoin("tPartyAttendList", new SimpleWhere().eq("tPartyAttendList.memberID", memberId).eq("tPartyAttendList.attend", PartyAttendCode.UNSUBMITTED.getCode()))
+    			.where(where)
+    			.getResultList();
+    			
     }
     
     /**
