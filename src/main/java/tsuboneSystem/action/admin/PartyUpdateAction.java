@@ -66,7 +66,6 @@ public class PartyUpdateAction extends PartyOperateAbstractAction{
         }
 	}
     
-
 	@Override
 	protected Integer getLoginMemberId() {
 		return loginAdminDto.memberId;

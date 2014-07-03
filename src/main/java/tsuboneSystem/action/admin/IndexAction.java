@@ -17,22 +17,15 @@ package tsuboneSystem.action.admin;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import javax.annotation.Resource;
 
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
-import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.entity.TParty;
-import tsuboneSystem.entity.TPartyAttend;
-import tsuboneSystem.entity.TPartyClub;
 import tsuboneSystem.form.MyPageForm;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TLeadersService;

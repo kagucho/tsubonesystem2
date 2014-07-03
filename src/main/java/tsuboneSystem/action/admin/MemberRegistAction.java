@@ -75,7 +75,6 @@ public class MemberRegistAction {
 	/** Clubのリスト */
 	public List<TClub> clubItems;
 	
-    @SuppressWarnings("boxing")
 	@Execute(validator = false, reset = "resetInput")
 	public String index() {
     	

@@ -127,10 +127,6 @@ public class PartyMailTask extends AbstractTask{
     	    	sbc.append("以上の会議にまだ出欠を出していません。とっとと出欠を出しましょう。");
     	    	sbc.append("\n");
     	    	sbc.append("\n");
-    	    	sbc.append("出欠の提出は以下のサイトにログインしてください。");
-    	    	sbc.append("\n");
-    	    	sbc.append("http://153.121.53.57/TsuboneSystem/login/");
-    	    	sbc.append("\n");
     	    	String content = new String(sbc);
     	    	
     	    	//メールを送信する

@@ -14,7 +14,7 @@
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
-<div class="col-sm-12">
+<div class="col-sm-12 col-md-12">
 <s:form method="POST">
 <a class="btn btn-primary" href="<c:url value="/admin/memberRegist/index"/>">新規登録</a>
 <a class="btn btn-primary" href="<c:url value="/admin/memberUpload/index"/>">CSV一括登録</a>
@@ -38,9 +38,8 @@
 				</tr>
 	</table>
 </div>
+<%@ include file="/WEB-INF/view/common/pager.jsp"%>
 <div class="table-responsive">
-
-	<%@ include file="/WEB-INF/view/common/pager.jsp"%>
 	<table class="table">
 		<tr class="info">
 			<th></th><th>名前</th><th>ハンドルネーム</th><th>入学年度</th>
@@ -60,8 +59,8 @@
 				</tr>
 			</c:forEach>
 	</table>
-	<%@ include file="/WEB-INF/view/common/pager.jsp"%>
 </div>
+<%@ include file="/WEB-INF/view/common/pager.jsp"%>
 
 </s:form>
 </div>
