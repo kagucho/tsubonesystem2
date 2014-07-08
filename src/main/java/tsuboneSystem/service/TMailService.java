@@ -1,13 +1,18 @@
 package tsuboneSystem.service;
 
+import static org.seasar.extension.jdbc.operation.Operations.desc;
+import static tsuboneSystem.names.TMailNames.id;
+import static tsuboneSystem.names.TMailNames.registMemberId;
+
 import java.util.List;
 
 import javax.annotation.Generated;
 
+import org.seasar.extension.jdbc.AutoSelect;
+import org.seasar.extension.jdbc.where.SimpleWhere;
+
 import tsuboneSystem.entity.TMail;
 import tsuboneSystem.original.manager.MailManager;
-import static org.seasar.extension.jdbc.operation.Operations.*;
-import static tsuboneSystem.names.TMailNames.*;
 
 /**
  * {@link TMail}のサービスクラスです。
@@ -33,7 +38,17 @@ public class TMailService extends AbstractService<TMail> {
      * @return エンティティのリスト
      */
     public List<TMail> findAllOrderById() {
-        return select().orderBy(desc(id())).limit(20).getResultList();
+        return select().orderBy(desc(id())).getResultList();
+    }
+    
+    /**
+     * 識別子の昇順でlimitとoffsetの範囲でデータを検索します。
+     * @param limit
+     * @param offset
+     * @return
+     */
+    public List<TMail> findAllOrderByIdLimitOffset(int limit, int offset) {
+    	return select().orderBy(desc(id())).limit(limit).offset(offset).getResultList();
     }
     
     /**
@@ -43,5 +58,22 @@ public class TMailService extends AbstractService<TMail> {
     @Override
     public int insert(TMail entity) {
     	return super.insert(entity);
+    }
+    
+    /**
+     * メール登録者で検索する
+     * limitが-1なら制限を行わない。offsetも無視したい場合はoffsetを0にしてください。
+     * @param member
+     * @param limit
+     * @param offset
+     * @return
+     */
+    public List<TMail> findbyCreateId(int member, int limit, int offset) {
+    	AutoSelect<TMail> query = select().where(new SimpleWhere().eq(registMemberId(), member)).orderBy(desc(id()));
+    	if (limit != -1) {
+    		query.limit(limit);
+    	}
+    	query.offset(offset);
+    	 return query.getResultList();
     }
 }

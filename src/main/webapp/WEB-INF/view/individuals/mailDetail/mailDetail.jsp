@@ -14,33 +14,17 @@
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
 <div class="col-sm-12">
-<a class="btn btn-primary" href="<c:url value="/individuals/mailRegist"/>">メール作成</a>
-<h3>メールの送信履歴</h3>
-<div class="table-responsive">
+<h4 class="col-md-4">メールの内容</h4>
 <table class="table">
-<tr>
-	<th>メールのタイトル</th><th class="hidden-xs">送信者名</th><th>送信ステータス</th>
-	<c:forEach var="e" items="${tMailItem}">
-		<tr>
-			<td>
-				<a href="<c:url value="/individuals/mailDetail/"/>${e.id}">${f:h(e.title) }</a>
-			</td>
-			<td class="hidden-xs">
-				<c:if test="${e.registMemberId == null}"><p class="hidden-xs">(自動配信)</p></c:if>
-				<p class="hidden-xs">${f:h(memberMapIS[e.registMemberId]) }</p>
-			</td>
-			<td>
-				<c:if test="${e.errorFlag}">
-					<span class="glyphicon glyphicon-remove"></span>
-				</c:if>
-				<c:if test="${!e.errorFlag}">
-					<span class="glyphicon glyphicon-ok"></span>
-				</c:if>
-			</td>
-		</tr>
-	</c:forEach>
+	<tr>
+		<th><h4>メールのタイトル</h4></th>
+		<td><h5>${f:h(title)}</h5></td>
+	</tr>
+	<tr>
+		<th><h4>メールの内容</h4></th>
+		<td><h5><pre><bean:write name="mailForm" property="content" filter="false"/></pre> </h5></td>
+	</tr>
 </table>
-</div>
 </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

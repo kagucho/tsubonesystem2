@@ -16,12 +16,14 @@
 package tsuboneSystem.action.admin;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.entity.TMail;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.MailListForm;
 import tsuboneSystem.service.TMailSendMemberService;
@@ -61,10 +63,14 @@ public class MailListAction {
     		mailListForm.memberMapIS.put(memberOne.id, memberOne.hname);	
     	}
     	
-    	//メールの一覧
-    	mailListForm.tMailItem = tMailService.findAllOrderById();
-    	
+    	//メールの一覧(とりあえず最初の２０件だけ取得する)
+    	mailListForm.tMailItem = getMailRecord();
     	
         return "index.jsp";
+	}
+
+
+	protected List<TMail> getMailRecord() {
+		return tMailService.findAllOrderByIdLimitOffset(20, 0);
 	}
 }

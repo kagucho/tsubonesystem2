@@ -11,9 +11,7 @@ import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.entity.TMail;
 import tsuboneSystem.form.MailForm;
 import tsuboneSystem.service.TClubService;
-import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
-import tsuboneSystem.service.TMemberService;
 
 public class MailDetailAction {
 	
@@ -36,17 +34,9 @@ public class MailDetailAction {
 	@Resource
 	protected TClubService tClubService;
 	
-	/** TMemberのサービスクラス */
-	@Resource
-	protected TMemberService tMemberService;
-	
 	/** TMailのサービスクラス */
 	@Resource
 	protected TMailService tMailService;
-	
-	/** TMailSendMemberServiceのサービスクラス */
-	@Resource
-	protected TMailSendMemberService tMailSendMemberService;
 	
 	/** HttpServlet */
 	@Resource
@@ -55,12 +45,23 @@ public class MailDetailAction {
 	/** 入力画面(送信先選択) */
     @Execute(validator = false, urlPattern = "{id}")
 	public String index() {
-        
-        /* メンバーの一覧を取得する　*/
         TMail mail  = tMailService.findById(mailForm.id);
+        
+        //チェックが通らなければ共通エラーページ
+        if (!check(mail)) {
+        	return "/common/error.jsp";
+        }
         Beans.copy(mail, mailForm).execute();
- 
         return "mailDetail.jsp";
+	}
+
+    /**
+     * 各種チェックを行う
+     * @param mail
+     * @return 正しいならTRUE
+     */
+	protected boolean check(TMail mail) {
+		return mail != null;
 	}
 
 }
