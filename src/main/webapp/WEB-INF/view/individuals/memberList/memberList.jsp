@@ -36,15 +36,10 @@
 			</td>
 		</tr>
 </table>
+
+<%@ include file="/WEB-INF/view/common/pager.jsp"%>
+
 <div class="table-responsive">
-全部で<strong>${total}件</strong>のデータが有ります。<br />
-<c:if test="${hasPrev}">
-	<a href="?page=${page - 1}"><i class="glyphicon glyphicon-chevron-left"></i>前へ</a>
-	　　　
-</c:if>
-<c:if test="${hasNext}">
-	<a href="?page=${page + 1}">次へ<span class="glyphicon glyphicon-chevron-right"></span></a>
-</c:if>
 <table class="table">
 <tr class="info">
 	<th></th><th>名前</th><th>ハンドルネーム</th><th>入学年度</th>
@@ -67,6 +62,7 @@
 
 </div>
 </div>
+<%@ include file="/WEB-INF/view/common/pager.jsp"%>
 </s:form>
 </div>
 <%@ include file="/WEB-INF/view/common/search.jsp"%>
