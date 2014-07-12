@@ -1,6 +1,8 @@
 package tsuboneSystem.names;
 
 import javax.annotation.Generated;
+import tsuboneSystem.entity.TBbsDetail;
+import tsuboneSystem.entity.TBbsSubject;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TImageUpload;
 import tsuboneSystem.entity.TLeaders;
@@ -14,6 +16,8 @@ import tsuboneSystem.entity.TPartyAttend;
 import tsuboneSystem.entity.TPartyClub;
 import tsuboneSystem.entity.TPartyQuestion;
 import tsuboneSystem.entity.TPartySendMail;
+import tsuboneSystem.names.TBbsDetailNames._TBbsDetailNames;
+import tsuboneSystem.names.TBbsSubjectNames._TBbsSubjectNames;
 import tsuboneSystem.names.TClubNames._TClubNames;
 import tsuboneSystem.names.TImageUploadNames._TImageUploadNames;
 import tsuboneSystem.names.TLeadersNames._TLeadersNames;
@@ -32,8 +36,26 @@ import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/07/01 23:34:20")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/07/10 15:35:30")
 public class Names {
+
+    /**
+     * {@link TBbsDetail}の名前クラスを返します。
+     * 
+     * @return TBbsDetailの名前クラス
+     */
+    public static _TBbsDetailNames tBbsDetail() {
+        return new _TBbsDetailNames();
+    }
+
+    /**
+     * {@link TBbsSubject}の名前クラスを返します。
+     * 
+     * @return TBbsSubjectの名前クラス
+     */
+    public static _TBbsSubjectNames tBbsSubject() {
+        return new _TBbsSubjectNames();
+    }
 
     /**
      * {@link TClub}の名前クラスを返します。

@@ -58,5 +58,13 @@ public class TMail implements Serializable {
     /** IDをTPartySendMail(MailId)に関連付ける */
     @OneToOne(mappedBy = "TMail")
     public TPartySendMail tPartySendMail;
+    
+    /** IDをtBbsSubject(MailId)に関連付ける */
+    @OneToOne(mappedBy = "TMail")
+    public TBbsSubject tBbsSubject;
+    
+    /** IDをtBbsDetail(MailId)に関連付ける */
+    @OneToOne(mappedBy = "TMail")
+    public TBbsDetail tBbsDetail;
 
 }

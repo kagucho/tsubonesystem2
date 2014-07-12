@@ -4,13 +4,13 @@ import javax.annotation.Generated;
 import org.seasar.extension.unit.S2TestCase;
 
 /**
- * {@link TMemberClubService}のテストクラスです。
+ * {@link TBbsDetailService}のテストクラスです。
  * 
  */
 @Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceTestModelFactoryImpl"}, date = "2014/07/10 13:17:35")
-public class TMemberClubServiceTest extends S2TestCase {
+public class TBbsDetailServiceTest extends S2TestCase {
 
-    private TMemberClubService tMemberClubService;
+    private TBbsDetailService tBbsDetailService;
 
     /**
      * 事前処理をします。
@@ -24,11 +24,11 @@ public class TMemberClubServiceTest extends S2TestCase {
     }
 
     /**
-     * {@link #tMemberClubService}が利用可能であることをテストします。
+     * {@link #tBbsDetailService}が利用可能であることをテストします。
      * 
      * @throws Exception
      */
     public void testAvailable() throws Exception {
-        assertNotNull(tMemberClubService);
+        assertNotNull(tBbsDetailService);
     }
 }

@@ -26,6 +26,9 @@
 					<ul class="nav navbar-nav">
 						<li><a href="<c:url value="/individuals/officerList"/>">Officer</a></li>
 					</ul>
+					<ul class="nav navbar-nav">
+						<li><a href="<c:url value="/individuals/bbsList"/>">BBS</a></li>
+					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="<c:url value="/individuals/logout"/>">Logout</a></li>
 					</ul>

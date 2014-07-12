@@ -43,7 +43,7 @@ public class TLeaders implements Serializable {
     public TMember tMember;
     
     /** 部長のIDをTClubに関連付ける */
-    @OneToOne(mappedBy = "TLeaders")
+    @OneToOne(mappedBy = "tLeaders")
     public TClub tClub;
     
 

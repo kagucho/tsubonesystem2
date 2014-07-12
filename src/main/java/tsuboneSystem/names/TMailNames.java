@@ -3,6 +3,8 @@ package tsuboneSystem.names;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
 import tsuboneSystem.entity.TMail;
+import tsuboneSystem.names.TBbsDetailNames._TBbsDetailNames;
+import tsuboneSystem.names.TBbsSubjectNames._TBbsSubjectNames;
 import tsuboneSystem.names.TMailSendMemberNames._TMailSendMemberNames;
 import tsuboneSystem.names.TMemberNames._TMemberNames;
 import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
@@ -11,7 +13,7 @@ import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
  * {@link TMail}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/07/01 23:34:20")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/07/10 15:35:30")
 public class TMailNames {
 
     /**
@@ -84,6 +86,24 @@ public class TMailNames {
      */
     public static _TPartySendMailNames tPartySendMail() {
         return new _TPartySendMailNames("tPartySendMail");
+    }
+
+    /**
+     * tBbsSubjectのプロパティ名を返します。
+     * 
+     * @return tBbsSubjectのプロパティ名
+     */
+    public static _TBbsSubjectNames tBbsSubject() {
+        return new _TBbsSubjectNames("tBbsSubject");
+    }
+
+    /**
+     * tBbsDetailのプロパティ名を返します。
+     * 
+     * @return tBbsDetailのプロパティ名
+     */
+    public static _TBbsDetailNames tBbsDetail() {
+        return new _TBbsDetailNames("tBbsDetail");
     }
 
     /**
@@ -189,6 +209,24 @@ public class TMailNames {
          */
         public _TPartySendMailNames tPartySendMail() {
             return new _TPartySendMailNames(this, "tPartySendMail");
+        }
+
+        /**
+         * tBbsSubjectのプロパティ名を返します。
+         * 
+         * @return tBbsSubjectのプロパティ名
+         */
+        public _TBbsSubjectNames tBbsSubject() {
+            return new _TBbsSubjectNames(this, "tBbsSubject");
+        }
+
+        /**
+         * tBbsDetailのプロパティ名を返します。
+         * 
+         * @return tBbsDetailのプロパティ名
+         */
+        public _TBbsDetailNames tBbsDetail() {
+            return new _TBbsDetailNames(this, "tBbsDetail");
         }
     }
 }

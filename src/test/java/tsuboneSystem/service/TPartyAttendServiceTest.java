@@ -7,7 +7,7 @@ import org.seasar.extension.unit.S2TestCase;
  * {@link TPartyAttendService}のテストクラスです。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceTestModelFactoryImpl"}, date = "2014/04/13 15:02:36")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.ServiceTestModelFactoryImpl"}, date = "2014/07/10 13:17:35")
 public class TPartyAttendServiceTest extends S2TestCase {
 
     private TPartyAttendService tPartyAttendService;

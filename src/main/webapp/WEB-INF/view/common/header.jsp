@@ -26,6 +26,9 @@
 					<ul class="nav navbar-nav">
 						<li><a href="<c:url value="/admin/officerList"/>">Officer</a></li>
 					</ul>
+					<ul class="nav navbar-nav">
+						<li><a href="<c:url value="/admin/bbsList"/>">BBS</a></li>
+					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="<c:url value="/admin/logout"/>">Logout</a></li>
 					</ul>

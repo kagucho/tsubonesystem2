@@ -51,11 +51,6 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2chronos-core-1.0.0.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2chronos-extension-1.0.0.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-lang3-3.3.2.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/lib/servlet-api.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/lib/jasper.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/lib/jsp-api.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/lib/el-api.jar"/>
-	<classpathentry kind="var" path="TOMCAT_HOME/lib/annotations-api.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/fisshplate-0.1.4-javadoc.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/fisshplate-0.1.4-sources.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/fisshplate-0.1.4.jar"/>
@@ -66,5 +61,10 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2fisshplate-0.1.4-sources.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2fisshplate-0.1.4.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2csv-0.0.2-sp1.jar" sourcepath="src/main/webapp/WEB-INF/lib/sources/s2csv-0.0.2-sp1-sources.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/servlet-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/jasper.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/jsp-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/el-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/annotations-api.jar"/>
 	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
 </classpath>

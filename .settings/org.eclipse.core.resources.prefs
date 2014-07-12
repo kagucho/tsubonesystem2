@@ -80,6 +80,7 @@ encoding//src/main/webapp/WEB-INF/view/common/search.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/index.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/individuals/attend/AttendComplete.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/individuals/attend/AttendConfirm.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/view/individuals/bbsList/BbsList.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/individuals/clubDetail/clubDetail.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/individuals/clubList/clubList.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/individuals/index.jsp=UTF-8

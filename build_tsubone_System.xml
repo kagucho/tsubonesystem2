@@ -49,10 +49,10 @@
             debug="true"
             optimize="false"
             deprecation="true"
-            target="1.6"
+            target="1.7"
             verbose="false"
             fork="false"
-            source="1.6">
+            source="1.7">
             <src>
                 <pathelement location="${build.SourceDir}"/>
             </src>
