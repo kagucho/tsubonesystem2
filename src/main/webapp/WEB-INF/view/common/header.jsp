@@ -1,6 +1,7 @@
 <body data-spy="scroll" data-target="#sidebar">
 	<div id="wrap">
-		<div id="header" class="navbar navbar-default navbar-fixed-top">
+		<div id="header" class="navbar-fixed-top">
+		<div class="navbar navbar-default ">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top">
@@ -34,5 +35,9 @@
 					</ul>
 				</div>
 			</div>
+		</div>
+			<jsp:include page="/WEB-INF/view/common/tempMessage.jsp">
+				<jsp:param name="authority" value="admin" />
+			</jsp:include>
 		</div>
 	</div>

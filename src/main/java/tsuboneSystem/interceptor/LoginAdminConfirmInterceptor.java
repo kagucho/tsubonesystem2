@@ -2,13 +2,10 @@ package tsuboneSystem.interceptor;
 
 import javax.annotation.Resource;
 
-import org.aopalliance.intercept.MethodInvocation;
-import org.seasar.framework.aop.interceptors.AbstractInterceptor;
-import org.seasar.struts.annotation.Execute;
-
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.entity.TMember;
 
-public class LoginAdminConfirmInterceptor extends AbstractInterceptor {
+public class LoginAdminConfirmInterceptor extends AbstractLoginInterceptor {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -16,27 +13,24 @@ public class LoginAdminConfirmInterceptor extends AbstractInterceptor {
 	protected LoginAdminDto loginAdminDto;
 	
 	@Override
-	public Object invoke(MethodInvocation invocation) throws Throwable {
-		// ここの条件がtrueであればログイン済みと判断
-		// ここの条件がfalseであればログインページへ移動
-		return (!isExecuteMethod(invocation) || isLoggedIn()) ? invocation
-				.proceed() : "/login/?redirect=true";
+	TMember getLoginTMember() {
+		if (loginAdminDto == null) {
+			return null;
+		}
+		return loginAdminDto.tMemberLogin;
 	}
-	
-	/**
-	 * 実行されたActionに@Executeがついていたかどうか。
-	 * @param invocation
-	 * @return アノテーションがついていればtrue
-	 */
-	private boolean isExecuteMethod(MethodInvocation invocation) {
-		return invocation.getMethod().isAnnotationPresent(Execute.class);
+
+
+	@Override
+	Integer getLoginMemberId() {
+		if (loginAdminDto == null) {
+			return null;
+		}
+		return loginAdminDto.memberId;
 	}
-	
-	/**
-	 * セッション上にDtoがあるか、あった場合その中にuserNameは保持されているか。
-	 * @return 上記の条件を両方満たしていればtrue
-	 */
-	private boolean isLoggedIn() {
+
+	@Override
+	protected boolean isLogined() {
 		return (loginAdminDto != null && loginAdminDto.memberId != null);
 	}
 }
