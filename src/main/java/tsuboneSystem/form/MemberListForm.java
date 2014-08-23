@@ -24,7 +24,10 @@ public class MemberListForm implements Serializable{
 	public String entrance;
 	
 	/* OBフラグ　*/
-	public String obFlag;	
+	public String obFlag;
+	
+	/* 仮登録フラグ　*/
+	public String tempMemberFlag;
 	
 	//現在のページ番号
 	public int page;

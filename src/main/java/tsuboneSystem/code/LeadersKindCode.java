@@ -11,7 +11,8 @@ public enum LeadersKindCode implements CodeEnum {
 	DIRECTOR("4","部長"),
 	RIDAISAI("5","理大祭実行委員"),
 	GASSYUKU("6","合宿実行委員"),
-	WEBADMIN("7","システム管理者");
+	WEBADMIN("7","システム管理者"),
+	ETC("8","その他");
 	
 	private String code;
 	private String name;

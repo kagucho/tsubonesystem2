@@ -13,6 +13,7 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.dto.PartyDto;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TParty;
@@ -30,6 +31,19 @@ import tsuboneSystem.service.TPartyService;
 public class PartyDetailAction {
 	
 	public String actionName = "PartyDetail";
+	
+	/** PartyFormのアクションフォーム */
+	@ActionForm
+	@Resource
+	protected PartyForm partyForm;
+	
+	/** Member用のDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
+	
+	/** LoginAdminDto */
+	@Resource
+	protected LoginAdminDto loginAdminDto;
 	
 	/** PartyDtoのサービスクラス */
 	@Resource
@@ -59,18 +73,9 @@ public class PartyDetailAction {
 	@Resource
 	protected TMailSendMemberService tMailSendMemberService;
 	
-	/** PartyFormのアクションフォーム */
-	@ActionForm
-	@Resource
-	protected PartyForm partyForm;
-	
 	/** HttpServlet */
 	@Resource
 	protected HttpServletRequest request;
-	
-	/** LoginAdminDto */
-	@Resource
-	protected LoginAdminDto loginAdminDto;
 	
 	/** 送信エラーフラグ */
 	public boolean errorFlag;

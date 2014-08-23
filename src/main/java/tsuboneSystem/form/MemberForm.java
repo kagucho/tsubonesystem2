@@ -72,6 +72,13 @@ public class MemberForm implements Serializable{
 	@Maxlength(maxlength=10)
 	public String obFlag;
 	
+	/* メール受信可否　*/
+	@Maxlength(maxlength=10)
+	public String sendStopFlag;
+	
+	/* 仮登録メンバーフラグ　*/
+	public String tempMemberFlag;
+	
 	/* ID　*/
 	@Required(msg=@Msg(key="errors.id", resource=true))
 	@Mask(mask = "^[\u0020-\u007E]+$", msg = @Msg(key = "errors.eisu", resource=true))
@@ -89,9 +96,11 @@ public class MemberForm implements Serializable{
 	@Mask(mask = "^[\u0020-\u007E]+$", msg = @Msg(key = "errors.eisu", resource=true))
 	@Maxlength(maxlength=30)
 	public String password;
+	
+	public Integer carrentId;
 
 	/** TMember **/
-	public TMember tMember;
+	public TMember tMemberOld;
 	
 	/** 部のリスト **/
 	public List<TClub> clubList;
@@ -116,6 +125,9 @@ public class MemberForm implements Serializable{
 	
 	/** メンバーが所属している部のIDのリスト(completeで使用) **/
 	public List<TMemberClub> tMemberClubUpOldId;
+	
+	/** 仮登録メンバー認証フラグ **/
+	public boolean approveFlag;
 
 	
 	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
@@ -135,6 +147,8 @@ public class MemberForm implements Serializable{
 		clubListChecked = new ArrayList<String>();
 		obFlag = null;
 		sendErrorFlag = false;
+		sendStopFlag = "false";
+		approveFlag = false;
     }
 
 }

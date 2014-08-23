@@ -25,6 +25,7 @@ public class MailRegistParty {
 	
 	boolean errorFlag;
 	
+	@SuppressWarnings("deprecation")
 	public boolean mailSend(List<TMember> tSendMember, String title, String content, Integer registMemberId, Integer partyId){
 		
 		//内容を作る(最後に改行をつけると文字化けを防げる)

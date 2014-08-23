@@ -26,6 +26,9 @@ public class LoginAdminDto implements Serializable {
 	/** 役職の情報 **/
 	public List<TLeaders> tLeadersList;
 	
+	/** 役職の情報(複数の場合は一番上位の役職種) **/
+	public Integer memberKind;
+	
 	/** 部長の場合の情報 **/
 	public TClub tClub;
 		

@@ -1,15 +1,6 @@
 <html>
 <html lang="jp">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TsuboneSystem</title>
-    <link href="${f:url('/css/bootstrap.min.css')}" type="text/css" rel="stylesheet">
-    <link href="${f:url('/css/bootstrap-glyphicons.css')}" type="text/css" rel="stylesheet">
-    <link href="${f:url('/css/layout.css')}" type="text/css" rel="stylesheet">
-    <link href="${f:url('/css/signin.css')}" type="text/css" rel="stylesheet">
-  </head>
+<%@ include file="/WEB-INF/view/common/headInclude.jsp"%>
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
@@ -18,6 +9,7 @@
 <s:form method="POST">
 <a class="btn btn-primary" href="<c:url value="/admin/memberRegist/index"/>">新規登録</a>
 <a class="btn btn-primary" href="<c:url value="/admin/memberUpload/index"/>">CSV一括登録</a>
+<a class="btn btn-primary" href="<c:url value="/admin/memberList/onSearchTempMember"/>">仮登録メンバー一覧</a>
 <div class="table-responsive">
 	<table class="table table-bordered">
 		<tr class="info">

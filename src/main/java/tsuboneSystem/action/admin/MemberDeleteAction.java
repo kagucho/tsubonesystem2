@@ -12,10 +12,13 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.LeadersKindCode;
+import tsuboneSystem.dto.LoginMemberDto;
+import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.MemberForm;
+import tsuboneSystem.service.TAdminService;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TLeadersService;
 import tsuboneSystem.service.TMemberClubService;
@@ -29,6 +32,10 @@ public class MemberDeleteAction {
 	@ActionForm
 	@Resource
 	protected MemberForm memberForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	/** TMemberのサービスクラス */
 	@Resource
@@ -45,6 +52,10 @@ public class MemberDeleteAction {
 	/** TLeadersServiceのサービスクラス */
 	@Resource
 	protected TLeadersService tLeadersService;
+	
+	/** TAdminServiceのサービスクラス */
+	@Resource
+	protected TAdminService tAdminService;
 	
 	/** HttpServlet */
 	@Resource
@@ -95,12 +106,19 @@ public class MemberDeleteAction {
     			if (tClub != null) {
     				//各部の現役の部長の場合
                 		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため削除できません",false));
-    			}else if (tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.CHIEF.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.SUB_CHIEF.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ACCOUNT.getCode()))) {
+    			}else if (tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.GASSYUKU.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.RIDAISAI.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ETC.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ACCOUNT.getCode()))) {
     				//局長もしくは副局長の場合
                 		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため削除できません",false));
     			}
     		}
     	}	
+    	
+    	//管理者の情報は編集できない
+    	List<TAdmin> tAdminList = tAdminService.findByMemberIdList(memberForm.id);
+    	if(tAdminList.size() > 0){
+    		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため削除できません",false));
+    	}
+    	
         return errors;
     }
 }

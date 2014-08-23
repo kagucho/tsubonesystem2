@@ -1,5 +1,6 @@
 package tsuboneSystem.action.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,7 +10,9 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.PartyAttendCode;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.dto.PartyDto;
+import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyAttend;
 import tsuboneSystem.form.PartyAttendForm;
@@ -25,6 +28,10 @@ public class PartyAttendUpdateAction {
 	@ActionForm
 	@Resource
 	protected PartyAttendForm partyAttendForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	/** TPartyのサービスクラス */
 	@Resource
@@ -74,12 +81,14 @@ public class PartyAttendUpdateAction {
 		}
     	
         return "partyAttendUpdateInput.jsp";
-	}
+	}	
     
     @SuppressWarnings("boxing")
 	@Execute(validator = false, urlPattern = "confirm/{id}")
 	public String confirm() {
     	
+    	partyAttendForm.tPartyAttendNew = new ArrayList<TPartyAttend>();
+    	partyAttendForm.tMemberNew = new ArrayList<TMember>();
     	switch (partyAttendForm.id) {
     	//現状から欠席に移行する
 		case 1:

@@ -8,6 +8,7 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TBbsSubject;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.form.BbsForm;
@@ -22,6 +23,10 @@ public class BbsListAction {
 	@ActionForm
 	@Resource
 	protected BbsForm bbsForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	/** LoginIndividualsDtoのサービスクラス */
 	@Resource

@@ -5,10 +5,15 @@ import javax.annotation.Resource;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginIndividualsDto;
+import tsuboneSystem.dto.LoginMemberDto;
 
 public class MemberDetailAction extends tsuboneSystem.action.admin.MemberDetailAction{
 	
 	public String actionName = "MemberDetail";
+	
+	/** Member用のDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	//ログイン者の情報
 	@Resource

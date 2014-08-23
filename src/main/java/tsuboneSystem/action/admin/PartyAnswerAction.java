@@ -12,6 +12,7 @@ import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.PartyAnswerCode;
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.dto.PartyDto;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TPartyAnswer;
@@ -30,6 +31,15 @@ import tsuboneSystem.service.TPartyService;
 public class PartyAnswerAction {
 	
 	public String actionName = "PartyDetail";
+	
+	/** PartyQuestionAnswerFormのアクションフォーム */
+	@ActionForm
+	@Resource
+	protected PartyQuestionAnswerForm partyQuestionAnswerForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	/** PartyDtoのサービスクラス */
 	@Resource
@@ -64,11 +74,6 @@ public class PartyAnswerAction {
 	/** TPartyQuestionServiceのサービスクラス */
 	@Resource
 	protected TPartyQuestionService  tPartyQuestionService;
-	
-	/** PartyQuestionAnswerFormのアクションフォーム */
-	@ActionForm
-	@Resource
-	protected PartyQuestionAnswerForm partyQuestionAnswerForm;
 	
 	/** HttpServlet */
 	@Resource

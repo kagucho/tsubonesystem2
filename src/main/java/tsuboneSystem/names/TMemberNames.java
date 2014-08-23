@@ -3,6 +3,7 @@ package tsuboneSystem.names;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
 import tsuboneSystem.entity.TMember;
+import tsuboneSystem.names.TAdminNames._TAdminNames;
 import tsuboneSystem.names.TLeadersNames._TLeadersNames;
 import tsuboneSystem.names.TMailNames._TMailNames;
 import tsuboneSystem.names.TMailSendMemberNames._TMailSendMemberNames;
@@ -15,7 +16,7 @@ import tsuboneSystem.names.TPartyQuestionNames._TPartyQuestionNames;
  * {@link TMember}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/07/15 13:30:51")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/08/23 23:40:10")
 public class TMemberNames {
 
     /**
@@ -136,6 +137,15 @@ public class TMemberNames {
     }
 
     /**
+     * sendStopFlagのプロパティ名を返します。
+     * 
+     * @return sendStopFlagのプロパティ名
+     */
+    public static PropertyName<Boolean> sendStopFlag() {
+        return new PropertyName<Boolean>("sendStopFlag");
+    }
+
+    /**
      * sendErrorFlagのプロパティ名を返します。
      * 
      * @return sendErrorFlagのプロパティ名
@@ -151,6 +161,24 @@ public class TMemberNames {
      */
     public static PropertyName<Boolean> deleteFlag() {
         return new PropertyName<Boolean>("deleteFlag");
+    }
+
+    /**
+     * tempMemberFlagのプロパティ名を返します。
+     * 
+     * @return tempMemberFlagのプロパティ名
+     */
+    public static PropertyName<Boolean> tempMemberFlag() {
+        return new PropertyName<Boolean>("tempMemberFlag");
+    }
+
+    /**
+     * tAdminListのプロパティ名を返します。
+     * 
+     * @return tAdminListのプロパティ名
+     */
+    public static _TAdminNames tAdminList() {
+        return new _TAdminNames("tAdminList");
     }
 
     /**
@@ -367,6 +395,15 @@ public class TMemberNames {
         }
 
         /**
+         * sendStopFlagのプロパティ名を返します。
+         *
+         * @return sendStopFlagのプロパティ名
+         */
+        public PropertyName<Boolean> sendStopFlag() {
+            return new PropertyName<Boolean>(this, "sendStopFlag");
+        }
+
+        /**
          * sendErrorFlagのプロパティ名を返します。
          *
          * @return sendErrorFlagのプロパティ名
@@ -382,6 +419,24 @@ public class TMemberNames {
          */
         public PropertyName<Boolean> deleteFlag() {
             return new PropertyName<Boolean>(this, "deleteFlag");
+        }
+
+        /**
+         * tempMemberFlagのプロパティ名を返します。
+         *
+         * @return tempMemberFlagのプロパティ名
+         */
+        public PropertyName<Boolean> tempMemberFlag() {
+            return new PropertyName<Boolean>(this, "tempMemberFlag");
+        }
+
+        /**
+         * tAdminListのプロパティ名を返します。
+         * 
+         * @return tAdminListのプロパティ名
+         */
+        public _TAdminNames tAdminList() {
+            return new _TAdminNames(this, "tAdminList");
         }
 
         /**

@@ -12,7 +12,7 @@
 					${f:h(e.question) }
 				</td>
 				<td class="col-md-1 col-sm-1">
-					<a class="btn btn-primary" href="<c:url value="/admin/partyAnswer/${id}/${e.id}"/>" role="button">回答</a>
+					<a class="btn btn-primary" href="<c:url value="/${loginMemberDto.actorKind}/partyAnswer/${id}/${e.id}"/>" role="button">回答</a>
 				</td>
 			</tr>
 		</c:forEach>

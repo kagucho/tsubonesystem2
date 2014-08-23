@@ -9,6 +9,7 @@ import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.dto.PartyDto;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyAttend;
@@ -25,6 +26,10 @@ public class AttendAction {
 	@ActionForm
 	@Resource
 	protected AttendForm attendForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	/** LoginAdminDtoのサービスクラス */
 	@Resource

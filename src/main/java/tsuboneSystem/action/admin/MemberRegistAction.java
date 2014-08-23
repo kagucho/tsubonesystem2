@@ -31,6 +31,7 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.SexCode;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
@@ -52,6 +53,10 @@ public class MemberRegistAction {
 	@ActionForm
 	@Resource
 	protected MemberForm memberForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	/** TMemberのサービスクラス */
 	@Resource

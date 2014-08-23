@@ -1,18 +1,3 @@
-/*
- * Copyright 2004-2008 the Seasar Foundation and the Others.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
 package tsuboneSystem.action.admin;
 
 import java.util.List;
@@ -26,6 +11,7 @@ import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.util.RequestUtil;
 
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.MemberListForm;
 import tsuboneSystem.service.TMemberService;
@@ -38,6 +24,10 @@ public class MemberListAction {
 	@ActionForm
 	@Resource
 	protected MemberListForm memberListForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 
 	/** Memberのリスト */
 	public List<TMember> memberItems;
@@ -140,5 +130,30 @@ public class MemberListAction {
 
 		return "memberList.jsp";
 	}
+	
+	// 検索(仮登録メンバー用)
+		@Execute(validator = false)
+		public String onSearchTempMember() {
+			
+			//仮登録メンバーフラグをtrueにする。
+			memberListForm.tempMemberFlag = "true";
+			memberListForm.obFlag = "true";
+			memberListForm.name = "";
+			memberListForm.hname = "";
+			memberListForm.entrance = "";
+			
+			// 登録されているメンバーの検索条件に一致するメンバーを一覧表示する。
+			memberItems = tMemberService.findBySearch(memberListForm, -1, -1);
+			
+			//ログイン中のユーザ情報を格納
+			setLoginUer();
+			
+			// 少し強引だが、検索した時はページング機能を使わない
+			PAGE_LIMIT = memberItems.size();
+
+			total = memberItems.size();
+
+			return "memberList.jsp";
+		}
 
 }

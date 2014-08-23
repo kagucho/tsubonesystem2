@@ -18,6 +18,7 @@ import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.util.ResponseUtil;
 
 import tsuboneSystem.csv.MemberUploadCsv;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.MemberUploadForm;
 import tsuboneSystem.original.manager.MailManager;
@@ -31,6 +32,10 @@ public class MemberUploadAction {
 	@ActionForm
 	@Resource
 	protected MemberUploadForm memberUploadForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	//アップロードされたファイルを格納する
 	protected FormFile formFile;

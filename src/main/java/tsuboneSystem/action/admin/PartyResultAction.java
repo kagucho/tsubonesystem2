@@ -6,6 +6,7 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.form.PartyForm;
 import tsuboneSystem.service.TPartyService;
@@ -14,18 +15,22 @@ public class PartyResultAction {
 	
 	public String actionName = "PartyResult";
 	
-	/** TPartyのサービスクラス */
-	@Resource
-	protected TPartyService tPartyService;
-	
 	/** PartyFormのアクションフォーム */
 	@ActionForm
 	@Resource
 	protected PartyForm partyForm;
 	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
+	
 	/** LoginAdminDtoのDto */
 	@Resource
 	protected LoginAdminDto loginAdminDto;
+	
+	/** TPartyのサービスクラス */
+	@Resource
+	protected TPartyService tPartyService;
 	
 	@Execute(validator = false, urlPattern = "{id}")
 	public String input() {

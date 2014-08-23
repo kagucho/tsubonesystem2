@@ -68,7 +68,7 @@ public class TLeadersService extends AbstractService<TLeaders> {
     }
     
     /**
-     * MemberIdでエンティティを検索します。
+     * MemberIdでエンティティを検索し、現役の部長のリストで返す。
      * 
      * @param MemerId
      * @return エンティティのリスト
@@ -79,6 +79,22 @@ public class TLeadersService extends AbstractService<TLeaders> {
         return select()
         		.leftOuterJoin("TClub",new SimpleWhere().eq("TClub.deleteFlag",  Boolean.valueOf(false)))
         		.where(where)
+        		.getResultList();
+    }
+    
+    /**
+     * MemberIdでエンティティを検索します。(orderByOfficerKind)
+     * 
+     * @param MemerId
+     * @return エンティティのリスト
+     */
+    public List<TLeaders> findByMemberIdOrderKindList(Integer id) {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(MemberId(), id);
+        return select()
+        		.leftOuterJoin("TClub",new SimpleWhere().eq("TClub.deleteFlag",  Boolean.valueOf(false)))
+        		.where(where)
+        		.orderBy(asc(OfficerKind()))
         		.getResultList();
     }
     

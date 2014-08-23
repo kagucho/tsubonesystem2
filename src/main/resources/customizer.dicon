@@ -60,7 +60,6 @@
 					<arg>"tsuboneSystem.action.admin"</arg>
 					<arg>".*Action"</arg>
 				</initMethod>
-				
 			</component>
 		</arg>
 	</initMethod>
@@ -86,6 +85,78 @@
 			</component>
 		</arg>
 	</initMethod> 
+	<initMethod name="addCustomizer">
+		<arg>
+			<component
+				class="org.seasar.framework.container.customizer.AspectCustomizer">
+				<property name="interceptorName">"loginLeadersConfirmInterceptor"</property>
+				<!-- 処理の対象外ににしたいAction(これ以外が対象になる)
+				<initMethod name="addIgnoreClassPattern">
+					<arg>"tsuboneSystem.action"</arg>
+					<arg>"LoginAdminAction"</arg>
+				</initMethod> -->
+				<!-- 対象にしたいクラスの設定はこちら-->
+				<initMethod name="addClassPattern">
+					<arg>"tsuboneSystem.action.leaders"</arg>
+					<arg>".*Action"</arg>
+				</initMethod>
+			</component>
+		</arg>
+	</initMethod>
+	<initMethod name="addCustomizer">
+		<arg>
+			<component
+				class="org.seasar.framework.container.customizer.AspectCustomizer">
+				<property name="interceptorName">"loginTempLoginConfirmInterceptor"</property>
+				<!-- 処理の対象外ににしたいAction(これ以外が対象になる)
+				<initMethod name="addIgnoreClassPattern">
+					<arg>"tsuboneSystem.action"</arg>
+					<arg>"LoginAdminAction"</arg>
+				</initMethod> -->
+				<!-- 対象にしたいクラスの設定はこちら-->
+				<initMethod name="addClassPattern">
+					<arg>"tsuboneSystem.action.tempRegist"</arg>
+					<arg>".*Action"</arg>
+				</initMethod>
+			</component>
+		</arg>
+	</initMethod>
+	<initMethod name="addCustomizer">
+		<arg>
+			<component
+				class="org.seasar.framework.container.customizer.AspectCustomizer">
+				<property name="interceptorName">"leadersMemberUpdatePowerInterceptor"</property>
+				<!-- 処理の対象外ににしたいAction(これ以外が対象になる)
+				<initMethod name="addIgnoreClassPattern">
+					<arg>"tsuboneSystem.action"</arg>
+					<arg>"LoginAdminAction"</arg>
+				</initMethod> -->
+				<!-- 対象にしたいクラスの設定はこちら-->
+				<initMethod name="addClassPattern">
+					<arg>"tsuboneSystem.action.leaders"</arg>
+					<arg>"MemberUpdateAction"</arg>
+				</initMethod>
+			</component>
+		</arg>	
+	</initMethod>
+	<initMethod name="addCustomizer">
+		<arg>
+			<component
+				class="org.seasar.framework.container.customizer.AspectCustomizer">
+				<property name="interceptorName">"leadersClubUpdatePowerInterceptor"</property>
+				<!-- 処理の対象外ににしたいAction(これ以外が対象になる)
+				<initMethod name="addIgnoreClassPattern">
+					<arg>"tsuboneSystem.action"</arg>
+					<arg>"LoginAdminAction"</arg>
+				</initMethod> -->
+				<!-- 対象にしたいクラスの設定はこちら-->
+				<initMethod name="addClassPattern">
+					<arg>"tsuboneSystem.action.leaders"</arg>
+					<arg>"ClubUpdateAction"</arg>
+				</initMethod>
+			</component>
+		</arg>	
+	</initMethod>
     <initMethod name="addAspectCustomizer">
       <arg>"actionMessagesThrowsInterceptor"</arg>
     </initMethod>

@@ -27,6 +27,7 @@ import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.form.ClubForm;
 import tsuboneSystem.code.LeadersKindCode;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMember;
@@ -44,6 +45,10 @@ public class ClubRegistAction {
 	@ActionForm
 	@Resource
 	protected ClubForm clubForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	/** TMemberのサービスクラス */
 	@Resource

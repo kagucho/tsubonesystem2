@@ -11,7 +11,6 @@
   </head>
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
-<%-- <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%> --%>
 <jsp:include page="/WEB-INF/view/common/jumbotronMenu.jsp" >
 <jsp:param name="actionName" value="actionName"/>
 </jsp:include >

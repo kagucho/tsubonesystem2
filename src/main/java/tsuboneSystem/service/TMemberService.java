@@ -3,13 +3,7 @@ package tsuboneSystem.service;
 import static org.seasar.extension.jdbc.operation.Operations.asc;
 import static org.seasar.extension.jdbc.operation.Operations.desc;
 import static tsuboneSystem.names.TClubNames.deleteFlag;
-import static tsuboneSystem.names.TMemberNames.entrance;
-import static tsuboneSystem.names.TMemberNames.hname;
-import static tsuboneSystem.names.TMemberNames.id;
-import static tsuboneSystem.names.TMemberNames.name;
-import static tsuboneSystem.names.TMemberNames.obFlag;
-import static tsuboneSystem.names.TMemberNames.password;
-import static tsuboneSystem.names.TMemberNames.userName;
+import static tsuboneSystem.names.TMemberNames.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -44,7 +38,10 @@ public class TMemberService extends AbstractService<TMember> {
      * @return エンティティ
      */
     public TMember findById(Integer id) {
-        return select().id(id).getSingleResult();
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	where.eq(id(), id);
+        return select().where(where).getSingleResult();
     }
     
     /**
@@ -65,6 +62,7 @@ public class TMemberService extends AbstractService<TMember> {
      * 全ての会員を検索します。
      * @param containsOB OBを含めるならTRUE
      * @return
+     *TODO
      */
     public List<TMember> findAllOrderById(boolean containsOB) {
     	SimpleWhere where = new SimpleWhere();
@@ -75,7 +73,22 @@ public class TMemberService extends AbstractService<TMember> {
     	}
         return select().where(where).orderBy(asc(id())).getResultList();
     }
-	
+    
+    /**
+     * 全ての会員を検索します。
+     * @param containsOB OBを含めるならTRUE
+     * @return
+     */
+    public List<TMember> findAllOrderById_ForMail(boolean containsOB) {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	//OBを含めない時
+    	if (!containsOB) {
+    		where.eq(sendStopFlag(), Boolean.valueOf(false));
+    	}
+        return select().where(where).orderBy(asc(id())).getResultList();
+    }
+
 	/**
      * メンバーの一覧を返す
      * 
@@ -108,6 +121,7 @@ public class TMemberService extends AbstractService<TMember> {
     public List<TMember> findByAllOrderEntrance(int limit, int offset) {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(obFlag(), Boolean.toString(false));
+    	where.eq(tempMemberFlag(), Boolean.toString(false));
     	where.eq(deleteFlag(), Boolean.valueOf(false));
     	AutoSelect<TMember> autoSelect = select()
     			.where(where)
@@ -166,6 +180,8 @@ public class TMemberService extends AbstractService<TMember> {
     	String entrance = memberListForm.entrance;
     	//検索条件：OBフラグ
     	boolean containsOB = (memberListForm.obFlag != null);
+    	//検索条件：仮登録メンバーフラグ
+    	boolean tempMemberFlag = (memberListForm.tempMemberFlag != null);
     	
     	SimpleWhere where = new SimpleWhere();
     	//引数が空じゃなかったら検索条件に含める
@@ -182,6 +198,11 @@ public class TMemberService extends AbstractService<TMember> {
     	//OBを含めるかどうかの処理
     	if (!containsOB) {
     		where = where.eq(obFlag(), Boolean.valueOf(false));
+    	}
+    	
+    	//仮登録メンバー
+    	if (tempMemberFlag) {
+    		where = where.eq(tempMemberFlag(), Boolean.valueOf(true));
     	}
     	
     	//削除済みを入れないのは共通処理

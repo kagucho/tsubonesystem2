@@ -13,6 +13,7 @@ import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.dto.LoginIndividualsDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.entity.TParty;
@@ -35,6 +36,14 @@ public class IndexAction {
 	@ActionForm
 	@Resource
 	protected MyPageForm myPageForm;
+	
+	/** Member用のDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
+	
+	/** LoginIndividualsDto */
+	@Resource
+	protected LoginIndividualsDto loginIndividualsDto;
 	
 	/** TMemberのサービスクラス */
 	@Resource
@@ -64,9 +73,6 @@ public class IndexAction {
 	@Resource
 	protected TLeadersService tLeadersService;
 	
-	/** LoginIndividualsDto */
-	@Resource
-	protected LoginIndividualsDto loginIndividualsDto;
 	
     @Execute(validator = false)
 	public String index() {

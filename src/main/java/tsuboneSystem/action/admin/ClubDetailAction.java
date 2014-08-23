@@ -26,9 +26,9 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMail;
-import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.form.ClubForm;
@@ -51,6 +51,10 @@ public class ClubDetailAction {
 	@ActionForm
 	@Resource
 	protected ClubForm clubForm;
+	
+	/** Member用のDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	/** TMemberのサービスクラス */
 	@Resource
@@ -137,28 +141,19 @@ public class ClubDetailAction {
         	TMail tMail = new TMail();
         	Beans.copy(clubForm, tMail).execute();
         	
-        	//TMailSendAttendにメールの送信相手を追加する
-        	for (TMember tMemberOne : clubForm.tMemberSendList) {
-        		TMailSendMember tMailSendMember = new TMailSendMember();
-        		tMailSendMember.mailId = tMail.id;
-        		tMailSendMember.memberId = tMemberOne.id;
-        		tMailSendMemberService.insert(tMailSendMember);
-        	}
-        	
         	//メールを送信する
         	MailManager manager = new MailManager();
         	manager.setTitle(clubForm.title);
         	manager.setContent(clubForm.content);
         	manager.setToAddress(clubForm.tMemberSendList.toArray(new TMember[0]));
+        	manager.setLogFlg(true, loginMemberDto.memberId, tMailSendMemberService, tMailService);
         	if (manager.sendMail()) {
         		mailMsg = "メールを正常に送信しました。";
-        		tMail.errorFlag = false;
         	} else {
         		mailMsg = "メールの送信に失敗しました。";
-        		tMail.errorFlag = true;
         	}	
-        	tMailService.insert(tMail);
-        }  
+        }
+        
     return "clubMailComplete.jsp";	
     }
 }

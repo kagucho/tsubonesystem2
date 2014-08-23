@@ -83,7 +83,7 @@ public abstract class PartyOperateAbstractAction {
 
 			// 全員にメールが送られる場合
 			if (partyForm.mailSendAllFlag != null) {
-				partyForm.tMemberSendList = tMemberService.findAllOrderById(containsOb);
+				partyForm.tMemberSendList = tMemberService.findAllOrderById_ForMail(containsOb);
 			//部ごとにメールが送られる場合
 			} else if (partyForm.clubListCheck != null) {
 				partyForm.tMemberSendList = tMemberService.findByClubIds(containsOb, partyForm.clubListCheck);

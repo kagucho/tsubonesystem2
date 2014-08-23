@@ -16,12 +16,16 @@ import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.LeadersKindCode;
 import tsuboneSystem.code.SexCode;
+import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
+import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.form.MemberForm;
 import tsuboneSystem.original.util.DigestUtil;
+import tsuboneSystem.service.TAdminService;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TLeadersService;
 import tsuboneSystem.service.TMemberClubService;
@@ -35,6 +39,14 @@ public class MemberUpdateAction {
 	@ActionForm
 	@Resource
 	protected MemberForm memberForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
+	
+	/** LoginAdminDto */
+	@Resource
+	public LoginAdminDto loginAdminDto;
 	
 	/** TMemberのサービスクラス */
 	@Resource
@@ -51,6 +63,10 @@ public class MemberUpdateAction {
 	/** TLeadersServiceのサービスクラス */
 	@Resource
 	protected TLeadersService tLeadersService;
+	
+	/** TAdminServiceのサービスクラス */
+	@Resource
+	protected TAdminService tAdminService;
 	
 	/** HttpServlet */
 	@Resource
@@ -71,6 +87,8 @@ public class MemberUpdateAction {
         
         // 詳細画面にて部の表示のためにmapを作成する
         memberForm.clubMap = tClubService.getClubMapIS();
+        
+        memberForm.carrentId = memberForm.id;
 
         
         // すでに所属している部のチェックボックスはonにする
@@ -131,7 +149,6 @@ public class MemberUpdateAction {
         		memberUp.password = tMember.password;
         	}
         	
-        	
         	tMemberService.update(memberUp);
         	
         	/** メンバーが所属していた情報を一回削除した上で、選択された部とメンバーのIDをtMemberClubに登録していく。複数なので選択した回数だけレコードを登録する。*/
@@ -147,6 +164,12 @@ public class MemberUpdateAction {
         		memberClub.MemberId = memberUp.id;
         		memberClub.ClubId = Integer.valueOf(check);
         		tMemberClubService.insert(memberClub);
+        	}
+        	
+        	//編集対象が自分だった場合にはログイン情報を書き換える
+        	if(loginMemberDto.memberId.equals(memberForm.id)){
+        		loginMemberDto.tMemberLogin = memberUp;
+        		loginAdminDto.tMemberLogin = memberUp;
         	}
         }
     return "memberComplete.jsp";
@@ -167,6 +190,17 @@ public class MemberUpdateAction {
 		if(memberForm.clubListChecked.size() == 0){
 			errors.add("department",new ActionMessage("部の選択は必須です。",false));
 		}
+		
+		//役職に就いている人はOB宣言できない
+		if("true".equals(memberForm.obFlag)){
+			TAdmin tAdmin = tAdminService.findById(memberForm.id);
+			List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(memberForm.id);
+			if(tAdmin != null || tLeadersList.size() > 0){
+				memberForm.obFlag = "false";
+				errors.add("obFlag",new ActionMessage("役職についている人はOB宣言出来ません。",false));
+			}
+			
+		}
         
     	//選択されたMemberが現役の部長以上の役職に付いている場合、連絡先をすべて登録しているかを確認する。
     	List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(memberForm.id);
@@ -178,7 +212,7 @@ public class MemberUpdateAction {
     				if (memberForm.mail.isEmpty() || memberForm.tel1.isEmpty() || memberForm.tel2.isEmpty() || memberForm.tel3.isEmpty()) {
                 		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため、連絡先を空白にすることはできません",false));
                 	}
-    			}else if (tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.CHIEF.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.SUB_CHIEF.getCode()))) {
+    			}else if (tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.GASSYUKU.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.RIDAISAI.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ETC.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ACCOUNT.getCode()))) {
     				//局長もしくは副局長の場合
     				if (memberForm.mail.isEmpty() || memberForm.tel1.isEmpty() || memberForm.tel2.isEmpty() || memberForm.tel3.isEmpty()) {
                 		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため、連絡先を空白にすることはできません",false));

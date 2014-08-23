@@ -35,6 +35,22 @@ public class TLeaders implements Serializable {
     /* 部長のMemberID */
     @Column(nullable = true, unique = false)
     public Integer  MemberId;
+    
+    /* メンバーの秘匿情報の表示可否 */
+    @Column(columnDefinition ="boolean default '0'")
+    public boolean  secretInformation;
+    
+    /* メンバー編集権限可否 */
+    @Column(columnDefinition ="boolean default '0'")
+    public boolean  memberUpdate;
+    
+    /* 他人の出欠管理可否 */
+    @Column(columnDefinition ="boolean default '0'")
+    public boolean  attendUpdate;
+    
+    /* 部情報の編集権限可否 */
+    @Column(columnDefinition ="boolean default '0'")
+    public boolean  clubUpdate;
        
     
     /** MemberidをTMember(ID)に関連付ける */

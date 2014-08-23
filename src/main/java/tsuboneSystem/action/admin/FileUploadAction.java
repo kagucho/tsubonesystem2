@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.form.ImageUploadForm;
 
 public class FileUploadAction {
@@ -16,6 +17,10 @@ public class FileUploadAction {
 	@ActionForm
 	@Resource
 	protected ImageUploadForm imageUploadForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 
 	
     @Execute(validator = false)

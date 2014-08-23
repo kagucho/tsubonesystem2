@@ -10,6 +10,7 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.dto.PartyDto;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.form.PartyForm;
@@ -24,6 +25,14 @@ public class PartyListAction {
 	@Resource
 	protected PartyForm partyForm;
 	
+	/** Member用のDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
+	
+	/** LoginAdminDto用のDto */
+	@Resource
+	LoginAdminDto loginAdminDto;
+	
 	/** partyDto */
 	@Resource
 	protected PartyDto partyDto;
@@ -37,9 +46,6 @@ public class PartyListAction {
 	
 	/** 会議の一覧(期限外) */
 	public List<TParty> partyItemOff;
-	
-	@Resource
-	LoginAdminDto loginAdminDto;
 	
     @Execute(validator = false)
     @RemoveSession(name = "partyDto")

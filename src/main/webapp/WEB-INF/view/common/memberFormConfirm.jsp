@@ -52,6 +52,19 @@
 			</c:if>
 		</td>
 	</tr>
+	<c:if test="${obFlag}">
+		<tr>
+			<th><h4>メール受信可否</h4></th>
+		　	<td>
+				<c:if test="${sendStopFlag}">
+					<h5>メールを受信しない</h5>
+				</c:if>
+				<c:if test="${!sendStopFlag}">
+					<h5>メールを受信する</h5>
+				</c:if>
+			</td>
+		</tr>
+	</c:if>
 	<tr>
 		<th><h4>ログインID</h4></th>
 		<td><h5>${f:h(userName)}</h5></td>

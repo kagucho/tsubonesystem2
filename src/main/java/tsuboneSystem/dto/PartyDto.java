@@ -28,7 +28,7 @@ public class PartyDto implements Serializable {
 	public String meetingName;
 	
 	/* 会議の必須判定　*/
-	public String meetingNecessaryFlag;
+	public boolean meetingNecessaryFlag;
 	
 	/* 会議日時　*/
 	public String meetingDay;
@@ -65,6 +65,9 @@ public class PartyDto implements Serializable {
 	
 	/* 会議の登録者 */
 	public TMember tMember;
+	
+	/* 会議の制作者がログイン者の場合true(一般メンバーの編集権限判定に使用) */
+	public boolean myPartyFlag = false;
 	
 
 	public boolean deadFlag(TParty tParty,Date dateNow) {

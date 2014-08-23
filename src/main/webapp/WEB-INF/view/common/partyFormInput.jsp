@@ -6,12 +6,14 @@
 						<html:errors property="meetingName"/>
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-4" for="meetingNecessaryFlag">出席必須</label>
-					<div class="col-sm-8 memberF">
-						<input type="checkbox" id="meetingNecessaryFlag" name="meetingNecessaryFlag" value="true" <c:if test="${meetingNecessaryFlag}"> checked="checked"</c:if>/>&nbsp;出席を必須とする
+				<c:if test="${loginMemberDto.actorkindCode == '1'}">
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="meetingNecessaryFlag">出席必須</label>
+						<div class="col-sm-8 memberF">
+							<input type="checkbox" id="meetingNecessaryFlag" name="meetingNecessaryFlag" value="true" <c:if test="${meetingNecessaryFlag}"> checked="checked"</c:if>/>&nbsp;出席を必須とする
+						</div>
 					</div>
-				</div>
+				</c:if>
 				<div class="form-group">
 					<label class="control-label col-sm-4" for="meetingDay">会議の開催日(yyyy/dd/mm:例2014/07/05)</label>
 					<div class="col-sm-8 memberF">
@@ -66,7 +68,7 @@
 				<div class="form-group">
 					<label class="control-label col-sm-4">メール配信可否</label>
 					<div class="col-sm-8 memberF">
-						<input type="checkbox" name="mailSendFlag" value="mailSendFlag" property="mailSendFlag"  onclick="hideToggle($('#mailInput'));" <c:if test="${mailSendFlag}"> checked="checked"</c:if>/>&nbsp;メールを配信する※チェックしないとメールは配信されません！！
+						<input type="checkbox" name="mailSendFlag" value="mailSendFlag" property="mailSendFlag" onclick="hideToggle($('#mailInput'));" <c:if test="${mailSendFlag}"> checked="checked"</c:if>/>&nbsp;メールを配信する※チェックしないとメールは配信されません！！
 					</div>
 				</div>
 			</div>

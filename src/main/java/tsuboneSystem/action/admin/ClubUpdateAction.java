@@ -12,6 +12,7 @@ import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMember;
@@ -31,6 +32,10 @@ public class ClubUpdateAction {
 	@ActionForm
 	@Resource
 	protected ClubForm clubForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	/** TMemberのサービスクラス */
 	@Resource

@@ -8,7 +8,9 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.LeadersKindCode;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.form.OfficerForm;
+import tsuboneSystem.service.TAdminService;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TLeadersService;
 import tsuboneSystem.service.TMemberClubService;
@@ -23,6 +25,10 @@ public class OfficerListAction {
 	@Resource
 	protected OfficerForm officerForm;
 	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
+	
 	/** TMemberのサービスクラス */
 	@Resource
 	protected TMemberService tMemberService;
@@ -34,6 +40,10 @@ public class OfficerListAction {
 	/** TMemberClubServiceのサービスクラス */
 	@Resource
 	protected TMemberClubService tMemberClubService;
+	
+	/** TAdminServiceのサービスクラス */
+	@Resource
+	protected TAdminService tAdminService;
 	
 	/** TLeadersServiceのサービスクラス */
 	@Resource
@@ -49,10 +59,10 @@ public class OfficerListAction {
 	public String index() {
     	
     	//局長
-    	officerForm.tLeadersChief = tLeadersService.findByKind(LeadersKindCode.CHIEF.getCode());
+    	officerForm.tLeadersChief = tAdminService.findByKind(LeadersKindCode.CHIEF.getCode());
     	
     	//副局長
-    	officerForm.tLeadersSubChief = tLeadersService.findByKind(LeadersKindCode.SUB_CHIEF.getCode());
+    	officerForm.tLeadersSubChief = tAdminService.findByKind(LeadersKindCode.SUB_CHIEF.getCode());
     	
     	//会計
     	officerForm.tLeadersAccount = tLeadersService.findByKind(LeadersKindCode.ACCOUNT.getCode());
@@ -64,7 +74,7 @@ public class OfficerListAction {
     	officerForm.tLeadersGassyuku = tLeadersService.findByKind(LeadersKindCode.GASSYUKU.getCode());
     	
     	//web管理者
-    	officerForm.tLeadersWebAdmin = tLeadersService.findByKind(LeadersKindCode.WEBADMIN.getCode());
+    	officerForm.tLeadersWebAdmin = tAdminService.findByKind(LeadersKindCode.WEBADMIN.getCode());
 	
         return "OfficerList.jsp";
 	}

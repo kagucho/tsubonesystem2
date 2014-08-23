@@ -19,10 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.dto.PartyDto;
 import tsuboneSystem.dto.ExcelDto;
-import tsuboneSystem.entity.TMail;
-import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyAttend;
@@ -52,9 +51,13 @@ public class PartyAttendListAction {
 	@Resource
 	protected PartyAttendForm partyAttendForm;
 	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
+	
 	/** partyDto */
 	@Resource
-	protected PartyDto partyDto;
+	public PartyDto partyDto;
 	
 	/** TPartyのサービスクラス */
 	@Resource
@@ -164,9 +167,7 @@ public class PartyAttendListAction {
     	
     return null;	
     }
-    
-    
-    
+
     /** メール配信　*/
     @Execute(validator = false)
     public String contentRegist(){
@@ -178,7 +179,7 @@ public class PartyAttendListAction {
     }
     
     @Execute(validator = false)
-    public String confirm(){
+    public String confirmMail(){
     	
     	//出席する人にメールを送る
     	partyAttendForm.tMemberSendList = partyDto.tMemberOn;
@@ -188,26 +189,8 @@ public class PartyAttendListAction {
     
     @Execute(validator = false)
     public String complete(){
-	
     	// 2重送信防止のためTokenが正常な場合にのみ レコード追加処理を行う
         if (TokenProcessor.getInstance().isTokenValid(request, true)) {
-        	
-        	//メールの送信者のID
-        	partyAttendForm.registMemberId = loginAdminDto.memberId;
-        	
-        	//TMailにメールの内容を追加する
-        	TMail tMail = new TMail();
-        	Beans.copy(partyAttendForm, tMail).execute();
-        	
-        	
-        	//TMailSendAttendにメールの送信相手を追加する
-        	for (TMember tMemberOne : partyAttendForm.tMemberSendList) {
-        		TMailSendMember tMailSendMember = new TMailSendMember();
-        		tMailSendMember.mailId = tMail.id;
-        		tMailSendMember.memberId = tMemberOne.id;
-        		tMailSendMemberService.insert(tMailSendMember);
-        	}
-        	
         	//メールを送信する
         	MailManager manager = new MailManager();
         	manager.setTitle(partyAttendForm.title);
@@ -215,15 +198,11 @@ public class PartyAttendListAction {
         	manager.setToAddress(partyAttendForm.tMemberSendList.toArray(new TMember[0]));
         	if (manager.sendMail()) {
         		mailMsg = "メールを正常に送信しました。";
-        		tMail.errorFlag = false;
         	} else {
         		mailMsg = "メールの送信に失敗しました。";
-        		tMail.errorFlag = true;
         	}
-        	tMailService.insert(tMail);
-        	
+        	manager.setLogFlg(true, loginMemberDto.memberId, tMailSendMemberService, tMailService);
         }
-        
     return "partyMailComplete.jsp";	
     }   
 }

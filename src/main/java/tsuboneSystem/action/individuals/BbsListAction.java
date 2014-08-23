@@ -7,18 +7,13 @@ import javax.annotation.Resource;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
-import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.dto.LoginIndividualsDto;
-import tsuboneSystem.dto.PartyDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TBbsSubject;
 import tsuboneSystem.entity.TParty;
-import tsuboneSystem.entity.TPartyAttend;
-import tsuboneSystem.form.AttendForm;
 import tsuboneSystem.form.BbsForm;
 import tsuboneSystem.service.TBbsSubjectService;
 import tsuboneSystem.service.TMemberService;
-import tsuboneSystem.service.TPartyAttendService;
-import tsuboneSystem.service.TPartyService;
 
 public class BbsListAction {
 	
@@ -28,6 +23,10 @@ public class BbsListAction {
 	@ActionForm
 	@Resource
 	protected BbsForm bbsForm;
+	
+	/** Member用のDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	/** LoginIndividualsDtoのサービスクラス */
 	@Resource

@@ -21,11 +21,16 @@ import org.seasar.framework.aop.annotation.RemoveSession;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
 
 public class LogoutAction {
 	
 	@Resource
 	protected LoginAdminDto loginAdminDto;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 
 	
 	@Execute(validator = false)

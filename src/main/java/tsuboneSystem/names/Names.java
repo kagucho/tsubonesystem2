@@ -1,6 +1,7 @@
 package tsuboneSystem.names;
 
 import javax.annotation.Generated;
+import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TBbsDetail;
 import tsuboneSystem.entity.TBbsSubject;
 import tsuboneSystem.entity.TClub;
@@ -16,7 +17,9 @@ import tsuboneSystem.entity.TPartyAttend;
 import tsuboneSystem.entity.TPartyClub;
 import tsuboneSystem.entity.TPartyQuestion;
 import tsuboneSystem.entity.TPartySendMail;
+import tsuboneSystem.entity.TTempLogin;
 import tsuboneSystem.entity.TTempMessage;
+import tsuboneSystem.names.TAdminNames._TAdminNames;
 import tsuboneSystem.names.TBbsDetailNames._TBbsDetailNames;
 import tsuboneSystem.names.TBbsSubjectNames._TBbsSubjectNames;
 import tsuboneSystem.names.TClubNames._TClubNames;
@@ -32,14 +35,24 @@ import tsuboneSystem.names.TPartyClubNames._TPartyClubNames;
 import tsuboneSystem.names.TPartyNames._TPartyNames;
 import tsuboneSystem.names.TPartyQuestionNames._TPartyQuestionNames;
 import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
+import tsuboneSystem.names.TTempLoginNames._TTempLoginNames;
 import tsuboneSystem.names.TTempMessageNames._TTempMessageNames;
 
 /**
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/07/15 13:30:51")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/08/23 23:40:10")
 public class Names {
+
+    /**
+     * {@link TAdmin}の名前クラスを返します。
+     * 
+     * @return TAdminの名前クラス
+     */
+    public static _TAdminNames tAdmin() {
+        return new _TAdminNames();
+    }
 
     /**
      * {@link TBbsDetail}の名前クラスを返します。
@@ -174,6 +187,15 @@ public class Names {
      */
     public static _TPartySendMailNames tPartySendMail() {
         return new _TPartySendMailNames();
+    }
+
+    /**
+     * {@link TTempLogin}の名前クラスを返します。
+     * 
+     * @return TTempLoginの名前クラス
+     */
+    public static _TTempLoginNames tTempLogin() {
+        return new _TTempLoginNames();
     }
 
     /**

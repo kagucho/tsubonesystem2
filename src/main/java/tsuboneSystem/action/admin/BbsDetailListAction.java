@@ -1,12 +1,14 @@
 package tsuboneSystem.action.admin;
 
 import java.util.ArrayList;
+
 import javax.annotation.Resource;
 
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TBbsDetail;
 import tsuboneSystem.entity.TBbsSubject;
 import tsuboneSystem.form.BbsForm;
@@ -22,6 +24,10 @@ public class BbsDetailListAction {
 	@ActionForm
 	@Resource
 	protected BbsForm bbsForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	/** LoginIndividualsDtoのサービスクラス */
 	@Resource

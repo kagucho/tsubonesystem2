@@ -11,9 +11,11 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.LeadersKindCode;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.OfficerForm;
+import tsuboneSystem.service.TAdminService;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TLeadersService;
 import tsuboneSystem.service.TMemberClubService;
@@ -24,11 +26,14 @@ public class OfficerUpdateAction {
 	
 	public String actionName = "ChiefUpdate";
 	
-	
 	/** OfficerFormのフォーム */
 	@ActionForm
 	@Resource
 	protected OfficerForm officerForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	/** TMemberのサービスクラス */
 	@Resource
@@ -46,6 +51,10 @@ public class OfficerUpdateAction {
 	@Resource
 	protected TLeadersService tLeadersService;
 	
+	/** TAdminServiceのサービスクラス */
+	@Resource
+	protected TAdminService tAdminService;
+	
 	/** HttpServlet */
 	@Resource
 	protected HttpServletRequest request;
@@ -56,14 +65,17 @@ public class OfficerUpdateAction {
 		
 		//Memberの選択肢一覧取得
 		officerForm.memberItems = tMemberService.findAllOrderById(false);
-		
 		//渡ってきたidはtLeadersのidであるので、そこからTLeadersに登録されているレコードを検索し、編集対象レコードを特定しておく。
-		officerForm.leadersUp = tLeadersService.findById(officerForm.id);
+		officerForm.leadersOld = tLeadersService.findById(officerForm.id);
+		officerForm.secretInformation = officerForm.leadersOld.secretInformation;
+		officerForm.attendUpdate = officerForm.leadersOld.attendUpdate;
+		officerForm.clubUpdate = officerForm.leadersOld.clubUpdate;
+		officerForm.memberUpdate = officerForm.leadersOld.memberUpdate;
 		
         return "officerInput.jsp";
 	}
     
-	//確認画面
+	//権限選択画面
     @Execute(validator = true, urlPattern = "confirm/{id}", validate="validateBase", input="officerInput.jsp", stopOnValidationError = false)
 	public String confirm() {
     	
@@ -72,16 +84,117 @@ public class OfficerUpdateAction {
         return "officerConfirm.jsp";
 	}
     
+    //確認画面(第2)
+    @Execute(validator = true, input="officerInput.jsp", reset = "resetInput")
+	public String confirmSec() {
+    		
+        return "officerConfirmSec.jsp";
+	}
+    
     //登録画面
     @Execute(validator = false)
 	public String complete() {
 
-    	officerForm.leadersUp.MemberId = officerForm.tMemberNew.id;
-    	tLeadersService.update(officerForm.leadersUp);
+    	officerForm.leadersOld.MemberId = officerForm.tMemberNew.id;
+    	if(officerForm.memberUpdate){
+    		//メンバーの更新権限があれば、秘匿情報は公開される。
+    		officerForm.leadersOld.secretInformation = true;
+    	}else{
+    		officerForm.leadersOld.secretInformation = officerForm.secretInformation;
+    	}
+    	officerForm.leadersOld.memberUpdate = officerForm.memberUpdate;
+    	officerForm.leadersOld.attendUpdate = officerForm.attendUpdate;
+    	officerForm.leadersOld.clubUpdate = officerForm.clubUpdate;
     	
+    	tLeadersService.update(officerForm.leadersOld);
     	
         return "officerComplete.jsp";
 	}
+    
+    /*------------------------------------------------以下管理者変更用メソッド----------------------------------------------------------*/
+    //選択画面
+  	@Execute(validator = false, urlPattern = "indexAdmin/{id}", reset = "resetInput")
+  	public String indexAdmin() {
+  		
+  		//Memberの選択肢一覧取得
+  		officerForm.memberItems = tMemberService.findAllOrderById(false);
+  		//渡ってきたidはtLeadersのidであるので、そこからTLeadersに登録されているレコードを検索し、編集対象レコードを特定しておく。
+  		officerForm.adminOld = tAdminService.findById(officerForm.id);
+  		
+          return "officerAdminInput.jsp";
+  	}
+      
+  	//確認画面
+      @Execute(validator = true, urlPattern = "confirmAdmin/{id}", validate="validateBase", input="officerInput.jsp", stopOnValidationError = false)
+  	public String confirmAdmin() {
+      	
+      		officerForm.tMemberNew = tMemberService.findById(officerForm.id); 	
+      		
+          return "officerAdminConfirm.jsp";
+  	}
+      
+      
+      //登録画面
+      @Execute(validator = false)
+  	public String completeAdmin() {
+
+      	officerForm.adminOld.MemberId = officerForm.tMemberNew.id;
+      	tAdminService.update(officerForm.adminOld);
+      	
+          return "officerComplete.jsp";
+  	}
+      
+      /*------------------------------------------------以下部長権限変更メソッド----------------------------------------------------------*/
+      //選択画面
+    	@Execute(validator = false, reset = "resetInput")
+    	public String clubChiefInput() {
+    		
+    		List<TLeaders> tleaLeadersListOld = tLeadersService.findByKind(LeadersKindCode.DIRECTOR.getCode());
+    		for(TLeaders tLeadersOne : tleaLeadersListOld){
+    			if(tLeadersOne.secretInformation){
+    				officerForm.secretInformation = true;
+    			}
+    			if(tLeadersOne.memberUpdate){
+    				officerForm.memberUpdate = true;
+    			}
+    			if(tLeadersOne.clubUpdate){
+    				officerForm.clubUpdate = true;
+    			}
+    			if(tLeadersOne.attendUpdate){
+    				officerForm.attendUpdate = true;
+    			}
+    		}
+    		
+            return "clubChiefInput.jsp";
+    	}
+        
+    	//確認画面
+        @Execute(validator = false, stopOnValidationError = false)
+    	public String clubChiefConfirm() {
+            return "clubChiefConfirm.jsp";
+    	}
+        
+        //登録画面
+        @Execute(validator = false)
+    	public String clubChiefComplete() {
+        	
+        	List<TLeaders> tLeadersList = tLeadersService.findByKind(LeadersKindCode.DIRECTOR.getCode());
+        	for(TLeaders tLeadersOne : tLeadersList){
+        		tLeadersOne.clubUpdate = officerForm.clubUpdate;
+        		tLeadersOne.attendUpdate = officerForm.attendUpdate;
+        		tLeadersOne.memberUpdate = officerForm.memberUpdate;
+        		if(officerForm.memberUpdate){
+        			//メンバーの更新権限があれば、秘匿情報は公開される。
+        			tLeadersOne.secretInformation = true;
+        		}else{
+        			tLeadersOne.secretInformation = officerForm.secretInformation;
+        		}
+        		tLeadersService.update(tLeadersOne);
+        	}
+        	
+            return "clubChiefComplete.jsp";
+    	}
+    
     
     //オリジナルチェック
     public ActionMessages validateBase(){

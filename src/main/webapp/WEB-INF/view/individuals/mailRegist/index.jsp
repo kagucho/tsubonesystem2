@@ -1,19 +1,12 @@
 <html>
 <html lang="jp">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TsuboneSystem</title>
-    <link href="${f:url('/css/bootstrap.min.css')}" type="text/css" rel="stylesheet">
-    <link href="${f:url('/css/layout.css')}" type="text/css" rel="stylesheet">
-    <link href="${f:url('/css/signin.css')}" type="text/css" rel="stylesheet">
-  </head>
+<%@ include file="/WEB-INF/view/common/headInclude.jsp"%>
 <body>
-<%@ include file="/WEB-INF/view/common/indeividualsHeader.jsp"%>
+<%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
-<h3>メール内容作成</h3>
+<h3 class="col-md-4 col-sm-5 col-xs-12">メール内容作成</h3>
+<a class="col-md-2 col-md-offset-6 col-sm-2 col-sm-offset-5 col-xs-12  btn btn-primary" href="<c:url value="/${loginMemberDto.actorKind}/mailList"/>" role="button">Mail History</a>
 <s:form method="POST">
 <div class="table-responsive">
 	<%@ include file="/WEB-INF/view/common/partyMailFormInput.jsp"%>

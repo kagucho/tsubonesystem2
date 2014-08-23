@@ -8,6 +8,7 @@ import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.action.abstracts.PartyOperateAbstractAction;
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyClub;
 
@@ -15,6 +16,10 @@ public class PartyUpdateAction extends PartyOperateAbstractAction{
 	
 	/** アクションネーム */
 	public String actionName = "PartyUpdate";
+	
+	/** Member用のDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 	
 	/** LoginAdminDtoのDto */
 	@Resource

@@ -10,7 +10,7 @@ import tsuboneSystem.names.TMemberNames._TMemberNames;
  * {@link TLeaders}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/07/15 13:30:51")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/08/23 23:40:10")
 public class TLeadersNames {
 
     /**
@@ -38,6 +38,42 @@ public class TLeadersNames {
      */
     public static PropertyName<Integer> MemberId() {
         return new PropertyName<Integer>("MemberId");
+    }
+
+    /**
+     * secretInformationのプロパティ名を返します。
+     * 
+     * @return secretInformationのプロパティ名
+     */
+    public static PropertyName<Boolean> secretInformation() {
+        return new PropertyName<Boolean>("secretInformation");
+    }
+
+    /**
+     * memberUpdateのプロパティ名を返します。
+     * 
+     * @return memberUpdateのプロパティ名
+     */
+    public static PropertyName<Boolean> memberUpdate() {
+        return new PropertyName<Boolean>("memberUpdate");
+    }
+
+    /**
+     * attendUpdateのプロパティ名を返します。
+     * 
+     * @return attendUpdateのプロパティ名
+     */
+    public static PropertyName<Boolean> attendUpdate() {
+        return new PropertyName<Boolean>("attendUpdate");
+    }
+
+    /**
+     * clubUpdateのプロパティ名を返します。
+     * 
+     * @return clubUpdateのプロパティ名
+     */
+    public static PropertyName<Boolean> clubUpdate() {
+        return new PropertyName<Boolean>("clubUpdate");
     }
 
     /**
@@ -116,6 +152,42 @@ public class TLeadersNames {
          */
         public PropertyName<Integer> MemberId() {
             return new PropertyName<Integer>(this, "MemberId");
+        }
+
+        /**
+         * secretInformationのプロパティ名を返します。
+         *
+         * @return secretInformationのプロパティ名
+         */
+        public PropertyName<Boolean> secretInformation() {
+            return new PropertyName<Boolean>(this, "secretInformation");
+        }
+
+        /**
+         * memberUpdateのプロパティ名を返します。
+         *
+         * @return memberUpdateのプロパティ名
+         */
+        public PropertyName<Boolean> memberUpdate() {
+            return new PropertyName<Boolean>(this, "memberUpdate");
+        }
+
+        /**
+         * attendUpdateのプロパティ名を返します。
+         *
+         * @return attendUpdateのプロパティ名
+         */
+        public PropertyName<Boolean> attendUpdate() {
+            return new PropertyName<Boolean>(this, "attendUpdate");
+        }
+
+        /**
+         * clubUpdateのプロパティ名を返します。
+         *
+         * @return clubUpdateのプロパティ名
+         */
+        public PropertyName<Boolean> clubUpdate() {
+            return new PropertyName<Boolean>(this, "clubUpdate");
         }
 
         /**

@@ -1,18 +1,3 @@
-/*
- * Copyright 2004-2008 the Seasar Foundation and the Others.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
 package tsuboneSystem.action.individuals;
 
 import java.util.ArrayList;
@@ -31,11 +16,15 @@ import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.SexCode;
 import tsuboneSystem.dto.LoginIndividualsDto;
+import tsuboneSystem.dto.LoginMemberDto;
+import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TClub;
+import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.form.MemberForm;
 import tsuboneSystem.original.util.DigestUtil;
+import tsuboneSystem.service.TAdminService;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TLeadersService;
 import tsuboneSystem.service.TMemberClubService;
@@ -49,6 +38,14 @@ public class MemberUpdateAction {
 	@ActionForm
 	@Resource
 	protected MemberForm memberForm;
+	
+	/** Member用のDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
+	
+	/** ログインDTO */
+	@Resource
+	protected LoginIndividualsDto loginIndividualsDto;
 	
 	/** TMemberのサービスクラス */
 	@Resource
@@ -66,19 +63,22 @@ public class MemberUpdateAction {
 	@Resource
 	protected TLeadersService tLeadersService;
 	
+	/** TAdminServiceのサービスクラス */
+	@Resource
+	protected TAdminService tAdminService;
+	
 	/** HttpServlet */
 	@Resource
 	protected HttpServletRequest request;
-	
-	/** ログインDTO */
-	@Resource
-	protected LoginIndividualsDto loginIndividualsDto;
 	
 	/** Memberのリスト */
 	public List<TMember> memberItems;
 	
 	/** Clubのリスト */
 	public List<TClub> clubItems;
+	
+	/** 編集前の情報 */
+	public TMember tMemberOld;
 	
 	
 	@SuppressWarnings("boxing")
@@ -89,9 +89,7 @@ public class MemberUpdateAction {
         TokenProcessor.getInstance().saveToken(request);
         
         memberForm.id = loginIndividualsDto.tMemberLogin.id;
-
         memberForm.clubMap = tClubService.getClubMapIS();
-
         
         //すでに所属している部のチェックボックスはonにする
         memberForm.tMemberClubUpOldId = tMemberClubService.findByMemberId(memberForm.id.toString());
@@ -106,6 +104,7 @@ public class MemberUpdateAction {
 		
 		TMember member = tMemberService.findById(memberForm.id);
 		Beans.copy(member, memberForm).excludes("password").execute();
+		memberForm.tMemberOld = member;
 		memberForm.password = null;
 
         return viewinput();
@@ -119,6 +118,10 @@ public class MemberUpdateAction {
     
     @Execute(validator = true, validate="validateBase", input="memberInput.jsp", stopOnValidationError = false, reset = "resetInput")
 	public String confirmUp() {
+    	
+    	if(memberForm.tMemberOld.obFlag){
+    		memberForm.obFlag = "true";
+    	}
     	
     	//選択した部を表示する
     	memberForm.tMemberClubList = new ArrayList<TMemberClub>();
@@ -193,6 +196,16 @@ public class MemberUpdateAction {
 		//所属部の必須チェック
 		if(memberForm.clubListChecked.size() == 0){
 			errors.add("department",new ActionMessage("部の選択は必須です。",false));
+		}
+		
+		//役職に就いている人はOB宣言できない
+		if("true".equals(memberForm.obFlag)){
+			TAdmin tAdmin = tAdminService.findById(memberForm.id);
+			List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(memberForm.id);
+			if(tAdmin != null || tLeadersList.size() > 0){
+				memberForm.obFlag = "false";
+				errors.add("obFlag",new ActionMessage("役職についている人はOB宣言出来ません。",false));
+			}
 		}
         return errors;
     }

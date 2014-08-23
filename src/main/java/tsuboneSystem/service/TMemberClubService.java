@@ -67,7 +67,7 @@ public class TMemberClubService extends AbstractService<TMemberClub> {
 		SimpleWhere where = new SimpleWhere().eq("TMember.deleteFlag", Boolean.valueOf(false));
 		//OBを含めないなら検索条件に含める
 		if (!containsOb) {
-			where.eq("TMember.obFlag", Boolean.valueOf(false));
+			where.eq("TMember.sendStopFlag", Boolean.valueOf(false));
 		}
 		return where; 
 	}

@@ -1,14 +1,6 @@
 <html>
 <html lang="jp">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TsuboneSystem</title>
-    <link href="${f:url('/css/bootstrap.min.css')}" type="text/css" rel="stylesheet">
-    <link href="${f:url('/css/layout.css')}" type="text/css" rel="stylesheet">
-    <link href="${f:url('/css/signin.css')}" type="text/css" rel="stylesheet">
-  </head>
+<%@ include file="/WEB-INF/view/common/headInclude.jsp"%>
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
@@ -21,6 +13,10 @@
 <div class="col-sm-12">
 	<jsp:include page="/WEB-INF/view/common/memberFormConfirm.jsp" flush="true" />
 </div>
+<c:if test="${tempMemberFlag}">
+	<a class="col-md-2 col-sm-5 col-md-offset-4 col-sm-offset-1 col-xs-12  btn btn-danger btnYOKO btnMRC" href="<c:url value="/admin/memberApprove/disApprove/${id}"/>">非承認</a>
+	<a class="col-md-2 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/admin/memberApprove/approve/${id}"/>">承認</a>
+</c:if>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${f:url('/js/bootstrap.min.js')}"></script>

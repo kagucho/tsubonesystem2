@@ -8,6 +8,7 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.MailForm;
 import tsuboneSystem.original.manager.MailManager;
@@ -29,6 +30,10 @@ public class MailRegistAction {
 	@ActionForm
 	@Resource
 	protected MailForm mailForm;
+	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
 
 	/** LoginAdminDto */
 	@Resource
@@ -86,7 +91,7 @@ public class MailRegistAction {
     	
     	//全員に送る場合
     	if (mailForm.mailSendAllFlag != null) {
-    		mailForm.tMemberSendList = tMemberService.findAllOrderById(containsOb);
+    		mailForm.tMemberSendList = tMemberService.findAllOrderById_ForMail(containsOb);
     	//部ごとに送る場合
     	} else if (mailForm.clubListCheck != null) {
 			mailForm.tMemberSendList = tMemberService.findByClubIds(containsOb, mailForm.clubListCheck);

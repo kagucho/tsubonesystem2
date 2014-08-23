@@ -10,7 +10,6 @@
     <link href="${f:url('/css/signin.css')}" type="text/css" rel="stylesheet">
   </head>
 <body>
-<%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 
 <div class="container">

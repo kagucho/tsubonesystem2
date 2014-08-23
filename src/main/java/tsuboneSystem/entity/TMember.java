@@ -72,8 +72,12 @@ public class TMember implements Serializable {
     public String password;
     
     /* OBフラグ */
-    @Column(nullable = true, unique = false)
+    @Column(columnDefinition ="boolean default '0'")
     public boolean obFlag;
+    
+    /* 配信停止フラグ */
+    @Column(columnDefinition ="boolean default '0'")
+    public boolean sendStopFlag;
     
     /* メール不達フラグ */
     @Column(columnDefinition ="boolean default '0'")
@@ -83,6 +87,13 @@ public class TMember implements Serializable {
     @Column(columnDefinition ="boolean default '0'")
     public boolean  deleteFlag;
     
+    /* 仮登録メンバー */
+    @Column(columnDefinition ="boolean default '0'")
+    public boolean  tempMemberFlag;
+    
+    /** memberIdをTAdminに結びつける */
+    @OneToMany(mappedBy = "TMember")
+    public List<TAdmin> tAdminList;
     
     /** memberIdをTLeadersに結びつける */
     @OneToMany(mappedBy = "TMember")

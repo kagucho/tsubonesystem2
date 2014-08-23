@@ -17,7 +17,7 @@ public abstract class AbstractLoginInterceptor extends AbstractInterceptor {
 	HttpServletRequest request;
 	
 	@Resource
-	TTempMessageService ttempMessageService;
+	TTempMessageService tTempMessageService;
 	
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -34,13 +34,12 @@ public abstract class AbstractLoginInterceptor extends AbstractInterceptor {
 	}
 	
 	
-	
 	/**
 	 * 一時メッセージをセットする
 	 * @param invocation 
 	 */
 	protected void tempMessageProcess(MethodInvocation invocation) {
-		request.setAttribute("tempMessage", ttempMessageService.findByMemberId(getLoginMemberId()));
+		request.setAttribute("tempMessage", tTempMessageService.findByMemberId(getLoginMemberId()));
 	}
 
 	//ログインしていたらTRUE

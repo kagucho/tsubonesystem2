@@ -3,8 +3,6 @@ package tsuboneSystem.form;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
-
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.container.annotation.tiger.InstanceType;
 import org.seasar.struts.annotation.Required;

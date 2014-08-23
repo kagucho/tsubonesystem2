@@ -12,6 +12,7 @@ import org.seasar.struts.annotation.Execute;
 import tsuboneSystem.action.abstracts.PartyOperateAbstractAction;
 import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyAttend;
@@ -21,9 +22,13 @@ public class PartyRegistAction extends PartyOperateAbstractAction{
 	/** アクションネーム */
 	public String actionName = "PartyRegist";
 	
+	/** LoginMemberDto */
+	@Resource
+	public LoginMemberDto loginMemberDto;
+	
 	/** LoginAdminDto */
 	@Resource
-	protected LoginAdminDto loginAdminDto;
+	public LoginAdminDto loginAdminDto;
 	
 	boolean disabledFlag = false;
 	
@@ -48,6 +53,12 @@ public class PartyRegistAction extends PartyOperateAbstractAction{
         if (TokenProcessor.getInstance().isTokenValid(request, true)) {
         	//会議情報をpartyテーブルに追加
         	TParty party = new TParty(getLoginMemberId(), partyForm);
+        	
+        	//admin権限以外からの登録の場合、出席必須の会議は作成できない
+        	if(loginAdminDto == null){
+        		party.meetingNecessaryFlag = false;
+        	}
+        	
         	//DBに追加
         	tPartyService.insert(party);
         	
