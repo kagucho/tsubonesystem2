@@ -9,8 +9,6 @@ import org.seasar.extension.jdbc.where.SimpleWhere;
 import tsuboneSystem.entity.TTempLogin;
 import static org.seasar.extension.jdbc.operation.Operations.*;
 import static tsuboneSystem.names.TClubNames.deleteFlag;
-import static tsuboneSystem.names.TMemberNames.password;
-import static tsuboneSystem.names.TMemberNames.userName;
 import static tsuboneSystem.names.TTempLoginNames.*;
 
 /**
@@ -39,6 +37,7 @@ public class TTempLoginService extends AbstractService<TTempLogin> {
     public List<TTempLogin> findAllOrderById() {
         return select().orderBy(asc(id())).getResultList();
     }
+    
     
     /**
      * userNmaeですべてのエンティティを検索します。loginに使用

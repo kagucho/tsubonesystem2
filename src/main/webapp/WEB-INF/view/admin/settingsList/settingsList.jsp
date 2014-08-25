@@ -11,15 +11,15 @@
   </head>
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
-<jsp:include page="/WEB-INF/view/common/jumbotronMenu.jsp" >
-<jsp:param name="actionName" value="actionName"/>
-</jsp:include >
+<%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
-	<h3 class="CENTER">規約を読み、登録ボタンを押してください。</h3>
-	<div class="col-md-12 col-sm-12 col-xs-12">
-	 	<object data="${f:url('/pdf/kaisoku.pdf')}" width="1150" height="600"></object>
-	 </div>
-	 <a class="marginUP col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-3 col-xs-12 btn btn-primary" href="<c:url value="/tempRegist/memberRegist"/>">規約を読み、了解して登録する</a>
+	<h3 class="CENTER">設定項目一覧</h3>
+	<div class="col-md-4">
+		<a href="<c:url value="/admin/settingsEdit/tempMemberInput"/>"><button type="button" class="btn btn-default btn-lg btn-block">一時メンバーの変更</button></a>
+	</div>
+	<div class="col-md-8">
+		<p>仮登録する際に使用するIDを設定できます。ここで作成したIDとパスワードを周知することによって、メンバー自身が登録することが出来ます。メンバー自身が作成したアカウントは仮登録状態となり、管理者が認証するまでログイン出来ません。</p>
+	</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${f:url('/js/bootstrap.min.js')}"></script>

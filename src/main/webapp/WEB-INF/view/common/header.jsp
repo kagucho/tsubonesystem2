@@ -34,6 +34,11 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="<c:url value="/${loginMemberDto.actorKind}/logout"/>">Logout</a></li>
 						</ul>
+						<c:if test="${loginMemberDto.actorKindCode == '1'}">
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href="<c:url value="/${loginMemberDto.actorKind}/settingsList"/>">Settings</a></li>
+							</ul>
+						</c:if>
 					</div>
 				</div>
 			</div>

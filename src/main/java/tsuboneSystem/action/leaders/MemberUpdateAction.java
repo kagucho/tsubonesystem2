@@ -23,6 +23,7 @@ import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
+import tsuboneSystem.entity.TTempLogin;
 import tsuboneSystem.form.MemberForm;
 import tsuboneSystem.original.util.DigestUtil;
 import tsuboneSystem.service.TAdminService;
@@ -30,6 +31,7 @@ import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TLeadersService;
 import tsuboneSystem.service.TMemberClubService;
 import tsuboneSystem.service.TMemberService;
+import tsuboneSystem.service.TTempLoginService;
 
 public class MemberUpdateAction {
 	
@@ -67,6 +69,10 @@ public class MemberUpdateAction {
 	/** TAdminServiceのサービスクラス */
 	@Resource
 	protected TAdminService tAdminService;
+	
+	/** TTempLoginServiceのサービスクラス */
+	@Resource
+	protected TTempLoginService tTempLoginService;
 	
 	/** HttpServlet */
 	@Resource
@@ -190,7 +196,10 @@ public class MemberUpdateAction {
         
        // userNameの重複チェック
         TMember tMember = tMemberService.findByUserName(memberForm.userName);	
+        TTempLogin tTempLogin = tTempLoginService.findByUserName(memberForm.userName);
 		if (tMember != null && !tMember.id.equals(memberForm.id)) {
+			errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
+		}else if(tTempLogin != null){
 			errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
 		}
 		

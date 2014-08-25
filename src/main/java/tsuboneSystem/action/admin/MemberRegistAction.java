@@ -1,18 +1,3 @@
-/*
- * Copyright 2004-2008 the Seasar Foundation and the Others.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
 package tsuboneSystem.action.admin;
 
 import java.util.ArrayList;
@@ -35,10 +20,13 @@ import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
+import tsuboneSystem.entity.TTempLogin;
 import tsuboneSystem.form.MemberForm;
+import tsuboneSystem.service.TAdminService;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TMemberClubService;
 import tsuboneSystem.service.TMemberService;
+import tsuboneSystem.service.TTempLoginService;
 
 
 public class MemberRegistAction {
@@ -69,6 +57,14 @@ public class MemberRegistAction {
 	/** TMemberClubServiceのサービスクラス */
 	@Resource
 	protected TMemberClubService tMemberClubService;
+	
+	/** TAdminServiceのサービスクラス */
+	@Resource
+	protected TAdminService tAdminService;
+	
+	/** TTempLoginServiceのサービスクラス */
+	@Resource
+	protected TTempLoginService tTempLoginService;
 	
 	/** HttpServlet */
 	@Resource
@@ -165,7 +161,8 @@ public class MemberRegistAction {
         
        // userNameの重複チェック
         TMember tMember = tMemberService.findByUserName(memberForm.userName);	
-		if (tMember != null) {
+        TTempLogin tTempLogin = tTempLoginService.findByUserName(memberForm.userName);
+		if (tMember != null || tTempLogin != null) {
 			errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
 		}
 		
