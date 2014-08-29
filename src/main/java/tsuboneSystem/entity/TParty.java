@@ -48,7 +48,7 @@ public class TParty implements Serializable {
 	public TParty(int creatorId, PartyForm partyForm) {
 		/** 入力された情報をエンティティにコピー　**/
 		//例外として.excludes()内に書いてある要素は省く(コピーしない)。日時関係はyyyy/mm/dd hh:mm:ssの形にしてTimestamp型に変化する必要がある。
-		Beans.copy(partyForm, this).excludes("meetingDay","meetingTime","meetingDeadlineDay").execute();
+		Beans.copy(partyForm, this).excludes("meetingDay","meetingEndDay","meetingTime","meetingDeadlineDay").execute();
 		
 		//編集者のIDを入れる
 		this.creatorId = Integer.valueOf(creatorId);
@@ -57,6 +57,9 @@ public class TParty implements Serializable {
 		try {
 			if (!StringUtils.isEmpty(partyForm.meetingDay.trim())) {
 				meetingDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDay);
+			}
+			if (!StringUtils.isEmpty(partyForm.meetingEndDay.trim())) {
+				meetingEndDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingEndDay);
 			}
 			if (!StringUtils.isEmpty(partyForm.meetingTime.trim())) {
 				meetingTime = new SimpleDateFormat("HH:mm").parse(partyForm.meetingTime);
@@ -95,6 +98,11 @@ public class TParty implements Serializable {
     @Temporal(TemporalType.DATE)
 	public Date meetingDay;
     
+    /** 会議日(終了日)　*/
+    @Column()
+    @Temporal(TemporalType.DATE)
+	public Date meetingEndDay;
+    
     /** 会議時間　*/
     @Column()
     @Temporal(TemporalType.TIME)
@@ -120,6 +128,10 @@ public class TParty implements Serializable {
     /** 会議結果　*/
     @Column(columnDefinition ="mediumtext")
 	public String meetingResult;
+    
+    /** 公募出欠可否 */
+    @Column(columnDefinition ="boolean default '0'")
+    public Boolean  noPublicFlag;
     
     /** 削除フラグ */
     @Column(columnDefinition ="boolean default '0'")

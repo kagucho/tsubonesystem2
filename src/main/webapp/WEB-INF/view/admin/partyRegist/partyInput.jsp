@@ -22,13 +22,14 @@
 	    function hideToggle(hidearea) {
 	        hidearea.toggle(speed);
 	    }
-	    function changehoge(value) {
+	    $(function changehoge(value) {
 	        $("#mailInput").disabled(value); // チェックされたら無効化する
 	        $("#mailInput").val($("#mailInput").disabled()); // 今の無効化状態をhogeに書く
-	    }
-	</script> 
+	    });
+	</script>
   </head>
 <body>
+
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">

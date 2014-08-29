@@ -13,7 +13,7 @@ import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
  * {@link TMail}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/08/23 23:40:10")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/08/27 0:50:16")
 public class TMailNames {
 
     /**
@@ -59,6 +59,15 @@ public class TMailNames {
      */
     public static PropertyName<Boolean> errorFlag() {
         return new PropertyName<Boolean>("errorFlag");
+    }
+
+    /**
+     * browsingRightsのプロパティ名を返します。
+     * 
+     * @return browsingRightsのプロパティ名
+     */
+    public static PropertyName<Integer> browsingRights() {
+        return new PropertyName<Integer>("browsingRights");
     }
 
     /**
@@ -182,6 +191,15 @@ public class TMailNames {
          */
         public PropertyName<Boolean> errorFlag() {
             return new PropertyName<Boolean>(this, "errorFlag");
+        }
+
+        /**
+         * browsingRightsのプロパティ名を返します。
+         *
+         * @return browsingRightsのプロパティ名
+         */
+        public PropertyName<Integer> browsingRights() {
+            return new PropertyName<Integer>(this, "browsingRights");
         }
 
         /**

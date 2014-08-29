@@ -59,7 +59,7 @@ public class TMemberClubService extends AbstractService<TMemberClub> {
     	where.eq(ClubId(),clubId);
         return select()
         		.where(where)
-        		.innerJoin("TMember", getWhereMember(containsOb))
+        		.innerJoin(tMember(), getWhereMember(containsOb))
         		.getResultList();
     }
 

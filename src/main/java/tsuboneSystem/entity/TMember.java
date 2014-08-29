@@ -123,4 +123,5 @@ public class TMember implements Serializable {
     @OneToMany(mappedBy = "TMember")
     public List<TPartyAnswer> tPartyAnswerList;
 
+
 }

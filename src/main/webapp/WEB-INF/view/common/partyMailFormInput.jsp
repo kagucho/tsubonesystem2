@@ -1,4 +1,4 @@
-	<div class="col-sm-12">
+	<div class="col-md-12 col-sm-12 col-xs-12">
 		<div id="mailInput">
 			<h4>メールを配信する場合は、送信する相手と内容を入力してください。</h4>
 			<div class="form-group">

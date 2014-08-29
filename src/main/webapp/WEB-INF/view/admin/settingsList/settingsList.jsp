@@ -20,6 +20,12 @@
 	<div class="col-md-8">
 		<p>仮登録する際に使用するIDを設定できます。ここで作成したIDとパスワードを周知することによって、メンバー自身が登録することが出来ます。メンバー自身が作成したアカウントは仮登録状態となり、管理者が認証するまでログイン出来ません。</p>
 	</div>
+	<div class="col-md-4">
+		<a href="<c:url value="/admin/settingsEdit/tempMemberInput"/>"><button type="button" class="btn btn-default btn-lg btn-block">規約の更新</button></a>
+	</div>
+	<div class="col-md-8">
+		<p>規約の更新があった場合に、ここからPDFでアップロードすることで規約の更新ができます。</p>
+	</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${f:url('/js/bootstrap.min.js')}"></script>

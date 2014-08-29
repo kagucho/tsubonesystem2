@@ -15,7 +15,7 @@ import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
  * {@link TParty}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/08/23 23:40:10")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/08/27 0:50:16")
 public class TPartyNames {
 
     /**
@@ -61,6 +61,15 @@ public class TPartyNames {
      */
     public static PropertyName<Date> meetingDay() {
         return new PropertyName<Date>("meetingDay");
+    }
+
+    /**
+     * meetingEndDayのプロパティ名を返します。
+     * 
+     * @return meetingEndDayのプロパティ名
+     */
+    public static PropertyName<Date> meetingEndDay() {
+        return new PropertyName<Date>("meetingEndDay");
     }
 
     /**
@@ -115,6 +124,15 @@ public class TPartyNames {
      */
     public static PropertyName<String> meetingResult() {
         return new PropertyName<String>("meetingResult");
+    }
+
+    /**
+     * noPublicFlagのプロパティ名を返します。
+     * 
+     * @return noPublicFlagのプロパティ名
+     */
+    public static PropertyName<Boolean> noPublicFlag() {
+        return new PropertyName<Boolean>("noPublicFlag");
     }
 
     /**
@@ -259,6 +277,15 @@ public class TPartyNames {
         }
 
         /**
+         * meetingEndDayのプロパティ名を返します。
+         *
+         * @return meetingEndDayのプロパティ名
+         */
+        public PropertyName<Date> meetingEndDay() {
+            return new PropertyName<Date>(this, "meetingEndDay");
+        }
+
+        /**
          * meetingTimeのプロパティ名を返します。
          *
          * @return meetingTimeのプロパティ名
@@ -310,6 +337,15 @@ public class TPartyNames {
          */
         public PropertyName<String> meetingResult() {
             return new PropertyName<String>(this, "meetingResult");
+        }
+
+        /**
+         * noPublicFlagのプロパティ名を返します。
+         *
+         * @return noPublicFlagのプロパティ名
+         */
+        public PropertyName<Boolean> noPublicFlag() {
+            return new PropertyName<Boolean>(this, "noPublicFlag");
         }
 
         /**

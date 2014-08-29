@@ -46,6 +46,10 @@ public class TMail implements Serializable {
     @Column(columnDefinition ="boolean default '0'")
     public boolean  errorFlag;
     
+    /* 閲覧権限 */
+    @Column(columnDefinition ="default '3'")
+    public Integer  browsingRights;
+    
     /** TMail(ID) = TMailSendMember(mailId) */
     @OneToMany(mappedBy = "TMail")
     public List<TMailSendMember> tMailSendMember;

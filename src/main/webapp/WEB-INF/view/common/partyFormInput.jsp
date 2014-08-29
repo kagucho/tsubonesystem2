@@ -16,10 +16,16 @@
 				</c:if>
 				<div class="form-group">
 					<label class="control-label col-sm-4" for="meetingDay">会議の開催日(yyyy/dd/mm:例2014/07/05)</label>
-					<div class="col-sm-8 memberF">
+					<div class="col-sm-3 memberF">
 						<input type="text" id="meetingDay" name="meetingDay" property="meetingDay" class="form-control" placeholder="meetingDay" value="${meetingDay}">
 						<html:errors property="meetingDay"/>
 					</div>
+					<p class="col-sm-1">から</p>
+					<div class="col-sm-3 memberF">
+						<input type="text" id="meetingEndDay" name="meetingEndDay" property="meetingEndDay" class="form-control" placeholder="meetingEndDay" value="${meetingEndDay}">
+						<html:errors property="meetingEndDay"/>
+					</div>
+					<p class="col-sm-1">まで</p>
 				</div>
 				<div class="form-group">
 					<label class="control-label col-sm-4" for="meetingTime">会議の開催時間</label>

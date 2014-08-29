@@ -45,6 +45,9 @@ public class PartyForm implements Serializable{
 	/** 会議日時　*/
 	public String meetingDay;
 	
+	/** 会議日時(終了日)　*/
+	public String meetingEndDay;
+	
 	/** 会議時間　*/
 	public String meetingTime;
 	
@@ -135,6 +138,8 @@ public class PartyForm implements Serializable{
 	
 	/** 出席対象が部で選択されている場合　**/
 	public Set<Integer> MemberSet = new HashSet<Integer>();
+
+	
 	
 	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
 	public void resetInput() {
@@ -188,16 +193,28 @@ public class PartyForm implements Serializable{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		
 		// 会議日は過去にはできない
-		if (!meetingDay.isEmpty()) {
+		if (!meetingEndDay.isEmpty()) {
 			try {
-				Date mDay = sdf.parse(meetingDay);
+				Date mDay = sdf.parse(meetingEndDay);
 				if (mDay.before(new Date())) {
-					errors.add("meetingDay", new ActionMessage("過去に会議を予定したければタイムマシンを作ってからにしてください", false));
+					errors.add("meetingEndDay", new ActionMessage("過去に会議を予定したければタイムマシンを作ってからにしてください", false));
 				}
 			} catch (ParseException e) {
-				errors.add("meetingDay", new ActionMessage("開催日はyyyy/mm/ddで入力する必要があります。(例:2014/05/11)", false));
+				errors.add("meetingEndDay", new ActionMessage("開催日はyyyy/mm/ddで入力する必要があります。(例:2014/05/11)", false));
 			}
 		}
+		
+		// 会議日は過去にはできない
+				if (!meetingDay.isEmpty()) {
+					try {
+						Date mDay = sdf.parse(meetingDay);
+						if (mDay.before(new Date())) {
+							errors.add("meetingDay", new ActionMessage("過去に会議を予定したければタイムマシンを作ってからにしてください", false));
+						}
+					} catch (ParseException e) {
+						errors.add("meetingDay", new ActionMessage("開催日はyyyy/mm/ddで入力する必要があります。(例:2014/05/11)", false));
+					}
+				}
 		
 		// 締め切り日を過去にはできない
 		if (!meetingDeadlineDay.isEmpty()) {
