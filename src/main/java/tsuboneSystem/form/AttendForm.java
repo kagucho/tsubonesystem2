@@ -22,8 +22,11 @@ public class AttendForm implements Serializable {
 	/* メッセージ　*/
 	public String attendMessege;
 	
-
+	/** 一覧より、出席が押された会議のid */
+	public Integer yesId;
 	
+	/** 一覧より、欠席が押された会議のid */
+	public Integer noId;
 
 	
 }

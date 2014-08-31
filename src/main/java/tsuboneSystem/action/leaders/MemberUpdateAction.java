@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.TokenProcessor;
@@ -147,7 +148,7 @@ public class MemberUpdateAction {
         	Beans.copy(memberForm, memberUp).execute();
         	
         	//パスワードの更新
-        	if (!memberForm.password.isEmpty()){
+        	if (StringUtils.isNotEmpty(memberForm.password)){
         		//パスワードのハッシュ化
             	memberUp.password = DigestUtil.md5(memberForm.password);
         	}else{
@@ -225,12 +226,12 @@ public class MemberUpdateAction {
     			TClub tClub = tClubService.findByLeadersId(tLeadersOne.id);
     			if (tClub != null) {
     				//各部の現役の部長の場合
-    				if (memberForm.mail.isEmpty() || memberForm.tel1.isEmpty() || memberForm.tel2.isEmpty() || memberForm.tel3.isEmpty()) {
+    				if (StringUtils.isEmpty(memberForm.mail) || StringUtils.isEmpty(memberForm.tel1) || StringUtils.isEmpty(memberForm.tel2) || StringUtils.isEmpty(memberForm.tel3)) {
                 		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため、連絡先を空白にすることはできません",false));
                 	}
     			}else if (tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.GASSYUKU.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.RIDAISAI.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ETC.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ACCOUNT.getCode()))) {
     				//部長以外の場合
-    				if (memberForm.mail.isEmpty() || memberForm.tel1.isEmpty() || memberForm.tel2.isEmpty() || memberForm.tel3.isEmpty()) {
+    				if (StringUtils.isEmpty(memberForm.mail) || StringUtils.isEmpty(memberForm.tel1) || StringUtils.isEmpty(memberForm.tel2) || StringUtils.isEmpty(memberForm.tel3)) {
                 		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため、連絡先を空白にすることはできません",false));
                 	}
     			}

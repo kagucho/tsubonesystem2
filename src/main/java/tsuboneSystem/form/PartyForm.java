@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.seasar.framework.container.annotation.tiger.Component;
@@ -145,6 +146,7 @@ public class PartyForm implements Serializable{
 	public void resetInput() {
 		meetingName = null;
 		meetingDay = null;
+		meetingEndDay = null;
 		meetingTime = null;
 		meetingDeadlineDay = null;
 		meetingRoom = null;
@@ -171,29 +173,33 @@ public class PartyForm implements Serializable{
         	if (mailSendAllFlag == null && clubListCheck.length == 0 ) {
         		errors.add("sendTo",new ActionMessage("メールを送る場合は、送り相手を選択してください。",false));
         	}
-        	if (title.isEmpty()) {
+        	if (StringUtils.isEmpty(title)) {
         		errors.add("title",new ActionMessage("メールを送る場合は、メールの題名を入力してください。",false));
         	}
-        	if (content.isEmpty()) {
+        	if (StringUtils.isEmpty(content)) {
         		errors.add("content",new ActionMessage("メールを送る場合は、メールの内容を入力してください。",false));
         	}
         	
         }
         
         //開催日が空の時の処理
-		if (meetingDay.isEmpty()) {
-			if (!meetingTime.isEmpty()) {
+		if (StringUtils.isNotEmpty(meetingTime)) {
+				if (StringUtils.isEmpty(meetingDay)) {
 				errors.add("meetingDay",new ActionMessage("開始時間を入力するときは開催日も入力してください。",false));
 			}
-			if (!meetingDeadlineDay.isEmpty()) {
-				errors.add("meetingDay",new ActionMessage("締め切りが決まっている場合には、開催日は必須です",false));
+		}
+		
+		//開催終了日が入力され、開始日が空白のとき
+		if (StringUtils.isNotEmpty(meetingEndDay)) {
+			if(StringUtils.isEmpty(meetingDay)){
+				errors.add("meetingDay",new ActionMessage("終了日があるのに開始日がないのはおかしいです",false));
 			}
 		}
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		
 		// 会議日は過去にはできない
-		if (!meetingEndDay.isEmpty()) {
+		if (StringUtils.isNotEmpty(meetingEndDay)) {
 			try {
 				Date mDay = sdf.parse(meetingEndDay);
 				if (mDay.before(new Date())) {
@@ -205,7 +211,7 @@ public class PartyForm implements Serializable{
 		}
 		
 		// 会議日は過去にはできない
-				if (!meetingDay.isEmpty()) {
+				if (StringUtils.isNotEmpty(meetingDay)) {
 					try {
 						Date mDay = sdf.parse(meetingDay);
 						if (mDay.before(new Date())) {
@@ -217,7 +223,7 @@ public class PartyForm implements Serializable{
 				}
 		
 		// 締め切り日を過去にはできない
-		if (!meetingDeadlineDay.isEmpty()) {
+		if (StringUtils.isNotEmpty(meetingDeadlineDay)) {
 			try {
 				Date dDay = sdf.parse(meetingDeadlineDay);
 				if (dDay.before(new Date())) {
@@ -228,7 +234,7 @@ public class PartyForm implements Serializable{
 			}
 		}
 		
-		if (!meetingDeadlineDay.isEmpty() && !meetingDay.isEmpty() 
+		if (StringUtils.isNotEmpty(meetingDeadlineDay) && StringUtils.isNotEmpty(meetingDay) 
 				&& errors.size("meetingDay") == 0 && errors.size("meetingDeadlineDay") == 0) {
 		    Date mDay = null;
 		    Date dDay = null;
@@ -249,7 +255,7 @@ public class PartyForm implements Serializable{
 		}
 		
 		//型チェック
-		if (!meetingTime.isEmpty()) {
+		if (StringUtils.isNotEmpty(meetingTime)) {
 			try {
 				new SimpleDateFormat("HH:mm").parse(meetingTime);
 			} catch (ParseException e) {

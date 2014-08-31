@@ -55,16 +55,16 @@ public class TParty implements Serializable {
 		
 		//日付と日時をString型からDate型に変換
 		try {
-			if (!StringUtils.isEmpty(partyForm.meetingDay.trim())) {
+			if (StringUtils.isNotEmpty(partyForm.meetingDay.trim())) {
 				meetingDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDay);
 			}
-			if (!StringUtils.isEmpty(partyForm.meetingEndDay.trim())) {
+			if (StringUtils.isNotEmpty(partyForm.meetingEndDay.trim())) {
 				meetingEndDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingEndDay);
 			}
-			if (!StringUtils.isEmpty(partyForm.meetingTime.trim())) {
+			if (StringUtils.isNotEmpty(partyForm.meetingTime.trim())) {
 				meetingTime = new SimpleDateFormat("HH:mm").parse(partyForm.meetingTime);
 			}
-			if (!StringUtils.isEmpty(partyForm.meetingDeadlineDay.trim())) {
+			if (StringUtils.isNotEmpty(partyForm.meetingDeadlineDay.trim())) {
 				meetingDeadlineDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDeadlineDay);
 			}
 		} catch (ParseException e) {

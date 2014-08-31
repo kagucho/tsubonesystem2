@@ -84,6 +84,7 @@ public class ClubDetailAction {
 	@Resource
 	protected LoginAdminDto loginAdminDto;
 	
+	
 	public final int num = 1;
 	
     @Execute(validator = false, urlPattern = "{id}")

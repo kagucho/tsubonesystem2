@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.TokenProcessor;
@@ -147,7 +148,7 @@ public class MemberUpdateAction {
         	loginIndividualsDto.tMemberLogin = memberUp;
         	
         	//パスワードの更新
-        	if (!memberForm.password.isEmpty()){
+        	if (StringUtils.isNotEmpty(memberForm.password)){
         		//パスワードのハッシュ化
             	memberUp.password = DigestUtil.md5(memberForm.password);
         	}else{

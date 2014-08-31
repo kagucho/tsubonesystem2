@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.seasar.struts.annotation.ActionForm;
@@ -213,7 +214,7 @@ public class OfficerUpdateAction {
     	
     	//選択されたMemberが連絡先をすべて登録しているかを確認する。
     	TMember tMember = tMemberService.findById(officerForm.id);
-    	if (tMember.mail.isEmpty() || tMember.tel1.isEmpty() || tMember.tel2.isEmpty() || tMember.tel3.isEmpty()) {
+    	if (StringUtils.isEmpty(tMember.mail) || StringUtils.isEmpty(tMember.tel1) || StringUtils.isEmpty(tMember.tel2) || StringUtils.isEmpty(tMember.tel3)) {
     		errors.add("leadersConnection",new ActionMessage("このメンバーには連絡先のどれかが登録されていません。メール、電話番号をすべて登録するか他のメンバーを選択してください。",false));
     	}
     	

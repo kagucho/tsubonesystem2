@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
+import org.seasar.extension.jdbc.where.ComplexWhere;
 import org.seasar.extension.jdbc.where.SimpleWhere;
 
 import tsuboneSystem.code.PartyAttendCode;
@@ -49,7 +50,7 @@ public class TPartyService extends AbstractService<TParty> {
     }
     
     /**
-     * 実行された日時より遅い締め切りですべてのエンティティを検索します。
+     * 実行された日時より未来ですべてのエンティティを検索します。
      * @param memberId 
      * 
      * @return エンティティのリスト
@@ -59,9 +60,9 @@ public class TPartyService extends AbstractService<TParty> {
     	where.eq(deleteFlag(), Boolean.valueOf(false));
     	where.ge(meetingDeadlineDay(), dateNow);
         return select()
-        		.innerJoin("TMember")
-        		.leftOuterJoin("tPartyClubList")
-        		.leftOuterJoin("tPartyAttendList", new SimpleWhere().eq("tPartyAttendList.memberID", memberId))
+        		.innerJoin(tMember())
+        		.leftOuterJoin(tPartyClubList())
+        		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
         		.where(where).orderBy(desc(id())).getResultList();
     }
     
@@ -76,7 +77,7 @@ public class TPartyService extends AbstractService<TParty> {
     	where.eq(deleteFlag(), Boolean.valueOf(false));
     	where.ge(meetingDeadlineDay(), dateNow);
     	return select()
-    			.innerJoin("tPartyAttendList", new SimpleWhere().eq("tPartyAttendList.memberID", memberId).eq("tPartyAttendList.attend", PartyAttendCode.UNSUBMITTED.getCode()))
+    			.innerJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId).eq(tPartyAttendList().attend(), PartyAttendCode.UNSUBMITTED.getCode()))
     			.where(where)
     			.getResultList();
     			
@@ -151,15 +152,19 @@ public class TPartyService extends AbstractService<TParty> {
     }
     
     /**
-     * 実行された日時に等しい開催日のエンティティを検索します。
+     * 実行された日時に開催されている会議のエンティティを検索します。
      * 
      * @return エンティティのリスト
      */
-    public List<TParty> findBy_MeetingDay_EQ_Now(Date dateNow) {
+    public List<TParty> findBy_MeetingDay_BETWEEN_Now(Date dateNow, Integer memberId) {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(deleteFlag(), Boolean.valueOf(false));
-    	where.eq(meetingDay(), dateNow);
-        return select().innerJoin("TMember").where(where).orderBy(desc(id())).getResultList();
+    	where.le(meetingDay(), dateNow);
+    	where.ge(meetingEndDay(), dateNow);
+        return select()
+        		.innerJoin(tMember())
+        		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
+        		.where(where).orderBy(desc(id())).getResultList();
     }
     
     /**
@@ -182,19 +187,20 @@ public class TPartyService extends AbstractService<TParty> {
     	where.isNull(meetingDeadlineDay(), Boolean.valueOf(true));
     	where.le(updateTime(), dateadd);
         return select()
-        		.innerJoin("TMember")
-        		.leftOuterJoin("tPartyAttendList", new SimpleWhere().eq("tPartyAttendList.memberID", memberId))
+        		.innerJoin(tMember())
+        		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
         		.where(where).orderBy(desc(id()))
         		.getResultList();
     }
     
     /**
-     * 実行された日時に対して一ヶ月以内に作成され、開催日が設定されなかった会議のエンティティを検索します。
-     * @param memberId 
+     * 実行された日時に対して一ヶ月以内に作成され、締め切り日が設定されない会議のエンティティを検索します。
+     * 
+     * @param date(現在日時), memberId(ログインメンバーＩＤ), meetingDayFlag(開催日時が設定されているか)
      * 
      * @return エンティティのリスト
      */
-    public List<TParty> findBy_NODeadline_GE(Date dateNow, Integer memberId) {
+    public List<TParty> findBy_NODeadline_GE(Date dateNow, Integer memberId, boolean meetingDayFlag) {
     	
     	//現在時刻に任意の日にち分足す
     	GregorianCalendar calendar=new GregorianCalendar();
@@ -206,10 +212,72 @@ public class TPartyService extends AbstractService<TParty> {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(deleteFlag(), Boolean.valueOf(false));
     	where.isNull(meetingDeadlineDay(), Boolean.valueOf(true));
+    	if(meetingDayFlag){
+    		where.isNull(meetingDay(), Boolean.valueOf(true));
+    	}else{
+    		where.isNotNull(meetingDay(), Boolean.valueOf(true));
+    	}
     	where.ge(updateTime(), dateadd);
         return select()
-        		.innerJoin("TMember")
-        		.leftOuterJoin("tPartyAttendList", new SimpleWhere().eq("tPartyAttendList.memberID", memberId))
+        		.innerJoin(tMember())
+        		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
+        		.where(where).orderBy(desc(id()))
+        		.getResultList();
+    }
+    
+    /**
+     * 実行された日時に対して一ヶ月以内に作成され、開催日が設定されなかった会議のエンティティを検索します。
+     * @param memberId 
+     * 
+     * @return エンティティのリスト
+     */
+    public List<TParty> findBy_NO_MeetingDay_GE(Date dateNow, Integer memberId) {
+    	
+    	//現在時刻に任意の日にち分足す
+    	GregorianCalendar calendar=new GregorianCalendar();
+		calendar.setTime(dateNow);
+		calendar.add(Calendar.MONTH, -1);
+		Date dateadd = new Date();
+		dateadd=calendar.getTime();
+		
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	where.isNull(meetingDay(), Boolean.valueOf(true));
+    	where.ge(updateTime(), dateadd);
+        return select()
+        		.innerJoin(tMember())
+        		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
+        		.where(where).orderBy(desc(id()))
+        		.getResultList();
+    }
+    
+    /**
+     * 実行された日時に対して一ヶ月以内に作成され、開催日が設定されなかった会議のエンティティを検索します。
+     * @param memberId 
+     * 
+     * @return エンティティのリスト
+     */
+    public List<TParty> findBy_WillMeeting(Date dateNow, Integer memberId) {
+		
+    	ComplexWhere where = new ComplexWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	where.and(where
+    			//(開催日 > 今) かつ (締め切り < 今)締め切りは過ぎているがまだ開催しない
+    			.lt(meetingDeadlineDay(), dateNow)
+    			.gt(meetingDay(), dateNow)
+    			.or()
+    			//(開催日 >= 今) かつ (締め切り = なし)
+    			.isNull(meetingDeadlineDay(), Boolean.valueOf(true))
+    			.gt(meetingDay(), dateNow)
+    			.or()
+    			//(開催日 = なし) かつ (締め切り < 今)
+    			.isNull(meetingDay(),Boolean.valueOf(true))
+    			.le(meetingDeadlineDay(), dateNow));
+//    	where.and(where
+//    			.le(meetingDay(), dateNow));
+        return select()
+        		.innerJoin(tMember())
+        		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
         		.where(where).orderBy(desc(id()))
         		.getResultList();
     }

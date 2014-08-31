@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.Generated;
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.seasar.extension.jdbc.AutoSelect;
 import org.seasar.extension.jdbc.where.SimpleWhere;
 
@@ -185,13 +186,13 @@ public class TMemberService extends AbstractService<TMember> {
     	
     	SimpleWhere where = new SimpleWhere();
     	//引数が空じゃなかったら検索条件に含める
-    	if (!name.isEmpty()) {
+    	if (StringUtils.isNotEmpty(name)) {
     		where = where.contains(name(), name);
     	}
-    	if (!hname.isEmpty()) {
+    	if (StringUtils.isNotEmpty(hname)) {
     		where = where.contains(hname(), hname);
     	}
-    	if (!entrance.isEmpty()) {
+    	if (StringUtils.isNotEmpty(entrance)) {
     		where = where.eq(entrance(), entrance);
     	}
     	

@@ -3,10 +3,9 @@ package tsuboneSystem.action.admin;
 import java.util.List;
 
 import javax.annotation.Resource;
-
+import org.seasar.framework.beans.util.*;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
-
 import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginMemberDto;
@@ -54,6 +53,27 @@ public class AttendAction {
 	/** 会議の一覧 */
 	public List<TParty> partyItem;
 	
+	/** 一覧からの出欠 */
+	@Execute(validator = false, urlPattern = "yesFromList/{yesId}")
+	public String yesFromList() {
+		
+		//編集対象の特定
+		TParty tParty = tPartyService.findById(attendForm.yesId);
+		Beans.copy(tParty, partyDto).execute();
+		
+		return yes();
+	}
+	
+	/** 一覧からの出欠 */
+	@Execute(validator = false, urlPattern = "noFromList/{noId}")
+	public String noFromList() {
+		
+		//編集対象の特定
+		TParty tParty = tPartyService.findById(attendForm.noId);
+		Beans.copy(tParty, partyDto).execute();
+		
+		return no();
+	}
     
     @Execute(validator = false)
 	public String yes() {

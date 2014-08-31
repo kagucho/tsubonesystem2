@@ -91,7 +91,7 @@ public class IndexAction {
     	myPageForm.tPartyNoAttendList = tPartyService.findNotAttendPartyByMemberId(new Date(), loginLeadersDto.memberId);
     	
     	//実行日に開催されている会議一覧
-    	myPageForm.tPartyToDayList = tPartyService.findBy_MeetingDay_EQ_Now(dateNow);
+    	myPageForm.tPartyToDayList = tPartyService.findBy_MeetingDay_BETWEEN_Now(dateNow, loginMemberDto.memberId);
     	
         return "index.jsp";
 	}
