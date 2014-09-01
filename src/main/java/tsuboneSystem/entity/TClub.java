@@ -51,11 +51,11 @@ public class TClub implements Serializable {
     public TLeaders tLeaders;
     
     /** IdをTPartyClubに結びつける */
-    @OneToMany(mappedBy = "TClub")
+    @OneToMany(mappedBy = "tClub")
     public List<TPartyClub> tPartyClubList;
     
     /** IdをTMemberClubに結びつける */
-    @OneToMany(mappedBy = "TClub")
+    @OneToMany(mappedBy = "tClub")
     public List<TMemberClub> tMemberClubList;
 
 }
