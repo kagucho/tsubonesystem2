@@ -28,6 +28,7 @@ public class IndexAction {
 	
 	public String actionNameSub = null;
 	
+	
 	/** Indexのアクションフォーム */
 	@ActionForm
 	@Resource
@@ -85,6 +86,7 @@ public class IndexAction {
     	
     	//現在時刻の取得と、その時点で出欠受付中かつ、まだ出欠を出していないの会議一覧
     	myPageForm.tPartyNoAttendList = new ArrayList<TParty>();
+    	
     	Date dateNow = new Date();
     	
     	//TODO 締切日がないものはどうするか？

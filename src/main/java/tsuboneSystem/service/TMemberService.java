@@ -38,11 +38,15 @@ public class TMemberService extends AbstractService<TMember> {
      *            識別子
      * @return エンティティ
      */
-    public TMember findById(Integer id) {
+    public List<TMember> findById(Integer id) {
+    	
     	SimpleWhere where = new SimpleWhere();
     	where.eq(deleteFlag(), Boolean.valueOf(false));
     	where.eq(id(), id);
-        return select().where(where).getSingleResult();
+    	List<TMember> tMemberList = select().where(where).getResultList();
+    		
+    	
+        return tMemberList;
     }
     
     /**

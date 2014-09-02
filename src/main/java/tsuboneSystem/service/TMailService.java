@@ -1,8 +1,8 @@
 package tsuboneSystem.service;
 
+import static org.seasar.extension.jdbc.operation.Operations.asc;
 import static org.seasar.extension.jdbc.operation.Operations.desc;
-import static tsuboneSystem.names.TMailNames.id;
-import static tsuboneSystem.names.TMailNames.registMemberId;
+import static tsuboneSystem.names.TMailNames.*;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import org.seasar.extension.jdbc.AutoSelect;
 import org.seasar.extension.jdbc.where.SimpleWhere;
 
 import tsuboneSystem.entity.TMail;
+import tsuboneSystem.entity.TPartyAnswer;
 import tsuboneSystem.original.manager.MailManager;
 
 /**
@@ -48,7 +49,7 @@ public class TMailService extends AbstractService<TMail> {
      * @return
      */
     public List<TMail> findAllOrderByIdLimitOffset(int limit, int offset) {
-    	return select().orderBy(desc(id())).limit(limit).offset(offset).getResultList();
+    	return select().innerJoin(tMember()).orderBy(desc(id())).limit(limit).offset(offset).getResultList();
     }
     
     /**
