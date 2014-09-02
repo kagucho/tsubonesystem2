@@ -103,7 +103,7 @@ public class TParty implements Serializable {
     @Temporal(TemporalType.DATE)
 	public Date meetingEndDay;
     
-    /** 会議時間　*/
+    /** 会議時間ss　*/
     @Column()
     @Temporal(TemporalType.TIME)
 	public Date meetingTime;
