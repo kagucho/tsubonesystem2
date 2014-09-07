@@ -1,6 +1,6 @@
 <div class="container">
 <a href="<c:url value="/${loginMemberDto.actorKind}/partyRegist/index"/>">
-<button type="button" class="btn btn-primary btn-lg btn-block">イベントを登録する</button>
+	<button type="button" class="btn btn-primary btn-lg btn-block">イベントを登録する</button>
 </a>
 	<div class="col-sm-12">
 		<%-- 期限ありで出欠中の会議一覧 --%>
@@ -101,4 +101,7 @@
 			</c:forEach>
 		</table>
 	</div>
+	<a href="<c:url value="/${loginMemberDto.actorKind}/partyList/historyList"/>">
+		<button type="button" class="btn btn-primary btn-lg btn-block">過去の会議</button>
+	</a>
 </div>

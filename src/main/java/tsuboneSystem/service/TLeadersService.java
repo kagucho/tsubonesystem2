@@ -26,7 +26,7 @@ public class TLeadersService extends AbstractService<TLeaders> {
      */
     public TLeaders findById(Integer id) {
         return select()
-        		.innerJoin("TMember")
+        		.innerJoin(tMember())
         		.id(id).getSingleResult();
     }
 
@@ -50,7 +50,7 @@ public class TLeadersService extends AbstractService<TLeaders> {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(OfficerKind(), OfficerKind);
         return select()
-        		.innerJoin("TMember")
+        		.innerJoin(tMember())
         		.where(where)
         		.getResultList();
     }
@@ -77,7 +77,7 @@ public class TLeadersService extends AbstractService<TLeaders> {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(MemberId(), id);
         return select()
-        		.leftOuterJoin("TClub",new SimpleWhere().eq("TClub.deleteFlag",  Boolean.valueOf(false)))
+        		.leftOuterJoin(tClub(),new SimpleWhere().eq(tClub().deleteFlag(),  Boolean.valueOf(false)))
         		.where(where)
         		.getResultList();
     }
@@ -92,7 +92,7 @@ public class TLeadersService extends AbstractService<TLeaders> {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(MemberId(), id);
         return select()
-        		.leftOuterJoin("TClub",new SimpleWhere().eq("TClub.deleteFlag",  Boolean.valueOf(false)))
+        		.leftOuterJoin(tClub(),new SimpleWhere().eq(tClub().deleteFlag(),  Boolean.valueOf(false)))
         		.where(where)
         		.orderBy(asc(OfficerKind()))
         		.getResultList();
@@ -109,7 +109,7 @@ public class TLeadersService extends AbstractService<TLeaders> {
     	where.eq(OfficerKind(), officerKind);
     	where.eq(MemberId(), id);
         return select()
-        		.leftOuterJoin("TClub",new SimpleWhere().eq("TClub.deleteFlag",  Boolean.valueOf(false)))
+        		.leftOuterJoin(tClub(),new SimpleWhere().eq(tClub().deleteFlag(),  Boolean.valueOf(false)))
         		.where(where)
         		.getResultList();
     }

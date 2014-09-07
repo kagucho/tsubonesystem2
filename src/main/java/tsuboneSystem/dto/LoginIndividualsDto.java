@@ -19,4 +19,7 @@ public class LoginIndividualsDto implements Serializable {
 	
 	/** ログインしている人の情報 **/
 	public TMember tMemberLogin;
+	
+	/** リダイレクト先ＵＲＬ */
+	public String redirectURL;
 }

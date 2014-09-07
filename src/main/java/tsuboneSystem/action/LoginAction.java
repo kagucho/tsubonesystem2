@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
@@ -123,6 +124,11 @@ public class LoginAction {
         		loginMemberDto.tMemberLogin = member;
         		loginMemberDto.actorKindCode = ActorKindCode.ADMIN.getCodeNumber();
         		loginMemberDto.actorKind = ActorKindCode.ADMIN.getName();
+        		
+        		//遷移先が格納されている時はそちらに飛ぶ
+        		if(StringUtil.isNotEmpty(loginAdminDto.redirectURL)){
+        			return loginAdminDto.redirectURL;
+        		}
         		return "/admin/?redirect=true";
     		}
     		
@@ -160,6 +166,8 @@ public class LoginAction {
         		//通常部員はIndividuals
         		loginIndividualsDto.memberId = member.id;
         		loginIndividualsDto.tMemberLogin = member;
+        		loginMemberDto.memberId = member.id;
+        		loginMemberDto.tMemberLogin = member;
         		loginMemberDto.actorKindCode = ActorKindCode.MEMBER.getCodeNumber();
         		loginMemberDto.actorKind = ActorKindCode.MEMBER.getName();
         		//メール不達フラグが立っていたらメンバー更新画面に飛ばす

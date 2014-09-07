@@ -46,6 +46,6 @@ public class TBbsDetailService extends AbstractService<TBbsDetail> {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(deleteFlag(), Boolean.valueOf(false));
     	where.eq(subjectId(), subjectId);
-        return select().where(where).innerJoin("tMember").orderBy(asc(updateTime())).getResultList();
+        return select().where(where).innerJoin(tMember()).orderBy(asc(updateTime())).getResultList();
     }
 }

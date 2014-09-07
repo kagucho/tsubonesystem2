@@ -92,23 +92,27 @@ public class TMember implements Serializable {
     public boolean  tempMemberFlag;
     
     /** memberIdをTAdminに結びつける */
-    @OneToMany(mappedBy = "TMember")
+    @OneToMany(mappedBy = "tMember")
     public List<TAdmin> tAdminList;
     
     /** memberIdをTLeadersに結びつける */
-    @OneToMany(mappedBy = "TMember")
+    @OneToMany(mappedBy = "tMember")
     public List<TLeaders> tLeadersList;
     
     /** memberIdをTPatyAttendに結びつける */
-    @OneToMany(mappedBy = "TMember")
+    @OneToMany(mappedBy = "tMember")
     public List<TPartyAttend> tPaertAttendList;
     
     /** memberIdをTPatyAttendに結びつける */
-    @OneToMany(mappedBy = "TMember")
+    @OneToMany(mappedBy = "tMember")
     public List<TParty> tPaertyList;
     
+    /** memberIdをTPatyAttendに結びつける */
+    @OneToMany(mappedBy = "editTMember")
+    public List<TParty> tPaertyEditList;
+    
     /** memberIdをTMailSendMemberに結びつける */
-    @OneToMany(mappedBy = "TMember")
+    @OneToMany(mappedBy = "tMember")
     public List<TMailSendMember> tMailSendMemberList;
     
     /** memberIdをTMailに結びつける */

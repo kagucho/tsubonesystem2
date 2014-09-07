@@ -157,6 +157,24 @@
 			</component>
 		</arg>	
 	</initMethod>
+	<initMethod name="addCustomizer">
+		<arg>
+			<component
+				class="org.seasar.framework.container.customizer.AspectCustomizer">
+				<property name="interceptorName">"individualsMyPartyPowerInterceptor"</property>
+				<!-- 処理の対象外ににしたいAction(これ以外が対象になる)
+				<initMethod name="addIgnoreClassPattern">
+					<arg>"tsuboneSystem.action"</arg>
+					<arg>"LoginAdminAction"</arg>
+				</initMethod> -->
+				<!-- 対象にしたいクラスの設定はこちら-->
+				<initMethod name="addClassPattern">
+					<arg>"tsuboneSystem.action.individuals"</arg>
+					<arg>"PartyAttendUpdateAction"</arg>
+				</initMethod>
+			</component>
+		</arg>	
+	</initMethod>
     <initMethod name="addAspectCustomizer">
       <arg>"actionMessagesThrowsInterceptor"</arg>
     </initMethod>

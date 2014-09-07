@@ -31,5 +31,8 @@ public class LoginAdminDto implements Serializable {
 	
 	/** 部長の場合の情報 **/
 	public TClub tClub;
+	
+	/** リダイレクト先ＵＲＬ */
+	public String redirectURL;
 		
 }

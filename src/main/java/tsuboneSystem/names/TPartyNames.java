@@ -15,7 +15,7 @@ import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
  * {@link TParty}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/08/27 0:50:16")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/09/04 23:34:46")
 public class TPartyNames {
 
     /**
@@ -127,6 +127,24 @@ public class TPartyNames {
     }
 
     /**
+     * resultEditMemberIdのプロパティ名を返します。
+     * 
+     * @return resultEditMemberIdのプロパティ名
+     */
+    public static PropertyName<Integer> resultEditMemberId() {
+        return new PropertyName<Integer>("resultEditMemberId");
+    }
+
+    /**
+     * resultEditEndFlagのプロパティ名を返します。
+     * 
+     * @return resultEditEndFlagのプロパティ名
+     */
+    public static PropertyName<Boolean> resultEditEndFlag() {
+        return new PropertyName<Boolean>("resultEditEndFlag");
+    }
+
+    /**
      * noPublicFlagのプロパティ名を返します。
      * 
      * @return noPublicFlagのプロパティ名
@@ -160,6 +178,15 @@ public class TPartyNames {
      */
     public static _TMemberNames tMember() {
         return new _TMemberNames("tMember");
+    }
+
+    /**
+     * editTMemberのプロパティ名を返します。
+     * 
+     * @return editTMemberのプロパティ名
+     */
+    public static _TMemberNames editTMember() {
+        return new _TMemberNames("editTMember");
     }
 
     /**
@@ -340,6 +367,24 @@ public class TPartyNames {
         }
 
         /**
+         * resultEditMemberIdのプロパティ名を返します。
+         *
+         * @return resultEditMemberIdのプロパティ名
+         */
+        public PropertyName<Integer> resultEditMemberId() {
+            return new PropertyName<Integer>(this, "resultEditMemberId");
+        }
+
+        /**
+         * resultEditEndFlagのプロパティ名を返します。
+         *
+         * @return resultEditEndFlagのプロパティ名
+         */
+        public PropertyName<Boolean> resultEditEndFlag() {
+            return new PropertyName<Boolean>(this, "resultEditEndFlag");
+        }
+
+        /**
          * noPublicFlagのプロパティ名を返します。
          *
          * @return noPublicFlagのプロパティ名
@@ -373,6 +418,15 @@ public class TPartyNames {
          */
         public _TMemberNames tMember() {
             return new _TMemberNames(this, "tMember");
+        }
+
+        /**
+         * editTMemberのプロパティ名を返します。
+         * 
+         * @return editTMemberのプロパティ名
+         */
+        public _TMemberNames editTMember() {
+            return new _TMemberNames(this, "editTMember");
         }
 
         /**

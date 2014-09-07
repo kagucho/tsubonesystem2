@@ -2,7 +2,6 @@ package tsuboneSystem.interceptor;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
 import org.aopalliance.intercept.MethodInvocation;
 import org.seasar.framework.aop.interceptors.AbstractInterceptor;
 import org.seasar.struts.annotation.Execute;
@@ -18,11 +17,13 @@ public abstract class AbstractLoginInterceptor extends AbstractInterceptor {
 	
 	@Resource
 	TTempMessageService tTempMessageService;
-	
+
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		if (isExecuteMethod(invocation)) {
 			if (!isLogined()) {
+				//遷移先を取得しておく
+				setRedirectUrl(request.getRequestURI().toString());
 				return "/login/?redirect=true";
 			}
 		}
@@ -59,4 +60,8 @@ public abstract class AbstractLoginInterceptor extends AbstractInterceptor {
 	protected boolean isExecuteMethod(MethodInvocation invocation) {
 		return invocation.getMethod().isAnnotationPresent(Execute.class);
 	}
+	
+	//遷移先があった場合はその遷移先をセットする。
+	abstract protected void setRedirectUrl(String Url);
+	
 }

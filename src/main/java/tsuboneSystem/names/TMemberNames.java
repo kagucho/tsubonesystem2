@@ -16,7 +16,7 @@ import tsuboneSystem.names.TPartyQuestionNames._TPartyQuestionNames;
  * {@link TMember}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/08/27 0:50:16")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/09/04 23:34:46")
 public class TMemberNames {
 
     /**
@@ -206,6 +206,15 @@ public class TMemberNames {
      */
     public static _TPartyNames tPaertyList() {
         return new _TPartyNames("tPaertyList");
+    }
+
+    /**
+     * tPaertyEditListのプロパティ名を返します。
+     * 
+     * @return tPaertyEditListのプロパティ名
+     */
+    public static _TPartyNames tPaertyEditList() {
+        return new _TPartyNames("tPaertyEditList");
     }
 
     /**
@@ -464,6 +473,15 @@ public class TMemberNames {
          */
         public _TPartyNames tPaertyList() {
             return new _TPartyNames(this, "tPaertyList");
+        }
+
+        /**
+         * tPaertyEditListのプロパティ名を返します。
+         * 
+         * @return tPaertyEditListのプロパティ名
+         */
+        public _TPartyNames tPaertyEditList() {
+            return new _TPartyNames(this, "tPaertyEditList");
         }
 
         /**

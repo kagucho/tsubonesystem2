@@ -64,6 +64,12 @@ public class PartyForm implements Serializable{
 	
 	/** 審議結果 */
     public String  meetingResult;
+    
+    /** 会議結果の最終編集者　*/
+	public Integer resultEditMemberId;
+    
+    /** 最終編集フラグ */
+    public boolean  resultEditEndFlag;
 	
 	/** 削除フラグ */
     public String  deleteFlag;
@@ -161,6 +167,7 @@ public class PartyForm implements Serializable{
 		meetingNecessaryFlag = false;
 		question = null;
 		questionSend = false;
+		resultEditEndFlag = false;
 	}
 	
 	//オリジナルチェック

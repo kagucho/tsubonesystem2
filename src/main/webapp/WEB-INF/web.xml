@@ -143,11 +143,11 @@ version="2.4">
         <url-pattern>/s2container/*</url-pattern>
     </servlet-mapping>
     
-	<!--
+	<!-- 自動ログアウト時間 (s) -->
     <session-config>
-        <session-timeout>1</session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
-	-->
+	
 
 	<!--
     <welcome-file-list>

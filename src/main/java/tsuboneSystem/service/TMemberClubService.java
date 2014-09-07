@@ -9,6 +9,7 @@ import org.seasar.extension.jdbc.where.SimpleWhere;
 import tsuboneSystem.entity.TMemberClub;
 import static org.seasar.extension.jdbc.operation.Operations.*;
 import static tsuboneSystem.names.TClubNames.id;
+import static tsuboneSystem.names.TLeadersNames.tClub;
 import static tsuboneSystem.names.TMemberClubNames.*;
 
 /**
@@ -46,7 +47,7 @@ public class TMemberClubService extends AbstractService<TMemberClub> {
     public List<TMemberClub> findByMemberId(String memberId) {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(MemberId(),memberId);
-        return select().innerJoin("TClub",new SimpleWhere().eq("TClub.deleteFlag", Boolean.valueOf(false))).where(where).orderBy(asc(id())).getResultList();
+        return select().innerJoin(tClub(),new SimpleWhere().eq(tClub().deleteFlag(), Boolean.valueOf(false))).where(where).orderBy(asc(id())).getResultList();
     }
     
     /**
@@ -64,10 +65,10 @@ public class TMemberClubService extends AbstractService<TMemberClub> {
     }
 
 	private SimpleWhere getWhereMember(boolean containsOb) {
-		SimpleWhere where = new SimpleWhere().eq("TMember.deleteFlag", Boolean.valueOf(false));
+		SimpleWhere where = new SimpleWhere().eq(tMember().deleteFlag(), Boolean.valueOf(false));
 		//OBを含めないなら検索条件に含める
 		if (!containsOb) {
-			where.eq("TMember.sendStopFlag", Boolean.valueOf(false));
+			where.eq(tMember().sendStopFlag(), Boolean.valueOf(false));
 		}
 		return where; 
 	}
@@ -83,10 +84,10 @@ public class TMemberClubService extends AbstractService<TMemberClub> {
         return select()
         		.where(where)
         		.innerJoin(
-        				"TMember",
+        				tMember(),
         				new SimpleWhere()
-	        				.eq("TMember.deleteFlag", Boolean.valueOf(false))
-	        				.eq("TMember.obFlag", Boolean.valueOf(false)))
+	        				.eq(tMember().deleteFlag(), Boolean.valueOf(false))
+	        				.eq(tMember().obFlag(), Boolean.valueOf(false)))
         		.getResultList();
     }
     
@@ -102,10 +103,10 @@ public class TMemberClubService extends AbstractService<TMemberClub> {
     	where.eq(ClubId(), Id);
         return select().where(where)
         		.innerJoin(
-        				"TMember",
+        				tMember(),
         				new SimpleWhere()
-        				.eq("TMember.deleteFlag", Boolean.valueOf(false))
-        				.eq("TMember.obFlag", Boolean.valueOf(false)))
+        				.eq(tMember().deleteFlag(), Boolean.valueOf(false))
+        				.eq(tMember().obFlag(), Boolean.valueOf(false)))
         		.getResultList();
     }
 }

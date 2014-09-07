@@ -18,6 +18,7 @@ public class PartyResultAction extends tsuboneSystem.action.admin.PartyResultAct
 		return super.input();
 	}
 	
+	
 	@Override
 	protected Integer getLoginMemberId() {
 		return loginIndividualsDto.memberId;

@@ -100,7 +100,14 @@ public class PartyAttendListAction {
     	
 
     	TParty party = tPartyService.findById(partyAttendForm.id);
-    	Beans.copy(party, partyDto).execute();
+    	Beans.copy(party, partyDto).excludes("myPartyFlag").execute();
+    	
+    	//ログイン者が会議の制作者かどうか
+    	if(party.creatorId.equals(loginMemberDto.memberId)){
+    		partyDto.myPartyFlag = true;
+    	}else{
+    		partyDto.myPartyFlag = false;
+    	}
 
     	//現在時刻を取得し、期限内か判断する
     	Date dateNow = new Date();

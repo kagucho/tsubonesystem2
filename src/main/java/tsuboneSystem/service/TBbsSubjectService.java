@@ -45,6 +45,6 @@ public class TBbsSubjectService extends AbstractService<TBbsSubject> {
     public List<TBbsSubject> findOrderByUpdateTime() {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(deleteFlag(), Boolean.valueOf(false));
-        return select().where(where).innerJoin("tMember").orderBy(desc(updateTime())).getResultList();
+        return select().where(where).innerJoin(tMember()).orderBy(desc(updateTime())).getResultList();
     }
 }
