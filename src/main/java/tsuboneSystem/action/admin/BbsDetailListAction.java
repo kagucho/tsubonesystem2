@@ -1,13 +1,10 @@
 package tsuboneSystem.action.admin;
 
-import java.util.ArrayList;
-
 import javax.annotation.Resource;
 
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
-import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TBbsDetail;
 import tsuboneSystem.entity.TBbsSubject;
@@ -29,10 +26,6 @@ public class BbsDetailListAction {
 	@Resource
 	public LoginMemberDto loginMemberDto;
 	
-	/** LoginIndividualsDtoのサービスクラス */
-	@Resource
-	protected LoginAdminDto loginAdminDto;
-	
 	/** TMemberのサービスクラス */
 	@Resource
 	protected TMemberService tMemberService;
@@ -50,16 +43,11 @@ public class BbsDetailListAction {
 	
     @Execute(validator = false, urlPattern = "{id}")
 	public String index() {
-    	
-    	tBbsSubject = null;
-    	bbsForm.tBbsDetailList = new ArrayList<TBbsDetail>();
-    	
-    	tBbsSubject = tBbsSubjectService.findById(bbsForm.id); 
     	bbsForm.tBbsDetailList = tBbsDetailService.findBySubjectId(bbsForm.id);
-    			
+    	
     	return "BbsDetailList.jsp";
 	}
-    
+
     //confirmのバリデータに引っかかった時はここに戻ってくる。(入力した値保持のため)
     @Execute(validator = false)
 	public String viewinput() {
@@ -73,11 +61,14 @@ public class BbsDetailListAction {
     	TBbsDetail tBbsDetail = new TBbsDetail();
     	tBbsDetail.subjectId = bbsForm.id;
     	tBbsDetail.detail = bbsForm.detail;
-    	tBbsDetail.memberId = loginAdminDto.memberId;
+    	tBbsDetail.memberId = loginMemberDto.memberId;
     	tBbsDetailService.insert(tBbsDetail);
     	bbsForm.detail = null;
     	
-    return "/admin/bbsDetailList/?redirect=true";
+    return "/" + getDirectory() + "/bbsDetailList/?redirect=true";
 	}
     
+    protected String getDirectory() {
+    	return "admin";
+    }
 }

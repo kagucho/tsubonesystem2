@@ -37,7 +37,7 @@ public class TBbsDetail implements Serializable {
     public Integer subjectId;
     
     /** 内容 */
-    @Column()
+    @Column(columnDefinition ="mediumtext")
     public String detail;
 
     /** 登録者Id */
