@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.seasar.framework.aop.annotation.RemoveSession;
 import org.seasar.struts.annotation.Execute;
 
-import tsuboneSystem.dto.LoginAdminDto;
+import tsuboneSystem.dto.LoginLeadersDto;
 import tsuboneSystem.dto.LoginMemberDto;
 
 public class LogoutAction {
@@ -15,11 +15,11 @@ public class LogoutAction {
 	public LoginMemberDto loginMemberDto;
 	
 	@Resource
-	protected LoginAdminDto loginAdminDto;
+	protected LoginLeadersDto loginLeadersDto;
 
 	
 	@Execute(validator = false)
-	@RemoveSession(name = "loginAdminDto")
+	@RemoveSession(name = "loginLeadersDto")
 	public String index() {
         return "/login/?redirect=true";
 	}

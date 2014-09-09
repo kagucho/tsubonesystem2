@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.framework.util.StringUtil;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
@@ -41,44 +42,50 @@ public class LoginAction {
 	protected LoginForm loginForm;
 	
 	/** TMemberのサービス */
-	@Resource
+	@Binding
 	protected TMemberService tMemberService;
 	
 	/** TAdminServiceのサービス */
-	@Resource
+	@Binding
 	protected TAdminService tAdminService;
 	
 	/** TLeadersServiceのサービス */
-	@Resource
+	@Binding
 	protected TLeadersService tLeadersService;
 	
 	/** TTempLoginServiceのサービス */
-	@Resource
+	@Binding
 	protected TTempLoginService tTempLoginService;
 	
 	/** TClubServiceのサービス */
-	@Resource
+	@Binding
 	protected TClubService tClubService;
 	
 	/**admin用ののDto */
-	@Resource
-	protected LoginAdminDto loginAdminDto;
+	@Binding
+	public LoginAdminDto loginAdminDto;
 	
 	/** Individuals用のDto */
-	@Resource
-	protected LoginIndividualsDto loginIndividualsDto;
+	@Binding
+	public LoginIndividualsDto loginIndividualsDto;
 	
 	/** Leaders用のDto */
-	@Resource
-	protected LoginLeadersDto loginLeadersDto;
+	@Binding
+	public LoginLeadersDto loginLeadersDto;
 	
 	/** LoginTempLoginDto用のDto */
-	@Resource
-	protected LoginTempLoginDto loginTempLoginDto;
+	@Binding
+	public LoginTempLoginDto loginTempLoginDto;
 	
 	/** Member用のDto */
-	@Resource
-	protected LoginMemberDto loginMemberDto;
+	@Binding
+	public LoginMemberDto loginMemberDto;
+	
+	/** 遷移先 */
+	public String url = null;
+	
+	/** 遷移先(取得時) */
+	public String redirectURL = null;
 
     @Execute(validator = false)
 	public String index() {
@@ -93,6 +100,17 @@ public class LoginAction {
     	
     	id = loginForm.id;
     	password = DigestUtil.md5(loginForm.password);
+    	
+    	//遷移先を取得
+    	if(StringUtil.isNotEmpty(loginAdminDto.redirectURL)){
+    		redirectURL = loginAdminDto.redirectURL;
+    	}else if(StringUtil.isNotEmpty(loginLeadersDto.redirectURL)){
+    		redirectURL = loginLeadersDto.redirectURL;
+    	}else if(StringUtil.isNotEmpty(loginIndividualsDto.redirectURL)){
+    		redirectURL = loginIndividualsDto.redirectURL;
+    	}else{
+    		redirectURL = null;
+    	}
     	
     	//仮登録用のメンバーであったとき
     	TTempLogin tTempLogin = tTempLoginService.findByLoginIdPassword(id, password);
@@ -126,8 +144,9 @@ public class LoginAction {
         		loginMemberDto.actorKind = ActorKindCode.ADMIN.getName();
         		
         		//遷移先が格納されている時はそちらに飛ぶ
-        		if(StringUtil.isNotEmpty(loginAdminDto.redirectURL)){
-        			return loginAdminDto.redirectURL;
+        		if(StringUtil.isNotEmpty(redirectURL)){
+        			url = urlCreator(redirectURL,ActorKindCode.ADMIN.getCode());
+        			return url;
         		}
         		return "/admin/?redirect=true";
     		}
@@ -161,6 +180,11 @@ public class LoginAction {
             	loginMemberDto.tMemberLogin = member;
             	loginMemberDto.actorKindCode = ActorKindCode.LEADERS.getCodeNumber();
             	loginMemberDto.actorKind = ActorKindCode.LEADERS.getName();
+            	//遷移先が格納されている時はそちらに飛ぶ
+        		if(StringUtil.isNotEmpty(redirectURL)){
+        			url = urlCreator(redirectURL,ActorKindCode.LEADERS.getCode());
+        			return url;
+        		}
             	return "/leaders/?redirect=true";
         	}else{
         		//通常部員はIndividuals
@@ -173,14 +197,18 @@ public class LoginAction {
         		//メール不達フラグが立っていたらメンバー更新画面に飛ばす
         		if (loginIndividualsDto.tMemberLogin.sendErrorFlag) {
         		return "/individuals/memberUpdate/input/?redirect=true";
-        	}
+        		}
         		//CSV登録で登録されたメンバーだったら更新画面に飛ばす
         		if(loginIndividualsDto.tMemberLogin.name == null && loginIndividualsDto.tMemberLogin.sex == null){
         		return "/individuals/memberUpdate/input/?redirect=true";
         		}
+        		//遷移先が格納されている時はそちらに飛ぶ
+        		if(StringUtil.isNotEmpty(redirectURL)){
+        			url = urlCreator(redirectURL,ActorKindCode.MEMBER.getCode());
+        			return url;
+        		}
         		return "/individuals/?redirect=true";
         	}
-        	
     	} 
     	//Memberに該当がない場合はログイン画面に戻す
     	return "/login/?redirect=true";
@@ -206,5 +234,27 @@ public class LoginAction {
     		errors.add("signError",new ActionMessage("このメンバーはまだ仮登録状態です。",false));
     	}
     	return errors;
+    }
+    
+    public String urlCreator(String warUrl, String actorKind){
+
+    	String[] splUrl;
+    	String lastUrl = null;
+    	
+    	splUrl = warUrl.split("/",3);
+    	lastUrl =splUrl[2];
+    	
+    	StringBuffer bf = new StringBuffer();
+    	if(actorKind.equals(ActorKindCode.ADMIN.getCode())){
+    		bf.append("/admin/");
+    	}else if(actorKind.equals(ActorKindCode.LEADERS.getCode())){
+    		bf.append("/leaders/");
+    	}else{
+    		bf.append("/individuals/");
+    	}
+    	bf.append(lastUrl);
+    	String url = new String(bf);
+    	
+    	return url;
     }
 }
