@@ -168,6 +168,8 @@ public class PartyForm implements Serializable{
 		question = null;
 		questionSend = false;
 		resultEditEndFlag = false;
+		content = null;
+		title = null;
 	}
 	
 	//オリジナルチェック

@@ -2,9 +2,11 @@ package tsuboneSystem.interceptor;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import org.aopalliance.intercept.MethodInvocation;
 import org.seasar.framework.aop.interceptors.AbstractInterceptor;
 import org.seasar.struts.annotation.Execute;
+import org.seasar.struts.util.RequestUtil;
 
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.service.TTempMessageService;
@@ -17,13 +19,28 @@ public abstract class AbstractLoginInterceptor extends AbstractInterceptor {
 	
 	@Resource
 	TTempMessageService tTempMessageService;
+	
+	String warUrl = new String();
+	String[] urls;
+	String url;
 
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		if (isExecuteMethod(invocation)) {
 			if (!isLogined()) {
+				
 				//遷移先を取得しておく
-				setRedirectUrl(request.getRequestURI().toString());
+				warUrl = RequestUtil.getRequest().getAttribute("javax.servlet.forward.request_uri").toString();
+				
+				//先頭の”/tsuboneSystem/”を取る
+				urls = warUrl.split("/",3);
+				StringBuffer bf = new StringBuffer();
+				bf.append("/");
+				bf.append(urls[2]);
+				bf.append("?redirect=true");
+				url = new String(bf);
+				
+				setRedirectUrl(url);
 				return "/login/?redirect=true";
 			}
 		}
@@ -33,7 +50,6 @@ public abstract class AbstractLoginInterceptor extends AbstractInterceptor {
 		
 		return str;
 	}
-	
 	
 	/**
 	 * 一時メッセージをセットする

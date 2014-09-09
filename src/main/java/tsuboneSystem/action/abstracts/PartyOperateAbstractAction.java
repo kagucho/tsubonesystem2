@@ -117,6 +117,16 @@ public abstract class PartyOperateAbstractAction {
     	//メールの送信者のID
     	partyForm.registMemberId = Integer.valueOf(registMemberId);
     	
+    	StringBuffer bf = new StringBuffer();
+    	bf.append(partyForm.content);
+    	bf.append("\n");
+    	bf.append("\n");
+    	bf.append("このイベントの詳細はこちらから");
+    	bf.append("\n");
+    	bf.append("http://localhost:8080/TsuboneSystem/admin/partyDetail/");
+    	bf.append(partyForm.id);
+    	partyForm.content = new String(bf);
+    	
     	//メールを送信する
     	MailManager manager = new MailManager();
     	manager.setTitle(partyForm.title);
