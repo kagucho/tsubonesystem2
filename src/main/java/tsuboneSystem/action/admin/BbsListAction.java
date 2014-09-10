@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
-import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TBbsSubject;
 import tsuboneSystem.entity.TParty;
@@ -27,10 +26,6 @@ public class BbsListAction {
 	/** LoginMemberDto */
 	@Resource
 	public LoginMemberDto loginMemberDto;
-	
-	/** LoginIndividualsDtoのサービスクラス */
-	@Resource
-	protected LoginAdminDto loginAdminDto;
 	
 	/** TMemberのサービスクラス */
 	@Resource
@@ -60,16 +55,19 @@ public class BbsListAction {
     }
     
     //新しいスレッド作成
-    @Execute(validator = true,input = "viewinput()")
+    @Execute(validator = true,input = "viewinput")
 	public String bbsRegist() {
     	
     	//DBに書き込む
     	TBbsSubject tBbsSubject = new TBbsSubject();
     	tBbsSubject.title = bbsForm.title;
-    	tBbsSubject.memberId = loginAdminDto.memberId;
+    	tBbsSubject.memberId = loginMemberDto.memberId;
     	tBbsSubjectService.insert(tBbsSubject);  
     		
-    	return "/admin/bbsList/?redirect=true";
+    	return "/" + getDirectory() +  "/bbsList/?redirect=true";
 	}
     
+    protected String getDirectory() {
+    	return "admin";
+    }
 }
