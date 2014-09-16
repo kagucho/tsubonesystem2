@@ -5,6 +5,9 @@ import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TBbsDetail;
 import tsuboneSystem.entity.TBbsSubject;
 import tsuboneSystem.entity.TClub;
+import tsuboneSystem.entity.TEnquete;
+import tsuboneSystem.entity.TEnqueteChoiceMember;
+import tsuboneSystem.entity.TEnqueteSelect;
 import tsuboneSystem.entity.TImageUpload;
 import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMail;
@@ -23,6 +26,9 @@ import tsuboneSystem.names.TAdminNames._TAdminNames;
 import tsuboneSystem.names.TBbsDetailNames._TBbsDetailNames;
 import tsuboneSystem.names.TBbsSubjectNames._TBbsSubjectNames;
 import tsuboneSystem.names.TClubNames._TClubNames;
+import tsuboneSystem.names.TEnqueteChoiceMemberNames._TEnqueteChoiceMemberNames;
+import tsuboneSystem.names.TEnqueteNames._TEnqueteNames;
+import tsuboneSystem.names.TEnqueteSelectNames._TEnqueteSelectNames;
 import tsuboneSystem.names.TImageUploadNames._TImageUploadNames;
 import tsuboneSystem.names.TLeadersNames._TLeadersNames;
 import tsuboneSystem.names.TMailNames._TMailNames;
@@ -42,7 +48,7 @@ import tsuboneSystem.names.TTempMessageNames._TTempMessageNames;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/08/27 0:50:16")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/09/14 18:56:12")
 public class Names {
 
     /**
@@ -79,6 +85,33 @@ public class Names {
      */
     public static _TClubNames tClub() {
         return new _TClubNames();
+    }
+
+    /**
+     * {@link TEnquete}の名前クラスを返します。
+     * 
+     * @return TEnqueteの名前クラス
+     */
+    public static _TEnqueteNames tEnquete() {
+        return new _TEnqueteNames();
+    }
+
+    /**
+     * {@link TEnqueteChoiceMember}の名前クラスを返します。
+     * 
+     * @return TEnqueteChoiceMemberの名前クラス
+     */
+    public static _TEnqueteChoiceMemberNames tEnqueteChoiceMember() {
+        return new _TEnqueteChoiceMemberNames();
+    }
+
+    /**
+     * {@link TEnqueteSelect}の名前クラスを返します。
+     * 
+     * @return TEnqueteSelectの名前クラス
+     */
+    public static _TEnqueteSelectNames tEnqueteSelect() {
+        return new _TEnqueteSelectNames();
     }
 
     /**

@@ -32,7 +32,7 @@
 							<li><a href="<c:url value="/${loginMemberDto.actorKind}/bbsList"/>">BBS</a></li>
 						</ul>
 						<ul class="nav navbar-nav">
-						    <li><a href="" />アンケート</a></li>
+						    <li><a href="<c:url value="/${loginMemberDto.actorKind}/enqueteList"/>">アンケート</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="<c:url value="/${loginMemberDto.actorKind}/logout"/>">Logout</a></li>
