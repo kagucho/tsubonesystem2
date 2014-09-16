@@ -48,6 +48,8 @@ public class PartyUpdateAction extends PartyOperateAbstractAction{
         	partyForm.attendClub[i] = tPartyClub.ClubId.toString();
         	i++;
         }
+        
+        partyForm.disabledFlag = true;
 		
         return viewinput();
 	}

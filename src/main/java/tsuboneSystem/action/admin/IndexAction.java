@@ -12,7 +12,6 @@ import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMemberClub;
-import tsuboneSystem.entity.TParty;
 import tsuboneSystem.form.MyPageForm;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TLeadersService;
@@ -83,15 +82,8 @@ public class IndexAction {
     		myPageForm.tClubList.add(tMemberClubOne.tClub);
     	}
     	
-    	//現在時刻の取得と、その時点で出欠受付中かつ、まだ出欠を出していないの会議一覧
-    	myPageForm.tPartyNoAttendList = new ArrayList<TParty>();
-    	Date dateNow = new Date();
-    	
     	//TODO 締切日がないものはどうするか？
-    	myPageForm.tPartyNoAttendList = tPartyService.findNotAttendPartyByMemberId(new Date(), loginAdminDto.memberId);
-    	
-    	//実行日に開催されている会議一覧
-    	myPageForm.tPartyToDayList = tPartyService.findBy_MeetingDay_BETWEEN_Now(dateNow, loginMemberDto.memberId);
+    	myPageForm.tPartyNoAttendList = tPartyService.findNotAttendPartyByMemberId(new Date(), loginMemberDto.memberId);
     	
     	return "index.jsp";
 	}

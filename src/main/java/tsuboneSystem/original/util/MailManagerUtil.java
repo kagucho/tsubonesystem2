@@ -26,9 +26,6 @@ public class MailManagerUtil {
 
 	//内容
 	public String content = null;
-	
-	//メールに記載する遷移先のId
-	public Integer contentId = null;
 
 	//タイトル
 	public String title = null;
@@ -41,6 +38,21 @@ public class MailManagerUtil {
 	
 	//送信結果を登録したTMail
 	public TMail tMail = new TMail();
+	
+	//機能名
+	public String contentName = null;
+	
+	//メールに記載する遷移先のId
+	public Integer contentId = null;
+	
+	//メールに記載するリンクurlの説明
+	public String caption = null;
+	
+	//メールにリンクをつけるかどうか
+	public boolean linkUrlFlag = false;
+	
+	//urlの先頭
+	private final String urlHead = "http://localhost:8080/TsuboneSystem/";
 	
 	
 	/**
@@ -60,11 +72,29 @@ public class MailManagerUtil {
 	}
 	
 	/**
-	 * メールに記載したいURL
-	 * @param requestUrl
+	 * メールに記載したいURLにつける機能id
+	 * @param contentId
 	 */
 	public void setContentId(Integer contentId){
 		this.contentId = contentId;
+	}
+	
+	/**
+	 * メールに記載したい機能名
+	 * 
+	 * @param requestUrl
+	 */
+	public void setContentName(String contentName){
+		this.contentName = contentName;
+	}
+	
+	/**
+	 * メールに記載したいリンクの説明
+	 * 
+	 * @param caption
+	 */
+	public void setCaption(String caption){
+		this.caption = caption;
 	}
 	
 	/**
@@ -73,6 +103,14 @@ public class MailManagerUtil {
 	 */
 	public void setRegistId(Integer sendMemberID) {
 		this.sendMemberID = sendMemberID;
+	}
+	
+	/**
+	 * メールにリンクをつけるかどうか
+	 * @param linkUrlFlag
+	 */
+	public void setLinkUrlFlag(boolean linkUrlFlag){
+		this.linkUrlFlag = linkUrlFlag;
 	}
 	
 	/**
@@ -117,16 +155,19 @@ public class MailManagerUtil {
 		
 		//管理者に対して
 		if(!toAddressAdmin.isEmpty()){
+			mailManager.setContent(getContentUrlFactory(ActorKindCode.ADMIN.getCode()));
 			mailManager.setToAddress(toAddressAdmin.toArray(new TMember[0]));
 			error = mailManager.sendMail();
 		}
 		//leadersに対して
 		if(!toAddressLeaders.isEmpty()){
+			mailManager.setContent(getContentUrlFactory(ActorKindCode.LEADERS.getCode()));
 			mailManager.setToAddress(toAddressLeaders.toArray(new TMember[0]));
 			error = mailManager.sendMail();
 		}
 		//一般メンバーに対して
 		if(!toAddressInd.isEmpty()){
+			mailManager.setContent(getContentUrlFactory(ActorKindCode.MEMBER.getCode()));
 			mailManager.setToAddress(toAddressInd.toArray(new TMember[0]));
 			error = mailManager.sendMail();
 		}
@@ -163,6 +204,37 @@ public class MailManagerUtil {
 			tMailSendMemberService.insert(tMailSendMember);
 		}	
 	}
-
+	
+	/**
+	 * 渡された機能urlと機能idからactorごとのリンクurlをつくる
+	 * @param url
+	 */
+	public String getContentUrlFactory(String actorKindCode){
+		
+		StringBuffer urlbf = new StringBuffer();
+		urlbf.append(content);
+		if(linkUrlFlag){
+			urlbf.append("\n");
+			urlbf.append("\n");
+			urlbf.append(caption);
+			urlbf.append("\n");
+			urlbf.append(urlHead);
+			if(ActorKindCode.ADMIN.getCode().equals(actorKindCode)){
+				urlbf.append(ActorKindCode.ADMIN.getName());
+			}else if(ActorKindCode.LEADERS.getCode().equals(actorKindCode)){
+				urlbf.append(ActorKindCode.LEADERS.getName());
+			}else if(ActorKindCode.MEMBER.getCode().equals(actorKindCode)){
+				urlbf.append(ActorKindCode.MEMBER.getName());
+			}
+			urlbf.append("/");
+			urlbf.append(contentName);
+			urlbf.append("/");
+			urlbf.append(contentId);
+			urlbf.append("\n");
+		}
+		String contentUrl = new String(urlbf);
+		
+		return contentUrl;
+	}
 
 }

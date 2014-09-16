@@ -240,15 +240,11 @@ public class TPartyService extends AbstractService<TParty> {
 		Date dateadd = new Date();
 		dateadd=calendar.getTime();
 		
-    	SimpleWhere where = new SimpleWhere();
+    	ComplexWhere where = new ComplexWhere();
     	where.eq(deleteFlag(), Boolean.valueOf(false));
     	where.isNull(meetingDeadlineDay(), Boolean.valueOf(true));
-    	if(meetingDayFlag){
-    		where.isNull(meetingDay(), Boolean.valueOf(true));
-    	}else{
-    		where.isNotNull(meetingDay(), Boolean.valueOf(true));
-    	}
-    	where.ge(updateTime(), dateadd);
+    	where.and(getComplex(dateadd, dateNow, meetingDayFlag));
+    	
         return select()
         		.innerJoin(tMember())
         		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
@@ -311,5 +307,22 @@ public class TPartyService extends AbstractService<TParty> {
         		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
         		.where(where).orderBy(desc(id()))
         		.getResultList();
+    }
+    
+    
+    public ComplexWhere getComplex(Date dateadd, Date dateNow, boolean meetingDayFlag){
+    	
+    	ComplexWhere whereComp = new ComplexWhere();
+    	if(meetingDayFlag){
+    		whereComp.isNull(meetingDay(), Boolean.valueOf(true));
+    		whereComp.ge(updateTime(), dateadd);
+    	}else{
+    		whereComp.ge(meetingDay(), dateNow)
+    		.isNull(meetingEndDay(), true)
+    		.or()
+    		.ge(meetingEndDay(), dateNow);
+    	}
+    	
+    	return whereComp;
     }
 }

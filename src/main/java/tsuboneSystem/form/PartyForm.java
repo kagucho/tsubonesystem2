@@ -82,6 +82,9 @@ public class PartyForm implements Serializable{
     
     /** 会議の制作者 */
     public TMember tMember;
+    
+    /** チェックボックス等の使用禁止フラグ */
+    public boolean disabledFlag;
 	
 	//以下の項目はメール配信関係
 		
