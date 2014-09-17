@@ -21,7 +21,6 @@
       <div class="vert-text">
 	  <img class="img-rounded" alt="Company Logo" src="./images/top/logo250c.png"/>
         <h2>神楽坂一丁目通信局</h2>
-
 			<br>
 			<a href="#about" class="btn btn-top">What's KAGUTYO</a>
       </div>

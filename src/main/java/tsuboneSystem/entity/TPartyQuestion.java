@@ -56,7 +56,7 @@ public class TPartyQuestion implements Serializable {
     public TMember tMember;
     
     /** questionIdをTPartyQuestionに結びつける */
-    @OneToMany(mappedBy = "TPartyQuestion")
+    @OneToMany(mappedBy = "tPartyQuestion")
     public List<TPartyAnswer> tPartyAnswerList;
     
     /**

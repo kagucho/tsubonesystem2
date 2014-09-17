@@ -1,64 +1,24 @@
 package tsuboneSystem.action.leaders;
 
-import javax.annotation.Resource;
-
-import org.seasar.struts.annotation.ActionForm;
-import org.seasar.struts.annotation.Execute;
-
-import tsuboneSystem.dto.LoginLeadersDto;
-import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TParty;
-import tsuboneSystem.form.PartyForm;
-import tsuboneSystem.service.TPartyService;
 
-public class PartyResultAction {
+public class PartyResultAction extends tsuboneSystem.action.admin.PartyResultAction{
 	
-	public String actionName = "PartyResult";
-	
-	/** PartyFormのアクションフォーム */
-	@ActionForm
-	@Resource
-	protected PartyForm partyForm;
-	
-	/** Member用のDto */
-	@Resource
-	public LoginMemberDto loginMemberDto;
-	
-	/** LoginAdminDtoのDto */
-	@Resource
-	protected LoginLeadersDto loginLeadersDto;
-	
-	/** TPartyのサービスクラス */
-	@Resource
-	protected TPartyService tPartyService;
-	
-	@Execute(validator = false, urlPattern = "{id}")
+	@Override
 	public String input() {
-        return viewinput();
+		TParty tParty = tPartyService.findById(partyForm.id);
+		if (tParty == null) {
+			return "/common/error.jsp";
+		}else if(!tParty.creatorId.equals(loginMemberDto.memberId)){
+			//対象の会議の制作者ではない
+			if(tParty.resultEditMemberId != null){
+				//すでに結果が入力されている場合
+				if(tParty.resultEditEndFlag && !tParty.resultEditMemberId.equals(loginMemberDto.memberId)){
+					//以後の編集が禁止になっていて、最後に編集した人ではないとき
+					return "/common/error.jsp";
+				}
+			}
+		}
+		return super.input();
 	}
-	
-    @Execute(validator = false)
-	public String viewinput() {
-    	return "partyInput.jsp";
-    }
-    
-    @Execute(validator = true, input = "partyInput.jsp")
-	public String confirm() {
-        return "partyConfirm.jsp";
-	}
-    
-    @Execute(validator = false)
-	public String complete() {
-    	
-    	//更新
-    	TParty tParty = tPartyService.findById(partyForm.id);
-    	tParty.meetingResult = partyForm.meetingResult;
-    	tPartyService.update(tParty);
-    	
-        return "partyComplete.jsp";
-	}
-   
-    protected Integer getLoginMemberId() {
-    	return loginLeadersDto.memberId;
-    }
 }

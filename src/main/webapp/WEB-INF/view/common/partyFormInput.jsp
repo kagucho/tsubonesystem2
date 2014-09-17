@@ -1,4 +1,4 @@
-<div class="col-sm-12">
+
 		<div class="form-group">
 			<label class="control-label col-sm-4" for=meetingName>会議の題名</label>
 			<div class="col-sm-8 memberF" >
@@ -50,15 +50,22 @@
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="attendClub">出席対象者を部に絞る</label>
 			<div class="col-sm-8 memberF">
-				<c:forEach var="e" items="${clubMapSS}">
-					<html:multibox property="attendClub" value="${e.key}" disabled="true"/>&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
-				</c:forEach>
+				<c:if test="${disabledFlag}" >
+					<c:forEach var="e" items="${clubMapSS}">
+						 <html:multibox property="attendClub" value="${e.key}" disabled="true" />&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
+					</c:forEach>
+				</c:if>
+				<c:if test="${!disabledFlag}" >
+					<c:forEach var="e" items="${clubMapSS}">
+						 <html:multibox property="attendClub" value="${e.key}" disabled="" />&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
+					</c:forEach>
+				</c:if>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="ObAttendFlag">OB出席</label>
 			<div class="col-sm-8 memberF">
-				<input type="checkbox" <c:if test="${ObAttendFlag}"> checked="checked"</c:if> disabled="disabled"/>&nbsp;OBも出席対象とする
+				<input type="checkbox" <c:if test="${ObAttendFlag}"> checked="checked"</c:if> <c:if test="${disabledFlag}">disabled="disabled"</c:if>/>&nbsp;OBも出席対象とする
 				<!-- チェックボックスがdisableのため情報が送信されないのでhiddenで情報を持っておく -->
 				<input type="hidden" id="ObAttendFlag" name="ObAttendFlag" value="${ObAttendFlag}">
 			</div>
@@ -76,4 +83,3 @@
 				<input type="checkbox" id="mailSendFlag" name="mailSendFlag" value="mailSendFlag" property="mailSendFlag"  onclick="hideToggle($('#mailInput'));"  <c:if test="${mailSendFlag}"> checked="checked"</c:if>/>&nbsp;メールを配信する※チェクしないとメールは配信されません！！
 			</div>
 		</div>
-	</div>

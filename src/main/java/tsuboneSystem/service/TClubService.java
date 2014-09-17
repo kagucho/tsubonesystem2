@@ -28,7 +28,7 @@ public class TClubService extends AbstractService<TClub> {
     public TClub findById(Integer id) {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(deleteFlag(), Boolean.valueOf(false));
-        return select().innerJoin("TLeaders").innerJoin("TLeaders.tMember").where(where).id(id).getSingleResult();
+        return select().innerJoin(tLeaders()).innerJoin(tLeaders().tMember()).where(where).id(id).getSingleResult();
     }
 
     /**
@@ -52,8 +52,8 @@ public class TClubService extends AbstractService<TClub> {
     	where.eq(deleteFlag(), Boolean.valueOf(false));
         return select()
         		.where(where)
-        		.innerJoin("TLeaders")
-        		.innerJoin("TLeaders.tMember")
+        		.innerJoin(tLeaders())
+        		.innerJoin(tLeaders().tMember())
         		.getResultList();
     }
     

@@ -12,5 +12,6 @@
   <component class="tsuboneSystem.fpao.ExcelFpao" >
     <aspect>fisshplate.interceptor</aspect>
   </component>
+  <component class="tsuboneSystem.original.manager.MailManager"/>
   <component name="actionMessagesThrowsInterceptor" class="org.seasar.struts.interceptor.ActionMessagesThrowsInterceptor"/>
 </components>

@@ -43,29 +43,29 @@ public class TParty implements Serializable {
 	/**
 	 * 引数の情報からTPartyエンティティを作成する
 	 * @param creatorId
-	 * @param partyForm
+	 * @param partyFormEnt
 	 */
-	public TParty(int creatorId, PartyForm partyForm) {
+	public TParty(int creatorId, PartyForm partyFormEnt) {
 		/** 入力された情報をエンティティにコピー　**/
 		//例外として.excludes()内に書いてある要素は省く(コピーしない)。日時関係はyyyy/mm/dd hh:mm:ssの形にしてTimestamp型に変化する必要がある。
-		Beans.copy(partyForm, this).excludes("meetingDay","meetingEndDay","meetingTime","meetingDeadlineDay").execute();
+		Beans.copy(partyFormEnt, this).excludes("meetingDay","meetingEndDay","meetingTime","meetingDeadlineDay").execute();
 		
 		//編集者のIDを入れる
 		this.creatorId = Integer.valueOf(creatorId);
 		
 		//日付と日時をString型からDate型に変換
 		try {
-			if (StringUtils.isNotEmpty(partyForm.meetingDay.trim())) {
-				meetingDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDay);
+			if (StringUtils.isNotEmpty(partyFormEnt.meetingDay.trim())) {
+				meetingDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyFormEnt.meetingDay);
 			}
-			if (StringUtils.isNotEmpty(partyForm.meetingEndDay.trim())) {
-				meetingEndDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingEndDay);
+			if (StringUtils.isNotEmpty(partyFormEnt.meetingEndDay.trim())) {
+				meetingEndDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyFormEnt.meetingEndDay);
 			}
-			if (StringUtils.isNotEmpty(partyForm.meetingTime.trim())) {
-				meetingTime = new SimpleDateFormat("HH:mm").parse(partyForm.meetingTime);
+			if (StringUtils.isNotEmpty(partyFormEnt.meetingTime.trim())) {
+				meetingTime = new SimpleDateFormat("HH:mm").parse(partyFormEnt.meetingTime);
 			}
-			if (StringUtils.isNotEmpty(partyForm.meetingDeadlineDay.trim())) {
-				meetingDeadlineDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyForm.meetingDeadlineDay);
+			if (StringUtils.isNotEmpty(partyFormEnt.meetingDeadlineDay.trim())) {
+				meetingDeadlineDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyFormEnt.meetingDeadlineDay);
 			}
 		} catch (ParseException e) {
 			//起こりえない
@@ -129,6 +129,14 @@ public class TParty implements Serializable {
     @Column(columnDefinition ="mediumtext")
 	public String meetingResult;
     
+    /** 会議結果の最終編集者　*/
+    @Column()
+	public Integer resultEditMemberId;
+    
+    /** 最終編集フラグ */
+    @Column(columnDefinition ="boolean default '0'")
+    public Boolean  resultEditEndFlag;
+    
     /** 公募出欠可否 */
     @Column(columnDefinition ="boolean default '0'")
     public Boolean  noPublicFlag;
@@ -147,16 +155,21 @@ public class TParty implements Serializable {
     @JoinColumn(name = "CREATOR_ID", referencedColumnName = "ID")
     public TMember tMember;
     
+    /* memberIdをTPatyAttendに結びつける */
+    @ManyToOne
+    @JoinColumn(name = "RESULT_EDIT_MEMBER_ID", referencedColumnName = "ID")
+    public TMember editTMember;
+    
     /* IdをTPatyClubに結びつける */
-    @OneToMany(mappedBy = "TParty")
+    @OneToMany(mappedBy = "tParty")
     public List<TPartyClub> tPartyClubList;
     
     /* IdをTPartySendMailに結びつける */
-    @OneToMany(mappedBy = "TParty")
+    @OneToMany(mappedBy = "tParty")
     public List<TPartySendMail> tPartySendMailList;
     
     /* IdをTPartySendMailに結びつける */
-    @OneToMany(mappedBy = "TParty")
+    @OneToMany(mappedBy = "tParty")
     public List<TPartyAttend> tPartyAttendList;
     
     /* IdをTPartyQuestionに結びつける */

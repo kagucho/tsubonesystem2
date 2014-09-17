@@ -32,4 +32,9 @@ public class LoginIndividualsConfirmInterceptor extends AbstractLoginInterceptor
 		}
 		return loginIndividualsDto.memberId;
 	}
+	
+	@Override
+	protected void setRedirectUrl(String url) {
+		loginIndividualsDto.redirectURL = url;
+	}
 }

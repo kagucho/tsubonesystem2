@@ -1,6 +1,8 @@
 package tsuboneSystem.action.admin;
 
+import java.util.ArrayList;
 import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.seasar.framework.aop.annotation.RemoveSession;
@@ -10,6 +12,7 @@ import org.seasar.struts.annotation.Execute;
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.dto.PartyDto;
+import tsuboneSystem.entity.TParty;
 import tsuboneSystem.form.PartyListForm;
 import tsuboneSystem.service.TPartyService;
 
@@ -71,10 +74,14 @@ public class PartyListAction {
     	
     	//日時を取得する
     	Date dateNow = new Date();
+
+    	partyListForm.tPartyHistory = new ArrayList<TParty>();
     	
     	//開催日が設定されず、一ヶ月過ぎた会議
-    	partyListForm.tPartyHistory = tPartyService.findBy_NODeadline_LE(dateNow, getLoginMemberId());
+    	partyListForm.tPartyHistory.addAll(tPartyService.findBy_NODeadline_LE(dateNow, getLoginMemberId()));
     	
+    	//その他開催日も終了日も過ぎた会議
+    	partyListForm.tPartyHistory.addAll(tPartyService.findByOldParty(dateNow, getLoginMemberId()));
     	
 		return "partyHistoryList.jsp";
     }

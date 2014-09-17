@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.form.ClubForm;
 import tsuboneSystem.service.TClubService;
@@ -39,6 +40,10 @@ public class ClubListAction {
 	/** Member用のDto */
 	@Resource
 	public LoginMemberDto loginMemberDto;
+	
+	/** Member用のDto */
+	@Resource
+	public LoginAdminDto loginAdminDto;
 	
 	/** TMemberのサービスクラス */
 	@Resource

@@ -13,4 +13,5 @@
 	<component class="org.seasar.chronos.core.creator.TaskCreator"/>
 	<component class="org.seasar.chronos.core.creator.TriggerCreator"/>
 	<component class="org.seasar.s2csv.creator.CsvCreator"/>
+	<component class="tsuboneSystem.original.manager.MailManager" instance="singleton"/>
 </components>

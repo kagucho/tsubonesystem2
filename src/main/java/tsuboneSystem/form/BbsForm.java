@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.container.annotation.tiger.InstanceType;
+import org.seasar.struts.annotation.Maxlength;
 import org.seasar.struts.annotation.Required;
 
 import tsuboneSystem.entity.TBbsDetail;
@@ -20,10 +21,12 @@ public class BbsForm implements Serializable {
 	
 	/** スレッド名 */
 	@Required(target = "bbsRegist")
+	@Maxlength(maxlength=100)
 	public String title;
 	
 	/** 内容 */
 	@Required(target = "bbsDetailRegist")
+	@Maxlength(maxlength=1000)
     public String detail;
     
     /* スレッド一覧 */

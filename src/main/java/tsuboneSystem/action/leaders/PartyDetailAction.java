@@ -80,6 +80,8 @@ public class PartyDetailAction {
 	/** 送信エラーフラグ */
 	public boolean errorFlag;
 	
+	public boolean resultPower = false;
+	
     @Execute(validator = false, urlPattern = "{id}", reset = "resetInput")
 	public String index() {
     	
@@ -106,6 +108,16 @@ public class PartyDetailAction {
         //マップを作る。形はkey(数値)とvalu(名称)の２個セットの形
         partyForm.clubMapIS = tClubService.getClubMapIS();
         partyForm.clubMapSS = tClubService.getClubMap();
+        
+        //結果を入力できるか
+        if(partyForm.resultEditMemberId != null && !partyForm.resultEditMemberId.equals(loginMemberDto.memberId)){
+        	if(!partyForm.resultEditEndFlag){
+        		resultPower = true;
+        	}
+        }else{
+        	//まだ誰も編集していないか、最終編集者が自分の時
+        	resultPower = true;
+        }
         
         return "partyDetail.jsp";
 	}

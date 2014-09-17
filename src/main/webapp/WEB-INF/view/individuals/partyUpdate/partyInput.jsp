@@ -29,7 +29,7 @@
 	</script> 
   </head>
 <body>
-<%@ include file="/WEB-INF/view/common/indeividualsHeader.jsp"%>
+<%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
 <h3>会議の情報を入力してください。</h3>

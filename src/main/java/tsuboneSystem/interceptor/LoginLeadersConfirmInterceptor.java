@@ -32,4 +32,9 @@ public class LoginLeadersConfirmInterceptor extends AbstractLoginInterceptor {
 	protected boolean isLogined() {
 		return (loginLeadersDto != null && loginLeadersDto.memberId != null);
 	}
+	
+	@Override
+	protected void setRedirectUrl(String url) {
+		loginLeadersDto.redirectURL = url;
+	}
 }

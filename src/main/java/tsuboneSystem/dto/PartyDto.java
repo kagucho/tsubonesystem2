@@ -72,35 +72,44 @@ public class PartyDto implements Serializable {
 
 	public boolean deadFlag(TParty tParty,Date dateNow) {
 		
-		if(tParty.meetingDeadlineDay != null){
-			GregorianCalendar calendar=new GregorianCalendar();
-			calendar.setTime(dateNow);
-			calendar.add(Calendar.DATE, -1);
-			Date dateadd = new Date();
-			dateadd=calendar.getTime();
-			
-			
+		GregorianCalendar calendar=new GregorianCalendar();
+		calendar.setTime(dateNow);
+		calendar.add(Calendar.DATE, -1);
+		Date dateadd = new Date();
+		dateadd=calendar.getTime();
+		
+		if(tParty.meetingEndDay != null){
+			//最終日が定められているとき
+			if (tParty.meetingEndDay.after(dateadd)) {
+				return false;
+			}else{
+				return true;
+			}
+		}else if(tParty.meetingDay != null){
+			//開始日が定められているとき
+			if (tParty.meetingDay.after(dateadd)) {
+				return false;
+			}else{
+				return true;
+			}
+		}else if(tParty.meetingDeadlineDay != null){
+			//開催日がなく、締め切りのみのとき
 			if (tParty.meetingDeadlineDay.after(dateadd)) {
 				return false;
 			}else{
 				return true;
 			}
 		}else{
-			//締め切り日が設定されていない会議は編集されてから一ヶ月で締め切りとする
-			GregorianCalendar calendar=new GregorianCalendar();
-			calendar.setTime(dateNow);
+			//開催日も締め切り日も設定されていない会議は編集されてから一ヶ月で締め切りとする
 			calendar.add(Calendar.MONTH, -1);
-			Date dateadd = new Date();
-			dateadd=calendar.getTime();
+			Date dateaddMonth = new Date();
+			dateaddMonth=calendar.getTime();
 			
-			
-			if (tParty.updateTime.after(dateadd)) {
+			if (tParty.updateTime.after(dateaddMonth)) {
 				return false;
 			}else{
 				return true;
 			}
 		}
-		
 	}
-	
 }

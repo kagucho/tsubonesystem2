@@ -1,6 +1,10 @@
 package tsuboneSystem.interceptor;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.seasar.framework.container.annotation.tiger.Binding;
 
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.entity.TMember;
@@ -9,8 +13,15 @@ public class LoginAdminConfirmInterceptor extends AbstractLoginInterceptor {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Resource
+	@Binding
 	protected LoginAdminDto loginAdminDto;
+	
+	@Resource
+	public HttpServletRequest httpServletRequest;
+	
+	@Resource
+	public HttpSession session;
+	
 	
 	@Override
 	TMember getLoginTMember() {
@@ -32,5 +43,11 @@ public class LoginAdminConfirmInterceptor extends AbstractLoginInterceptor {
 	@Override
 	protected boolean isLogined() {
 		return (loginAdminDto != null && loginAdminDto.memberId != null);
+	}
+
+
+	@Override
+	protected void setRedirectUrl(String url) {
+		loginAdminDto.redirectURL = url;
 	}
 }

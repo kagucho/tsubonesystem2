@@ -30,7 +30,6 @@ public class PartyRegistAction extends PartyOperateAbstractAction{
 	@Resource
 	public LoginAdminDto loginAdminDto;
 	
-	boolean disabledFlag = false;
 	
 	@Execute(validator = false, reset = "resetInput")
 	public String index() {
@@ -39,6 +38,7 @@ public class PartyRegistAction extends PartyOperateAbstractAction{
         TokenProcessor.getInstance().saveToken(request);
         
         partyForm.mailSendFlag = false;
+        partyForm.disabledFlag = false;
         
         //keyをclubId, valueをclubNameとしてマップを作成する
         partyForm.clubMapSS = tClubService.getClubMap();

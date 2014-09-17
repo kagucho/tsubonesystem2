@@ -1,22 +1,31 @@
 <div class="container">
 	<div class="row CENTER">
-		<h3 class="col-md-6 col-xs-12">${f:h(meetingName)}たんの詳細情報</h3>
+		<h3 class="col-md-4 col-xs-12">${f:h(meetingName)}たんの詳細情報</h3>
 		<c:if test="${!deadFlag}">
 			<c:if test="${loginMemberDto.actorKindCode == '1'}">
-				<a class="col-md-2 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-danger btnYOKO btnMRC" href="<c:url value="/${loginMemberDto.actorKind}/partyDelete/${id}"/>" role="button">削除</a>
-				<a class="col-md-2 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/${loginMemberDto.actorKind}/partyUpdate/${id}"/>" role="button">更新</a>
+				<a class="col-md-2 col-sm-3 col-sm-offset-1 col-xs-12  btn btn-danger btnYOKO btnMRC" href="<c:url value="/${loginMemberDto.actorKind}/partyDelete/${id}"/>" role="button">削除</a>
+				<a class="col-md-2 col-sm-3 col-xs-12 btn btn-primary btnYOKO" href="<c:url value="/${loginMemberDto.actorKind}/partyUpdate/${id}"/>" role="button">更新</a>
+				<a class="col-md-2 col-sm-3 col-xs-12 btn btn-info" href="<c:url value="/${loginMemberDto.actorKind}/partyAttendList/${id}"/>" role="button">出欠状況</a>
 			</c:if>
 			<c:if test="${loginMemberDto.actorKindCode == '2' && !meetingNecessaryFlag}">
-				<a class="col-md-2 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-danger btnYOKO btnMRC" href="<c:url value="/${loginMemberDto.actorKind}/partyDelete/${id}"/>" role="button">削除</a>
-				<a class="col-md-2 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/${loginMemberDto.actorKind}/partyUpdate/${id}"/>" role="button">更新</a>
+				<a class="col-md-2 col-sm-3 col-sm-offset-1 col-xs-12  btn btn-danger btnYOKO btnMRC" href="<c:url value="/${loginMemberDto.actorKind}/partyDelete/${id}"/>" role="button">削除</a>
+				<a class="col-md-2 col-sm-3 col-xs-12 btn btn-primary btnYOKO" href="<c:url value="/${loginMemberDto.actorKind}/partyUpdate/${id}"/>" role="button">更新</a>
+				<a class="col-md-2 col-sm-3 col-xs-12 btn btn-info" href="<c:url value="/${loginMemberDto.actorKind}/partyAttendList/${id}"/>" role="button">出欠状況</a>
 			</c:if>
 			<c:if test="${loginMemberDto.actorKindCode == '3' && myPartyFlag}">
-				<a class="col-md-2 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-danger btnYOKO btnMRC" href="<c:url value="/${loginMemberDto.actorKind}/partyDelete/${id}"/>" role="button">削除</a>
-				<a class="col-md-2 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/${loginMemberDto.actorKind}/partyUpdate/${id}"/>" role="button">更新</a>
+				<a class="col-md-2 col-sm-3 col-sm-offset-1 col-xs-12  btn btn-danger btnYOKO btnMRC" href="<c:url value="/${loginMemberDto.actorKind}/partyDelete/${id}"/>" role="button">削除</a>
+				<a class="col-md-2 col-sm-3 col-xs-12 btn btn-primary btnYOKO" href="<c:url value="/${loginMemberDto.actorKind}/partyUpdate/${id}"/>" role="button">更新</a>
+				<a class="col-md-2 col-sm-3 col-xs-12 btn btn-info" href="<c:url value="/${loginMemberDto.actorKind}/partyAttendList/${id}"/>" role="button">出欠状況</a>
+			</c:if>
+			<c:if test="${loginMemberDto.actorKindCode == '3' && !myPartyFlag}">
+				<a class="col-md-2 col-md-offset-6 col-sm-12 col-xs-12 btn btn-info" href="<c:url value="/${loginMemberDto.actorKind}/partyAttendList/${id}"/>" role="button">出欠状況</a>
 			</c:if>
 		</c:if>
 		<c:if test="${deadFlag}">
-			<c:if test="${loginMemberDto.actorKindCode == '1' || loginMemberDto.actorKindCode == '2'}">
+			<c:if test="${loginMemberDto.actorKindCode == '1'}">
+				<a class="col-md-2 col-sm-5 col-sm-offset-4 col-xs-12  btn btn-primary btnMRC" href="<c:url value="/${loginMemberDto.actorKind}/partyResult/${id}"/>" role="button">会議の結果を入力する</a>
+			</c:if>
+			<c:if test="${resultPower && loginMemberDto.actorKindCode == '2'}">
 				<a class="col-md-2 col-sm-5 col-sm-offset-4 col-xs-12  btn btn-primary btnMRC" href="<c:url value="/${loginMemberDto.actorKind}/partyResult/${id}"/>" role="button">会議の結果を入力する</a>
 			</c:if>
 			<c:if test="${loginMemberDto.actorKindCode == '3' && myPartyFlag}">

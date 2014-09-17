@@ -14,7 +14,7 @@ import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.entity.TPartyClub;
 import tsuboneSystem.entity.TPartySendMail;
 import tsuboneSystem.form.PartyForm;
-import tsuboneSystem.original.manager.MailManager;
+import tsuboneSystem.original.util.MailManagerUtil;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
@@ -117,23 +117,31 @@ public abstract class PartyOperateAbstractAction {
     	//メールの送信者のID
     	partyForm.registMemberId = Integer.valueOf(registMemberId);
     	
+    	StringBuffer bf = new StringBuffer();
+    	bf.append(partyForm.content);
+    	bf.append("\n");
+    	bf.append("\n");
+    	bf.append("このイベントの詳細はこちらから");
+    	bf.append("\n");
+    	bf.append("http://localhost:8080/TsuboneSystem/admin/partyDetail/");
+    	bf.append(partyForm.id);
+    	partyForm.content = new String(bf);
+    	
     	//メールを送信する
-    	MailManager manager = new MailManager();
-    	manager.setTitle(partyForm.title);
-    	manager.setContent(partyForm.content);
-    	manager.setToAddress(partyForm.tMemberSendList.toArray(new TMember[0]));
-    	//DBにログを残す
-    	manager.setLogFlg(true, registMemberId, tMailSendMemberService, tMailService);
-    	if (!manager.sendMail()) {
-    		//TODO　送信失敗時に処理
-    	}   
+    	MailManagerUtil mailUtil = new MailManagerUtil();
+    	mailUtil.setTitle(partyForm.title);
+    	mailUtil.setContent(partyForm.content);	
+    	mailUtil.setContentId(partyForm.id);
+    	mailUtil.setToAddressActorSplit(partyForm.tMemberSendList);
+    	mailUtil.sendMail();
+
     	//会議とメールを紐付けるDBに登録する
     	TPartySendMail tPartySendMail = new TPartySendMail();
     	tPartySendMail.PartyId = partyForm.id;
-    	tPartySendMail.MailId = manager.getTMail().id;
+    	tPartySendMail.MailId = mailUtil.getTMail().id;
     	tPartySendMailService.insert(tPartySendMail);
     	
-    	return manager.getTMail().errorFlag;	
+    	return mailUtil.getSendMailResult();	
     }
 	
 	/**

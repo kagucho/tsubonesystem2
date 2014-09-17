@@ -75,7 +75,7 @@ public class TAdminService extends AbstractService<TAdmin> {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(OfficerKind(), OfficerKind);
         return select()
-        		.innerJoin("TMember")
+        		.innerJoin(tMember())
         		.where(where)
         		.getResultList();
     }
