@@ -16,19 +16,13 @@
 package tsuboneSystem.action.admin;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginMemberDto;
-import tsuboneSystem.form.ClubForm;
 import tsuboneSystem.form.EnqueteListForm;
-import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TEnqueteSelectService;
 import tsuboneSystem.service.TEnqueteService;
-import tsuboneSystem.service.TMemberClubService;
-import tsuboneSystem.service.TMemberService;
 
 public class EnqueteListAction {
 	

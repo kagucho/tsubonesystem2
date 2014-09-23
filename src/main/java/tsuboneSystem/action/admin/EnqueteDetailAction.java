@@ -15,33 +15,19 @@ x * Copyright 2004-2008 the Seasar Foundation and the Others.
  */
 package tsuboneSystem.action.admin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts.util.TokenProcessor;
 import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginMemberDto;
-import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TEnquete;
 import tsuboneSystem.entity.TEnqueteSelect;
-import tsuboneSystem.entity.TMail;
-import tsuboneSystem.entity.TMember;
-import tsuboneSystem.entity.TMemberClub;
-import tsuboneSystem.form.ClubForm;
 import tsuboneSystem.form.EnqueteForm;
-import tsuboneSystem.original.manager.MailManager;
-import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TEnqueteService;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
-import tsuboneSystem.service.TMemberClubService;
 import tsuboneSystem.service.TMemberService;
 
 public class EnqueteDetailAction {

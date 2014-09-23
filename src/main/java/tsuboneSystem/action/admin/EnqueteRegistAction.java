@@ -8,8 +8,6 @@ import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
-import com.google.gdata.data.calendar.SelectedProperty;
-
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TEnquete;

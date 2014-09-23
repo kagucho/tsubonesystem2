@@ -110,4 +110,7 @@ text-decoration: none !important;
 .services h2{
 	white-space:    nowrap;
 }
+ul {
+list-style-type: none;
+}
 }

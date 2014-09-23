@@ -26,7 +26,6 @@
     <h5 class="hissu">＊がついている項目は必須です</h5>
     <s:form method="POST" >
         <form name="party" class="form-horizontal">
-            <div class="col-sm-12">
 		       <div class="form-group">
 		           <label class="control-label col-sm-4" for=title>会議の題名</label>
 		           <div class="col-sm-8 memberF" >
@@ -41,19 +40,19 @@
 		               <html:errors property="memo"/>
 		           </div>
 		       </div>
-            </div>
 		      <div class="form-group">
                 <ul id="selectedContents">
                     <li class="selectedContents_var">
 		              <label class="control-label col-sm-4" for="selectedContents[0]" id_format="selectedContents[%d]">選択肢</label>
-		              <div class="col-sm-8 memberF" >
-		                  <input type="text" id="selectedContents[0]" name="selectedContents[0]" id_format="selectedContents[%d]" name_format="selectedContents[%d]"  class="form-control" placeholder="選択肢１" value="${selectedContents[0]}"/>
+		              <div class="col-sm-6 memberF" >
+		                  <input type="text" id="selectedContents[0]" name="selectedContents[0]" id_format="selectedContents[%d]" name_format="selectedContents[%d]"  class="form-control" placeholder="選択肢" value="${selectedContents[0]}"/>
 		                  <html:errors property="selectedContents[0]"/>
-                          <input type="button" class="selectedContents_del" value="削除"/>
+                          <input type="button" class="selectedContents_del btn btn-danger marginUP" value="削除"/>
+                          
 		              </div>
                     </li>
                 </ul>
-                <input type="button" class="selectedContents_add" value="追加"/>
+                <input type="button" class="selectedContents_add btn btn-info" value="追加"/>
 		      </div>
             <div class="form-group">
                 <div class="col-sm-8">
