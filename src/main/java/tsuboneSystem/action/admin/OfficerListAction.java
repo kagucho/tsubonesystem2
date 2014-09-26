@@ -13,8 +13,6 @@ import tsuboneSystem.form.OfficerForm;
 import tsuboneSystem.service.TAdminService;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TLeadersService;
-import tsuboneSystem.service.TMemberClubService;
-import tsuboneSystem.service.TMemberService;
 
 public class OfficerListAction {
 	
@@ -29,18 +27,10 @@ public class OfficerListAction {
 	@Resource
 	public LoginMemberDto loginMemberDto;
 	
-	/** TMemberのサービスクラス */
-	@Resource
-	protected TMemberService tMemberService;
-	
 	/** TClubのサービスクラス */
 	@Resource
 	protected TClubService tClubService;
-	
-	/** TMemberClubServiceのサービスクラス */
-	@Resource
-	protected TMemberClubService tMemberClubService;
-	
+
 	/** TAdminServiceのサービスクラス */
 	@Resource
 	protected TAdminService tAdminService;
@@ -65,10 +55,10 @@ public class OfficerListAction {
     	officerForm.tLeadersSubChief = tAdminService.findByKind(LeadersKindCode.SUB_CHIEF.getCode());
     	
     	//会計
-    	officerForm.tLeadersAccount = tLeadersService.findByKind(LeadersKindCode.ACCOUNT.getCode());
+    	officerForm.tLeadersAccounts = tLeadersService.findByKind(LeadersKindCode.ACCOUNT.getCode());
 	
-    	//以下、各部長の一覧
-    	officerForm.officerListItem = tClubService.findAllInTmember();
+    	//各部長の一覧
+    	officerForm.tClubLeaderList = tClubService.findAllInTmember();
     	
     	//合宿委員
     	officerForm.tLeadersGassyuku = tLeadersService.findByKind(LeadersKindCode.GASSYUKU.getCode());

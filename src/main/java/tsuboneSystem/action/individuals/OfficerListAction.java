@@ -65,10 +65,10 @@ public class OfficerListAction {
     	officerForm.tLeadersSubChief = tAdminService.findByKind(LeadersKindCode.SUB_CHIEF.getCode());
     	
     	//会計
-    	officerForm.tLeadersAccount = tLeadersService.findByKind(LeadersKindCode.ACCOUNT.getCode());
+    	officerForm.tLeadersAccounts = tLeadersService.findByKind(LeadersKindCode.ACCOUNT.getCode());
 	
     	//以下、各部長の一覧
-    	officerForm.officerListItem = tClubService.findAllInTmember();
+    	officerForm.tClubLeaderList = tClubService.findAllInTmember();
     	
     	//合宿委員
     	officerForm.tLeadersGassyuku = tLeadersService.findByKind(LeadersKindCode.GASSYUKU.getCode());

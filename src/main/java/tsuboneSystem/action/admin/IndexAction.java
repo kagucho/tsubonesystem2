@@ -73,10 +73,10 @@ public class IndexAction {
 	public String index() {
     	
     	//ログインしているメンバー情報
-    	myPageForm.tMember = loginAdminDto.tMemberLogin;
+    	myPageForm.tMember = loginMemberDto.tMemberLogin;
     	
     	//ログインしているメンバーの所属部一覧
-    	myPageForm.tMemberClubList = tMemberClubService.findByMemberId(loginAdminDto.tMemberLogin.id.toString());
+    	myPageForm.tMemberClubList = tMemberClubService.findByMemberId(loginMemberDto.tMemberLogin.id.toString());
     	myPageForm.tClubList = new ArrayList<TClub>();
     	for (TMemberClub tMemberClubOne : myPageForm.tMemberClubList) {
     		myPageForm.tClubList.add(tMemberClubOne.tClub);

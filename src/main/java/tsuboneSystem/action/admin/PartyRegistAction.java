@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.struts.util.TokenProcessor;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.action.abstracts.PartyOperateAbstractAction;
@@ -52,21 +53,13 @@ public class PartyRegistAction extends PartyOperateAbstractAction{
     	/** 2重登録防止のためTokenが正常な場合にのみ レコード追加処理を行う	　**/
         if (TokenProcessor.getInstance().isTokenValid(request, true)) {
         	//会議情報をpartyテーブルに追加
-        	TParty party = new TParty(getLoginMemberId(), partyForm);
-        	
-        	//admin権限以外からの登録の場合、出席必須の会議は作成できない
-        	if(loginAdminDto == null){
-        		party.meetingNecessaryFlag = false;
-        	}
-        	
-        	//DBに追加
-        	tPartyService.insert(party);
+        	TParty party = tPartyService.insertCustom(loginMemberDto.memberId, partyForm);
         	
         	//完了画面から詳細画面遷移のためにIDを取得
         	partyForm.id = party.id;
         	
         	//対象にobを含めるかどうか
-        	boolean containsOb = partyForm.ObAttendFlag;
+        	boolean containsOb = StringUtil.isNotEmpty(partyForm.ObAttendFlag);
         	
         	//参加対象な部が選択されていたらTPartyClubにレコードを挿入する
         	if (partyForm.attendClub != null) {

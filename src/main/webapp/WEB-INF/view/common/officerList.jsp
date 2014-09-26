@@ -11,7 +11,7 @@
 				${f:h(e.tMember.name) }
 			</td>
 			<td>
-				${f:h(e.tMember.hname) }
+				<a href="<c:url value="/${loginMemberDto.actorKind}/memberDetail/detail"/>/${e.tMember.id}">${f:h(e.tMember.hname) }</a>
 			</td>
 			<td>
 				<a href="mailto:${e.tMember.mail}">${f:h(e.tMember.mail)}</a>
@@ -37,7 +37,7 @@
 				${f:h(e.tMember.name) }
 			</td>
 			<td>
-				${f:h(e.tMember.hname) }
+				<a href="<c:url value="/${loginMemberDto.actorKind}/memberDetail/detail"/>/${e.tMember.id}">${f:h(e.tMember.hname) }</a>
 			</td>
 			<td>
 				<a href="mailto:${e.tMember.mail}">${f:h(e.tMember.mail)}</a>
@@ -57,13 +57,13 @@
 <table class="table">
 <tr>
 	<th class="col-md-2 col-ms-2 col-xs-2">本名</th><th class="col-md-2 col-ms-2 col-xs-2">ハンドルネーム</th><th class="col-md-5 col-ms-5 col-xs-5">連絡先（mail）</th><th class="col-md-2 col-ms-2 col-xs-2">連絡先（電話番号）</th><c:if test="${loginMemberDto.actorKindCode == '1'}"><th class="col-md-1 col-ms-1 col-xs-1"></th></c:if>
-	<c:forEach var="e" items="${tLeadersAccount}">
+	<c:forEach var="e" items="${tLeadersAccounts}">
 		<tr>
 			<td>
 				${f:h(e.tMember.name) }
 			</td>
 			<td>
-				${f:h(e.tMember.hname) }
+				<a href="<c:url value="/${loginMemberDto.actorKind}/memberDetail/detail"/>/${e.tMember.id}">${f:h(e.tMember.hname) }</a>
 			</td>
 			<td>
 				<a href="mailto:${e.tMember.mail}">${f:h(e.tMember.mail)}</a>
@@ -86,13 +86,13 @@
 <table class="table">
 <tr>
 	<th class="col-md-2 col-ms-2 col-xs-2">部名</th><th class="col-md-2 col-ms-2 col-xs-2">部の代表者(H.N)</th><th class="col-md-5 col-ms-5 col-xs-5">連絡先（mail）</th><th class="col-md-2 col-ms-2 col-xs-2">連絡先（電話番号）</th>
-	<c:forEach var="e" items="${officerListItem}">
+	<c:forEach var="e" items="${tClubLeaderList}">
 		<tr>
 			<td>
 				${f:h(e.ClubName) }
 			</td>
 			<td>
-				${f:h(e.tLeaders.tMember.hname) }
+				<a href="<c:url value="/${loginMemberDto.actorKind}/memberDetail/detail"/>/${e.tLeaders.tMember.id}">${f:h(e.tLeaders.tMember.hname) }</a>
 			</td>
 			<td>
 				<a href="mailto:${e.tLeaders.tMember.mail}">${f:h(e.tLeaders.tMember.mail)}</a>
@@ -113,7 +113,7 @@
 				${f:h(e.tMember.name) }
 			</td>
 			<td>
-				${f:h(e.tMember.hname) }
+				<a href="<c:url value="/${loginMemberDto.actorKind}/memberDetail/detail"/>/${e.tMember.id}">${f:h(e.tMember.hname) }</a>
 			</td>
 			<td>
 				<a href="mailto:${e.tMember.mail}">${f:h(e.tMember.mail)}</a>
@@ -139,7 +139,7 @@
 				${f:h(e.tMember.name) }
 			</td>
 			<td>
-				${f:h(e.tMember.hname) }
+				<a href="<c:url value="/${loginMemberDto.actorKind}/memberDetail/detail"/>/${e.tMember.id}">${f:h(e.tMember.hname) }</a>
 			</td>
 			<td>
 				<a href="mailto:${e.tMember.mail}">${f:h(e.tMember.mail)}</a>

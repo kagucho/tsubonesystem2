@@ -44,7 +44,7 @@ public class OfficerForm implements Serializable {
 	public List<TMember> memberItems;
 	
 	/* 表示するためのリスト */
-	public List<TClub> officerListItem = new ArrayList<TClub>();
+	public List<TClub> tClubLeaderList = new ArrayList<TClub>();
 	
 	/* TLeaderテーブルの一覧を一回格納するためのリスト　*/
 	public List<TLeaders> leaders;
@@ -65,7 +65,7 @@ public class OfficerForm implements Serializable {
 	public List<TAdmin> tLeadersSubChief = new ArrayList<TAdmin>();
 	
 	/* 会計の情報を格納する　*/
-	public List<TLeaders> tLeadersAccount = new ArrayList<TLeaders>();
+	public List<TLeaders> tLeadersAccounts = new ArrayList<TLeaders>();
 	
 	/* 合宿委員の情報を格納する　*/
 	public List<TLeaders> tLeadersGassyuku = new ArrayList<TLeaders>();

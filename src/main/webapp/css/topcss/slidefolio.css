@@ -56,6 +56,8 @@ cursor:pointer;
 
 #top h2{
 	color: #89c3ed;
+	text-shadow: white 1px 1px 0px, white -1px 1px 0px,
+             white 1px -1px 0px, white -1px -1px 0px;
 }
 
 .vert-text h1 {

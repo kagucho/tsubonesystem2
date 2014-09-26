@@ -81,15 +81,15 @@ public class TMember implements Serializable {
     
     /* メール不達フラグ */
     @Column(columnDefinition ="boolean default '0'")
-    public boolean  sendErrorFlag;
+    public boolean sendErrorFlag;
     
     /* 削除フラグ */
     @Column(columnDefinition ="boolean default '0'")
-    public boolean  deleteFlag;
+    public boolean deleteFlag;
     
     /* 仮登録メンバー */
     @Column(columnDefinition ="boolean default '0'")
-    public boolean  tempMemberFlag;
+    public boolean tempMemberFlag;
     
     /** memberIdをTAdminに結びつける */
     @OneToMany(mappedBy = "tMember")

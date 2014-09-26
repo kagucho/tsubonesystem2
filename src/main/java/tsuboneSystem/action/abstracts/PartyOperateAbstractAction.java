@@ -24,6 +24,7 @@ import tsuboneSystem.service.TPartyAttendService;
 import tsuboneSystem.service.TPartyClubService;
 import tsuboneSystem.service.TPartySendMailService;
 import tsuboneSystem.service.TPartyService;
+import tsuboneSystem.service.TPartySettingsService;
 
 public abstract class PartyOperateAbstractAction {
 	/** メール送信可否 */
@@ -64,6 +65,10 @@ public abstract class PartyOperateAbstractAction {
 	/** TPartyAttendServiceのサービスクラス */
 	@Resource
 	protected TPartyAttendService tPartyAttendService;
+	
+	/** TPartySettingsServiceのサービスクラス */
+	@Resource
+	protected TPartySettingsService tPartySettingsService;
 	
 	/** HttpServlet */
 	@Resource

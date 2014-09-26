@@ -1,91 +1,192 @@
-<html>
-<html lang="jp">
-<%@ include file="/WEB-INF/view/common/headInclude.jsp"%>
-<body>
-<%@ include file="/WEB-INF/view/common/header.jsp"%>
-<%-- <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%> --%>
-<jsp:include page="/WEB-INF/view/common/jumbotronMenu.jsp" >
-<jsp:param name="actionName" value="actionName"/>
-</jsp:include >
-<div class="container">
-<div class="col-sm-12">
-	<c:if test="${tPartyNoAttendList.size() != 0}">
-		<div class="alert alert-danger">
-			<h4>以下の会議はまだ出欠を出していません！！</h4>
-		</div>
-		<div class="table-responsive">
-			<table class="table">
-				<tr>
-					<th>会議名</th><th>会議内容</th><th>開催日</th><th>締切日</th>
-				</tr>
-				<c:forEach var="e" items="${tPartyNoAttendList}">
-					<tr>
-						<td>
-							<a href="<c:url value="/individuals/partyDetail/"/>${e.id}">${f:h(e.meetingName) }</a>
-						</td>
-						<td>
-							${f:h(e.meetingMemo) }
-						</td>
-						<td>
-							<fmt:formatDate value="${e.meetingDay}" pattern="yyyy/MM/dd" /><br>
-						</td>
-						<td>
-							<fmt:formatDate value="${e.meetingDeadlineDay}" pattern="yyyy/MM/dd" /><br>
-						</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
-	</c:if>
-	<c:if test="${tPartyToDayList.size() != 0}">
-		<div class="alert alert-info">
-			<h4>本日開催予定の会議一覧</h4>
-		</div>
-		<table class="table-responsive">
-			<tr>
-				<th>会議名</th><th>会議内容</th><th>開催場所</th><th>締切日</th>
-			</tr>
-			<c:forEach var="e" items="${tPartyToDayList}">
-				<tr>
-					<td>
-						<a href="<c:url value="/individuals/partyDetail/"/>${e.id}">${f:h(e.meetingName) }</a>
-					</td>
-					<td>
-						${f:h(e.meetingMemo) }
-					</td>
-					<td>
-						${f:h(e.meetingRoom) }
-					</td>
-					<td>
-						<fmt:formatDate value="${e.meetingDeadlineDay}" pattern="yyyy/MM/dd" /><br>
-					</td>
-				</tr>
-			</c:forEach>
-		</table>
-	</c:if>
-    <div class="row">
-	    <div class="col-lg-4">
-		    <h2>PartyInfo</h2>
-		    <c:if test="${tPartyNoAttendList.size() != 0}">
-		    	<p class="text-danger">出欠を出してない会議が存在します！</p>
-		    </c:if>
-		    <p>会議の出欠や、会議の内容を確認するのはこちらから</p>
-		    <p><a class="btn btn-primary" href="<c:url value="/individuals/partyList"/>" role="button">PartyList &raquo;</a></p>
-	    </div>
-	    <div class="col-lg-4">
-		    <h2>MemberInfo</h2>
-		    <p>連絡先や、諸情報を更新するにはこちらから。また他のメンバーの連絡先を検索するのもこちら。</p>
-		    <p><a class="btn btn-primary" href="<c:url value="/individuals/memberList"/>" role="button">MemberList &raquo;</a></p>
-	    </div>
-	    <div class="col-lg-4">
-		    <h2>OfficerInfo</h2>
-		    <p>代表や、部長に連絡を取るにはこちらから。</p>
-		    <p><a class="btn btn-primary" href="<c:url value="/individuals/officerList"/>" role="button">OfficerList &raquo;</a></p>
-	    </div>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>神楽坂一丁目通信局</title>
+    <link href="${f:url('/css/topcss/bootstrap.css')}" rel="stylesheet">
+    <link href="${f:url('/css/topcss/slidefolio.css')}" rel="stylesheet">
+    <link href="${f:url('/fonts/topfonts/css/font-awesome.min.css')}" rel="stylesheet">
+    <link href="${f:url('/css/layout.css')}" rel="stylesheet">
+  </head>
+  <body>
+  <%@ include file="/WEB-INF/view/common/header.jsp"%>
+    <!-- Header Area -->
+    <div id="top" class="header">
+      <div class="vert-text">
+	      <div class="col-md-6">
+	       <h2>イベントを登録したい</h2>
+	        <a href="<c:url value="/${loginMemberDto.actorKind}/partyRegist/index/"/>">
+	         <button  type="button" class="btn btn-default btn-lg btn-block">EventRegist</button>
+	        </a>
+	      </div>
+	      <div class="col-md-6">
+	      	<h2>メールを送りたい</h2>
+	      	<a href="<c:url value="/${loginMemberDto.actorKind}/mailRegist/"/>">
+	      	<button type="button" class="btn btn-default btn-lg btn-block">SendMail</button>
+	      	</a>
+	      </div>
+      </div>
     </div>
-</div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="${f:url('/js/bootstrap.min.js')}"></script>
-</body>
+    <!-- /Header Area -->
+    <!-- Services -->
+    <div id="services" class="services">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4 text-center">
+            <h2>現在出欠中のイベント</h2>
+            <hr>
+          </div>
+        </div>
+        <div class="row">
+            <c:if test="${fn:length( tPartyNoAttendList ) >= 2}">
+		        <c:forEach var="e" items="${tPartyNoAttendList}">
+			        <div class="col-md-6 text-center">
+			            <div class="">
+			              <a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/"/>${e.id}"><h3>${f:h(e.meetingName)}</h3></a>
+			              <div class=" col-md-6">
+			                <a href="<c:url value="/${loginMemberDto.actorKind}/attend/yesFromList/${e.id}"/>">
+			                  <button type="button" class="btn btn-success btn-lg btn-block marginUP">出席する</button>
+			                </a>
+			              </div>
+			              <div class="col-md-6">
+			                <a href="<c:url value="/${loginMemberDto.actorKind}/attend/noFromList/${e.id}"/>">
+			                  <button type="button" class="btn btn-danger btn-lg btn-block marginUP">欠席する</button>
+			                </a>
+			              </div>
+			            </div>
+		          	</div>
+		        </c:forEach>
+	        </c:if>
+	        <c:if test="${fn:length( tPartyNoAttendList ) == 1}">
+		        <c:forEach var="e" items="${tPartyNoAttendList}">
+			        <div class="col-md-12 text-center">
+			            <div class="">
+			              <a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/"/>${e.id}"><h3>${f:h(e.meetingName)}</h3></a>
+			              <div class=" col-md-6">
+			                <a href="<c:url value="/${loginMemberDto.actorKind}/attend/yesFromList/${e.id}"/>">
+			                  <button type="button" class="btn btn-success btn-lg btn-block marginUP">出席する</button>
+			                </a>
+			              </div>
+			              <div class="col-md-6">
+			                <a href="<c:url value="/${loginMemberDto.actorKind}/attend/noFromList/${e.id}"/>">
+			                  <button type="button" class="btn btn-danger btn-lg btn-block marginUP">欠席する</button>
+			                </a>
+			              </div>
+			            </div>
+		          	</div>
+		        </c:forEach>
+	        </c:if>
+	        <c:if test="${fn:length( tPartyNoAttendList ) == 0}">
+		        <div class="col-md-12 text-center">
+				  <div class="">
+				    <h4>※現在、開催日と締め切り日が設定されたイベントの出欠は募集していません。</h4>
+				  </div>
+			    </div>
+	        </c:if>
+        </div>
+      </div>
+    </div>
+    <!-- /Services -->
+    
+   <!-- Contact -->
+    <div id="contact">
+      <div class="container">
+        <div class="row">
+		<div class="col-md-4 col-md-offset-4 text-center">
+            <h2>Contact List</h2>
+            <p>このシステムでできること・・・</p>
+			<hr>
+        </div>
+          <div class="col-md-10 col-md-offset-1">
+            <div class="service-item text-center linkArea">
+		       <h3>Member List</h3>
+		       <p>メンバーの連絡先の参照や、登録している自分の情報の編集ができます。</p>
+		       <a href="<c:url value="/${loginMemberDto.actorKind}/memberList/"/>"></a>
+		    </div>
+		    <div class="service-item text-center linkArea">
+		       <h3>Event List</h3>
+		       <p>イベントの登録や、照会、過去のイベントの結果を見ることができます。</p>
+		       <a href="<c:url value="/${loginMemberDto.actorKind}/partyList/"/>"></a>
+		    </div>
+		    <div class="service-item text-center linkArea">
+		        <h3>Kagutyo BBS</h3>
+		        <p>かぐちょの掲示板はこちら。</p>
+		        <a href="<c:url value="/${loginMemberDto.actorKind}/bbsList/"/>"></a>
+		    </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Contact -->
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 text-center">
+           <h2>緊急連絡先</h2>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- /Footer -->
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <script src="${f:url('/js/topjs/jquery.js')}"></script>
+	<script src="${f:url('/js/topjs/jquery-scrolltofixed-min.js')}"></script>
+	<script src="${f:url('/js/topjs/jquery.vegas.js')}"></script>
+	<script src="${f:url('/js/topjs/jquery.mixitup.min.js')}"></script>
+	<script src="${f:url('/js/topjs/jquery.validate.min.js')}"></script>
+	<script src="${f:url('/js/topjs/script.js')}"></script>
+	<script src="${f:url('/js/topjs/bootstrap.js')}"></script>
+	
+<!-- Slideshow Background  -->
+<script>
+	$.vegas('slideshow', {
+	  delay:5000,
+	  backgrounds:[
+		 { src:'${f:url('/images/mypage/VwvWsCATBPimage.jpg')}', fade:5000 }  
+	  ]
+	})('overlay', {
+	
+	});
+</script>
+<!-- /Slideshow Background -->
+
+<!-- Mixitup : Grid -->
+    <script>
+		$(function(){
+    $('#Grid').mixitup();
+      });
+    </script>
+<!-- /Mixitup : Grid -->	
+
+    <!-- Custom JavaScript for Smooth Scrolling - Put in a custom JavaScript file to clean this up -->
+    <script>
+      $(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+          if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
+            || location.hostname == this.hostname) {
+
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+            if (target.length) {
+              $('html,body').animate({
+                scrollTop: target.offset().top
+              }, 1000);
+              return false;
+            }
+          }
+        });
+      });
+    </script>
+	
+  </body>
+
 </html>

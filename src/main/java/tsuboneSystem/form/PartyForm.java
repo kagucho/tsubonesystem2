@@ -78,7 +78,7 @@ public class PartyForm implements Serializable{
     public boolean deadFlag;
     
     /** OB出席フラグ */
-    public boolean ObAttendFlag;
+    public String ObAttendFlag;
     
     /** 会議の制作者 */
     public TMember tMember;
@@ -165,7 +165,7 @@ public class PartyForm implements Serializable{
 		mailSendFlag = false;
 		mailSendAllFlag = null;
 		mailSendOBFlag = null;
-		ObAttendFlag = false;
+		ObAttendFlag = null;
 		meetingDeadlineDay = null;
 		meetingNecessaryFlag = false;
 		question = null;
