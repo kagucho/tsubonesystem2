@@ -5,8 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.seasar.framework.container.SingletonS2Container;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.container.annotation.tiger.InstanceType;
+import org.seasar.framework.util.ArrayUtil;
 import org.seasar.struts.annotation.DateType;
 import org.seasar.struts.annotation.EmailType;
 import org.seasar.struts.annotation.Mask;
@@ -14,9 +19,18 @@ import org.seasar.struts.annotation.Maxlength;
 import org.seasar.struts.annotation.Msg;
 import org.seasar.struts.annotation.Required;
 
+import tsuboneSystem.code.LeadersKindCode;
+import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TClub;
+import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
+import tsuboneSystem.entity.TTempLogin;
+import tsuboneSystem.service.TAdminService;
+import tsuboneSystem.service.TClubService;
+import tsuboneSystem.service.TLeadersService;
+import tsuboneSystem.service.TMemberService;
+import tsuboneSystem.service.TTempLoginService;
 
 
 @Component(instance = InstanceType.SESSION) 
@@ -150,5 +164,151 @@ public class MemberForm implements Serializable{
 		sendStopFlag = "false";
 		approveFlag = false;
     }
-
+	
+	//オリジナルチェック(Admin用)
+    public ActionMessages validateBaseAdmin(){
+    	
+        ActionMessages errors = new ActionMessages();
+        
+        //基本確認3種
+        basicCheckSet(errors);
+		
+		//役職に就いている人はOB宣言できない
+		obCheck(errors);
+		
+		//役職に就いてるメンバーの連絡先を空白にはできない
+		contactAddressRequiredCheck(errors);
+		
+        return errors;
+    }
+    
+    //オリジナルチェック(Leaders用)
+    public ActionMessages validateBaseLeaders(){
+    	
+        ActionMessages errors = new ActionMessages();
+        
+        //基本確認3種
+        basicCheckSet(errors);
+		
+		//役職に就いている人はOB宣言できない
+		obCheck(errors);
+		
+		//役職に就いてるメンバーの連絡先を空白にはできない
+		contactAddressRequiredCheck(errors);
+		
+		//管理者の情報は管理者の権限を持っていないとできない
+		adminUpdateCheck(errors);
+		
+        return errors;
+    }
+    
+    //オリジナルチェック(一般メンバー用)
+    public ActionMessages validateBaseInd(){
+    	
+        ActionMessages errors = new ActionMessages();
+        
+        //基本確認3種
+        basicCheckSet(errors);
+        
+        return errors;
+    }
+    
+    //オリジナルチェック(TempMember用)
+    public ActionMessages validateBaseTemp(){
+    	
+        ActionMessages errors = new ActionMessages();
+        
+        //基本確認3種
+        basicCheckSet(errors);
+        
+        return errors;
+    }
+    
+    // 基本確認Set
+    public void basicCheckSet(ActionMessages errors){
+    	// userNameの重複チェック
+    	userNameOverlapCheck(errors);
+    
+    	// メールアドレスの重複チェック
+    	mailAddressOverlapCheck(errors);
+    
+    	//所属部の必須チェック
+    	clabRequiredCheck(errors);
+    }
+    
+    // userNameの重複チェック
+    private void userNameOverlapCheck(ActionMessages errors){
+    	// userNameの重複チェック
+        TMemberService tMemberService = SingletonS2Container.getComponent(TMemberService.class);
+        TMember tMember = tMemberService.findByUserName(userName);	
+        TTempLoginService tTempLoginService = SingletonS2Container.getComponent(TTempLoginService.class);
+        TTempLogin tTempLogin = tTempLoginService.findByUserName(userName);
+		if (tMember != null || tTempLogin != null) {
+			errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
+		}
+    }
+    
+    //メールアドレス重複チェック
+    private void mailAddressOverlapCheck(ActionMessages errors){
+    	TMemberService tMemberService = SingletonS2Container.getComponent(TMemberService.class);
+    	if (tMemberService.findByEmailCheck(mail).size() > 0) {
+    		errors.add("mail",new ActionMessage("残念！！このメールアドレスはすでに使われています。",false));
+    	}
+    }
+    
+    //所属部の必須チェック
+    private void clabRequiredCheck(ActionMessages errors){
+    	//所属部の必須チェック
+    	if(ArrayUtil.isEmpty(clubListCheck)){
+    		errors.add("department",new ActionMessage("部の選択は必須です。",false));
+    	}
+    }
+    
+    //役職に就いている人はOB宣言できない
+    private void obCheck(ActionMessages errors){
+    	//役職に就いている人はOB宣言できない
+		if("true".equals(obFlag)){
+			TAdminService tAdminService = SingletonS2Container.getComponent(TAdminService.class);
+			TAdmin tAdmin = tAdminService.findById(id);
+			TLeadersService tLeadersService = SingletonS2Container.getComponent(TLeadersService.class);
+			List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(id);
+			if(tAdmin != null || tLeadersList.size() > 0){
+				obFlag = "false";
+				errors.add("obFlag",new ActionMessage("役職についている人はOB宣言出来ません。",false));
+			}
+		}
+    }
+    
+    //選択されたMemberが現役の部長以上の役職に付いている場合、連絡先をすべて登録しているかを確認する。
+    private void contactAddressRequiredCheck(ActionMessages errors){
+    	//選択されたMemberが現役の部長以上の役職に付いている場合、連絡先をすべて登録しているかを確認する。
+    	TLeadersService tLeadersService = SingletonS2Container.getComponent(TLeadersService.class);
+    	List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(id);
+    	if (tLeadersList.size() > 0) {
+    		for (TLeaders tLeadersOne : tLeadersList) {
+    			TClubService tClubService = SingletonS2Container.getComponent(TClubService.class);
+    			TClub tClub = tClubService.findByLeadersId(tLeadersOne.id);
+    			if (tClub != null) {
+    				//各部の現役の部長の場合
+    				if (StringUtils.isEmpty(mail) || StringUtils.isEmpty(tel1) || StringUtils.isEmpty(tel2) || StringUtils.isEmpty(tel3)) {
+                		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため、連絡先を空白にすることはできません",false));
+                	}
+    			}else if (tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.GASSYUKU.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.RIDAISAI.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ETC.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ACCOUNT.getCode()))) {
+    				//部長以外の場合
+    				if (StringUtils.isEmpty(mail) || StringUtils.isEmpty(tel1) || StringUtils.isEmpty(tel2) || StringUtils.isEmpty(tel3)) {
+                		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため、連絡先を空白にすることはできません",false));
+                	}
+    			}
+    		}
+    	}
+    }
+    
+    //管理者の情報は編集できない
+    private void adminUpdateCheck(ActionMessages errors){
+    	TAdminService tAdminService = SingletonS2Container.getComponent(TAdminService.class);
+    	List<TAdmin> tAdminList = tAdminService.findByMemberIdList(id);
+    	if(tAdminList.size() > 0){
+    		errors.add("OfficerCheck",new ActionMessage("このメンバーは管理者であり、編集には権限が必要です。",false));
+    	}
+    }
 }

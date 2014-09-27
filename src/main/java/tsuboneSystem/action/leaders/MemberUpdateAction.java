@@ -8,23 +8,17 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.TokenProcessor;
 import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
-import tsuboneSystem.code.LeadersKindCode;
 import tsuboneSystem.code.SexCode;
 import tsuboneSystem.dto.LoginLeadersDto;
 import tsuboneSystem.dto.LoginMemberDto;
-import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TClub;
-import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
-import tsuboneSystem.entity.TTempLogin;
 import tsuboneSystem.form.MemberForm;
 import tsuboneSystem.original.util.DigestUtil;
 import tsuboneSystem.service.TAdminService;
@@ -125,7 +119,7 @@ public class MemberUpdateAction {
     	return "memberInput.jsp";
     }
     
-    @Execute(validator = true, validate="validateBase", input="memberInput.jsp", stopOnValidationError = false, reset = "resetInput")
+    @Execute(validator = true, validate="validateBaseLeaders", input="memberInput.jsp", stopOnValidationError = false, reset = "resetInput")
 	public String confirmUp() {
     	
     	//選択した部を表示する
@@ -189,63 +183,4 @@ public class MemberUpdateAction {
         }
     return "memberComplete.jsp";
     }
-    
-    //オリジナルチェック
-    public ActionMessages validateBase(){
-    	
-        ActionMessages errors = new ActionMessages();
-        
-       // userNameの重複チェック
-        TMember tMember = tMemberService.findByUserName(memberForm.userName);	
-        TTempLogin tTempLogin = tTempLoginService.findByUserName(memberForm.userName);
-		if (tMember != null && !tMember.id.equals(memberForm.id)) {
-			errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
-		}else if(tTempLogin != null){
-			errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
-		}
-		
-		//所属部の必須チェック
-		if(memberForm.clubListChecked.size() == 0){
-			errors.add("department",new ActionMessage("部の選択は必須です。",false));
-		}
-		
-		//役職に就いている人はOB宣言できない
-		if("true".equals(memberForm.obFlag)){
-			TAdmin tAdmin = tAdminService.findById(memberForm.id);
-			List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(memberForm.id);
-			if(tAdmin != null || tLeadersList.size() > 0){
-				memberForm.obFlag = "false";
-				errors.add("obFlag",new ActionMessage("役職についている人はOB宣言出来ません。",false));
-			}
-		}
-		
-		//選択されたMemberが現役の部長以上の役職に付いている場合、連絡先をすべて登録しているかを確認する。
-    	List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(memberForm.id);
-    	if (tLeadersList.size() > 0) {
-    		for (TLeaders tLeadersOne : tLeadersList) {
-    			TClub tClub = tClubService.findByLeadersId(tLeadersOne.id);
-    			if (tClub != null) {
-    				//各部の現役の部長の場合
-    				if (StringUtils.isEmpty(memberForm.mail) || StringUtils.isEmpty(memberForm.tel1) || StringUtils.isEmpty(memberForm.tel2) || StringUtils.isEmpty(memberForm.tel3)) {
-                		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため、連絡先を空白にすることはできません",false));
-                	}
-    			}else if (tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.GASSYUKU.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.RIDAISAI.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ETC.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ACCOUNT.getCode()))) {
-    				//部長以外の場合
-    				if (StringUtils.isEmpty(memberForm.mail) || StringUtils.isEmpty(memberForm.tel1) || StringUtils.isEmpty(memberForm.tel2) || StringUtils.isEmpty(memberForm.tel3)) {
-                		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため、連絡先を空白にすることはできません",false));
-                	}
-    			}
-    		}
-    	}
-    	
-    	//管理者の情報は編集できない
-    	List<TAdmin> tAdminList = tAdminService.findByMemberIdList(memberForm.id);
-    	if(tAdminList.size() > 0){
-    		errors.add("OfficerCheck",new ActionMessage("このメンバーは管理者であり、編集には権限が必要です。",false));
-    	}
-		
-        return errors;
-    }
-  
 }
-    

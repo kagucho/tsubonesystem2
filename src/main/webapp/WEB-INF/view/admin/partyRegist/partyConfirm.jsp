@@ -29,7 +29,7 @@
 		</tr>
 		<c:forEach var="e" items="${tMemberSendList}">
 			<tr>
-				<td>${f:h(e.hname)}<c:if test="${e.obFlag}"><font color="blue">(OB)</font></c:if></td>
+				<td>${f:h(e.hname)}<c:if test="${e.obFlag}"><font color="blue">(OB:メール配信希望)</font></c:if></td>
 				<td>${f:h(e.name)}</td>
 			</tr>
 		</c:forEach>

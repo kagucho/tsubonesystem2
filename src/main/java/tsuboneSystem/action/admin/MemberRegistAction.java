@@ -6,12 +6,9 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.TokenProcessor;
 import org.seasar.framework.aop.annotation.RemoveSession;
 import org.seasar.framework.beans.util.Beans;
-import org.seasar.framework.util.ArrayUtil;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
@@ -20,7 +17,6 @@ import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
-import tsuboneSystem.entity.TTempLogin;
 import tsuboneSystem.form.MemberForm;
 import tsuboneSystem.service.TAdminService;
 import tsuboneSystem.service.TClubService;
@@ -98,7 +94,7 @@ public class MemberRegistAction {
     }
     
     //確認画面
-    @Execute(validator = true, validate="validateBase", input="viewinput", stopOnValidationError = false)
+    @Execute(validator = true, validate="validateBaseAdmin", input="viewinput", stopOnValidationError = false)
 	public String confirm() {
     	
     	//選択した部を表示する
@@ -154,22 +150,4 @@ public class MemberRegistAction {
     	return "memberComplete.jsp";
     }
     
-    //オリジナルチェック
-    public ActionMessages validateBase(){
-    	
-        ActionMessages errors = new ActionMessages();
-        
-       // userNameの重複チェック
-        TMember tMember = tMemberService.findByUserName(memberForm.userName);	
-        TTempLogin tTempLogin = tTempLoginService.findByUserName(memberForm.userName);
-		if (tMember != null || tTempLogin != null) {
-			errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
-		}
-		
-		//所属部の必須チェック
-		if(ArrayUtil.isEmpty(memberForm.clubListCheck)){
-			errors.add("department",new ActionMessage("部の選択は必須です。",false));
-		}
-        return errors;
-    }
 }

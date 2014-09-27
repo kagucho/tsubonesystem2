@@ -99,7 +99,7 @@ public class SettingsEditAction {
     	//新しい情報を入れる
     	TTempLogin tTempLogin = new TTempLogin();
     	tTempLogin.userName = settingsEditForm.userName;
-    	tTempLogin.password = DigestUtil.md5(settingsEditForm.password);;
+    	tTempLogin.password = DigestUtil.md5(settingsEditForm.password);
     	tTempLoginService.insert(tTempLogin);
     	
     	//生成されたときはweb管理者にメールが飛ぶ

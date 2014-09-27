@@ -87,6 +87,8 @@ public class TMemberService extends AbstractService<TMember> {
     	//OBを含めない時
     	if (!containsOB) {
     		where.eq(sendStopFlag(), Boolean.valueOf(false));
+    	}else{
+    		where.eq(sendStopFlag(), Boolean.valueOf(true));
     	}
         return select().where(where).orderBy(asc(id())).getResultList();
     }
@@ -103,7 +105,7 @@ public class TMemberService extends AbstractService<TMember> {
     }
 	
 	/**
-     * メンバーの一覧を返す
+     * メールアドレスで検索しメンバーのエンティティを返す
      * 
      * @return エンティティのリスト
      */
@@ -111,6 +113,31 @@ public class TMemberService extends AbstractService<TMember> {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(deleteFlag(), Boolean.valueOf(false));
     	where.eq("mail", email);
+        return select().where(where).getSingleResult();
+    }
+	
+	/**
+     * メールアドレスで検索しメンバーのエンティティを返す
+     * 
+     * @return エンティティのリスト
+     */
+	public List<TMember> findByEmailCheck(String email) {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	where.eq("mail", email);
+        return select().where(where).getResultList();
+    }
+	
+	/**
+     * メールアドレスとログインIDで検索しメンバーのエンティティを返す
+     * 
+     * @return エンティティのリスト
+     */
+	public TMember findByEmailAndUserName(String email, String userNmae) {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	where.eq(mail(), email);
+    	where.eq(userName(), userNmae);
         return select().where(where).getSingleResult();
     }
     

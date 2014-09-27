@@ -160,6 +160,7 @@ encoding//src/main/webapp/WEB-INF/view/leaders/partyAttendUpdate/partyAttendUpda
 encoding//src/main/webapp/WEB-INF/view/leaders/partyDelete/partyComplete.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/leaders/partyDelete/partyConfirm.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/login/login.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/view/passwordReissue/passwordReissueInput.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/tempRegist/index.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/tempRegist/memberRegist/memberComplete.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/tempRegist/memberRegist/memberConfirm.jsp=UTF-8

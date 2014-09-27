@@ -79,7 +79,7 @@ public abstract class PartyOperateAbstractAction {
 	@Resource
 	protected PartyForm partyForm;
 	
-    @Execute(validator = true, input = "partyInput.jsp", validate="validateBase", stopOnValidationError = false, reset = "resetInput")
+    @Execute(validator = true, input = "viewinput", validate="validateBase", stopOnValidationError = false, reset = "resetInput")
 	public String confirm() {
     	// メールを送る場合は送信対象者をリストに格納する
     	if (partyForm.mailSendFlag) {
@@ -137,6 +137,8 @@ public abstract class PartyOperateAbstractAction {
     	mailUtil.setTitle(partyForm.title);
     	mailUtil.setContent(partyForm.content);	
     	mailUtil.setContentId(partyForm.id);
+    	mailUtil.setContentName("partyDetail");
+    	mailUtil.setLinkUrlFlag(true);
     	mailUtil.setToAddressActorSplit(partyForm.tMemberSendList);
     	mailUtil.sendMail();
 
