@@ -1,5 +1,5 @@
 <div class="jumbotron" id="content">
-      <div class="container">
+      <div class="container CENTER">
         <h1>${f:h(actionName)}</h1>
         <h4>${f:h(actionNameSub)}</h4>
         <p class="hidden-xs"></p>

@@ -112,20 +112,8 @@ public class TMemberService extends AbstractService<TMember> {
 	public TMember findByEmail(String email) {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(deleteFlag(), Boolean.valueOf(false));
-    	where.eq("mail", email);
+    	where.eq(mail(), email);
         return select().where(where).getSingleResult();
-    }
-	
-	/**
-     * メールアドレスで検索しメンバーのエンティティを返す
-     * 
-     * @return エンティティのリスト
-     */
-	public List<TMember> findByEmailCheck(String email) {
-    	SimpleWhere where = new SimpleWhere();
-    	where.eq(deleteFlag(), Boolean.valueOf(false));
-    	where.eq("mail", email);
-        return select().where(where).getResultList();
     }
 	
 	/**

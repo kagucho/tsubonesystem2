@@ -6,11 +6,11 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.struts.action.ActionMessages;
 import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.PasswordReissueForm;
 import tsuboneSystem.original.util.DigestUtil;
@@ -19,9 +19,13 @@ import tsuboneSystem.service.TMemberService;
 
 public class PasswordReissueAction {
 	
-	public String actionName = "PasswordReissue ";
+	public String actionName = "PasswordReissue";
 	
-	public String actionNameSub = "・・・・・・・パスワード忘れるんじゃねえ！！";
+	public String actionNameSub = "パスワード忘れるんじゃねえ！！";
+	
+	/** Member用のDto */
+	@Binding
+	public LoginMemberDto loginMemberDto;
 	
 	/** LoginFormのアクションフォーム */
 	@ActionForm
@@ -37,7 +41,7 @@ public class PasswordReissueAction {
         return "passwordReissueInput.jsp";
 	}
     
-	@Execute(validator = true, input="login.jsp", validate="validateBase", stopOnValidationError = false)
+	@Execute(validator = true, input="index")
 	public String complete() {
 		
 		//パスワードはランダムで生成させる
@@ -73,7 +77,7 @@ public class PasswordReissueAction {
         	buf.append(passwordReissueForm.tempPass);
         	buf.append("\n");
         	buf.append("\n");
-        	buf.append("あ、仮パスワードのまま使っているの見つけたら①号館から自由落下させます。あらかじめご了承ください。");
+        	buf.append("あ、仮パスワードのまま使っているの見つけたら1号館から自由落下させます。あらかじめご了承ください。");
         	content = new String(buf);
         	
         	MailManagerUtil mailUtil = new MailManagerUtil();
@@ -86,10 +90,4 @@ public class PasswordReissueAction {
     	}
     	return "passwordReissueComplete.jsp";
 	}
-	//userNameの重複チェック
-    public ActionMessages validateBase(){
-    	ActionMessages errors = new ActionMessages();
-    	return errors;
-    }
-
 }

@@ -73,12 +73,11 @@ public class TLeadersService extends AbstractService<TLeaders> {
      * @param MemerId
      * @return エンティティのリスト
      */
-    public List<TLeaders> findByMemberIdList(Integer id) {
+    public List<TLeaders> findByMemberIdList(Integer memberId) {
     	SimpleWhere where = new SimpleWhere();
-    	where.eq(MemberId(), id);
-        return select()
-        		.leftOuterJoin(tClub(),new SimpleWhere().eq(tClub().deleteFlag(),  Boolean.valueOf(false)))
-        		.where(where)
+    	where.eq(MemberId(), memberId);
+        return select().where(where)
+        		.innerJoin(tClubList(),new SimpleWhere().eq(tClubList().deleteFlag(),  Boolean.valueOf(false)))
         		.getResultList();
     }
     
@@ -92,7 +91,7 @@ public class TLeadersService extends AbstractService<TLeaders> {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(MemberId(), id);
         return select()
-        		.leftOuterJoin(tClub(),new SimpleWhere().eq(tClub().deleteFlag(),  Boolean.valueOf(false)))
+        		.leftOuterJoin(tClubList(),new SimpleWhere().eq(tClubList().deleteFlag(),  Boolean.valueOf(false)))
         		.where(where)
         		.orderBy(asc(OfficerKind()))
         		.getResultList();
@@ -109,7 +108,7 @@ public class TLeadersService extends AbstractService<TLeaders> {
     	where.eq(OfficerKind(), officerKind);
     	where.eq(MemberId(), id);
         return select()
-        		.leftOuterJoin(tClub(),new SimpleWhere().eq(tClub().deleteFlag(),  Boolean.valueOf(false)))
+        		.leftOuterJoin(tClubList(),new SimpleWhere().eq(tClubList().deleteFlag(),  Boolean.valueOf(false)))
         		.where(where)
         		.getResultList();
     }

@@ -64,11 +64,11 @@ public class TClubService extends AbstractService<TClub> {
      *            識別子
      * @return エンティティ
      */
-    public TClub findByLeadersId(Integer LeadersId) {
+    public List<TClub> findByLeadersId(Integer LeadersId) {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(LeadersId(), LeadersId);
     	where.eq(deleteFlag(), Boolean.valueOf(false));
-        return select().where(where).getSingleResult();
+        return select().where(where).getResultList();
     }
     
     /**

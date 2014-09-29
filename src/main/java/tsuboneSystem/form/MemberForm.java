@@ -157,7 +157,7 @@ public class MemberForm implements Serializable{
 		tel3 = null;
 		userName = null;
 		password = null;
-		clubListCheck = new String[0];
+		clubListCheck = new String[0];	
 		clubListChecked = new ArrayList<String>();
 		obFlag = null;
 		sendErrorFlag = false;
@@ -196,7 +196,7 @@ public class MemberForm implements Serializable{
 		//役職に就いてるメンバーの連絡先を空白にはできない
 		contactAddressRequiredCheck(errors);
 		
-		//管理者の情報は管理者の権限を持っていないとできない
+		//管理者の情報更新は管理者の権限を持っていないとできない
 		adminUpdateCheck(errors);
 		
         return errors;
@@ -240,26 +240,50 @@ public class MemberForm implements Serializable{
     private void userNameOverlapCheck(ActionMessages errors){
     	// userNameの重複チェック
         TMemberService tMemberService = SingletonS2Container.getComponent(TMemberService.class);
-        TMember tMember = tMemberService.findByUserName(userName);	
+        TMember tMemberRec = tMemberService.findByUserName(userName);	
         TTempLoginService tTempLoginService = SingletonS2Container.getComponent(TTempLoginService.class);
         TTempLogin tTempLogin = tTempLoginService.findByUserName(userName);
-		if (tMember != null || tTempLogin != null) {
-			errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
-		}
+        
+        if (tTempLogin != null) {
+        	errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
+        }else{
+        	//新規登録用
+        	if (id.equals(null)) {
+            	if (tMemberRec != null || tTempLogin != null) {
+            		errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
+            	}
+            //更新用
+        	}else{
+            	if (!id.equals(tMemberRec.id)) {
+            		errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
+            	}
+        	}
+        }
     }
     
     //メールアドレス重複チェック
     private void mailAddressOverlapCheck(ActionMessages errors){
     	TMemberService tMemberService = SingletonS2Container.getComponent(TMemberService.class);
-    	if (tMemberService.findByEmailCheck(mail).size() > 0) {
-    		errors.add("mail",new ActionMessage("残念！！このメールアドレスはすでに使われています。",false));
+    	TMember tMemberRec = tMemberService.findByEmail(mail);
+    	//新規登録用
+    	if (id.equals(null)) {
+        	if (tMemberRec != null) {
+        		errors.add("mail",new ActionMessage("残念！！このメールアドレスはすでに使われています。",false));
+        	}
+        //更新用
+    	}else{
+        	if (tMemberRec != null) {
+        		if (!id.equals(tMemberRec.id)) {
+            		errors.add("mail",new ActionMessage("残念！！このメールアドレスはすでに使われています。",false));
+            	}
+        	}
     	}
     }
     
     //所属部の必須チェック
     private void clabRequiredCheck(ActionMessages errors){
     	//所属部の必須チェック
-    	if(ArrayUtil.isEmpty(clubListCheck)){
+    	if(ArrayUtil.isEmpty(clubListCheck) && clubListChecked.size() == 0){
     		errors.add("department",new ActionMessage("部の選択は必須です。",false));
     	}
     }
@@ -283,23 +307,26 @@ public class MemberForm implements Serializable{
     private void contactAddressRequiredCheck(ActionMessages errors){
     	//選択されたMemberが現役の部長以上の役職に付いている場合、連絡先をすべて登録しているかを確認する。
     	TLeadersService tLeadersService = SingletonS2Container.getComponent(TLeadersService.class);
-    	List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(id);
-    	if (tLeadersList.size() > 0) {
-    		for (TLeaders tLeadersOne : tLeadersList) {
-    			TClubService tClubService = SingletonS2Container.getComponent(TClubService.class);
-    			TClub tClub = tClubService.findByLeadersId(tLeadersOne.id);
-    			if (tClub != null) {
-    				//各部の現役の部長の場合
-    				if (StringUtils.isEmpty(mail) || StringUtils.isEmpty(tel1) || StringUtils.isEmpty(tel2) || StringUtils.isEmpty(tel3)) {
-                		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため、連絡先を空白にすることはできません",false));
-                	}
-    			}else if (tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.GASSYUKU.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.RIDAISAI.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ETC.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ACCOUNT.getCode()))) {
-    				//部長以外の場合
-    				if (StringUtils.isEmpty(mail) || StringUtils.isEmpty(tel1) || StringUtils.isEmpty(tel2) || StringUtils.isEmpty(tel3)) {
-                		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため、連絡先を空白にすることはできません",false));
-                	}
-    			}
-    		}
+    	List<TLeaders> tLeadersList = new ArrayList<TLeaders>();
+    	if (id != null) {
+    		tLeadersList = tLeadersService.findByMemberIdList(id);
+        	if (tLeadersList.size() > 0) {
+        		for (TLeaders tLeadersOne : tLeadersList) {
+        			TClubService tClubService = SingletonS2Container.getComponent(TClubService.class);
+        			List<TClub> tClub = tClubService.findByLeadersId(tLeadersOne.id);
+        			if (tClub.size() > 0) {
+        				//各部の現役の部長の場合
+        				if (StringUtils.isEmpty(mail) || StringUtils.isEmpty(tel1) || StringUtils.isEmpty(tel2) || StringUtils.isEmpty(tel3)) {
+                    		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため、連絡先を空白にすることはできません",false));
+                    	}
+        			}else if (tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.GASSYUKU.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.RIDAISAI.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ETC.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ACCOUNT.getCode()))) {
+        				//部長以外の場合
+        				if (StringUtils.isEmpty(mail) || StringUtils.isEmpty(tel1) || StringUtils.isEmpty(tel2) || StringUtils.isEmpty(tel3)) {
+                    		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため、連絡先を空白にすることはできません",false));
+                    	}
+        			}
+        		}
+        	}
     	}
     }
     

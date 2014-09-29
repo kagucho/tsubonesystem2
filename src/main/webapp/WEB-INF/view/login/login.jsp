@@ -13,7 +13,7 @@
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 
 <div class="container">
-    <form class="form-signin" role="form">
+    <form class="form-signin CENTER" role="form">
       	<s:form method="POST" >
         	<h2 class="form-signin-heading">Please sign in</h2>
         		<html:errors property="signError"/>
@@ -21,7 +21,8 @@
         		<html:errors property="id"/>
         		<input type="password" id="password" name="password" property="password" class="form-control btnMRC" placeholder="Password">
         		<html:errors property="password"/>
-        		<input type="submit" value="Sign in" id="complete" name="complete" property="complete" class="btn btn-lg btn-primary btn-block">
+        		<a href="<c:url value="/passwordReissue"/>/"><span class="glyphicon glyphicon-thumbs-down"></span>パスワードわすれた（；＾ω＾）</a>
+        		<input type="submit" value="Sign in" id="complete" name="complete" property="complete" class="btn btn-lg btn-primary btn-block marginUP">
         </s:form>
     </form>
 </div> 

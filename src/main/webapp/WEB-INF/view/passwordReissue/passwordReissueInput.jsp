@@ -2,7 +2,6 @@
 <html lang="jp">
 <%@ include file="/WEB-INF/view/common/headInclude.jsp"%>
 <body>
-<%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
 <h3 class="CENTER">登録したメールアドレスを入力してください</h3>
@@ -25,7 +24,7 @@
 	<div class="bs-callout bs-callout-info">
 			<h4>注意事項</h4>
 			<ul>
-				<li>登録されたメールアドレスとログインIDに一致していたときのみ、メールが配信されます。</li>
+				<li>入力されたメールアドレスが、登録されているメールアドレスに<span class="hissu">一致していたときのみ、</span>メールが配信されます。</li>
 				<li>メールに記載されている仮パスワードを使ってログインし、可及的速やかにパスワードの再設定を行ってください。</li>
 				<li>メールが来ないときはもう一度確認してください。</li>
 				<li>メールアドレスも忘れたあふぉは知らん。web管理者か局長にでも連絡してください。</li>

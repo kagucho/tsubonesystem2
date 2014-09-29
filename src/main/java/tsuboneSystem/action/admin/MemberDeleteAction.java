@@ -102,8 +102,8 @@ public class MemberDeleteAction {
     	List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(memberForm.id);
     	if (tLeadersList.size() > 0) {
     		for (TLeaders tLeadersOne : tLeadersList) {
-    			TClub tClub = tClubService.findByLeadersId(tLeadersOne.id);
-    			if (tClub != null) {
+    			List<TClub> tClub = tClubService.findByLeadersId(tLeadersOne.id);
+    			if (tClub.size() > 0) {
     				//各部の現役の部長の場合
                 		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため削除できません",false));
     			}else if (tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.GASSYUKU.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.RIDAISAI.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ETC.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ACCOUNT.getCode()))) {

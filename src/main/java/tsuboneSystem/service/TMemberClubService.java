@@ -8,8 +8,6 @@ import org.seasar.extension.jdbc.where.SimpleWhere;
 
 import tsuboneSystem.entity.TMemberClub;
 import static org.seasar.extension.jdbc.operation.Operations.*;
-import static tsuboneSystem.names.TClubNames.id;
-import static tsuboneSystem.names.TLeadersNames.tClub;
 import static tsuboneSystem.names.TMemberClubNames.*;
 
 /**
