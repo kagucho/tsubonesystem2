@@ -367,4 +367,20 @@ public class TPartyService extends AbstractService<TParty> {
     	return tParty;
     }
     
+    /**
+     * 基礎イベント情報と付随イベント情報を同時に削除します
+     * @param PartyForm 
+     * 
+     * @return エンティティ
+     */
+    public int deleteCustom(PartyForm partyForm){
+    	TParty tParty = new TParty(partyForm.creatorId, partyForm);
+    	tParty.deleteFlag = Boolean.valueOf(true);
+    	int i = super.update(tParty);
+    	TPartySettingsService tPartySettingsService = SingletonS2Container.getComponent(TPartySettingsService.class);
+    	TPartySettings tPartySettings = tParty.tPartySettings;
+    	tPartySettingsService.delete(tPartySettings);
+    	return i;
+    }
+    
 }

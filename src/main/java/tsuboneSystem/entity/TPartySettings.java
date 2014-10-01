@@ -49,6 +49,10 @@ public class TPartySettings implements Serializable {
     @Column(columnDefinition ="boolean default '0'")
     public Boolean  noPublicFlag;
     
+    /** 人数通知設定値 */
+    @Column()
+    public Integer noticeMemberNum;
+    
     /** 削除フラグ */
     @Column(columnDefinition ="boolean default '0'")
     public Boolean  deleteFlag;

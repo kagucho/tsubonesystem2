@@ -219,6 +219,7 @@ public class MemberForm implements Serializable{
         ActionMessages errors = new ActionMessages();
         
         //基本確認3種
+        id = null;
         basicCheckSet(errors);
         
         return errors;
@@ -248,7 +249,7 @@ public class MemberForm implements Serializable{
         	errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
         }else{
         	//新規登録用
-        	if (id.equals(null)) {
+        	if (id == null) {
             	if (tMemberRec != null || tTempLogin != null) {
             		errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
             	}
@@ -266,7 +267,7 @@ public class MemberForm implements Serializable{
     	TMemberService tMemberService = SingletonS2Container.getComponent(TMemberService.class);
     	TMember tMemberRec = tMemberService.findByEmail(mail);
     	//新規登録用
-    	if (id.equals(null)) {
+    	if (id == null) {
         	if (tMemberRec != null) {
         		errors.add("mail",new ActionMessage("残念！！このメールアドレスはすでに使われています。",false));
         	}

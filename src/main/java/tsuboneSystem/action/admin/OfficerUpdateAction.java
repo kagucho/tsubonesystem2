@@ -122,11 +122,16 @@ public class OfficerUpdateAction {
   		//渡ってきたidはtLeadersのidであるので、そこからTLeadersに登録されているレコードを検索し、編集対象レコードを特定しておく。
   		officerForm.adminOld = tAdminService.findById(officerForm.id);
   		
-          return "officerAdminInput.jsp";
+          return indexAdminView();
+  	}
+  	
+  	@Execute(validator = false)
+  	public String indexAdminView(){
+  		return "officerAdminInput.jsp";
   	}
       
   	//確認画面
-      @Execute(validator = true, urlPattern = "confirmAdmin/{id}", validate="validateBase", input="officerInput.jsp", stopOnValidationError = false)
+      @Execute(validator = true, urlPattern = "confirmAdmin/{id}", validate="validateBase", input="indexAdminView", stopOnValidationError = false)
   	public String confirmAdmin() {
       	
       		officerForm.tMemberNew = tMemberService.findById(officerForm.id); 	
@@ -170,7 +175,7 @@ public class OfficerUpdateAction {
     	}
         
     	//確認画面
-        @Execute(validator = false, stopOnValidationError = false)
+        @Execute(validator = false, stopOnValidationError = false, reset = "resetInput")
     	public String clubChiefConfirm() {
             return "clubChiefConfirm.jsp";
     	}

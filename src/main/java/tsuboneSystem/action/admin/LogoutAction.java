@@ -34,7 +34,7 @@ public class LogoutAction {
 
 	
 	@Execute(validator = false)
-	@RemoveSession(name = "loginAdminDto")
+	@RemoveSession(name = {"loginAdminDto", "loginMemberDto"})
 	public String index() {
         return "/login/?redirect=true";
 	}

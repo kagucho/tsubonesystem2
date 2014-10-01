@@ -21,6 +21,7 @@ import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TPartyClub;
 import tsuboneSystem.entity.TPartyQuestion;
+import tsuboneSystem.entity.TPartySettings;
 
 @Component(instance = InstanceType.SESSION) 
 public class PartyForm implements Serializable{
@@ -80,8 +81,14 @@ public class PartyForm implements Serializable{
     /** OB出席フラグ */
     public String ObAttendFlag;
     
+    /** 人数通知設定値 */
+    public String noticeMemberNum;
+    
     /** 会議の制作者 */
     public TMember tMember;
+    
+    /** 会議の設定 */
+    public TPartySettings tPartySettings;
     
     /** チェックボックス等の使用禁止フラグ */
     public boolean disabledFlag;

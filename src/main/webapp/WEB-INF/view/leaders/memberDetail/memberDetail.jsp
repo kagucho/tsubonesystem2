@@ -7,7 +7,7 @@
 <div class="container">
 <div class="row CENTER">
 	<h3 class="col-md-6">${f:h(hname)}ちゃんの詳細情報</h3>
-	<c:if test="${loginLeadersDto.memberUpdate}">
+	<c:if test="${loginLeadersDto.memberUpdate || isMyInfo}">
 		<a class="col-md-2 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/leaders/memberUpdate/${id}"/>">更新</a>
 	</c:if>
 </div>

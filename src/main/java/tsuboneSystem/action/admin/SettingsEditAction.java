@@ -17,8 +17,8 @@ import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TTempLogin;
 import tsuboneSystem.form.SettingsEditForm;
-import tsuboneSystem.original.manager.MailManager;
 import tsuboneSystem.original.util.DigestUtil;
+import tsuboneSystem.original.util.MailManagerUtil;
 import tsuboneSystem.service.TAdminService;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
@@ -132,14 +132,14 @@ public class SettingsEditAction {
     	content = new String(buf);
     	
     	//メールを送信する
-    	MailManager manager = new MailManager();
-    	manager.setTitle(title);
-    	manager.setContent(content);
-    	manager.setToAddress(tMemberSendList.toArray(new TMember[0]));
-    	manager.setLogFlg(true, loginMemberDto.memberId, tMailSendMemberService, tMailService);
-    	if (!manager.sendMail()) {
-    		//TODO エラー時の処理
-    	}
+    	
+    	MailManagerUtil mailUtil = new MailManagerUtil();
+    	mailUtil.setTitle(title);
+    	mailUtil.setContent(content);	
+    	mailUtil.setLinkUrlFlag(false);
+    	mailUtil.setToAddressActorSplit(tMemberSendList);
+    	mailUtil.sendMail();
+    	
     	return "tempMemberComplete.jsp";
    	}
     

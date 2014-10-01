@@ -13,5 +13,6 @@
     <aspect>fisshplate.interceptor</aspect>
   </component>
   <component class="tsuboneSystem.original.manager.MailManager"/>
+  <component class="tsuboneSystem.original.util.MailManagerUtil"/>
   <component name="actionMessagesThrowsInterceptor" class="org.seasar.struts.interceptor.ActionMessagesThrowsInterceptor"/>
 </components>

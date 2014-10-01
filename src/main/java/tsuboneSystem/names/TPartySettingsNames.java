@@ -9,7 +9,7 @@ import tsuboneSystem.names.TPartyNames._TPartyNames;
  * {@link TPartySettings}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/09/29 18:11:40")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/10/02 1:02:07")
 public class TPartySettingsNames {
 
     /**
@@ -64,6 +64,15 @@ public class TPartySettingsNames {
      */
     public static PropertyName<Boolean> noPublicFlag() {
         return new PropertyName<Boolean>("noPublicFlag");
+    }
+
+    /**
+     * noticeMemberNumのプロパティ名を返します。
+     * 
+     * @return noticeMemberNumのプロパティ名
+     */
+    public static PropertyName<Integer> noticeMemberNum() {
+        return new PropertyName<Integer>("noticeMemberNum");
     }
 
     /**
@@ -169,6 +178,15 @@ public class TPartySettingsNames {
          */
         public PropertyName<Boolean> noPublicFlag() {
             return new PropertyName<Boolean>(this, "noPublicFlag");
+        }
+
+        /**
+         * noticeMemberNumのプロパティ名を返します。
+         *
+         * @return noticeMemberNumのプロパティ名
+         */
+        public PropertyName<Integer> noticeMemberNum() {
+            return new PropertyName<Integer>(this, "noticeMemberNum");
         }
 
         /**
