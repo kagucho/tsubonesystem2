@@ -6,7 +6,7 @@
 <c:if test="${loginMemberDto.actorKindCode == '1'}">
 	<a class="col-md-2 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/${loginMemberDto.actorKind}/clubUpdate/${id}"/>">更新</a>
 </c:if>
-<c:if test="${loginMemberDto.actorKindCode == '2' && loginLeadersDto.clubUpdate}">
+<c:if test="${loginMemberDto.actorKindCode == '2' && updateFlag}">
 	<a class="col-md-2 col-sm-5 col-sm-offset-3 col-xs-12 btn btn-primary" href="<c:url value="/${loginMemberDto.actorKind}/clubUpdate/${id}"/>">更新</a>
 </c:if>
 <table class="table">

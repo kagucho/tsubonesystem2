@@ -65,6 +65,9 @@ public class ClubDetailAction {
 	@Resource
 	protected TMailSendMemberService tMailSendMemberService;
 	
+	/** 部長であったらtrue */
+	public boolean updateFlag = false;
+	
 	/** HttpServlet */
 	@Resource
 	protected HttpServletRequest request;
@@ -85,6 +88,13 @@ public class ClubDetailAction {
     	for (TMemberClub memberClubOne : clubForm.tMemberClubList) {
     		clubForm.tMemberList.add(memberClubOne.tMember);
     	}
+    	
+    	//部長であったら編集ボタンが出現する
+    	if (club.tLeaders.tMember.id.equals(loginLeadersDto.memberId)) {
+    		updateFlag = true;
+    	}
+    	
+    	
     	
     return "clubDetail.jsp";
 	}

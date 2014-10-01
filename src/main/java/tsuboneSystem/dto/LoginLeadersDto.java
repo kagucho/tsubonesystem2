@@ -27,7 +27,7 @@ public class LoginLeadersDto implements Serializable {
 	public List<TLeaders> tLeadersList;
 	
 	/** 部長の場合の情報 **/
-	public TClub tClub;
+	public List<TClub> tClubList;
 	
 	/** 秘匿情報閲覧権限 **/
 	public boolean secretInformation = false;
