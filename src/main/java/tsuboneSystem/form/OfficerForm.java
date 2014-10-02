@@ -33,9 +33,6 @@ public class OfficerForm implements Serializable {
     
     /* 他人の出欠管理可否 */
     public boolean  attendUpdate;
-    
-    /* 部情報の編集権限可否 */
-    public boolean  clubUpdate;
 		
 	/* Clubのリスト */
 	public List<TClub> clubItems;
@@ -75,7 +72,6 @@ public class OfficerForm implements Serializable {
 	
 	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
 	public void resetInput() {
-		clubUpdate = false;
 		attendUpdate = false;
 		memberUpdate = false;
 		secretInformation = false;

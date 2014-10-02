@@ -40,12 +40,6 @@
 					<html:checkbox property="attendUpdate"/>&nbsp;&nbsp;他者の出欠を変更出来るようにする
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-4" for="clubUpdate">“部”情報の更新権限</label>
-				<div class="col-sm-8 memberF">
-					<html:checkbox property="clubUpdate"/>&nbsp;&nbsp;“部”の情報を更新できるようにする
-				</div>
-			</div>
 			<input type="submit" value="確認" name="clubChiefConfirm" class="btn btn-primary">
 		</form>
 	</s:form>

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.seasar.extension.jdbc.where.SimpleWhere;
+import org.seasar.framework.container.SingletonS2Container;
 
 import tsuboneSystem.entity.TClub;
 import static org.seasar.extension.jdbc.operation.Operations.*;
@@ -106,5 +107,16 @@ public class TClubService extends AbstractService<TClub> {
 		return rtnMap;
 	}
     
-    
+    public int deleteCustom (TClub tClub) {
+    	//該当の部を論理削除
+    	TClub tClubDelete = tClub;
+    	tClubDelete.deleteFlag = Boolean.valueOf(true);
+    	tClubDelete.LeadersId = null;
+    	int i = super.update(tClubDelete);
+    	//部長のレコードを削除
+    	TLeadersService tLeadersService = SingletonS2Container.getComponent(TLeadersService.class);
+    	tLeadersService.delete(tClub.tLeaders);
+    	
+    	return i;
+    }
 }

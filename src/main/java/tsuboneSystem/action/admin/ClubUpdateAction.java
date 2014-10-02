@@ -87,7 +87,7 @@ public class ClubUpdateAction {
     	return "clubInput.jsp";
     }
     
-    @Execute(validator = true, validate="validateBase", input="clubInput.jsp", stopOnValidationError = false)
+    @Execute(validator = true, validate="validateBase", input="viewinput", stopOnValidationError = false)
 	public String confirm() {
         return "clubConfirm.jsp";
 	}

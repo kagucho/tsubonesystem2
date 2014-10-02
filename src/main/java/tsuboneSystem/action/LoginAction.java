@@ -146,6 +146,7 @@ public class LoginAction {
         		//遷移先が格納されている時はそちらに飛ぶ
         		if(StringUtil.isNotEmpty(redirectURL)){
         			url = urlCreator(redirectURL,ActorKindCode.ADMIN.getCode());
+        			loginAdminDto.redirectURL = null;
         			return url;
         		}
         		return "/admin/?redirect=true";
@@ -161,7 +162,6 @@ public class LoginAction {
     			loginLeadersDto.secretInformation = false;
     			loginLeadersDto.memberUpdate = false;
     			loginLeadersDto.attendUpdate= false;
-    			loginLeadersDto.clubUpdate = false;
     			for(TLeaders tLeadersOne : loginLeadersDto.tLeadersList){
     				if(tLeadersOne.secretInformation){
     					loginLeadersDto.secretInformation = true;
@@ -171,9 +171,6 @@ public class LoginAction {
     				}
     				if(tLeadersOne.attendUpdate){
     					loginLeadersDto.attendUpdate= true;
-    				}
-    				if(tLeadersOne.clubUpdate){
-    					loginLeadersDto.clubUpdate = true;
     				}
     			}
             	loginMemberDto.memberId = member.id;

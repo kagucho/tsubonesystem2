@@ -88,7 +88,7 @@ public class ClubDeleteAction {
     	TClub clubDelete = new TClub();
     	Beans.copy(clubForm, clubDelete).execute();
     	clubDelete.deleteFlag = Boolean.valueOf(true);
-    	tClubService.update(clubDelete);
+    	tClubService.deleteCustom(clubDelete);
     	
         return "clubComplete.jsp";
 	}

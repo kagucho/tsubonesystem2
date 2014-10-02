@@ -94,8 +94,6 @@ public class ClubDetailAction {
     		updateFlag = true;
     	}
     	
-    	
-    	
     return "clubDetail.jsp";
 	}
     

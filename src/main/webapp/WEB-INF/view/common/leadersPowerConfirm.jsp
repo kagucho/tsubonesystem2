@@ -4,16 +4,13 @@
 	</tr>
 	<tr>
 		<td>
-			<c:if test="${secretInformation}"><span class="glyphicon glyphicon-ok"></span></c:if><c:if test="${!secretInformation}"><span class="glyphicon glyphicon-remove"></span></c:if>
-	</td>
-	<td>
-		<c:if test="${memberUpdate}"><span class="glyphicon glyphicon-ok"></span></c:if><c:if test="${!memberUpdate}"><span class="glyphicon glyphicon-remove"></span></c:if>
-	</td>
-	<td>
-		<c:if test="${attendUpdate}"><span class="glyphicon glyphicon-ok"></span></c:if><c:if test="${!attendUpdate}"><span class="glyphicon glyphicon-remove"></span></c:if>
-	</td>
-	<td>
-		<c:if test="${clubUpdate}"><span class="glyphicon glyphicon-ok"></span></c:if><c:if test="${!clubUpdate}"><span class="glyphicon glyphicon-remove"></span></c:if>
+				<c:if test="${secretInformation}"><span class="glyphicon glyphicon-ok"></span></c:if><c:if test="${!secretInformation}"><span class="glyphicon glyphicon-remove"></span></c:if>
+		</td>
+		<td>
+			<c:if test="${memberUpdate}"><span class="glyphicon glyphicon-ok"></span></c:if><c:if test="${!memberUpdate}"><span class="glyphicon glyphicon-remove"></span></c:if>
+		</td>
+		<td>
+			<c:if test="${attendUpdate}"><span class="glyphicon glyphicon-ok"></span></c:if><c:if test="${!attendUpdate}"><span class="glyphicon glyphicon-remove"></span></c:if>
 		</td>
 	</tr>
 </table>

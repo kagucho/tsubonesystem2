@@ -50,6 +50,6 @@ public class TLeadersTest extends S2TestCase {
      * @throws Exception
      */
     public void testLeftOuterJoin_tClub() throws Exception {
-        jdbcManager.from(TLeaders.class).leftOuterJoin(tClubList()).id(1).getSingleResult();
+        jdbcManager.from(TLeaders.class).leftOuterJoin(tClub()).id(1).getSingleResult();
     }
 }

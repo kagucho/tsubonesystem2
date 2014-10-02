@@ -70,7 +70,6 @@ public class OfficerUpdateAction {
 		officerForm.leadersOld = tLeadersService.findById(officerForm.id);
 		officerForm.secretInformation = officerForm.leadersOld.secretInformation;
 		officerForm.attendUpdate = officerForm.leadersOld.attendUpdate;
-		officerForm.clubUpdate = officerForm.leadersOld.clubUpdate;
 		officerForm.memberUpdate = officerForm.leadersOld.memberUpdate;
 		
         return "officerInput.jsp";
@@ -105,7 +104,6 @@ public class OfficerUpdateAction {
     	}
     	officerForm.leadersOld.memberUpdate = officerForm.memberUpdate;
     	officerForm.leadersOld.attendUpdate = officerForm.attendUpdate;
-    	officerForm.leadersOld.clubUpdate = officerForm.clubUpdate;
     	
     	tLeadersService.update(officerForm.leadersOld);
     	
@@ -163,9 +161,6 @@ public class OfficerUpdateAction {
     			if(tLeadersOne.memberUpdate){
     				officerForm.memberUpdate = true;
     			}
-    			if(tLeadersOne.clubUpdate){
-    				officerForm.clubUpdate = true;
-    			}
     			if(tLeadersOne.attendUpdate){
     				officerForm.attendUpdate = true;
     			}
@@ -186,7 +181,6 @@ public class OfficerUpdateAction {
         	
         	List<TLeaders> tLeadersList = tLeadersService.findByKind(LeadersKindCode.DIRECTOR.getCode());
         	for(TLeaders tLeadersOne : tLeadersList){
-        		tLeadersOne.clubUpdate = officerForm.clubUpdate;
         		tLeadersOne.attendUpdate = officerForm.attendUpdate;
         		tLeadersOne.memberUpdate = officerForm.memberUpdate;
         		if(officerForm.memberUpdate){

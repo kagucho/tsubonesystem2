@@ -1,7 +1,5 @@
 package tsuboneSystem.entity;
 import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -48,10 +46,6 @@ public class TLeaders implements Serializable {
     /* 他人の出欠管理可否 */
     @Column(columnDefinition ="boolean default '0'")
     public boolean  attendUpdate;
-    
-    /* 部情報の編集権限可否 */
-    @Column(columnDefinition ="boolean default '0'")
-    public boolean  clubUpdate;
        
     
     /** MemberidをTMember(ID)に関連付ける */
@@ -60,8 +54,8 @@ public class TLeaders implements Serializable {
     public TMember tMember;
     
     /** 部長のIDをTClubに関連付ける */
-    @OneToMany(mappedBy = "tLeaders")
-    public List<TClub> tClubList;
+    @OneToOne(mappedBy = "tLeaders")
+    public TClub tClub;
     
 
 }

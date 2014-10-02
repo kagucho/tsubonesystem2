@@ -32,20 +32,19 @@ public class MemberDetailAction extends tsuboneSystem.action.admin.MemberDetailA
 		//まずは詳細を表示するメンバーの情報を格納
 		super.detail();
 		
-		if(!loginLeadersDto.secretInformation){
+		if (!memberForm.id.equals(loginLeadersDto.memberId)) {
 			//秘匿情報の権限がない場合
-			if (!memberForm.id.equals(loginLeadersDto.memberId)) {
+			if(!loginLeadersDto.secretInformation){
 				//もし表示する情報が自分でなければ一部の情報を隠す
 				memberForm.password = "*****";
 				memberForm.tel1 = "***";
 				memberForm.tel2 = "****";
 				memberForm.tel3 = "****";
 				memberForm.userName = "*****";
-				//フラグを書き換える
-				isMyInfo = false;
 			}
+			//フラグを書き換える
+			isMyInfo = false;
 		}
-		
 		return "memberDetail.jsp";
 	}
 }

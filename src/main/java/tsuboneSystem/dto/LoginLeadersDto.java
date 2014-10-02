@@ -38,9 +38,6 @@ public class LoginLeadersDto implements Serializable {
 	/** 出欠変更権限 **/
 	public boolean attendUpdate = false;
 	
-	/** 部情報更新権限 **/
-	public boolean clubUpdate = false;
-	
 	/** リダイレクト先ＵＲＬ */
 	public String redirectURL;
 }

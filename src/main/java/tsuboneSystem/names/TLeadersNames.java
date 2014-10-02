@@ -10,7 +10,7 @@ import tsuboneSystem.names.TMemberNames._TMemberNames;
  * {@link TLeaders}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/10/02 1:02:07")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/10/02 19:02:07")
 public class TLeadersNames {
 
     /**
@@ -68,15 +68,6 @@ public class TLeadersNames {
     }
 
     /**
-     * clubUpdateのプロパティ名を返します。
-     * 
-     * @return clubUpdateのプロパティ名
-     */
-    public static PropertyName<Boolean> clubUpdate() {
-        return new PropertyName<Boolean>("clubUpdate");
-    }
-
-    /**
      * tMemberのプロパティ名を返します。
      * 
      * @return tMemberのプロパティ名
@@ -86,12 +77,12 @@ public class TLeadersNames {
     }
 
     /**
-     * tClubListのプロパティ名を返します。
+     * tClubのプロパティ名を返します。
      * 
-     * @return tClubListのプロパティ名
+     * @return tClubのプロパティ名
      */
-    public static _TClubNames tClubList() {
-        return new _TClubNames("tClubList");
+    public static _TClubNames tClub() {
+        return new _TClubNames("tClub");
     }
 
     /**
@@ -182,15 +173,6 @@ public class TLeadersNames {
         }
 
         /**
-         * clubUpdateのプロパティ名を返します。
-         *
-         * @return clubUpdateのプロパティ名
-         */
-        public PropertyName<Boolean> clubUpdate() {
-            return new PropertyName<Boolean>(this, "clubUpdate");
-        }
-
-        /**
          * tMemberのプロパティ名を返します。
          * 
          * @return tMemberのプロパティ名
@@ -200,12 +182,12 @@ public class TLeadersNames {
         }
 
         /**
-         * tClubListのプロパティ名を返します。
+         * tClubのプロパティ名を返します。
          * 
-         * @return tClubListのプロパティ名
+         * @return tClubのプロパティ名
          */
-        public _TClubNames tClubList() {
-            return new _TClubNames(this, "tClubList");
+        public _TClubNames tClub() {
+            return new _TClubNames(this, "tClub");
         }
     }
 }

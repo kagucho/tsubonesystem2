@@ -8,8 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -46,7 +46,7 @@ public class TClub implements Serializable {
     public Boolean  deleteFlag;
     
     /** 部長のIDをTClubに関連付ける */
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "LEADERS_ID", referencedColumnName = "ID")
     public TLeaders tLeaders;
     
