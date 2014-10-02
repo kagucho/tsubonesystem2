@@ -2,9 +2,11 @@ package tsuboneSystem.original.util;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.seasar.framework.container.SingletonS2Container;
 
 import tsuboneSystem.code.ActorKindCode;
+import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.entity.TMail;
 import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
@@ -53,6 +55,9 @@ public class MailManagerUtil {
 	
 	//urlの先頭
 	private final String urlHead = "http://localhost:8080/TsuboneSystem/";
+	
+	//メールの回覧権限
+	public Integer browsingRights = MailBrowsingRightsCode.MEMBER.getCodeNumber();
 	
 	
 	/**
@@ -111,6 +116,14 @@ public class MailManagerUtil {
 	 */
 	public void setLinkUrlFlag(boolean linkUrlFlag){
 		this.linkUrlFlag = linkUrlFlag;
+	}
+	
+	/**
+	 * メールの回覧種別
+	 * @param linkUrlFlag
+	 */
+	public void setBrowsingRights(Integer browsingRights){
+		this.browsingRights = browsingRights;
 	}
 	
 	/**
@@ -187,6 +200,7 @@ public class MailManagerUtil {
 		tMail.content = content;
 		tMail.errorFlag = notError;
 		tMail.registMemberId = sendMemberID;
+		tMail.browsingRights = browsingRights;
 		//本来はここで挿入を行うべきなので問題ない
 		TMailService tMailService = SingletonS2Container.getComponent(TMailService.class);
 		tMailService.insert(tMail);

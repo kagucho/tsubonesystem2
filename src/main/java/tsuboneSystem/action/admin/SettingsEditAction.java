@@ -12,6 +12,7 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.LeadersKindCode;
+import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TMember;
@@ -134,6 +135,7 @@ public class SettingsEditAction {
     	//メールを送信する
     	
     	MailManagerUtil mailUtil = new MailManagerUtil();
+    	mailUtil.setBrowsingRights(MailBrowsingRightsCode.ADMIN.getCodeNumber());
     	mailUtil.setTitle(title);
     	mailUtil.setContent(content);	
     	mailUtil.setLinkUrlFlag(false);

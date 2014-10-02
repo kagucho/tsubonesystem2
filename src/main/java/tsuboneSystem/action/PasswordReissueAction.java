@@ -10,6 +10,7 @@ import org.seasar.framework.container.annotation.tiger.Binding;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.PasswordReissueForm;
@@ -81,6 +82,7 @@ public class PasswordReissueAction {
         	content = new String(buf);
         	
         	MailManagerUtil mailUtil = new MailManagerUtil();
+        	mailUtil.setBrowsingRights(MailBrowsingRightsCode.ADMIN.getCodeNumber());
         	mailUtil.setTitle(title);
         	mailUtil.setContent(content);	
         	mailUtil.setContentName("memberUpdate");

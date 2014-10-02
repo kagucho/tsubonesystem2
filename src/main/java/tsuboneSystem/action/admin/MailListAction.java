@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TMail;
 import tsuboneSystem.entity.TMember;
@@ -61,6 +62,6 @@ public class MailListAction {
 
 
 	protected List<TMail> getMailRecord() {
-		return tMailService.findAllOrderByIdLimitOffset(20, 0);
+		return tMailService.findAllOrderByIdLimitOffset(MailBrowsingRightsCode.ADMIN.getCodeNumber(), 20, 0);
 	}
 }

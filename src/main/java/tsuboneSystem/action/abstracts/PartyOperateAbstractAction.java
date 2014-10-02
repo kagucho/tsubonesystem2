@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.entity.TPartyClub;
@@ -134,6 +135,7 @@ public abstract class PartyOperateAbstractAction {
     	
     	//メールを送信する
     	MailManagerUtil mailUtil = new MailManagerUtil();
+    	mailUtil.setBrowsingRights(MailBrowsingRightsCode.MEMBER.getCodeNumber());
     	mailUtil.setTitle(partyForm.title);
     	mailUtil.setContent(partyForm.content);	
     	mailUtil.setContentId(partyForm.id);

@@ -46,8 +46,13 @@ public class TMailService extends AbstractService<TMail> {
      * @param offset
      * @return
      */
-    public List<TMail> findAllOrderByIdLimitOffset(int limit, int offset) {
-    	return select().innerJoin(tMember()).orderBy(desc(id())).limit(limit).offset(offset).getResultList();
+    public List<TMail> findAllOrderByIdLimitOffset(Integer browsingRights, int limit, int offset) {
+    	
+    	//引数(browsingRights)より大きい値を検索する
+    	SimpleWhere where = new SimpleWhere();
+    	where.ge(browsingRights(), browsingRights);
+    	
+    	return select().where(where).leftOuterJoin(tMember()).orderBy(desc(id())).limit(limit).offset(offset).getResultList();
     }
     
     /**
