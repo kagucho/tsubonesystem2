@@ -25,6 +25,7 @@ import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TClub;
@@ -32,7 +33,7 @@ import tsuboneSystem.entity.TMail;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.form.ClubForm;
-import tsuboneSystem.original.manager.MailManager;
+import tsuboneSystem.original.util.MailManagerUtil;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
@@ -145,16 +146,19 @@ public class ClubDetailAction {
         	Beans.copy(clubForm, tMail).execute();
         	
         	//メールを送信する
-        	MailManager manager = new MailManager();
-        	manager.setTitle(clubForm.title);
-        	manager.setContent(clubForm.content);
-        	manager.setToAddress(clubForm.tMemberSendList.toArray(new TMember[0]));
-        	manager.setLogFlg(true, loginMemberDto.memberId, tMailSendMemberService, tMailService);
-        	if (manager.sendMail()) {
+        	MailManagerUtil mailUtil = new MailManagerUtil();
+        	mailUtil.setRegistId(loginMemberDto.memberId);
+        	mailUtil.setBrowsingRights(MailBrowsingRightsCode.MEMBER.getCodeNumber());
+        	mailUtil.setTitle(clubForm.title);
+        	mailUtil.setContent(clubForm.content);	
+        	mailUtil.setLinkUrlFlag(false);
+        	mailUtil.setToAddressActorSplit(clubForm.tMemberSendList);
+        	mailUtil.sendMail();
+        	if (!mailUtil.getSendMailResult()) {
         		mailMsg = "メールを正常に送信しました。";
         	} else {
         		mailMsg = "メールの送信に失敗しました。";
-        	}	
+        	}
         }
         
     return "clubMailComplete.jsp";	

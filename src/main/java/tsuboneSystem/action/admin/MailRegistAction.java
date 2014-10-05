@@ -7,11 +7,12 @@ import org.apache.struts.util.TokenProcessor;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.MailForm;
-import tsuboneSystem.original.manager.MailManager;
+import tsuboneSystem.original.util.MailManagerUtil;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
@@ -108,16 +109,17 @@ public class MailRegistAction {
         	
         	//メールの送信者のID
         	mailForm.registMemberId = getLoginMemberId();
-
+        	
         	//メールを送信する
-        	MailManager manager = new MailManager();
-        	manager.setTitle(mailForm.title);
-        	manager.setContent(mailForm.content);
-        	manager.setToAddress(mailForm.tMemberSendList.toArray(new TMember[0]));
-        	manager.setLogFlg(true, getLoginMemberId(), tMailSendMemberService, tMailService);
-        	if (!manager.sendMail()) {
-        		//TODO エラー時の処理
-        	}
+        	MailManagerUtil mailUtil = new MailManagerUtil();
+        	mailUtil.setRegistId(loginMemberDto.memberId);
+        	mailUtil.setBrowsingRights(MailBrowsingRightsCode.MEMBER.getCodeNumber());
+        	mailUtil.setTitle(mailForm.title);
+        	mailUtil.setContent(mailForm.content);	
+        	mailUtil.setLinkUrlFlag(false);
+        	mailUtil.setToAddressActorSplit(mailForm.tMemberSendList);
+        	mailUtil.sendMail();
+        	
         	return "mailComplete.jsp";
         } else {
         	return "/common/error.jsp";

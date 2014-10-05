@@ -10,6 +10,7 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.MailBrowsingRightsCode;
+import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.entity.TPartyClub;
@@ -30,6 +31,8 @@ import tsuboneSystem.service.TPartySettingsService;
 public abstract class PartyOperateAbstractAction {
 	/** メール送信可否 */
 	public String mailMsg = null;
+	
+	public LoginMemberDto loginMemberDto;
 	
 	/** TPartyのサービスクラス */
 	@Resource
@@ -135,6 +138,7 @@ public abstract class PartyOperateAbstractAction {
     	
     	//メールを送信する
     	MailManagerUtil mailUtil = new MailManagerUtil();
+    	mailUtil.setRegistId(loginMemberDto.memberId);
     	mailUtil.setBrowsingRights(MailBrowsingRightsCode.MEMBER.getCodeNumber());
     	mailUtil.setTitle(partyForm.title);
     	mailUtil.setContent(partyForm.content);	

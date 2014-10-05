@@ -13,6 +13,7 @@ import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.LeadersKindCode;
+import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.code.SexCode;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TAdmin;
@@ -20,7 +21,7 @@ import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TMemberClub;
 import tsuboneSystem.form.MemberForm;
-import tsuboneSystem.original.manager.MailManager;
+import tsuboneSystem.original.util.MailManagerUtil;
 import tsuboneSystem.service.TAdminService;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TMailSendMemberService;
@@ -200,15 +201,15 @@ public class MemberRegistAction {
         	}
         	tMemberSendList.add(member);//本人
         	
-        	//送信
-        	MailManager manager = new MailManager();
-        	manager.setTitle(title);
-        	manager.setContent(content);
-        	manager.setToAddress(tMemberSendList.toArray(new TMember[0]));
-        	manager.setLogFlg(true, null, tMailSendMemberService, tMailService);
-        	if (!manager.sendMail()) {
-        		//TODO エラー時の処理
-        	}
+        	
+        	//メールを送信する
+        	MailManagerUtil mailUtil = new MailManagerUtil();
+        	mailUtil.setBrowsingRights(MailBrowsingRightsCode.ADMIN.getCodeNumber());
+        	mailUtil.setTitle(title);
+        	mailUtil.setContent(content);	
+        	mailUtil.setLinkUrlFlag(false);
+        	mailUtil.setToAddressActorSplit(tMemberSendList);
+        	mailUtil.sendMail();
         	
         }else{
         	rePageError = "2重登録を感知しました。最初から登録しなおしてください。";

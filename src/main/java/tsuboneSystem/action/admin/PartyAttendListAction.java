@@ -18,6 +18,7 @@ import org.seasar.struts.annotation.Execute;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.dto.PartyDto;
@@ -26,7 +27,7 @@ import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyAttend;
 import tsuboneSystem.form.PartyAttendForm;
-import tsuboneSystem.original.manager.MailManager;
+import tsuboneSystem.original.util.MailManagerUtil;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
 import tsuboneSystem.service.TMemberService;
@@ -192,16 +193,19 @@ public class PartyAttendListAction {
     	// 2重送信防止のためTokenが正常な場合にのみ レコード追加処理を行う
         if (TokenProcessor.getInstance().isTokenValid(request, true)) {
         	//メールを送信する
-        	MailManager manager = new MailManager();
-        	manager.setTitle(partyAttendForm.title);
-        	manager.setContent(partyAttendForm.content);
-        	manager.setToAddress(partyAttendForm.tMemberSendList.toArray(new TMember[0]));
-        	if (manager.sendMail()) {
+        	MailManagerUtil mailUtil = new MailManagerUtil();
+        	mailUtil.setRegistId(loginMemberDto.memberId);
+        	mailUtil.setBrowsingRights(MailBrowsingRightsCode.MEMBER.getCodeNumber());
+        	mailUtil.setTitle(partyAttendForm.title);
+        	mailUtil.setContent(partyAttendForm.content);	
+        	mailUtil.setLinkUrlFlag(false);
+        	mailUtil.setToAddressActorSplit(partyAttendForm.tMemberSendList);
+        	mailUtil.sendMail();
+        	if (!mailUtil.getSendMailResult()) {
         		mailMsg = "メールを正常に送信しました。";
         	} else {
         		mailMsg = "メールの送信に失敗しました。";
         	}
-        	manager.setLogFlg(true, loginMemberDto.memberId, tMailSendMemberService, tMailService);
         }
     return "partyMailComplete.jsp";	
     }   

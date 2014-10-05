@@ -82,7 +82,7 @@
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="noticeMemberNum">人数通知設定値</label>
 			<div class="col-sm-8 memberF">
-				<input type="text" id="noticeMemberNum" name="noticeMemberNum" property="noticeMemberNum" class="form-control" placeholder="※設定された数に出席者が達すると、イベントの作成者にメールが飛びます" value="${noticeMemberNum}">
+				<input type="text" id="noticeMemberNum" name="noticeMemberNum" property="noticeMemberNum" class="form-control" placeholder="※設定された数に出席者が達すると、おしらせメールが飛びます" value="${noticeMemberNum}">
 				<html:errors property="noticeMemberNum"/>
 			</div>
 		</div>

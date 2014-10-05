@@ -13,6 +13,7 @@ import org.seasar.framework.container.annotation.tiger.InstanceType;
 
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TParty;
+import tsuboneSystem.entity.TPartySettings;
 
 
 @Component(instance = InstanceType.SESSION)
@@ -65,6 +66,8 @@ public class PartyDto implements Serializable {
 	
 	/* 会議の登録者 */
 	public TMember tMember;
+	
+	public TPartySettings tPartySettings;
 	
 	/* 会議の制作者がログイン者の場合true(一般メンバーの編集権限判定に使用) */
 	public boolean myPartyFlag = false;

@@ -10,6 +10,7 @@ import org.apache.struts.util.TokenProcessor;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.code.PartyAnswerCode;
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginLeadersDto;
@@ -19,7 +20,7 @@ import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TPartyAnswer;
 import tsuboneSystem.entity.TPartyAttend;
 import tsuboneSystem.form.PartyQuestionAnswerForm;
-import tsuboneSystem.original.manager.MailManager;
+import tsuboneSystem.original.util.MailManagerUtil;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
@@ -157,12 +158,15 @@ public class PartyAnswerAction {
 		String content = partyQuestionAnswerForm.tPartyQuestion.getQuestionContent(getLoginTMember().hname, partyQuestionAnswerForm.answer);
 		
 		//メールを送信する
-		MailManager manager = new MailManager();
-		manager.setTitle(title);
-		manager.setContent(content);
-		manager.setToAddress(tSendMember.toArray(new TMember[0]));
-		manager.setLogFlg(true, getLoginMemberId(), tMailSendMemberService, tMailService);
-		return manager.sendMail();
+    	MailManagerUtil mailUtil = new MailManagerUtil();
+    	mailUtil.setRegistId(loginMemberDto.memberId);
+    	mailUtil.setBrowsingRights(MailBrowsingRightsCode.MEMBER.getCodeNumber());
+    	mailUtil.setTitle(title);
+    	mailUtil.setContent(content);	
+    	mailUtil.setLinkUrlFlag(false);
+    	mailUtil.setToAddressActorSplit(tSendMember);
+    	mailUtil.sendMail();
+		return mailUtil.getSendMailResult();
 	}
 
 	/**

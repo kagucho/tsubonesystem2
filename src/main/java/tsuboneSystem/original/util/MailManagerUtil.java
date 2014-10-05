@@ -56,7 +56,7 @@ public class MailManagerUtil {
 	//urlの先頭
 	private final String urlHead = "http://localhost:8080/TsuboneSystem/";
 	
-	//メールの回覧権限
+	//メールの回覧権限(デフォルトはMEMBER)
 	public Integer browsingRights = MailBrowsingRightsCode.MEMBER.getCodeNumber();
 	
 	

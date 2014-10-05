@@ -34,9 +34,14 @@
 		<th><h4>出席対象者を部に絞る</h4></th>
 		<td>
 			<h5>
-				<c:forEach var="e" items="${attendClub}">
-					${f:h(clubMapSS[e])}
-				</c:forEach>
+				<c:if test="${ fn:length( attendClub ) != 0}">
+					<c:forEach var="e" items="${attendClub}">
+						${f:h(clubMapSS[e])}
+					</c:forEach>
+				</c:if>
+				<c:if test="${fn:length( attendClub ) == 0}">
+					(全員が出席)
+				</c:if>
 			</h5>
 		</td>
 	</tr>
@@ -55,10 +60,19 @@
 		<th><h4>締切日</h4></th>
 		<td><h5>${f:h(meetingDeadlineDay)}</h5></td>
 	</tr>
-	<c:if test="${deadFlag}">
 	<tr>
-		<th><h4>会議の結果</h4></th>
-		<td><h5><pre>${f:h(meetingResult)}</pre></h5></td>
+		<th><h4>人数通知設定値</h4></th>
+		<c:if test="${!empty noticeMemberNum}">
+			<td><h5>出席者が${f:h(noticeMemberNum)}人になったらメールを飛ばす</h5></td>
+		</c:if>
+		<c:if test="${empty noticeMemberNum}">
+			<td><h5>(未設定)</h5></td>
+		</c:if>
 	</tr>
+	<c:if test="${deadFlag}">
+		<tr>
+			<th><h4>会議の結果</h4></th>
+			<td><h5><pre>${f:h(meetingResult)}</pre></h5></td>
+		</tr>
 	</c:if>
 </table>

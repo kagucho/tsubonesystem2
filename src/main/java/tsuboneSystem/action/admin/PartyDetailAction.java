@@ -12,6 +12,7 @@ import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.dto.PartyDto;
@@ -20,7 +21,7 @@ import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyClub;
 import tsuboneSystem.entity.TPartyQuestion;
 import tsuboneSystem.form.PartyForm;
-import tsuboneSystem.original.manager.MailManager;
+import tsuboneSystem.original.util.MailManagerUtil;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
@@ -88,6 +89,7 @@ public class PartyDetailAction {
     	
     	TParty party = tPartyService.findById(partyForm.id);
     	Beans.copy(party, partyForm).execute();
+    	Beans.copy(party.tPartySettings, partyForm).excludes("id", "deleteFlag").execute();
     	Beans.copy(party, partyDto).execute();
     	
     	 int i = 0;
@@ -146,14 +148,17 @@ public class PartyDetailAction {
     	    	String content = getMailContents();
     	    	
     	    	//メールを送信する
-            	MailManager manager = new MailManager();
-            	manager.setTitle(title);
-            	manager.setContent(content);
-            	manager.setToAddress(tSendMember.toArray(new TMember[0]));
-            	manager.setLogFlg(true, getLoginMemberId(), tMailSendMemberService, tMailService);
-            	if (manager.sendMail()){
+            	MailManagerUtil mailUtil = new MailManagerUtil();
+            	mailUtil.setRegistId(loginMemberDto.memberId);
+            	mailUtil.setBrowsingRights(MailBrowsingRightsCode.MEMBER.getCodeNumber());
+            	mailUtil.setTitle(title);
+            	mailUtil.setContent(content);	
+            	mailUtil.setLinkUrlFlag(false);
+            	mailUtil.setToAddressActorSplit(tSendMember);
+            	mailUtil.sendMail();
+            	if (!mailUtil.getSendMailResult()) {
             		errorFlag = false;
-            	}else{
+            	} else {
             		errorFlag = true;
             	}
         	}

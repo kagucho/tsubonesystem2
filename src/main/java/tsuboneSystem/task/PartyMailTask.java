@@ -9,10 +9,11 @@ import javax.annotation.Resource;
 import org.seasar.chronos.core.annotation.task.Task;
 import org.seasar.chronos.core.annotation.trigger.CronTrigger;
 
+import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyAttend;
-import tsuboneSystem.original.manager.MailManager;
+import tsuboneSystem.original.util.MailManagerUtil;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
 import tsuboneSystem.service.TMemberClubService;
@@ -134,16 +135,13 @@ public class PartyMailTask extends AbstractTask{
         	    	String content = new String(sbc);
         	    	
         	    	//メールを送信する
-                	MailManager manager = new MailManager();
-                	manager.setTitle(title);
-                	manager.setContent(content);
-                	manager.setToAddress(tSendMember.toArray(new TMember[0]));
-                	manager.setLogFlg(true, null, tMailSendMemberService, tMailService);
-                	if (manager.sendMail()){
-                		errorFlag = false;
-                	}else{
-                		errorFlag = true;
-                	}
+                	MailManagerUtil mailUtil = new MailManagerUtil();
+                	mailUtil.setBrowsingRights(MailBrowsingRightsCode.MEMBER.getCodeNumber());
+                	mailUtil.setTitle(title);
+                	mailUtil.setContent(content);	
+                	mailUtil.setLinkUrlFlag(false);
+                	mailUtil.setToAddressActorSplit(tSendMember);
+                	mailUtil.sendMail();
     	    	}
     		}
     	}

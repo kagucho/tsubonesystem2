@@ -1,13 +1,18 @@
 package tsuboneSystem.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Generated;
 
 import org.seasar.extension.jdbc.where.SimpleWhere;
 
+import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.code.PartyAttendCode;
+import tsuboneSystem.entity.TMember;
+import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyAttend;
+import tsuboneSystem.original.util.MailManagerUtil;
 import static org.seasar.extension.jdbc.operation.Operations.*;
 import static tsuboneSystem.names.TMemberClubNames.MemberId;
 import static tsuboneSystem.names.TPartyAttendNames.*;
@@ -59,7 +64,7 @@ public class TPartyAttendService extends AbstractService<TPartyAttend> {
 	public List<TPartyAttend> findByPartyId(Integer partyId) {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(partyId(),partyId);
-        return select().where(where).getResultList();
+        return select().innerJoin(tMember()).innerJoin(tParty()).where(where).getResultList();
     }
 	
 	/**
@@ -112,6 +117,59 @@ public class TPartyAttendService extends AbstractService<TPartyAttend> {
         return select().where(where).getSingleResult();
     }
     
-    
-    
+    public void noticeMemberNum(TParty tParty){
+    	if (tParty.tPartySettings.noticeMemberNum != null && !tParty.tPartySettings.noticeMemberNum.equals(new Integer(0))) {
+    		//現在の出席者の件数を検索する
+    		SimpleWhere where = new SimpleWhere();
+    		where.eq(partyId(), tParty.id);
+    		where.eq(attend(), PartyAttendCode.YES_ATTEND.getCodeNumber());
+    		Long count = jdbcManager.from(TPartyAttend.class).where(where).getCount();//現在の出席者数
+    		Long settingNum = Long.valueOf(tParty.tPartySettings.noticeMemberNum);//設定人数
+    		
+    		//設定人数に等しかったらメールを送信する
+    		if (count.equals(settingNum)) {
+    			
+    			//会議の出席対象
+        		List<TMember>tMemberSendList = new ArrayList<TMember>();
+        		for (TPartyAttend one : findByPartyId(tParty.id)) {
+        			tMemberSendList.add(one.tMember);
+        		}
+        		
+        		//現在の会議の出席者
+        		List<TMember> attendMemberList = new ArrayList<TMember>();
+        		for (TPartyAttend one : findByPartyIdAndAttendOn(tParty.id)) {
+        			attendMemberList.add(one.tMember);
+        		}
+    			
+    			String title = "イベントに設定された人数に出席者数が到達したのでお知らせします！！";
+    			
+    			StringBuffer bf = new StringBuffer();
+    			bf.append("設定された人数に出席者数が到達したのでお知らせします。");
+    			bf.append("\n");
+    			bf.append("\n");
+    			bf.append("会議名：");bf.append(tParty.meetingName);
+    			bf.append("\n");
+    			bf.append("設定人数：");bf.append(tParty.tPartySettings.noticeMemberNum.toString());
+    			bf.append("\n");
+    			bf.append("\n");
+    			bf.append("現在の出席者一覧：");
+    			bf.append("\n");
+    			for (TMember member : attendMemberList) {
+    				bf.append(member.hname);
+    				bf.append("\n");
+    			}
+    			String content = new String(bf);
+    			
+    			
+    			//メールを送信する
+    	    	MailManagerUtil mailUtil = new MailManagerUtil();
+    	    	mailUtil.setBrowsingRights(MailBrowsingRightsCode.MEMBER.getCodeNumber());
+    	    	mailUtil.setTitle(title);
+    	    	mailUtil.setContent(content);
+    	    	mailUtil.setLinkUrlFlag(false);
+    	    	mailUtil.setToAddressActorSplit(tMemberSendList);
+    	    	mailUtil.sendMail();
+    		}
+    	}
+    }
 }
