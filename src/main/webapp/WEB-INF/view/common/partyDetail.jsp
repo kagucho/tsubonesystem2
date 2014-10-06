@@ -34,7 +34,7 @@
 		</c:if>
 	</div>
 	<div class="col-md-12">
-		<%@ include file="/WEB-INF/view/common/partyFormConfirm.jsp"%>
+		<%@ include file="/WEB-INF/view/common/partyFormConfirm.jsp"%><%-- 詳細jsp --%>
 		<c:if test="${!deadFlag}">
 			<div class="row CENTER">
 				<a class="col-md-3 col-md-offset-3 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-primary btnYOKO btnMRC " href="<c:url value="/${loginMemberDto.actorKind}/attend/yes"/>">出席する</a>

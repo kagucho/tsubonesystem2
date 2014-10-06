@@ -9,12 +9,8 @@ import javax.annotation.Generated;
 
 import org.seasar.extension.jdbc.where.ComplexWhere;
 import org.seasar.extension.jdbc.where.SimpleWhere;
-import org.seasar.framework.beans.util.Beans;
-import org.seasar.framework.container.SingletonS2Container;
-
 import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.entity.TParty;
-import tsuboneSystem.entity.TPartySettings;
 import tsuboneSystem.form.PartyForm;
 import static org.seasar.extension.jdbc.operation.Operations.*;
 import static tsuboneSystem.names.TPartyNames.*;
@@ -36,7 +32,6 @@ public class TPartyService extends AbstractService<TParty> {
     public TParty findById(Integer id) {
         return select()
         		.innerJoin(tMember())
-        		.innerJoin(tPartySettings())
         		.leftOuterJoin(tPartyClubList())
         		.leftOuterJoin(tPartyQuestionList())
         		.leftOuterJoin(tPartyQuestionList().tMember())
@@ -53,7 +48,7 @@ public class TPartyService extends AbstractService<TParty> {
     	where.eq(deleteFlag(), Boolean.valueOf(false));
         return select().where(where)
         		.innerJoin(tMember())
-        		.innerJoin(tPartySettings())
+
         		.orderBy(desc(meetingDeadlineDay())).getResultList();
     }
     
@@ -69,7 +64,7 @@ public class TPartyService extends AbstractService<TParty> {
     	where.ge(meetingDeadlineDay(), dateNow);
         return select()
         		.innerJoin(tMember())
-        		.innerJoin(tPartySettings())
+
         		.leftOuterJoin(tPartyClubList())
         		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
         		.where(where).orderBy(desc(id())).getResultList();
@@ -87,7 +82,6 @@ public class TPartyService extends AbstractService<TParty> {
     	where.ge(meetingDeadlineDay(), dateNow);
     	return select()
     			.innerJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId).eq(tPartyAttendList().attend(), PartyAttendCode.UNSUBMITTED.getCode()))
-    			.innerJoin(tPartySettings())
     			.where(where)
     			.getResultList();
     			
@@ -114,7 +108,7 @@ public class TPartyService extends AbstractService<TParty> {
     	where.eq(meetingDeadlineDay(), dateadd);
         return select()
         		.innerJoin(tMember())
-        		.innerJoin(tPartySettings())
+
         		.leftOuterJoin(tPartyClubList())
         		.where(where).orderBy(desc(id())).getResultList();
     }
@@ -141,7 +135,7 @@ public class TPartyService extends AbstractService<TParty> {
     	where.ge(meetingDeadlineDay(), dateNow);
         return select()
         		.innerJoin(tMember())
-        		.innerJoin(tPartySettings())
+
         		.leftOuterJoin(tPartyClubList())
         		.where(where).orderBy(desc(id())).getResultList();
     }
@@ -158,7 +152,7 @@ public class TPartyService extends AbstractService<TParty> {
     	where.le(meetingDeadlineDay(), dateNow);
         return select()
         		.innerJoin(tMember())
-        		.innerJoin(tPartySettings())
+
         		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
         		.where(where).orderBy(desc(id()))
         		.getResultList();
@@ -176,7 +170,7 @@ public class TPartyService extends AbstractService<TParty> {
     	where.ge(meetingEndDay(), dateNow);
         return select()
         		.innerJoin(tMember())
-        		.innerJoin(tPartySettings())
+
         		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
         		.where(where).orderBy(desc(id())).getResultList();
     }
@@ -203,7 +197,7 @@ public class TPartyService extends AbstractService<TParty> {
     	where.le(updateTime(), dateadd);
         return select()
         		.innerJoin(tMember())
-        		.innerJoin(tPartySettings())
+
         		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
         		.where(where).orderBy(desc(id()))
         		.getResultList();
@@ -234,7 +228,7 @@ public class TPartyService extends AbstractService<TParty> {
     	
     	return select()
         		.innerJoin(tMember())
-        		.innerJoin(tPartySettings())
+
         		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
         		.where(where).orderBy(desc(id()))
         		.getResultList();
@@ -263,7 +257,7 @@ public class TPartyService extends AbstractService<TParty> {
     	
         return select()
         		.innerJoin(tMember())
-        		.innerJoin(tPartySettings())
+
         		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
         		.where(where).orderBy(desc(id()))
         		.getResultList();
@@ -290,7 +284,7 @@ public class TPartyService extends AbstractService<TParty> {
     	where.ge(updateTime(), dateadd);
         return select()
         		.innerJoin(tMember())
-        		.innerJoin(tPartySettings())
+
         		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
         		.where(where).orderBy(desc(id()))
         		.getResultList();
@@ -322,7 +316,7 @@ public class TPartyService extends AbstractService<TParty> {
 //    			.le(meetingDay(), dateNow));
         return select()
         		.innerJoin(tMember())
-        		.innerJoin(tPartySettings())
+
         		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
         		.where(where).orderBy(desc(id()))
         		.getResultList();
@@ -357,13 +351,6 @@ public class TPartyService extends AbstractService<TParty> {
     	TParty tParty = new TParty(registId, partyForm);
     	super.insert(tParty);
     	
-    	//付随イベント情報登録
-    	TPartySettings tPartySettings = new TPartySettings();
-    	Beans.copy(partyForm, tPartySettings).execute();
-    	tPartySettings.partyId = tParty.id;
-    	TPartySettingsService tPartySettingsService = SingletonS2Container.getComponent(TPartySettingsService.class);
-    	tPartySettingsService.insert(tPartySettings);
-    	
     	return tParty;
     }
     
@@ -377,9 +364,6 @@ public class TPartyService extends AbstractService<TParty> {
     	TParty tParty = new TParty(partyForm.creatorId, partyForm);
     	tParty.deleteFlag = Boolean.valueOf(true);
     	int i = super.update(tParty);
-    	TPartySettingsService tPartySettingsService = SingletonS2Container.getComponent(TPartySettingsService.class);
-    	TPartySettings tPartySettings = tParty.tPartySettings;
-    	tPartySettingsService.delete(tPartySettings);
     	return i;
     }
     

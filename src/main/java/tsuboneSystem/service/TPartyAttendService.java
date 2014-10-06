@@ -118,13 +118,13 @@ public class TPartyAttendService extends AbstractService<TPartyAttend> {
     }
     
     public void noticeMemberNum(TParty tParty){
-    	if (tParty.tPartySettings.noticeMemberNum != null && !tParty.tPartySettings.noticeMemberNum.equals(new Integer(0))) {
+    	if (tParty.noticeMemberNum != null && !tParty.noticeMemberNum.equals(new Integer(0))) {
     		//現在の出席者の件数を検索する
     		SimpleWhere where = new SimpleWhere();
     		where.eq(partyId(), tParty.id);
     		where.eq(attend(), PartyAttendCode.YES_ATTEND.getCodeNumber());
     		Long count = jdbcManager.from(TPartyAttend.class).where(where).getCount();//現在の出席者数
-    		Long settingNum = Long.valueOf(tParty.tPartySettings.noticeMemberNum);//設定人数
+    		Long settingNum = Long.valueOf(tParty.noticeMemberNum);//設定人数
     		
     		//設定人数に等しかったらメールを送信する
     		if (count.equals(settingNum)) {
@@ -149,7 +149,7 @@ public class TPartyAttendService extends AbstractService<TPartyAttend> {
     			bf.append("\n");
     			bf.append("会議名：");bf.append(tParty.meetingName);
     			bf.append("\n");
-    			bf.append("設定人数：");bf.append(tParty.tPartySettings.noticeMemberNum.toString());
+    			bf.append("設定人数：");bf.append(tParty.noticeMemberNum.toString());
     			bf.append("\n");
     			bf.append("\n");
     			bf.append("現在の出席者一覧：");

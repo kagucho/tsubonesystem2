@@ -10,13 +10,12 @@ import tsuboneSystem.names.TPartyAttendNames._TPartyAttendNames;
 import tsuboneSystem.names.TPartyClubNames._TPartyClubNames;
 import tsuboneSystem.names.TPartyQuestionNames._TPartyQuestionNames;
 import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
-import tsuboneSystem.names.TPartySettingsNames._TPartySettingsNames;
 
 /**
  * {@link TParty}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/10/02 19:02:07")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/10/06 16:48:45")
 public class TPartyNames {
 
     /**
@@ -155,6 +154,15 @@ public class TPartyNames {
     }
 
     /**
+     * noticeMemberNumのプロパティ名を返します。
+     * 
+     * @return noticeMemberNumのプロパティ名
+     */
+    public static PropertyName<Integer> noticeMemberNum() {
+        return new PropertyName<Integer>("noticeMemberNum");
+    }
+
+    /**
      * deleteFlagのプロパティ名を返します。
      * 
      * @return deleteFlagのプロパティ名
@@ -224,15 +232,6 @@ public class TPartyNames {
      */
     public static _TPartyQuestionNames tPartyQuestionList() {
         return new _TPartyQuestionNames("tPartyQuestionList");
-    }
-
-    /**
-     * tPartySettingsのプロパティ名を返します。
-     * 
-     * @return tPartySettingsのプロパティ名
-     */
-    public static _TPartySettingsNames tPartySettings() {
-        return new _TPartySettingsNames("tPartySettings");
     }
 
     /**
@@ -404,6 +403,15 @@ public class TPartyNames {
         }
 
         /**
+         * noticeMemberNumのプロパティ名を返します。
+         *
+         * @return noticeMemberNumのプロパティ名
+         */
+        public PropertyName<Integer> noticeMemberNum() {
+            return new PropertyName<Integer>(this, "noticeMemberNum");
+        }
+
+        /**
          * deleteFlagのプロパティ名を返します。
          *
          * @return deleteFlagのプロパティ名
@@ -473,15 +481,6 @@ public class TPartyNames {
          */
         public _TPartyQuestionNames tPartyQuestionList() {
             return new _TPartyQuestionNames(this, "tPartyQuestionList");
-        }
-
-        /**
-         * tPartySettingsのプロパティ名を返します。
-         * 
-         * @return tPartySettingsのプロパティ名
-         */
-        public _TPartySettingsNames tPartySettings() {
-            return new _TPartySettingsNames(this, "tPartySettings");
         }
     }
 }

@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -59,7 +58,7 @@ public class TParty implements Serializable {
 			if (StringUtils.isNotEmpty(partyFormEnt.meetingDay.trim())) {
 				meetingDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyFormEnt.meetingDay);
 			}
-			if (StringUtils.isNotEmpty(partyFormEnt.meetingEndDay.trim())) {
+			if (StringUtils.isNotEmpty(partyFormEnt.meetingEndDay)) {
 				meetingEndDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyFormEnt.meetingEndDay);
 			}
 			if (StringUtils.isNotEmpty(partyFormEnt.meetingTime.trim())) {
@@ -142,6 +141,10 @@ public class TParty implements Serializable {
     @Column(columnDefinition ="boolean default '0'")
     public Boolean  noPublicFlag;
     
+    /** 人数通知設定値 */
+    @Column()
+    public Integer noticeMemberNum;
+    
     /** 削除フラグ */
     @Column(columnDefinition ="boolean default '0'")
     public Boolean  deleteFlag;
@@ -176,8 +179,4 @@ public class TParty implements Serializable {
     /* IdをTPartyQuestionに結びつける */
     @OneToMany(mappedBy = "TParty")
     public List<TPartyQuestion> tPartyQuestionList;
-    
-    /** TPartySettings **/
-    @OneToOne(mappedBy = "tParty")
-    public TPartySettings tPartySettings;
 }

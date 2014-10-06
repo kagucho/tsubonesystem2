@@ -89,7 +89,6 @@ public class PartyDetailAction {
     	
     	TParty party = tPartyService.findById(partyForm.id);
     	Beans.copy(party, partyForm).execute();
-    	Beans.copy(party.tPartySettings, partyForm).excludes("id", "deleteFlag").execute();
     	Beans.copy(party, partyDto).execute();
     	
     	 int i = 0;
