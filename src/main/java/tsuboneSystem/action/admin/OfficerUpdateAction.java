@@ -66,6 +66,7 @@ public class OfficerUpdateAction {
 		
 		//Memberの選択肢一覧取得
 		officerForm.memberItems = tMemberService.findAllOrderById(false);
+		
 		//渡ってきたidはtLeadersのidであるので、そこからTLeadersに登録されているレコードを検索し、編集対象レコードを特定しておく。
 		officerForm.leadersOld = tLeadersService.findById(officerForm.id);
 		officerForm.secretInformation = officerForm.leadersOld.secretInformation;
@@ -87,7 +88,6 @@ public class OfficerUpdateAction {
     //確認画面(第2)
     @Execute(validator = true, input="officerInput.jsp", reset = "resetInput")
 	public String confirmSec() {
-    		
         return "officerConfirmSec.jsp";
 	}
     

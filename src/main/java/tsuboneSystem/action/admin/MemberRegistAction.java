@@ -84,6 +84,8 @@ public class MemberRegistAction {
         //性別のマップ
         memberForm.sexMap = SexCode.getSexCodeMap();
         
+        memberForm.id = null;
+        
         return viewinput();
 	}
     

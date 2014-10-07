@@ -26,7 +26,7 @@ public class TAdminService extends AbstractService<TAdmin> {
      * @return エンティティ
      */
     public TAdmin findById(Integer id) {
-        return select().id(id).getSingleResult();
+        return select().innerJoin(tMember()).id(id).getSingleResult();
     }
 
     /**

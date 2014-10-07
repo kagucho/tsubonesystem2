@@ -20,10 +20,13 @@ public class OfficerForm implements Serializable {
 	public Integer id;
 	
 	/* 役職種 */
-	public String OfficerKind;
+	public String officerKind;
+	
+	/* 役職種(なまえ) */
+	public String officerKindName;
 	
 	/* MemberId */
-	public String MemberId;
+	public String memberId;
 	
 	/* メンバーの秘匿情報の表示可否 */
     public boolean  secretInformation;
@@ -67,6 +70,12 @@ public class OfficerForm implements Serializable {
 	/* 合宿委員の情報を格納する　*/
 	public List<TLeaders> tLeadersGassyuku = new ArrayList<TLeaders>();
 	
+	/* 理大祭実行委員委員の情報を格納する　*/
+	public List<TLeaders> tLeadersRidaisai = new ArrayList<TLeaders>();
+	
+	/* その他の情報を格納する　*/
+	public List<TLeaders> tLeadersEtc = new ArrayList<TLeaders>();
+	
 	/* 合宿委員の情報を格納する　*/
 	public List<TAdmin> tLeadersWebAdmin = new ArrayList<TAdmin>();
 	
@@ -76,5 +85,15 @@ public class OfficerForm implements Serializable {
 		memberUpdate = false;
 		secretInformation = false;
     }
+	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
+	public void resetDeleteInput() {
+		leadersOld = null;
+		adminOld = null;
+		officerKind = null;
+		tMemberNew = null;
+		secretInformation = false;
+		attendUpdate = false;
+		memberUpdate = false;
+	}
 
 }

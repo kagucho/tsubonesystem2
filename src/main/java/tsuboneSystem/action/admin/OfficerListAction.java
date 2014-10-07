@@ -63,6 +63,12 @@ public class OfficerListAction {
     	//合宿委員
     	officerForm.tLeadersGassyuku = tLeadersService.findByKind(LeadersKindCode.GASSYUKU.getCode());
     	
+    	//理大祭実行委員
+    	officerForm.tLeadersRidaisai = tLeadersService.findByKind(LeadersKindCode.RIDAISAI.getCode());
+    	
+    	//その他
+    	officerForm.tLeadersEtc = tLeadersService.findByKind(LeadersKindCode.ETC.getCode());
+    	
     	//web管理者
     	officerForm.tLeadersWebAdmin = tAdminService.findByKind(LeadersKindCode.WEBADMIN.getCode());
 	
