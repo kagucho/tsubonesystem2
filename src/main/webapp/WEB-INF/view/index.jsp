@@ -53,7 +53,7 @@
         </div>
         <div class="row">
 	        <c:forEach var="e" items="${clubList}">
-		        <div class="col-md-4 text-center">
+		        <div class="col-md-12 text-center">
 		            <div class="service-item">
 		              
 		              <h3>${f:h(e.ClubName) }</h3>

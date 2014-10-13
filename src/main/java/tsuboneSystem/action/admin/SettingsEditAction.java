@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
+import org.seasar.struts.util.ServletContextUtil;
+import org.seasar.struts.util.UploadUtil;
 
+import tsuboneSystem.code.FileKindCode;
 import tsuboneSystem.code.LeadersKindCode;
 import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.dto.LoginMemberDto;
@@ -20,6 +24,7 @@ import tsuboneSystem.entity.TTempLogin;
 import tsuboneSystem.form.SettingsEditForm;
 import tsuboneSystem.original.util.DigestUtil;
 import tsuboneSystem.original.util.MailManagerUtil;
+import tsuboneSystem.original.util.TsuboneSystemUtil;
 import tsuboneSystem.service.TAdminService;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
@@ -167,6 +172,31 @@ public class SettingsEditAction {
     	return "tempMemberDeleteComplete.jsp";
     }
     
+    /**--------------- 規約更新 -----------**/
+    @Execute(validator = false)
+    public String ruleUpdateInput(){
+    	return ruleUpdateView();
+    }
+    
+    @Execute(validator = false)
+    public String ruleUpdateView(){
+    	return "ruleUpdateInput.jsp";
+    }
+    
+    @Execute(validator = true, validate="validateUpload", input="ruleUpdateView", stopOnValidationError = false)
+    public String ruleUpdateComplete(){
+    	//ServletContext オブジェクトの作成
+    	ServletContext app = ServletContextUtil.getServletContext();
+    	
+    	//ファイルの格納先フォルダの絶対パスを取得(DBにこのパスを保存しておく)
+    	String path = app.getRealPath("/pdf/kaisoku.pdf");
+    	
+    	//ファイル書き込み（ファイルパスが空の場合は何もしません）
+    	UploadUtil.write(path, settingsEditForm.rulePdf);
+    	
+    	return "ruleUpdateComplete.jsp";
+    }
+    
     //オリジナルチェック
     public ActionMessages validateBase(){
     	
@@ -179,6 +209,20 @@ public class SettingsEditAction {
 			errors.add("userName",new ActionMessage("残念！！このログインIDはすでに使われています。",false));
 		}
 		
+        return errors;
+    }
+    
+    public ActionMessages validateUpload(){
+    	
+        ActionMessages errors = new ActionMessages();
+        if (settingsEditForm.rulePdf.getFileSize() > 0){
+        	 if (TsuboneSystemUtil.isFileKindCheck(settingsEditForm.rulePdf, FileKindCode.PDF.getName())) {
+             	errors.add("rulePdf",new ActionMessage("PDF以外受け付けないって書いてあるだろ！！変なファイルいれないでください",false));
+             }
+        } else {
+        	errors.add("rulePdf",new ActionMessage("ファイルを選択してください",false));
+        }
+       
         return errors;
     }
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.struts.upload.FormFile;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.container.annotation.tiger.InstanceType;
 import org.seasar.struts.annotation.Required;
@@ -21,6 +22,9 @@ public class SettingsEditForm implements Serializable {
 	
 	/** 一時メンバーpassword */
 	public String password;
+	
+	/** 規約PDF */
+	public FormFile rulePdf;
 	
 	public List<TTempLogin> tTempLoginNow = new ArrayList<TTempLogin>();
 	

@@ -3,7 +3,9 @@ package tsuboneSystem.original.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.struts.upload.FormFile;
 import org.seasar.framework.container.SingletonS2Container;
+
 import tsuboneSystem.code.ActorKindCode;
 import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TLeaders;
@@ -19,7 +21,14 @@ import tsuboneSystem.service.TLeadersService;
  */
 public class TsuboneSystemUtil {
 	
-	
+	/**
+	 * メンバーの権限を判定する
+	 * 
+	 * @param TMember
+	 * @return ActorKindCode
+	 * @author Hiroaki
+	 * 
+	 * */
 	public String actorKind(TMember member){
 		
 		String actorKind = null;
@@ -46,5 +55,36 @@ public class TsuboneSystemUtil {
     		actorKind = ActorKindCode.MEMBER.getCode();
         	return actorKind;
     	}
+	}
+	
+	/**
+	 * Uploadされたファイルの拡張子を判定する
+	 * 
+	 * @param FormFile formFile, String kind
+	 * @return 設定された拡張子と等しかったらfalse
+	 * @author Hiroaki
+	 * 
+	 * */
+	public static boolean isFileKindCheck(FormFile formFile, String kind){
+		 // アップロードされたファイルのCheck
+        if (formFile.getFileSize() > 0) {
+        	String fileContentType = new String();
+        	fileContentType = formFile.getContentType();
+        	if (fileContentType != null) {
+        		//設定された拡張子と等しいか判定する
+        		String[] splitStr = fileContentType.split("/");
+        		if (!kind.equals(splitStr[1])) {
+        			return true;
+        		} else {
+        			return false;
+        		}
+        	} else {
+        		//ファイルの種類が判別できないとき
+        		return true;
+        	}
+        } else {
+        	//ファイルがUploadされていないとき
+        	return true;
+        }
 	}
 }
