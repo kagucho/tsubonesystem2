@@ -59,7 +59,7 @@
 						<a href="mailto:${e.tLeaders.tMember.mail}">${f:h(e.tLeaders.tMember.mail)}</a>
 					</td>
 					<td>
-						<a href="tel:${f:h(e.tMember.tel1) }${f:h(e.tMember.tel2) }${f:h(e.tMember.tel3) }">
+						<a href="tel:${f:h(e.tLeaders.tMember.tel1) }${f:h(e.tLeaders.tMember.tel2) }${f:h(e.tLeaders.tMember.tel3) }">
 							${f:h(e.tLeaders.tMember.tel1) }-${f:h(e.tLeaders.tMember.tel2) }-${f:h(e.tLeaders.tMember.tel3) }
 						</a>
 					</td>
