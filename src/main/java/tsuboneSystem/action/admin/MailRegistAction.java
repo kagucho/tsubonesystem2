@@ -118,7 +118,7 @@ public class MailRegistAction {
         	mailUtil.setContent(mailForm.content);	
         	mailUtil.setLinkUrlFlag(false);
         	mailUtil.setToAddressActorSplit(mailForm.tMemberSendList);
-        	mailUtil.sendMail();
+        	mailMsg = mailUtil.sendMail();
         	
         	return "mailComplete.jsp";
         } else {

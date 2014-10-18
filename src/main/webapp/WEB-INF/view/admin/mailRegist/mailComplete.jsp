@@ -7,7 +7,7 @@
 <div class="container CENTER">
 	<h3>${f:h(mailMsg)}</h3>
 <div class="col-sm-12">
-	<div class="col-sm-5 col-sm-offset-3" id="compBtn">
+	<div class="col-sm-4 col-sm-offset-4" id="compBtn">
 		<a class="btnMRC" href="<c:url value="/admin/mailList"/>"><button type="button" class="btn btn-default btn-lg btn-block">Back.MemberList </button></a>
     </div>
 </div>

@@ -148,8 +148,7 @@ public class MailManagerUtil {
 	 */
 	public void setToAddressActorSplit(List<TMember> memberList) {
 		for (TMember tMember : memberList) {
-			TsuboneSystemUtil mailUtil = new TsuboneSystemUtil();
-			String actorKind = mailUtil.actorKind(tMember);
+			String actorKind = TsuboneSystemUtil.actorKind(tMember);
 			if(ActorKindCode.ADMIN.getCode().equals(actorKind)){
 				toAddressAdmin.add(tMember);
 			}else if(ActorKindCode.LEADERS.getCode().equals(actorKind)){
@@ -160,7 +159,9 @@ public class MailManagerUtil {
 		}
 	}
 	//メールを送信する
-	public void sendMail(){
+	public String sendMail(){
+		
+		String rtnMesse = new String();
 		
 		MailManager mailManager = SingletonS2Container.getComponent(MailManager.class);
 		mailManager.setTitle(title);
@@ -168,24 +169,35 @@ public class MailManagerUtil {
 		
 		//管理者に対して
 		if(!toAddressAdmin.isEmpty()){
+			mailManager.setSendMemberId(sendMemberID);
 			mailManager.setContent(getContentUrlFactory(ActorKindCode.ADMIN.getCode()));
 			mailManager.setToAddress(toAddressAdmin.toArray(new TMember[0]));
 			error = mailManager.sendMail();
 		}
 		//leadersに対して
 		if(!toAddressLeaders.isEmpty()){
+			mailManager.setSendMemberId(sendMemberID);
 			mailManager.setContent(getContentUrlFactory(ActorKindCode.LEADERS.getCode()));
 			mailManager.setToAddress(toAddressLeaders.toArray(new TMember[0]));
 			error = mailManager.sendMail();
 		}
 		//一般メンバーに対して
 		if(!toAddressInd.isEmpty()){
+			mailManager.setSendMemberId(sendMemberID);
 			mailManager.setContent(getContentUrlFactory(ActorKindCode.MEMBER.getCode()));
 			mailManager.setToAddress(toAddressInd.toArray(new TMember[0]));
 			error = mailManager.sendMail();
 		}
 		//ログを残す
 		setLog(error);
+		
+		if (error) {
+			rtnMesse = "メールの送信に失敗しました";
+		}else{
+			rtnMesse = "メールの送信に成功しました";
+		}
+		
+		return rtnMesse;
 	}
 	
 	/**

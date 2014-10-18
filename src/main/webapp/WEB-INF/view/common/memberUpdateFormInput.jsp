@@ -67,7 +67,7 @@
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="obFlag">OB宣言</label>
 			<div class="col-sm-8 memberF">
-				<input type="checkbox" id="obFlag" name="obFlag" value="true"/>&nbsp;&nbsp;OB宣言をする&nbsp;<span class="hissu">(注：一度宣言すると取り消せません！！)</span>
+				<input type="checkbox" id="obFlag" name="obFlag" value="true" <c:if test="${obFlag}"> checked="checked"</c:if> />&nbsp;&nbsp;OB宣言をする&nbsp;<span class="hissu">(注：一度宣言すると取り消せません！！)</span>
 				<html:errors property="obFlag"/>
 			</div>
 		</div>

@@ -11,13 +11,12 @@ import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
-import tsuboneSystem.code.LeadersKindCode;
+import tsuboneSystem.code.ActorKindCode;
 import tsuboneSystem.dto.LoginMemberDto;
-import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TClub;
-import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.MemberForm;
+import tsuboneSystem.original.util.TsuboneSystemUtil;
 import tsuboneSystem.service.TAdminService;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TLeadersService;
@@ -83,9 +82,10 @@ public class MemberDeleteAction {
         return "memberConfirm.jsp";
 	}
     
-    @Execute(validator = false, validate="validateBase", input="memberConfirm.jsp", stopOnValidationError = false)
+    @Execute(validator = false, validate="validateBase", input = "memberConfirm.jsp", stopOnValidationError = false)
 	public String complete() {
     	
+    	//削除処理
     	TMember member = tMemberService.findById(memberForm.id);
     	member.deleteFlag = true;
     	tMemberService.update(member);
@@ -98,24 +98,9 @@ public class MemberDeleteAction {
     	
         ActionMessages errors = new ActionMessages();
     	
-    	//選択されたMemberが現役の部長以上の役職に付いている場合、連絡先をすべて登録しているかを確認する。
-    	List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(memberForm.id);
-    	if (tLeadersList.size() > 0) {
-    		for (TLeaders tLeadersOne : tLeadersList) {
-    			List<TClub> tClub = tClubService.findByLeadersId(tLeadersOne.id);
-    			if (tClub.size() > 0) {
-    				//各部の現役の部長の場合
-                		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため削除できません",false));
-    			}else if (tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.GASSYUKU.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.RIDAISAI.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ETC.getCode())) || tLeadersOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ACCOUNT.getCode()))) {
-    				//局長もしくは副局長の場合
-                		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため削除できません",false));
-    			}
-    		}
-    	}	
-    	
-    	//管理者の情報は編集できない
-    	List<TAdmin> tAdminList = tAdminService.findByMemberIdList(memberForm.id);
-    	if(tAdminList.size() > 0){
+        //役職に就いていないか確認
+        TMember member = tMemberService.findById(memberForm.id);
+    	if (!TsuboneSystemUtil.actorKind(member).equals(ActorKindCode.MEMBER.getCode())) { 
     		errors.add("OfficerCheck",new ActionMessage("このメンバーには部長以上の役職に付いているため削除できません",false));
     	}
     	

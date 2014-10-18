@@ -29,7 +29,7 @@ public class TsuboneSystemUtil {
 	 * @author Hiroaki
 	 * 
 	 * */
-	public String actorKind(TMember member){
+	public static String actorKind(TMember member){
 		
 		String actorKind = null;
 		

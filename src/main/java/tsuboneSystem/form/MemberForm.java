@@ -292,16 +292,18 @@ public class MemberForm implements Serializable{
     //役職に就いている人はOB宣言できない
     private void obCheck(ActionMessages errors){
     	//役職に就いている人はOB宣言できない
-		if("true".equals(obFlag)){
-			TAdminService tAdminService = SingletonS2Container.getComponent(TAdminService.class);
-			TAdmin tAdmin = tAdminService.findById(id);
-			TLeadersService tLeadersService = SingletonS2Container.getComponent(TLeadersService.class);
-			List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(id);
-			if(tAdmin != null || tLeadersList.size() > 0){
-				obFlag = "false";
-				errors.add("obFlag",new ActionMessage("役職についている人はOB宣言出来ません。",false));
-			}
-		}
+    	if (id != null) {
+    		if("true".equals(obFlag)){
+    			TAdminService tAdminService = SingletonS2Container.getComponent(TAdminService.class);
+    			TAdmin tAdmin = tAdminService.findById(id);
+    			TLeadersService tLeadersService = SingletonS2Container.getComponent(TLeadersService.class);
+    			List<TLeaders> tLeadersList = tLeadersService.findByMemberIdList(id);
+    			if(tAdmin != null || tLeadersList.size() > 0){
+    				obFlag = "false";
+    				errors.add("obFlag",new ActionMessage("役職についている人はOB宣言出来ません。",false));
+    			}
+    		}
+    	}
     }
     
     //選択されたMemberが現役の部長以上の役職に付いている場合、連絡先をすべて登録しているかを確認する。
