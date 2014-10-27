@@ -22,7 +22,7 @@
 								</c:if>
 							</td>
 							<td>
-								<a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/"/>${e.id}">${f:h(e.meetingName) }</a>
+								<a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/detail/"/>${e.id}">${f:h(e.meetingName) }</a>
 							</td>
 							<td>
 								<a class="btn btn-success" href="<c:url value="/${loginMemberDto.actorKind}/attend/yesFromList/${e.id}"/>">&nbsp;&nbsp;<span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;</a>
@@ -54,7 +54,7 @@
 								</c:if>
 							</td>
 							<td>
-								<a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/"/>${e.id}">${f:h(e.meetingName) }</a>
+								<a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/detail/"/>${e.id}">${f:h(e.meetingName) }</a>
 							</td>
 							<td>
 								<a class="btn btn-success" href="<c:url value="/${loginMemberDto.actorKind}/attend/yesFromList/${e.id}"/>">&nbsp;&nbsp;<span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;</a>

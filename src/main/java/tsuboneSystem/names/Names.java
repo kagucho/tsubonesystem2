@@ -46,7 +46,7 @@ import tsuboneSystem.names.TTempMessageNames._TTempMessageNames;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/10/06 16:48:45")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/10/27 16:33:17")
 public class Names {
 
     /**

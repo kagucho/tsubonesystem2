@@ -1,6 +1,6 @@
 <tr>
 	<td>
-		<a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/"/>${e.id}">${f:h(e.meetingName) }</a><%-- 会議名 --%>
+		<a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/detail/"/>${e.id}">${f:h(e.meetingName) }</a><%-- 会議名 --%>
 </td>
 <td>
 	<c:if test="${e.meetingEndDay != null}">

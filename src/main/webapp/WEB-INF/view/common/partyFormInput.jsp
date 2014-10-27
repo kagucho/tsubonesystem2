@@ -1,6 +1,5 @@
-
 		<div class="form-group">
-			<label class="control-label col-sm-4" for=meetingName>会議の題名</label>
+			<label class="control-label col-sm-4" for=meetingName>会議の題名&nbsp;<span class="hissu">＊</span></label>
 			<div class="col-sm-8 memberF" >
 				<input type="text" id="meetingName" name="meetingName" property="meetingName" class="form-control" placeholder="meetingName" value="${meetingName}">
 				<html:errors property="meetingName"/>
@@ -41,7 +40,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-4" for="password">会議の内容</label>
+			<label class="control-label col-sm-4" for="password">会議の内容&nbsp;<span class="hissu">＊</span></label>
 			<div class="col-sm-8 memberF">
 				<textarea class="form-control" name="meetingMemo" rows="5" property="meetingMemo" placeholder="MeetingMemo">${f:h(meetingMemo)}</textarea>
 				<html:errors property="meetingMemo"/>

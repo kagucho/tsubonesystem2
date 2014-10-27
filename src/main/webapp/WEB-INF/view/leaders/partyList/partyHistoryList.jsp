@@ -14,7 +14,7 @@
 				<c:forEach var="e" items="${tPartyHistory}">
 					<tr>
 						<td>
-							<a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/"/>${e.id}">${f:h(e.meetingName) }</a>
+							<a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/detail/"/>${e.id}">${f:h(e.meetingName) }</a>
 						</td>
 						<td class="hidden-xs">
 							<c:if test="${e.meetingNecessaryFlag}">

@@ -106,11 +106,18 @@ public class TPartyService extends AbstractService<TParty> {
     	where.eq(deleteFlag(), Boolean.valueOf(false));
     	where.eq(meetingNecessaryFlag(), Boolean.valueOf(necessaryFlag));
     	where.eq(meetingDeadlineDay(), dateadd);
-        return select()
+    	
+    	List<TParty> list = select()
         		.innerJoin(tMember())
-
         		.leftOuterJoin(tPartyClubList())
         		.where(where).orderBy(desc(id())).getResultList();
+    	
+    	//対象の会議が何日前の会議か値をいれる
+    	for (TParty tParty : list) {
+    		tParty.deadlineHowNum = beforDay;
+    	}
+    	
+        return list;
     }
     
     /**

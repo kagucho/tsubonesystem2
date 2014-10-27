@@ -5,7 +5,7 @@ a.btn.btn-primary{
 	margin-bottom:20px;
 }
 .btnMRC{
-	margin-bottom:20px;
+	margin-bottom:20px !important;
 }
 
 .btnYOKO{

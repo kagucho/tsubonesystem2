@@ -35,12 +35,10 @@ public abstract class AbstractLoginInterceptor extends AbstractInterceptor {
 				//先頭の”/tsuboneSystem/”を取る
 				urls = warUrl.split("/",3);
 				StringBuffer bf = new StringBuffer();
-				bf.append("/");
-				bf.append(urls[2]);
+//				bf.append("/");
+				bf.append(warUrl);
 				bf.append("?redirect=true");
-				url = new String(bf);
-				
-				setRedirectUrl(url);
+				setRedirectUrl(new String(bf));
 				return "/login/?redirect=true";
 			}
 		}

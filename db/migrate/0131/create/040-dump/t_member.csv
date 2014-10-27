@@ -1,6 +1,0 @@
-"ID","TEMP_MEMBER_FLAG","DELETE_FLAG","SEND_ERROR_FLAG","SEND_STOP_FLAG","OB_FLAG","PASSWORD","USER_NAME","TEL3","TEL2","TEL1","ENTRANCE","CURRICULUM","MAIL","SEX","HNAME","NAME"
-"1","false","false","false","false","false","bc11f06afb9b27070673471a23ecc6a9","daihyou","080","080","080","2014","物理","themis.in.skyolympus@gmail.com","1","だいひょう","代表"
-"2","false","false","false","false","false","bc11f06afb9b27070673471a23ecc6a9","butyou","080","080","080","2014","物理","capriccioso.and.grandioso@gmail.com","1","ぶちょう","部長"
-"3","false","false","true","false","false","bc11f06afb9b27070673471a23ecc6a9","tsuujou","080","080","080","2014","学科","test@gmail.com","1","てすとハンドル","通常のメンバー"
-"4","false","false","false","false","false","bc11f06afb9b27070673471a23ecc6a9","webkanri","080","080","080","2014","学科","skymailbios@gmail.com","1","ウェブかんり","web管理"
-"5","false","false","false","false","false","bc11f06afb9b27070673471a23ecc6a9","temp","","","","2014","情報","temp1@gmail.com","1","かりとうろく","仮登録メンバー"

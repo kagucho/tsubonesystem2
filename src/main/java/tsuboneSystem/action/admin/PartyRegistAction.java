@@ -13,7 +13,6 @@ import org.seasar.struts.annotation.Execute;
 import tsuboneSystem.action.abstracts.PartyOperateAbstractAction;
 import tsuboneSystem.code.PartyAttendCode;
 import tsuboneSystem.dto.LoginAdminDto;
-import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TParty;
 import tsuboneSystem.entity.TPartyAttend;
@@ -23,14 +22,9 @@ public class PartyRegistAction extends PartyOperateAbstractAction{
 	/** アクションネーム */
 	public String actionName = "PartyRegist";
 	
-	/** LoginMemberDto */
-	@Resource
-	public LoginMemberDto loginMemberDto;
-	
 	/** LoginAdminDto */
 	@Resource
 	public LoginAdminDto loginAdminDto;
-	
 	
 	@Execute(validator = false, reset = "resetInput")
 	public String index() {

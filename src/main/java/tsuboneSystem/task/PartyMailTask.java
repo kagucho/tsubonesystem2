@@ -35,7 +35,7 @@ import tsuboneSystem.service.TPartyService;
 
 
 @Task
-@CronTrigger(expression = "0 00 18 * * ?")
+@CronTrigger(expression = "0 57 20 * * ?")
 public class PartyMailTask extends AbstractTask{
 	
 	/** TMemberのサービスクラス */
@@ -105,12 +105,19 @@ public class PartyMailTask extends AbstractTask{
     	    		
     	    		//タイトルを作る
         	    	StringBuilder sb = new StringBuilder();
-        	    	sb.append("(出欠席)　");
+        	    	if (tPartyOne.deadlineHowNum.equals(TODAY)) {
+        	    		sb.append("【本日締め切り】");
+        	    	} else {
+        	    		sb.append("(出欠席)　");
+        	    	}
         	    	sb.append(tPartyOne.meetingName);
         	    	String title = new String(sb);
         	    	
         	    	//内容を作る
         	    	StringBuilder sbc = new StringBuilder();
+        	    	sbc.append("このメールは、出欠をまだ出していないメンバーに自動配信されるメールです。");
+        	    	sbc.append("\n");
+        	    	sbc.append("\n");
         	    	sbc.append("会議名:　");
         	    	sbc.append(tPartyOne.meetingName);
         	    	sbc.append("\n");
@@ -120,16 +127,42 @@ public class PartyMailTask extends AbstractTask{
         	    	sbc.append("\n");
         	    	sbc.append("\n");
         	    	sbc.append("開催日: ");
-        	    	sbc.append(tPartyOne.meetingDay);
+        	    	if (tPartyOne.meetingDay != null) {
+        	    		sbc.append(tPartyOne.meetingDay);
+        	    	} else {
+        	    		sbc.append("(未設定)");
+        	    	}
         	    	sbc.append("\n");
         	    	sbc.append("開催時間: ");
-        	    	sbc.append(tPartyOne.meetingTime);
+        	    	if (tPartyOne.meetingTime != null) {
+        	    		sbc.append(tPartyOne.meetingTime);
+        	    	} else {
+        	    		sbc.append("(未設定)");
+        	    	}
         	    	sbc.append("\n");
         	    	sbc.append("締め切り日時: ");
         	    	sbc.append(tPartyOne.meetingDeadlineDay);
         	    	sbc.append("\n");
         	    	sbc.append("\n");
-        	    	sbc.append("以上の会議にまだ出欠を出していません。とっとと出欠を出しましょう。");
+        	    	if (!tPartyOne.deadlineHowNum.equals(TODAY)) {
+        	    		sbc.append("締め切りまで後");
+        	    		sbc.append(tPartyOne.deadlineHowNum);
+        	    		sbc.append("日です。");
+        	    		sbc.append("\n");
+        	    		sbc.append("以上のイベントにまだ出欠を出していません。とっとと出欠を出しましょう。");
+        	    	} else {
+        	    		if (tPartyOne.meetingNecessaryFlag) {
+        	    			sbc.append("出席必須の会議のイベントにまだ出欠席を出していません。");
+        	    			sbc.append("\n");
+        	    		}
+        	    		sbc.append("締め切りは本日です。");
+        	    		sbc.append("\n");
+        	    		sbc.append("可及的速やかに出席を出してください。");
+        	    		sbc.append("\n");
+        	    		sbc.append("今すぐ出してください");
+        	    		sbc.append("\n");
+        	    		sbc.append("つーかだせ。何のためにこのシステムを作ったと思ってるんだ（●｀□´●）(by dawachin)");
+        	    	}
         	    	sbc.append("\n");
         	    	sbc.append("\n");
         	    	String content = new String(sbc);

@@ -171,6 +171,9 @@ public class PartyForm implements Serializable{
 		ObAttendFlag = null;
 		meetingDeadlineDay = null;
 		meetingNecessaryFlag = false;
+		meetingResult = null;
+		resultEditEndFlag = false;
+		resultEditMemberId = null;
 		question = null;
 		questionSend = false;
 		resultEditEndFlag = false;

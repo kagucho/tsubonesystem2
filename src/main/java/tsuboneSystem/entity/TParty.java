@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 import org.seasar.framework.beans.util.Beans;
@@ -55,16 +56,16 @@ public class TParty implements Serializable {
 		
 		//日付と日時をString型からDate型に変換
 		try {
-			if (StringUtils.isNotEmpty(partyFormEnt.meetingDay.trim())) {
+			if (StringUtils.isNotEmpty(partyFormEnt.meetingDay)) {
 				meetingDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyFormEnt.meetingDay);
 			}
 			if (StringUtils.isNotEmpty(partyFormEnt.meetingEndDay)) {
 				meetingEndDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyFormEnt.meetingEndDay);
 			}
-			if (StringUtils.isNotEmpty(partyFormEnt.meetingTime.trim())) {
+			if (StringUtils.isNotEmpty(partyFormEnt.meetingTime)) {
 				meetingTime = new SimpleDateFormat("HH:mm").parse(partyFormEnt.meetingTime);
 			}
-			if (StringUtils.isNotEmpty(partyFormEnt.meetingDeadlineDay.trim())) {
+			if (StringUtils.isNotEmpty(partyFormEnt.meetingDeadlineDay)) {
 				meetingDeadlineDay = new SimpleDateFormat("yyyy/MM/dd").parse(partyFormEnt.meetingDeadlineDay);
 			}
 		} catch (ParseException e) {
@@ -148,6 +149,10 @@ public class TParty implements Serializable {
     /** 削除フラグ */
     @Column(columnDefinition ="boolean default '0'")
     public Boolean  deleteFlag;
+    
+    /** 締め切りまでの日数(このカラムは生成されない) */
+    @Transient
+    public Integer deadlineHowNum;
     
     /** 最終更新日　*/
     @Column()

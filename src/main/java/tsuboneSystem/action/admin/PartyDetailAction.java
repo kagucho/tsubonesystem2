@@ -81,7 +81,7 @@ public class PartyDetailAction {
 	/** 送信エラーフラグ */
 	public boolean errorFlag;
 	
-    @Execute(validator = false, urlPattern = "{id}", reset = "resetInput")
+    @Execute(validator = false, urlPattern = "detail/{id}", reset = "resetInput")
 	public String index() {
     	
     	/** 2重送信防止のためのTokenの生成　**/

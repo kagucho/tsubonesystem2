@@ -1,0 +1,2 @@
+<a href="<c:url value="/${loginMemberDto.actorKind}/partyList"/>"><button type="button" class="col-md-4 col-md-offset-1 col-sm-5 col-xs-12 btn btn-default btn-lg btnYOKO30 btnMRC">Back.PartyList </button></a>
+<a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/detail/${id}"/>"><button type="button" class="col-md-4 col-md-offset-1 col-sm-5  col-xs-12 btn btn-default btn-lg">Show.PartyDetail</button></a>

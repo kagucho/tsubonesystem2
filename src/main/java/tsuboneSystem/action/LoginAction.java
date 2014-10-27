@@ -235,23 +235,27 @@ public class LoginAction {
     
     public String urlCreator(String warUrl, String actorKind){
 
-    	String[] splUrl;
-    	String lastUrl = null;
-    	
-    	splUrl = warUrl.split("/",3);
-    	lastUrl =splUrl[2];
+//    	String[] splUrl;
+//    	String lastUrl = null;
+//    	
+//    	splUrl = warUrl.split("/",3);
+//    	lastUrl =splUrl[2];
+//    	
+//    	StringBuffer bf = new StringBuffer();
+//    	if(actorKind.equals(ActorKindCode.ADMIN.getCode())){
+//    		bf.append("/admin/");
+//    	}else if(actorKind.equals(ActorKindCode.LEADERS.getCode())){
+//    		bf.append("/leaders/");
+//    	}else{
+//    		bf.append("/individuals/");
+//    	}
+//    	bf.append(lastUrl);
+//    	String url = new String(bf);
     	
     	StringBuffer bf = new StringBuffer();
-    	if(actorKind.equals(ActorKindCode.ADMIN.getCode())){
-    		bf.append("/admin/");
-    	}else if(actorKind.equals(ActorKindCode.LEADERS.getCode())){
-    		bf.append("/leaders/");
-    	}else{
-    		bf.append("/individuals/");
-    	}
-    	bf.append(lastUrl);
-    	String url = new String(bf);
+    	bf.append(warUrl);
+    	bf.append("/?redirect=true");
     	
-    	return url;
+    	return bf.toString();
     }
 }

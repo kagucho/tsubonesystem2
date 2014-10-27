@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.seasar.framework.container.SingletonS2Container;
+import org.seasar.framework.util.StringUtil;
 
 import tsuboneSystem.code.ActorKindCode;
 import tsuboneSystem.code.MailBrowsingRightsCode;
@@ -54,7 +55,7 @@ public class MailManagerUtil {
 	public boolean linkUrlFlag = false;
 	
 	//urlの先頭
-	private final String urlHead = "http://localhost:8080/TsuboneSystem/";
+	private final String urlHead = "http://kagucho.net/";
 	
 	//メールの回覧権限(デフォルトはMEMBER)
 	public Integer browsingRights = MailBrowsingRightsCode.MEMBER.getCodeNumber();
@@ -241,8 +242,9 @@ public class MailManagerUtil {
 		urlbf.append(content);
 		if(linkUrlFlag){
 			urlbf.append("\n");
-			urlbf.append("\n");
-			urlbf.append(caption);
+			if (StringUtil.isNotEmpty(caption)) {
+				urlbf.append(caption);
+			}
 			urlbf.append("\n");
 			urlbf.append(urlHead);
 			if(ActorKindCode.ADMIN.getCode().equals(actorKindCode)){

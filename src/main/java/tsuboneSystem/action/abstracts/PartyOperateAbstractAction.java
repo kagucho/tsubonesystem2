@@ -31,6 +31,8 @@ public abstract class PartyOperateAbstractAction {
 	/** メール送信可否 */
 	public String mailMsg = null;
 	
+	/** LoginMemberDto */
+	@Resource
 	public LoginMemberDto loginMemberDto;
 	
 	/** TPartyのサービスクラス */
@@ -84,7 +86,6 @@ public abstract class PartyOperateAbstractAction {
     	if (partyForm.mailSendFlag) {
 			// OBを含めるかどうか
 			boolean containsOb = (partyForm.mailSendOBFlag != null);
-
 			// 全員にメールが送られる場合
 			if (partyForm.mailSendAllFlag != null) {
 				partyForm.tMemberSendList = tMemberService.findAllOrderById_ForMail(containsOb);
@@ -92,7 +93,7 @@ public abstract class PartyOperateAbstractAction {
 			} else if (partyForm.clubListCheck != null) {
 				partyForm.tMemberSendList = tMemberService.findByClubIds(containsOb, partyForm.clubListCheck);
 			}
-    	}   
+    	}
     	return "partyConfirm.jsp";
 	}
 	
@@ -126,9 +127,6 @@ public abstract class PartyOperateAbstractAction {
     	bf.append("\n");
     	bf.append("\n");
     	bf.append("このイベントの詳細はこちらから");
-    	bf.append("\n");
-    	bf.append("http://localhost:8080/TsuboneSystem/admin/partyDetail/");
-    	bf.append(partyForm.id);
     	partyForm.content = new String(bf);
     	
     	//メールを送信する
@@ -138,7 +136,7 @@ public abstract class PartyOperateAbstractAction {
     	mailUtil.setTitle(partyForm.title);
     	mailUtil.setContent(partyForm.content);	
     	mailUtil.setContentId(partyForm.id);
-    	mailUtil.setContentName("partyDetail");
+    	mailUtil.setContentName("partyDetail/detail");
     	mailUtil.setLinkUrlFlag(true);
     	mailUtil.setToAddressActorSplit(partyForm.tMemberSendList);
     	mailUtil.sendMail();

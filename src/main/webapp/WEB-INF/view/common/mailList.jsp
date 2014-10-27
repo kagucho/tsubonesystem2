@@ -5,7 +5,7 @@
 		<div class="table-responsive">
 			<table class="table">
 			<tr>
-				<th>メールのタイトル</th><th class="hidden-xs">送信者名</th><th>送信ステータス</th>
+				<th>メールのタイトル</th><th class="hidden-xs">送信者名</th><th>送信ステータス</th><c:if test="${loginMemberDto.actorKindCode == 1}"><th>閲覧種別</th></c:if>
 				<c:forEach var="e" items="${tMailItem}">
 					<tr>
 						<td>
@@ -23,6 +23,19 @@
 								<span class="glyphicon glyphicon-ok"></span>
 							</c:if>
 						</td>
+						<c:if test="${loginMemberDto.actorKindCode == 1}">
+							<c:choose>
+								<c:when test="${e.browsingRights == 1 }" >
+									<td>Admin</td>
+								</c:when>
+								<c:when test="${e.browsingRights == 2 }" >
+									<td>Leaders</td>
+								</c:when>
+								<c:otherwise>
+									<td>一般メンバー</td>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
 					</tr>
 				</c:forEach>
 			</table>

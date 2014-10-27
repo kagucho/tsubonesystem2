@@ -78,28 +78,28 @@ public class PartyDto implements Serializable {
 		Date dateadd = new Date();
 		dateadd=calendar.getTime();
 		
-		if(tParty.meetingEndDay != null){
-			//最終日が定められているとき
-			if (tParty.meetingEndDay.after(dateadd)) {
-				return false;
-			}else{
-				return true;
-			}
-		}else if(tParty.meetingDay != null){
-			//開始日が定められているとき
-			if (tParty.meetingDay.after(dateadd)) {
-				return false;
-			}else{
-				return true;
-			}
-		}else if(tParty.meetingDeadlineDay != null){
+		if(tParty.meetingDeadlineDay != null){
 			//開催日がなく、締め切りのみのとき
 			if (tParty.meetingDeadlineDay.after(dateadd)) {
 				return false;
 			}else{
 				return true;
 			}
-		}else{
+		} else if (tParty.meetingEndDay != null){
+			//最終日が定められているとき
+			if (tParty.meetingEndDay.after(dateadd)) {
+				return false;
+			}else{
+				return true;
+			}
+		} else if (tParty.meetingDay != null){
+			//開始日が定められているとき
+			if (tParty.meetingDay.after(dateadd)) {
+				return false;
+			}else{
+				return true;
+			}
+		} else {
 			//開催日も締め切り日も設定されていない会議は編集されてから一ヶ月で締め切りとする
 			calendar.add(Calendar.MONTH, -1);
 			Date dateaddMonth = new Date();

@@ -2,6 +2,8 @@ package tsuboneSystem.action.individuals;
 
 import javax.annotation.Resource;
 
+import org.seasar.struts.annotation.Execute;
+
 import tsuboneSystem.dto.LoginIndividualsDto;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TMember;
@@ -30,7 +32,7 @@ public class PartyDetailAction extends tsuboneSystem.action.admin.PartyDetailAct
 		return loginIndividualsDto.tMemberLogin;
 	}
 	
-	@Override
+	@Execute(validator = false, urlPattern = "detail/{id}", reset = "resetInput")
 	public String index() {
 		String nextPage = super.index();
 		
