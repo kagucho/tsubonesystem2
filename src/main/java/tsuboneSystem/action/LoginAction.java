@@ -94,7 +94,7 @@ public class LoginAction {
     
 	@Execute(validator = true, input="login.jsp", validate="validateBase", stopOnValidationError = false)
 	public String complete() {
-    	
+		
     	String id = new String();
     	String password = new String();
     	
@@ -212,6 +212,7 @@ public class LoginAction {
 	}
 	//userNameの重複チェック
     public ActionMessages validateBase(){
+    	
     	ActionMessages errors = new ActionMessages();
     	
     	String id = new String();

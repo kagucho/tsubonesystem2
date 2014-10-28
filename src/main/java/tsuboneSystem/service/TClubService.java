@@ -28,8 +28,13 @@ public class TClubService extends AbstractService<TClub> {
      */
     public TClub findById(Integer id) {
     	SimpleWhere where = new SimpleWhere();
+    	where.eq(id(), id);
     	where.eq(deleteFlag(), Boolean.valueOf(false));
-        return select().innerJoin(tLeaders()).innerJoin(tLeaders().tMember()).where(where).id(id).getSingleResult();
+        return select()
+        		.where(where)
+        		.innerJoin(tLeaders())
+        		.innerJoin(tLeaders().tMember())
+        		.getSingleResult();
     }
 
     /**

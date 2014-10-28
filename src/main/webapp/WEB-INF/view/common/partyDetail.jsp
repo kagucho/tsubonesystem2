@@ -41,6 +41,9 @@
 				<a class="col-md-3 col-sm-5 col-xs-12 btn btn-primary" href="<c:url value="/${loginMemberDto.actorKind}/attend/no"/>">欠席する</a>
 			</div>
 		</c:if>
+		<c:if test="${deadFlag}">
+			<div class="alert alert-danger CENTER">この会議は締め切り時間を過ぎています</div>
+		</c:if>
 		<s:form method="POST" >
 			<form name="party" class="form-horizontal">
 				<%@ include file="/WEB-INF/view/common/partyQuestionFormInput.jsp"%>
@@ -51,9 +54,6 @@
 				</div>
 			</form>
 		</s:form>
-		<c:if test="${deadFlag}">
-			<div class="alert alert-danger">この会議は締め切り時間を過ぎています</div>
-		</c:if>
 	<%@ include file="/WEB-INF/view/common/questionList.jsp"%>
 	</div>
 </div>

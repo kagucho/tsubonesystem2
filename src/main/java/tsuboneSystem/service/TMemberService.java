@@ -117,6 +117,18 @@ public class TMemberService extends AbstractService<TMember> {
     }
 	
 	/**
+     * ハンドルネームで検索しメンバーのエンティティを返す
+     * 
+     * @return エンティティのリスト
+     */
+	public TMember findByHname(String hname) {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	where.eq(hname(), hname);
+        return select().where(where).getSingleResult();
+    }
+	
+	/**
      * メールアドレスとログインIDで検索しメンバーのエンティティを返す
      * 
      * @return エンティティのリスト

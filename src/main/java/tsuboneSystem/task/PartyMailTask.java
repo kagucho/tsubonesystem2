@@ -35,7 +35,7 @@ import tsuboneSystem.service.TPartyService;
 
 
 @Task
-@CronTrigger(expression = "0 57 20 * * ?")
+@CronTrigger(expression = "0 00 18 * * ?")
 public class PartyMailTask extends AbstractTask{
 	
 	/** TMemberのサービスクラス */
