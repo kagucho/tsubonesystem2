@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -62,7 +64,16 @@ public class MemberUploadAction {
 	protected ArrayList<String> errorMsgList = new ArrayList<String>();
 	
 	//メールを送るuserNameとPWを格納するリスト
-	ArrayList<String[]> userList = new ArrayList<>();
+	protected ArrayList<String[]> userList = new ArrayList<>();
+	
+    //一時的にメールアドレスを保管しておくSet
+	protected HashSet<String> mailAddressCacheSet = new HashSet<>();
+	
+	//一時的にハンドルネームを保管しておくメソッド
+	protected HashSet<String> hnCacheSet = new HashSet<>();
+	
+	//一時的にuserNameを保管しておくメソッド
+	protected HashSet<String> userNameCacheSet = new HashSet<>();
 	
 	@Execute(validator = false)
 	public String upload() {
@@ -70,6 +81,7 @@ public class MemberUploadAction {
 			formFile = memberUploadForm.file;
 			//チェックが通ればアップロードを実行する
 			if (check()) {
+				insertAllCacheData();
 				uploadMember();
 			}
 			
@@ -83,6 +95,18 @@ public class MemberUploadAction {
 		return "memberUpload.jsp";
 	}
 	
+	/**
+	 * 重複チェック用に全てのデータを一時的に保管する
+	 */
+	protected void insertAllCacheData() {
+		List<TMember> allData = tMemberService.findAllOrderById(true);
+		for (TMember tMember : allData) {
+			hnCacheSet.add(tMember.hname);
+			userNameCacheSet.add(tMember.userName);
+			mailAddressCacheSet.add(tMember.mail);
+		}
+	}
+
 	/**
 	 * メールを送信する
 	 */
@@ -164,13 +188,55 @@ public class MemberUploadAction {
 		member.mail = csv.mail;
 		member.userName = csv.userName;
 		try {
-			tMemberService.insert(member);
+			//重複チェック
+			if (checkDeplicated(member)) {
+				tMemberService.insert(member);
+				//キャッシュに今DBに挿入したデータを追加する。
+				insertCache(member);
+			} else {
+				//トランザクション中のデータをロールバックするためにスローする
+				throw new Exception("dummy Exception(for rollback in transaction)");
+			}
 		} catch(Exception e) {
 			//画面に表示するエラーを表示
 			setError(i + "行目のデータ挿入中にエラーが発生しました。\n(すでに存在しているハンドルネーム、メールアドレス、ユーザー名の可能性があります。)\n " + csv.toString() + "\n");
 			return;
 		}
 		userList.add(new String[]{csv.userName, csv.password});
+	}
+
+	/**
+	 * キャッシュにデータを一件挿入する
+	 * @param member
+	 */
+	protected void insertCache(TMember member) {
+		hnCacheSet.add(member.hname);
+		userNameCacheSet.add(member.userName);
+		mailAddressCacheSet.add(member.mail);
+	}
+	
+	/**
+	 * キャッシュからデータの重複をチェックする
+	 * @param member
+	 * @return
+	 */
+	protected boolean checkDeplicated(TMember member) {
+		//ハンドルネーム重複チェック
+		if (hnCacheSet.contains(member.hname)) {
+			return false;
+		}
+		
+		//ID重複チェック
+		if (userNameCacheSet.contains(member.userName)) {
+			return false;
+		}
+		
+		//メールアドレス重複
+		if (mailAddressCacheSet.contains(member.mail)) {
+			return false;
+		}
+		
+		return true;
 	}
 
 	/**
