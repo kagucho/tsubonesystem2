@@ -103,7 +103,7 @@ public class PartyMailTask extends AbstractTask{
     	    	if (tSendMember.size() > 0) {
     	    		//未提出者がいたら配信処理をする。
     	    		
-    	    		//タイトルを作る
+    	    		// タイトルを作る
         	    	StringBuilder sb = new StringBuilder();
         	    	if (tPartyOne.deadlineHowNum.equals(TODAY)) {
         	    		sb.append("【本日締め切り】");
@@ -113,7 +113,7 @@ public class PartyMailTask extends AbstractTask{
         	    	sb.append(tPartyOne.meetingName);
         	    	String title = new String(sb);
         	    	
-        	    	//内容を作る
+        	    	// 内容を作る
         	    	StringBuilder sbc = new StringBuilder();
         	    	sbc.append("このメールは、出欠をまだ出していないメンバーに自動配信されるメールです。");
         	    	sbc.append("\n");
@@ -149,6 +149,7 @@ public class PartyMailTask extends AbstractTask{
         	    		sbc.append(tPartyOne.deadlineHowNum);
         	    		sbc.append("日です。");
         	    		sbc.append("\n");
+        	    		sbc.append("\n");
         	    		sbc.append("以上のイベントにまだ出欠を出していません。とっとと出欠を出しましょう。");
         	    	} else {
         	    		if (tPartyOne.meetingNecessaryFlag) {
@@ -159,24 +160,28 @@ public class PartyMailTask extends AbstractTask{
         	    		sbc.append("\n");
         	    		sbc.append("可及的速やかに出席を出してください。");
         	    		sbc.append("\n");
-        	    		sbc.append("今すぐ出してください");
-        	    		sbc.append("\n");
-        	    		sbc.append("つーかだせ。何のためにこのシステムを作ったと思ってるんだ（●｀□´●）(by dawachin)");
+        	    		if (!tPartyOne.ObAttendFlag) {
+        	    			sbc.append("今すぐ出してください");
+        	    			sbc.append("\n");
+        	    			sbc.append("\n");
+        	    			sbc.append("つーかだせ。何のためにこのシステムを作ったと思ってるんだ（●｀□´●）(by dawachin)");
+        	    		}
         	    	}
-        	    	sbc.append("\n");
         	    	sbc.append("\n");
         	    	String content = new String(sbc);
         	    	
-        	    	//メールを送信する
+        	    	// メールを送信する
                 	MailManagerUtil mailUtil = new MailManagerUtil();
                 	mailUtil.setBrowsingRights(MailBrowsingRightsCode.MEMBER.getCodeNumber());
                 	mailUtil.setTitle(title);
-                	mailUtil.setContent(content);	
-                	mailUtil.setLinkUrlFlag(false);
+                	mailUtil.setContent(content);
+                	mailUtil.setContentId(tPartyOne.id);
+                	mailUtil.setContentName("partyDetail/detail");
+                	mailUtil.setLinkUrlFlag(true);
                 	mailUtil.setToAddressActorSplit(tSendMember);
                 	mailUtil.sendMail();
     	    	}
-    		}
+    		}// ここまでが会議一件分の処理
     	}
     }
 
@@ -187,34 +192,34 @@ public class PartyMailTask extends AbstractTask{
 
 	@Override
 	void process() throws Exception {
-		//実行された時点で、締め切られていない会議の一覧を取得
+		// 実行された時点で、締め切られていない会議の一覧を取得
     	Date dateNow = new Date();
     	
-    	//出欠必須であり締め切り日の5日前の会議一覧
+    	// 出欠必須であり締め切り日の5日前の会議一覧
     	List<TParty>  tPartyListHISSU_FIVE = tPartyService.findBy_Deadline_PULS(dateNow, FIVE_DAY, true);
     	sendMail(tPartyListHISSU_FIVE);
     	
-    	//出欠必須であり締め切り日の3日前の会議一覧
+    	// 出欠必須であり締め切り日の3日前の会議一覧
     	List<TParty>  tPartyListHISSU_TREE = tPartyService.findBy_Deadline_PULS(dateNow, TREE_DAY, true);
     	sendMail(tPartyListHISSU_TREE);
     	
-    	//出欠必須であり締め切り日の2日前の会議一覧
+    	// 出欠必須であり締め切り日の2日前の会議一覧
     	List<TParty>  tPartyListHISSU_TWO_TREE = tPartyService.findBy_Deadline_PULS(dateNow, TWO_DAY, true);
     	sendMail(tPartyListHISSU_TWO_TREE);
     		
-    	//出欠必須であり締め切り日の1日前の会議一覧
+    	// 出欠必須であり締め切り日の1日前の会議一覧
     	List<TParty>  tPartyListHISSU_ONE_TREE = tPartyService.findBy_Deadline_PULS(dateNow, ONE_DAY, true);
     	sendMail(tPartyListHISSU_ONE_TREE);
     	
-    	//出欠必須であり締め切り日当日の会議一覧
+    	// 出欠必須であり締め切り日当日の会議一覧
     	List<TParty>  tPartyListHISSU_TODAY = tPartyService.findBy_Deadline_PULS(dateNow, TODAY, true);
     	sendMail(tPartyListHISSU_TODAY);
     	
-    	//締め切り日の3日前の会議一覧
+    	// 締め切り日の3日前の会議一覧
     	List<TParty>  tPartyListTREE = tPartyService.findBy_Deadline_PULS(dateNow, TREE_DAY, false);
     	sendMail(tPartyListTREE);
     	
-    	//締め切り日の1日前の会議一覧
+    	// 締め切り日の1日前の会議一覧
     	List<TParty>  tPartyListTODAY = tPartyService.findBy_Deadline_PULS(dateNow, TODAY, false);
     	sendMail(tPartyListTODAY);
 	}

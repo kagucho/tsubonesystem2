@@ -84,6 +84,16 @@ public abstract class PartyOperateAbstractAction {
 	public String confirm() {
     	// メールを送る場合は送信対象者をリストに格納する
     	if (partyForm.mailSendFlag) {
+    		
+    		// メールのタイトルは会議名とする
+    		StringBuffer bf = new StringBuffer();
+    		bf.append("【イベント登録】 ");
+    		bf.append(partyForm.meetingName);
+    		partyForm.title = new String(bf);
+    		
+    		// メール本文は会議の詳細とする
+    		partyForm.content = partyForm.meetingMemo;
+    		
 			// OBを含めるかどうか
 			boolean containsOb = (partyForm.mailSendOBFlag != null);
 			// 全員にメールが送られる場合

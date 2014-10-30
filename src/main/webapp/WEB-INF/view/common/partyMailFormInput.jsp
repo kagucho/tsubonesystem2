@@ -18,20 +18,6 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-4" for="Title">メールのタイトル&nbsp;<span class="hissu">＊</span></label>
-				<div class="col-sm-8 memberF" >
-					<input type="text" id="title" name="title" property="title" class="form-control" placeholder="Title" value="${title}" >
-					<html:errors property="title"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-4" for="Content">メールの内容&nbsp;<span class="hissu">＊</span></label>
-				<div class="col-sm-8 memberF">
-					<textarea class="form-control" name="content" rows="10" property="content" placeholder="Content" >${f:h(content)}</textarea>
-					<html:errors property="content"/>
-				</div>
-			</div>
-			<div class="form-group">
 				<label class="control-label col-sm-4" for="mailSendAllFlag">OBにも送信する&nbsp;</label>
 				<div class="col-sm-8 memberF">
 					<input type="checkbox" id="mailSendOBFlag" <c:if test="${mailSendOBFlag}"> checked="checked"</c:if>  name="mailSendOBFlag" value="true" />&nbsp;OBを含める

@@ -191,13 +191,6 @@ public class PartyForm implements Serializable{
         	if (mailSendAllFlag == null && clubListCheck.length == 0 ) {
         		errors.add("sendTo",new ActionMessage("メールを送る場合は、送り相手を選択してください。",false));
         	}
-        	if (StringUtils.isEmpty(title)) {
-        		errors.add("title",new ActionMessage("メールを送る場合は、メールの題名を入力してください。",false));
-        	}
-        	if (StringUtils.isEmpty(content)) {
-        		errors.add("content",new ActionMessage("メールを送る場合は、メールの内容を入力してください。",false));
-        	}
-        	
         }
         
         //開催日が空の時の処理
