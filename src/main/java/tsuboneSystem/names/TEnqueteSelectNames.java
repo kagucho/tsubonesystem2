@@ -3,13 +3,14 @@ package tsuboneSystem.names;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
 import tsuboneSystem.entity.TEnqueteSelect;
+import tsuboneSystem.names.TEnqueteAnswerNames._TEnqueteAnswerNames;
 import tsuboneSystem.names.TEnqueteNames._TEnqueteNames;
 
 /**
  * {@link TEnqueteSelect}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/10/27 16:33:16")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/11/03 20:26:12")
 public class TEnqueteSelectNames {
 
     /**
@@ -46,6 +47,15 @@ public class TEnqueteSelectNames {
      */
     public static _TEnqueteNames tEnquete() {
         return new _TEnqueteNames("tEnquete");
+    }
+
+    /**
+     * tEnqueteAnswerListのプロパティ名を返します。
+     * 
+     * @return tEnqueteAnswerListのプロパティ名
+     */
+    public static _TEnqueteAnswerNames tEnqueteAnswerList() {
+        return new _TEnqueteAnswerNames("tEnqueteAnswerList");
     }
 
     /**
@@ -115,6 +125,15 @@ public class TEnqueteSelectNames {
          */
         public _TEnqueteNames tEnquete() {
             return new _TEnqueteNames(this, "tEnquete");
+        }
+
+        /**
+         * tEnqueteAnswerListのプロパティ名を返します。
+         * 
+         * @return tEnqueteAnswerListのプロパティ名
+         */
+        public _TEnqueteAnswerNames tEnqueteAnswerList() {
+            return new _TEnqueteAnswerNames(this, "tEnqueteAnswerList");
         }
     }
 }

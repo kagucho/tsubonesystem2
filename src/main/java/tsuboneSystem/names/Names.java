@@ -6,6 +6,7 @@ import tsuboneSystem.entity.TBbsDetail;
 import tsuboneSystem.entity.TBbsSubject;
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TEnquete;
+import tsuboneSystem.entity.TEnqueteAnswer;
 import tsuboneSystem.entity.TEnqueteSelect;
 import tsuboneSystem.entity.TImageUpload;
 import tsuboneSystem.entity.TLeaders;
@@ -25,6 +26,7 @@ import tsuboneSystem.names.TAdminNames._TAdminNames;
 import tsuboneSystem.names.TBbsDetailNames._TBbsDetailNames;
 import tsuboneSystem.names.TBbsSubjectNames._TBbsSubjectNames;
 import tsuboneSystem.names.TClubNames._TClubNames;
+import tsuboneSystem.names.TEnqueteAnswerNames._TEnqueteAnswerNames;
 import tsuboneSystem.names.TEnqueteNames._TEnqueteNames;
 import tsuboneSystem.names.TEnqueteSelectNames._TEnqueteSelectNames;
 import tsuboneSystem.names.TImageUploadNames._TImageUploadNames;
@@ -46,7 +48,7 @@ import tsuboneSystem.names.TTempMessageNames._TTempMessageNames;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/10/27 16:33:17")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/11/03 20:26:12")
 public class Names {
 
     /**
@@ -92,6 +94,15 @@ public class Names {
      */
     public static _TEnqueteNames tEnquete() {
         return new _TEnqueteNames();
+    }
+
+    /**
+     * {@link TEnqueteAnswer}の名前クラスを返します。
+     * 
+     * @return TEnqueteAnswerの名前クラス
+     */
+    public static _TEnqueteAnswerNames tEnqueteAnswer() {
+        return new _TEnqueteAnswerNames();
     }
 
     /**

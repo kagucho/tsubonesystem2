@@ -14,16 +14,17 @@
 			  <c:forEach var="rec" items="${list}">
 			     <tr>
 	               <td>
-	               ${rec.tMember.userName}   
+	               ${rec.tMember.userName}
 	               </td>
 	               <td>
-	               ${rec.title}   
+	               ${rec.title}
 	               </td>
 	               <td>
-	                   <html:button property="detail" value="詳細" onclick="location.href='/admin/enqueteDetail/${rec.id}'"/>
+	                   <a href="<c:url value="/admin/enqueteDetail/"/>/${rec.id}">詳細</a>
 	               </td>
 			     </tr>
 			  </c:forEach>
+			  </table>
 		</div>
 	</div>
 </div>

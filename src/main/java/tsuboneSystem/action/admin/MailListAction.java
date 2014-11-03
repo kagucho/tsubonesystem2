@@ -27,7 +27,7 @@ public class MailListAction {
 	@Resource
 	protected MailListForm mailListForm;
 
-	/** LoginMemberDto */
+	/** Member用のDto */
 	@Resource
 	public LoginMemberDto loginMemberDto;
 

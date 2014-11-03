@@ -9,7 +9,7 @@ import tsuboneSystem.entity.TTempMessage;
  * {@link TTempMessage}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/10/27 16:33:17")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/11/03 20:26:12")
 public class TTempMessageNames {
 
     /**

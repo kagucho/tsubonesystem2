@@ -4,6 +4,7 @@ import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.names.TAdminNames._TAdminNames;
+import tsuboneSystem.names.TEnqueteAnswerNames._TEnqueteAnswerNames;
 import tsuboneSystem.names.TLeadersNames._TLeadersNames;
 import tsuboneSystem.names.TMailNames._TMailNames;
 import tsuboneSystem.names.TMailSendMemberNames._TMailSendMemberNames;
@@ -16,7 +17,7 @@ import tsuboneSystem.names.TPartyQuestionNames._TPartyQuestionNames;
  * {@link TMember}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/10/27 16:33:16")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/11/03 20:26:12")
 public class TMemberNames {
 
     /**
@@ -251,6 +252,15 @@ public class TMemberNames {
      */
     public static _TPartyAnswerNames tPartyAnswerList() {
         return new _TPartyAnswerNames("tPartyAnswerList");
+    }
+
+    /**
+     * tEnqueteAnswerListのプロパティ名を返します。
+     * 
+     * @return tEnqueteAnswerListのプロパティ名
+     */
+    public static _TEnqueteAnswerNames tEnqueteAnswerList() {
+        return new _TEnqueteAnswerNames("tEnqueteAnswerList");
     }
 
     /**
@@ -518,6 +528,15 @@ public class TMemberNames {
          */
         public _TPartyAnswerNames tPartyAnswerList() {
             return new _TPartyAnswerNames(this, "tPartyAnswerList");
+        }
+
+        /**
+         * tEnqueteAnswerListのプロパティ名を返します。
+         * 
+         * @return tEnqueteAnswerListのプロパティ名
+         */
+        public _TEnqueteAnswerNames tEnqueteAnswerList() {
+            return new _TEnqueteAnswerNames(this, "tEnqueteAnswerList");
         }
     }
 }
