@@ -18,50 +18,70 @@ import tsuboneSystem.service.TMailService;
 import tsuboneSystem.service.TMemberService;
 
 public class MailListAction {
-	
+
 	/** actionの名前　*/
 	public String actionName = "MailList";
-	
+
 	/** MailListのアクションフォーム */
 	@ActionForm
 	@Resource
 	protected MailListForm mailListForm;
-	
+
 	/** LoginMemberDto */
 	@Resource
 	public LoginMemberDto loginMemberDto;
-	
+
 	/** TMailのサービスクラス */
 	@Resource
 	protected TMailService tMailService;
-	
+
 	/** TMailSendMemberServiceのサービスクラス */
 	@Resource
 	protected TMailSendMemberService tMailSendMemberService;
-	
+
 	/** TMemberのサービスクラス */
 	@Resource
 	protected TMemberService tMemberService;
 
-	
     @Execute(validator = false)
 	public String index() {
-    	
+
     	//名前を表示するためのマップ(OBを含む)
     	mailListForm.memberMapIS = new HashMap<Integer,String>();
     	mailListForm.tMemberAllList = tMemberService.findAllOrderById(true);
     	for (TMember memberOne : mailListForm.tMemberAllList) {
-    		mailListForm.memberMapIS.put(memberOne.id, memberOne.hname);	
+    		mailListForm.memberMapIS.put(memberOne.id, memberOne.hname);
     	}
-    	
+
     	//メールの一覧(とりあえず最初の２０件だけ取得する)
     	mailListForm.tMailItem = getMailRecord();
-    	
+
         return "index.jsp";
 	}
+
+    @Execute(validator = false)
+    public String onSearch() {
+
+    	//名前を表示するためのマップ(OBを含む)
+    	mailListForm.memberMapIS = new HashMap<Integer,String>();
+    	mailListForm.tMemberAllList = tMemberService.findAllOrderById(true);
+    	for (TMember memberOne : mailListForm.tMemberAllList) {
+    		mailListForm.memberMapIS.put(memberOne.id, memberOne.hname);
+    	}
+
+    	//メールの一覧(自分に届いたメールのみ)
+    	mailListForm.tMailItem = getTMailSendMemberlRecord();
+
+
+    	return "index.jsp";
+    }
 
 
 	protected List<TMail> getMailRecord() {
 		return tMailService.findAllOrderByIdLimitOffset(MailBrowsingRightsCode.ADMIN.getCodeNumber(), 20, 0);
+	}
+
+	protected List<TMail> getTMailSendMemberlRecord() {
+		return tMailSendMemberService.findAllOrderByIdLimitOffset(mailListForm, loginMemberDto.memberId, MailBrowsingRightsCode.ADMIN.getCodeNumber(), 20, 0);
 	}
 }
