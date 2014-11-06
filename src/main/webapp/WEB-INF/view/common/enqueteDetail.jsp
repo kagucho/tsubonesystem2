@@ -23,8 +23,5 @@
         <tr>
         </tr>
 	</table>
-	
-	<html:button property="backList" value="一覧へ戻る" onclick="location.href='/admin/enqueteList/'"/>
-	
-    
+	<a href="<c:url value="/admin/enqueteList"/>">一覧</a>
 </div>

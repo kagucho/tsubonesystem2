@@ -76,7 +76,6 @@ public class EnqueteDetailAction {
     	//アンケートを取得する
     	TEnquete tEnquete = tEnqueteService.findByIdJoinTable(enqueteForm.id);
     	
-    	
     	Beans.copy(tEnquete, enqueteForm).execute();
     	enqueteForm.selectedContents = new String[tEnquete.tEnqueteSelect.size()];
     	int i = 0;
