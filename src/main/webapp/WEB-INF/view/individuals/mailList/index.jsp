@@ -4,36 +4,25 @@
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
+<%@ include file="/WEB-INF/view/common/mailList.jsp"%>
 <div class="container">
-<div class="col-sm-12">
-<a class="btn btn-primary" href="<c:url value="/individuals/mailRegist"/>">メール作成</a>
-<h3>メールの送信履歴</h3>
-<div class="table-responsive">
-<table class="table">
-<tr>
-	<th>メールのタイトル</th><th class="hidden-xs">送信者名</th><th>送信ステータス</th>
-	<c:forEach var="e" items="${tMailItem}">
-		<tr>
-			<td>
-				<a href="<c:url value="/individuals/mailDetail/"/>${e.id}">${f:h(e.title) }</a>
-			</td>
-			<td class="hidden-xs">
-				<c:if test="${e.registMemberId == null}"><p class="hidden-xs">(自動配信)</p></c:if>
-				<p class="hidden-xs">${f:h(memberMapIS[e.registMemberId]) }</p>
-			</td>
-			<td>
-				<c:if test="${e.errorFlag}">
-					<span class="glyphicon glyphicon-remove"></span>
-				</c:if>
-				<c:if test="${!e.errorFlag}">
-					<span class="glyphicon glyphicon-ok"></span>
-				</c:if>
-			</td>
-		</tr>
-	</c:forEach>
-</table>
-</div>
-</div>
+	<div id="searchWindow" class="col-sm-12">
+		<h4>メール検索</h4>
+		<s:form method="POST" >
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-sm-7" for="obFlag">自分に配信されたメールのみ</label>
+					<div class="col-sm-5 memberF">
+						<input type="checkbox" id="myMailCheck" name="myMailCheck" value="true" />
+					</div>
+				</div>
+				<div class="form-group col-sm-offset-10">
+					<input type="submit" value="検索" id="onSearch" name="onSearch" property="onSearch" class="btn btn-primary">
+					<input type="submit" value="クリア" id="index" name="index" property="index" class="btn btn-primary">
+				</div>
+			</form>
+		</s:form>
+	</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${f:url('/js/bootstrap.min.js')}"></script>

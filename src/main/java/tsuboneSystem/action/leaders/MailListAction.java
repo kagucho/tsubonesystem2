@@ -60,7 +60,28 @@ public class MailListAction {
 	}
 
 
+    @Execute(validator = false)
+    public String onSearch() {
+
+    	//名前を表示するためのマップ(OBを含む)
+    	mailListForm.memberMapIS = new HashMap<Integer,String>();
+    	mailListForm.tMemberAllList = tMemberService.findAllOrderById(true);
+    	for (TMember memberOne : mailListForm.tMemberAllList) {
+    		mailListForm.memberMapIS.put(memberOne.id, memberOne.hname);
+    	}
+
+    	//メールの一覧(自分に届いたメールのみ)
+    	mailListForm.tMailItem = getTMailSendMemberlRecord();
+
+
+    	return "index.jsp";
+    }
+
 	protected List<TMail> getMailRecord() {
 		return tMailService.findAllOrderByIdLimitOffset(MailBrowsingRightsCode.LEADERS.getCodeNumber(), 20, 0);
+	}
+
+	protected List<TMail> getTMailSendMemberlRecord() {
+		return tMailSendMemberService.findAllOrderByIdLimitOffset(mailListForm, loginMemberDto.memberId, MailBrowsingRightsCode.LEADERS.getCodeNumber(), 20, 0);
 	}
 }
