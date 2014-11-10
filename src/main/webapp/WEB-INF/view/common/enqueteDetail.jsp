@@ -1,6 +1,6 @@
 <div class="container">
 	<h3 class="col-md-6">アンケート詳細</h3>
-	
+	<a class="col-md-2 col-sm-3 col-xs-12 btn btn-primary btnYOKO" href="<c:url value="/admin/enqueteReply/${f:h(id)}"/>" role="button">回答する</a>
 	<table class="table">
 		<tr>
 		    <th class="col-md-2 col-sm-2"><h4>タイトル</h4></th>
