@@ -14,13 +14,13 @@
 			  <c:forEach var="rec" items="${list}">
 			     <tr>
 	               <td>
-	               ${rec.tMember.userName}
+	               	${rec.tMember.userName}
 	               </td>
 	               <td>
-	               ${rec.title}
+	               	${rec.title}
 	               </td>
 	               <td>
-	                   <a href="<c:url value="/admin/enqueteDetail/"/>/${rec.id}">詳細</a>
+	                   <a href="<c:url value="/admin/enqueteDetail/"/>${rec.id}"><span class="glyphicon glyphicon-user"></span></a>
 	               </td>
 			     </tr>
 			  </c:forEach>

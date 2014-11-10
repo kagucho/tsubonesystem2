@@ -8,6 +8,27 @@
     <link href="${f:url('/css/bootstrap.css')}" type="text/css" rel="stylesheet">
     <link href="${f:url('/css/layout.css')}" type="text/css" rel="stylesheet">
     <link href="${f:url('/css/signin.css')}" type="text/css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script type="text/javascript">
+	<%-- OB宣言にチェックが入ったときのみメール送信可否を選択できる --%>
+	$(function() {
+		var val = $("#obFlag:checked").val();
+		if(val == "true") {
+			$("#sendStopFlagBox").show();
+		} else {
+			$("#sendStopFlagBox").hide();
+		}
+		
+		$("#obFlag").click(function() {
+			var val = $("#obFlag:checked").val();
+			if(val == "true") {
+				$("#sendStopFlagBox").show();
+			} else {
+				$("#sendStopFlagBox").hide();
+			}
+		});
+	});
+	</script>
   </head>
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>

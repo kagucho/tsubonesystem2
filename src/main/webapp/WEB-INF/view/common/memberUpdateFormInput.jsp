@@ -71,13 +71,15 @@
 				<html:errors property="obFlag"/>
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="control-label col-sm-4" for="sendStopFlag">メール受信可否</label>
-			<div class="col-sm-8 memberF">
-				<input type="checkbox" id="sendStopFlag" name="sendStopFlag" value="true" <c:if test="${sendStopFlag}">checked</c:if>  />&nbsp;&nbsp;メールを受信しない
-				<html:errors property="obFlag"/>
-			</div>
-		</div>	
+		<div id = "sendStopFlagBox">
+			<div class="form-group">
+				<label class="control-label col-sm-4" for="sendStopFlag">メール受信可否</label>
+				<div class="col-sm-8 memberF">
+					<input type="checkbox" id="sendStopFlag" name="sendStopFlag" value="true" <c:if test="${sendStopFlag}">checked</c:if>  />&nbsp;&nbsp;メールを受信しない
+					<html:errors property="obFlag"/>
+				</div>
+			</div>	
+		</div>
 	</c:if>
 	<c:if test="${loginMemberDto.actorKindCode != '1'}"><%-- admin以外はOBを解除できない --%>
 		<c:if test="${!obFlag}">
@@ -89,7 +91,7 @@
 				</div>
 			</div>
 		</c:if>
-		<c:if test="${obFlag}">
+		<div id = "sendStopFlagBox">
 			<div class="form-group">
 				<label class="control-label col-sm-4" for="sendStopFlag">メール受信可否</label>
 				<div class="col-sm-8 memberF">
@@ -97,7 +99,7 @@
 					<html:errors property="obFlag"/>
 				</div>
 			</div>	
-		</c:if>
+		</div>
 	</c:if>
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="userName">UserName&nbsp;<span class="hissu">＊</span></label>
