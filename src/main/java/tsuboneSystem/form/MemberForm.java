@@ -86,6 +86,9 @@ public class MemberForm implements Serializable{
 	@Maxlength(maxlength=10)
 	public String obFlag;
 	
+	/* OBフラグ(戻り時用の保持)　*/
+	public String obFlagDisply;
+	
 	/* メール受信可否　*/
 	@Maxlength(maxlength=10)
 	public String sendStopFlag;

@@ -61,11 +61,21 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="control-label col-sm-4" for="obFlag">OB宣言</label>
-		<div class="col-sm-8 memberF">
-			<input type="checkbox" id="obFlag" name="obFlag" value="true" />&nbsp;&nbsp;OB宣言をする
+			<label class="control-label col-sm-4" for="obFlag">OB宣言</label>
+			<div class="col-sm-8 memberF">
+				<input type="checkbox" id="obFlag" name="obFlag" value="true" <c:if test="${obFlag}"> checked="checked"</c:if> />&nbsp;&nbsp;OB宣言をする&nbsp;<span class="hissu">(注：一度宣言すると取り消せません！！)</span>
+				<html:errors property="obFlag"/>
+			</div>
 		</div>
-	</div>
+		<div id = "sendStopFlagBox">
+			<div class="form-group">
+				<label class="control-label col-sm-4" for="sendStopFlag">メール受信可否</label>
+				<div class="col-sm-8 memberF">
+					<input type="checkbox" id="sendStopFlag" name="sendStopFlag" value="true" <c:if test="${sendStopFlag}">checked</c:if>  />&nbsp;&nbsp;メールを受信しない
+					<html:errors property="obFlag"/>
+				</div>
+			</div>	
+		</div>
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="userName">ログインID&nbsp;<span class="hissu">＊</span></label>
 		<div class="col-sm-8 memberF">

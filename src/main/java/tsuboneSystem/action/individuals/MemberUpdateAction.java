@@ -110,6 +110,11 @@ public class MemberUpdateAction {
 	 //confirmのバリデータに引っかかった時はここに戻ってくる。(入力した値保持のため)
     @Execute(validator = false)
 	public String viewinput() {
+    	// OBのチェックをした状態で戻るボタンを押下した場合、はチェックされた状態が表示されなければならない
+    	if (!loginIndividualsDto.tMemberLogin.obFlag && memberForm.obFlag.equals("true")) {
+    		memberForm.obFlagDisply = memberForm.obFlag;
+    		memberForm.obFlag = null;
+    	}
     	return "memberInput.jsp";
     }
     
