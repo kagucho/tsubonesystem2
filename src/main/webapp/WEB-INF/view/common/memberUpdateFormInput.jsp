@@ -94,7 +94,7 @@
 				<div class="form-group">
 					<label class="control-label col-sm-4" for="sendStopFlag">メール受信可否</label>
 					<div class="col-sm-8 memberF">
-						<input type="checkbox" id="sendStopFlag" name="sendStopFlag" value="true" <c:if test="${sendStopFlag}">checked</c:if>  />&nbsp;&nbsp;メールを受信しない
+						<input type="checkbox" id="sendStopFlag" name="sendStopFlag" value="true" <c:if test="${sendStopFlag}">checked</c:if>  />&nbsp;&nbsp;メールを受信しない&nbsp;(説：選択した場合、OBを対象としたメールのみ配信されます)
 						<html:errors property="obFlag"/>
 					</div>
 				</div>	
