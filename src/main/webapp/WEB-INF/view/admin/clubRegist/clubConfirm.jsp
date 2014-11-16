@@ -18,7 +18,7 @@
 	</tr>
 	<tr>
 		<th><h4>部の概要</h4></th>
-		<td><h5><pre>${f:h(ClubMemo)}</pre></h5></td>
+		<td><h5>${f:br(f:h(ClubMemo))}</h5></td>
 	</tr>
 </table>
 <s:form method="POST" >

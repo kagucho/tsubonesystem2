@@ -3,12 +3,13 @@ package tsuboneSystem.names;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
 import tsuboneSystem.entity.TImageUpload;
+import tsuboneSystem.names.TTopAnnounceNames._TTopAnnounceNames;
 
 /**
  * {@link TImageUpload}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/11/10 18:41:24")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/11/15 23:37:32")
 public class TImageUploadNames {
 
     /**
@@ -36,6 +37,24 @@ public class TImageUploadNames {
      */
     public static PropertyName<String> filePath() {
         return new PropertyName<String>("filePath");
+    }
+
+    /**
+     * ImageFilePurposeのプロパティ名を返します。
+     * 
+     * @return ImageFilePurposeのプロパティ名
+     */
+    public static PropertyName<Integer> ImageFilePurpose() {
+        return new PropertyName<Integer>("ImageFilePurpose");
+    }
+
+    /**
+     * tTopAnnounceのプロパティ名を返します。
+     * 
+     * @return tTopAnnounceのプロパティ名
+     */
+    public static _TTopAnnounceNames tTopAnnounce() {
+        return new _TTopAnnounceNames("tTopAnnounce");
     }
 
     /**
@@ -96,6 +115,24 @@ public class TImageUploadNames {
          */
         public PropertyName<String> filePath() {
             return new PropertyName<String>(this, "filePath");
+        }
+
+        /**
+         * ImageFilePurposeのプロパティ名を返します。
+         *
+         * @return ImageFilePurposeのプロパティ名
+         */
+        public PropertyName<Integer> ImageFilePurpose() {
+            return new PropertyName<Integer>(this, "ImageFilePurpose");
+        }
+
+        /**
+         * tTopAnnounceのプロパティ名を返します。
+         * 
+         * @return tTopAnnounceのプロパティ名
+         */
+        public _TTopAnnounceNames tTopAnnounce() {
+            return new _TTopAnnounceNames(this, "tTopAnnounce");
         }
     }
 }

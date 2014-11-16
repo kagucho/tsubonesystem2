@@ -9,7 +9,9 @@ import org.apache.commons.lang3.StringUtils;
 public enum FileKindCode implements CodeEnum {
 	
 	PDF("1","pdf"),
-	JPEG("2","jpg");
+	JPG("2","jpg"),
+	JPEG("3","jpeg"),
+	PNG("4","png");
 	
 	private String code;
 	private String name;

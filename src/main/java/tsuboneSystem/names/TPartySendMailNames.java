@@ -10,7 +10,7 @@ import tsuboneSystem.names.TPartyNames._TPartyNames;
  * {@link TPartySendMail}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/11/10 18:41:25")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/11/15 23:37:32")
 public class TPartySendMailNames {
 
     /**

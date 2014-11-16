@@ -28,6 +28,40 @@
     </div>
     <!-- /Header Area -->
     
+    <!-- おしらせ -->
+	<c:if test="${fn:length( topAnnounceList ) > 0}">
+		<div id="services" class="services">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 col-md-offset-4 text-center">
+						<h2>おしらせ</h2>
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<c:forEach var="e" items="${topAnnounceList}">
+						<div class="col-md-12 text-center announce">
+							<div class="service-item">
+								<table>
+									<tbody>
+										<tr>
+											<th class="CENTER"><h3>${f:h(e.announceTitle) }</h3></th>
+											<td align="center" rowspan="2"><img src="${f:url('/images/top/announce')}/${e.tImageUpload.fileName}" alt="${f:h(e.announceTitle) }" width="240" height="180" style="display:block;width:60%;height:auto;"/></td>
+										</tr>
+										<tr>
+											<td align="left"><h4>${f:br(f:h(e.announceContent))}</h4></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+	</c:if>
+    <!-- /Services -->
+    
     <!-- About -->
     <div id="about" class="about_us">
       <div class="container">	
@@ -43,7 +77,7 @@
 	  </div>
     </div>
     <!-- /About -->
-    <!-- Services -->
+    <!-- 部活別照会 -->
     <div id="services" class="services">
       <div class="container">
         <div class="row">
@@ -56,7 +90,6 @@
 	        <c:forEach var="e" items="${clubList}">
 		        <div class="col-md-12 text-center">
 		            <div class="service-item">
-		              
 		              <h3>${f:h(e.ClubName) }</h3>
 		              <p>${f:h(e.ClubMemo) }</p>
 		            </div>
@@ -66,7 +99,6 @@
       </div>
     </div>
     <!-- /Services -->
-
     <!-- Contact -->
     <div id="contact">
       <div class="container">

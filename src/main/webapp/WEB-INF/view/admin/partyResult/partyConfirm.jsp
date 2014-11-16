@@ -14,7 +14,7 @@
 	</tr>
 	<tr>
 		<th><h4>審議の結果</h4></th>
-		<td><h5><pre>${f:h(meetingResult)}</pre></h5></td>
+		<td><h5>${f:br(f:h(meetingResult))}</h5></td>
 	</tr>
 	<tr>
 		<th><h4>編集禁止</h4></th>

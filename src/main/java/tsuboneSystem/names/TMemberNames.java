@@ -12,12 +12,13 @@ import tsuboneSystem.names.TPartyAnswerNames._TPartyAnswerNames;
 import tsuboneSystem.names.TPartyAttendNames._TPartyAttendNames;
 import tsuboneSystem.names.TPartyNames._TPartyNames;
 import tsuboneSystem.names.TPartyQuestionNames._TPartyQuestionNames;
+import tsuboneSystem.names.TTopAnnounceNames._TTopAnnounceNames;
 
 /**
  * {@link TMember}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/11/10 18:41:24")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/11/15 23:37:32")
 public class TMemberNames {
 
     /**
@@ -261,6 +262,15 @@ public class TMemberNames {
      */
     public static _TEnqueteAnswerNames tEnqueteAnswerList() {
         return new _TEnqueteAnswerNames("tEnqueteAnswerList");
+    }
+
+    /**
+     * tTopAnnounceListのプロパティ名を返します。
+     * 
+     * @return tTopAnnounceListのプロパティ名
+     */
+    public static _TTopAnnounceNames tTopAnnounceList() {
+        return new _TTopAnnounceNames("tTopAnnounceList");
     }
 
     /**
@@ -537,6 +547,15 @@ public class TMemberNames {
          */
         public _TEnqueteAnswerNames tEnqueteAnswerList() {
             return new _TEnqueteAnswerNames(this, "tEnqueteAnswerList");
+        }
+
+        /**
+         * tTopAnnounceListのプロパティ名を返します。
+         * 
+         * @return tTopAnnounceListのプロパティ名
+         */
+        public _TTopAnnounceNames tTopAnnounceList() {
+            return new _TTopAnnounceNames(this, "tTopAnnounceList");
         }
     }
 }

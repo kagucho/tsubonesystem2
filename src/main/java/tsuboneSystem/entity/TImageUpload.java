@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -26,9 +27,18 @@ public class TImageUpload implements Serializable {
     public Integer id;
     
     //ファイル名
+    @Column()
     public String fileName;
     
     //ファイルパス
+    @Column()
     public String filePath;
+    
+    // 画像の使用目的
+    @Column()
+    public Integer ImageFilePurpose;
+    
+    @OneToOne(mappedBy = "tImageUpload")
+    public TTopAnnounce tTopAnnounce;
 
 }

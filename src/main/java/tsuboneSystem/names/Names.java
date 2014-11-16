@@ -22,6 +22,7 @@ import tsuboneSystem.entity.TPartyQuestion;
 import tsuboneSystem.entity.TPartySendMail;
 import tsuboneSystem.entity.TTempLogin;
 import tsuboneSystem.entity.TTempMessage;
+import tsuboneSystem.entity.TTopAnnounce;
 import tsuboneSystem.names.TAdminNames._TAdminNames;
 import tsuboneSystem.names.TBbsDetailNames._TBbsDetailNames;
 import tsuboneSystem.names.TBbsSubjectNames._TBbsSubjectNames;
@@ -43,12 +44,13 @@ import tsuboneSystem.names.TPartyQuestionNames._TPartyQuestionNames;
 import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
 import tsuboneSystem.names.TTempLoginNames._TTempLoginNames;
 import tsuboneSystem.names.TTempMessageNames._TTempMessageNames;
+import tsuboneSystem.names.TTopAnnounceNames._TTopAnnounceNames;
 
 /**
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/11/10 18:41:25")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/11/15 23:37:32")
 public class Names {
 
     /**
@@ -238,5 +240,14 @@ public class Names {
      */
     public static _TTempMessageNames tTempMessage() {
         return new _TTempMessageNames();
+    }
+
+    /**
+     * {@link TTopAnnounce}の名前クラスを返します。
+     * 
+     * @return TTopAnnounceの名前クラス
+     */
+    public static _TTopAnnounceNames tTopAnnounce() {
+        return new _TTopAnnounceNames();
     }
 }

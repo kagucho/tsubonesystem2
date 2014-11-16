@@ -10,6 +10,7 @@ import org.seasar.struts.annotation.Execute;
 import org.seasar.struts.util.ServletContextUtil;
 import org.seasar.struts.util.UploadUtil;
 
+import tsuboneSystem.code.ImageFilePurposeCode;
 import tsuboneSystem.entity.TImageUpload;
 import tsuboneSystem.form.ImageUploadForm;
 import tsuboneSystem.service.TImageUploadService;
@@ -45,6 +46,7 @@ public class ImageUploadAction {
     	TImageUpload imageUpload = new TImageUpload();
     	imageUpload.fileName = rm + imageUploadForm.file.getFileName();
     	imageUpload.filePath = path;
+    	imageUpload.ImageFilePurpose = Integer.valueOf(ImageFilePurposeCode.TOP_BACK.getCode());
     	tImageUploadService.insert(imageUpload);
     	
     	//ファイル書き込み（ファイルパスが空の場合は何もしません）

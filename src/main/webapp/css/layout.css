@@ -42,6 +42,12 @@ img.bgmaximage{
 #maximage {
 	position:fixed !important;
 }
+
+.announce table {
+  width: 100%;
+  table-layout: fixed;
+  letter-spacing: 0.04em; 
+}
 			
 /*Set my logo in bottom left*/
 #logo {

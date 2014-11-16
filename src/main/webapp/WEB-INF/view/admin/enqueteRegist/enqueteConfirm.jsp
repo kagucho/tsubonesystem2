@@ -14,7 +14,7 @@
 	    </tr>
 	    <tr>
 	        <th><h4>アンケートの説明</h4></th>
-	        <td><h5><pre>${f:h(memo)}</pre></h5></td>
+	        <td><h5>${f:br(f:h(memo))}</h5></td>
 	    </tr>
 <!-- 	    <tr> -->
 <!-- 	        <th><h4>選択肢１</h4></th> -->

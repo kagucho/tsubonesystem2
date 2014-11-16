@@ -216,7 +216,8 @@ public class SettingsEditAction {
     	
         ActionMessages errors = new ActionMessages();
         if (settingsEditForm.rulePdf.getFileSize() > 0){
-        	 if (TsuboneSystemUtil.isFileKindCheck(settingsEditForm.rulePdf, FileKindCode.PDF.getName())) {
+        	String [] kinds = {FileKindCode.PDF.getName()};
+        	 if (TsuboneSystemUtil.isFileKindCheck(settingsEditForm.rulePdf, kinds)) {
              	errors.add("rulePdf",new ActionMessage("PDF以外受け付けないって書いてあるだろ！！変なファイルいれないでください",false));
              }
         } else {

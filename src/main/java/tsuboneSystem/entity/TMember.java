@@ -130,6 +130,10 @@ public class TMember implements Serializable {
     /** memberIdをTEnqueteAnswerに結びつける */
     @OneToMany(mappedBy = "tMember")
     public List<TEnqueteAnswer> tEnqueteAnswerList;
+    
+    /** memberIdをTEnqueteAnswerに結びつける */
+    @OneToMany(mappedBy = "tMember")
+    public List<TTopAnnounce> tTopAnnounceList;
 
 
 }

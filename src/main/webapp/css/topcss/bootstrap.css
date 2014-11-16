@@ -399,7 +399,7 @@ h6,
 .h6 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.6;
 }
 h1 small,
 h2 small,
@@ -1486,6 +1486,17 @@ table th[class*="col-"] {
   .table-responsive > .table-bordered > tfoot > tr:last-child > td {
     border-bottom: 0;
   }
+}
+/** お知らせ部分の写真レスポンシブ */
+@media only screen and (max-width:480px){
+    .announce { margin: 0 -10px; }
+    .announce th,
+    .announce td{
+        width: 100%;
+        display: block;
+        border-top: none;
+    }
+    .announce tr:first-child th   { border-top: 1px solid #ddd; }
 }
 fieldset {
   padding: 0;

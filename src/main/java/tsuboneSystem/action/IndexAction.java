@@ -1,13 +1,18 @@
 package tsuboneSystem.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.entity.TTopAnnounce;
 import tsuboneSystem.form.TopForm;
 import tsuboneSystem.service.TClubService;
 import tsuboneSystem.service.TImageUploadService;
+import tsuboneSystem.service.TTopAnnounceService;
 
 public class IndexAction {
 	
@@ -24,6 +29,10 @@ public class IndexAction {
 	@Resource
 	protected TImageUploadService tImageUploadService;
 	
+	/** TTopAnnounceService */
+	@Resource
+	public TTopAnnounceService tTopAnnounceService;
+	
     @Execute(validator = false)
 	public String index() {
     	
@@ -32,6 +41,15 @@ public class IndexAction {
     	
     	//背景画像名の一覧を取得する
     	topForm.imageList = tImageUploadService.findAll();
+    	
+    	// お知らせ一覧
+    	topForm.topAnnounceList = tTopAnnounceService.checkDateList();
+    	List<TTopAnnounce> list = new ArrayList<TTopAnnounce>();
+    	for (TTopAnnounce tTopAnnounce : topForm.topAnnounceList) {
+    		tTopAnnounce.tImageUpload = tImageUploadService.findById(tTopAnnounce.imageId);
+    		list.add(tTopAnnounce);
+		}
+    	topForm.topAnnounceList = list;
     	
         return "index.jsp";
 	}
