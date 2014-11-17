@@ -46,7 +46,9 @@ public class TopAnnounceDetailAction {
 	public String index() {
 		// 表示対象特定
 		TTopAnnounce tTopAnnounce = tTopAnnounceService.findById(topAnnounceForm.id);
-		tTopAnnounce.tImageUpload = tImageUploadService.findById(tTopAnnounce.imageId);
+		if (tTopAnnounce.imageId != null) {
+			tTopAnnounce.tImageUpload = tImageUploadService.findById(tTopAnnounce.imageId);
+		}
 		Beans.copy(tTopAnnounce, topAnnounceForm).execute();
 		return "topAnnounceDetail.jsp";
 	}

@@ -46,7 +46,9 @@ public class IndexAction {
     	topForm.topAnnounceList = tTopAnnounceService.checkDateList();
     	List<TTopAnnounce> list = new ArrayList<TTopAnnounce>();
     	for (TTopAnnounce tTopAnnounce : topForm.topAnnounceList) {
-    		tTopAnnounce.tImageUpload = tImageUploadService.findById(tTopAnnounce.imageId);
+    		if (tTopAnnounce.imageId != null) {
+    			tTopAnnounce.tImageUpload = tImageUploadService.findById(tTopAnnounce.imageId);
+    		}
     		list.add(tTopAnnounce);
 		}
     	topForm.topAnnounceList = list;

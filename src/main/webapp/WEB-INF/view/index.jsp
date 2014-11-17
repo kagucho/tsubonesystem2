@@ -46,7 +46,9 @@
 									<tbody>
 										<tr>
 											<th class="CENTER"><h3>${f:h(e.announceTitle) }</h3></th>
-											<td align="center" rowspan="2"><img src="${f:url('/images/top/announce')}/${e.tImageUpload.fileName}" alt="${f:h(e.announceTitle) }" width="240" height="180" style="display:block;width:60%;height:auto;"/></td>
+											<c:if test="${e.tImageUpload != null}">
+												<td align="center" rowspan="2"><img src="${f:url('/images/top/announce')}/${e.tImageUpload.fileName}" alt="${f:h(e.announceTitle) }" width="240" height="180" style="display:block;width:60%;height:auto;"/></td>
+											</c:if>
 										</tr>
 										<tr>
 											<td align="left"><h4>${f:br(f:h(e.announceContent))}</h4></td>
