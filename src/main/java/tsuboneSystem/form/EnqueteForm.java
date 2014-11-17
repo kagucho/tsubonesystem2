@@ -19,6 +19,8 @@ public class EnqueteForm implements Serializable {
 
 	/** メモ　*/
 	public String memo;
+	
+	
 
 	/** 選択肢　*/
 	public String [] selectedContents;
