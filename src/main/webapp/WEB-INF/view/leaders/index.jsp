@@ -8,8 +8,8 @@
     <meta name="author" content="">
 
     <title>神楽坂一丁目通信局</title>
-    <link href="${f:url('/css/topcss/bootstrap.css')}" rel="stylesheet">
-    <link href="${f:url('/css/topcss/slidefolio.css')}" rel="stylesheet">
+    <link href="${f:url('/css/memberTopCss/bootstrap.css')}" rel="stylesheet">
+    <link href="${f:url('/css/memberTopCss/slidefolio.css')}" rel="stylesheet">
     <link href="${f:url('/fonts/topfonts/css/font-awesome.min.css')}" rel="stylesheet">
     <link href="${f:url('/css/layout.css')}" rel="stylesheet">
   </head>

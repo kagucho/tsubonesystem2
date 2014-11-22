@@ -11,7 +11,9 @@ public enum FileKindCode implements CodeEnum {
 	PDF("1","pdf"),
 	JPG("2","jpg"),
 	JPEG("3","jpeg"),
-	PNG("4","png");
+	PNG("4","png"),
+	ZIP("5","zip"),
+	EXE("6","exe");
 	
 	private String code;
 	private String name;

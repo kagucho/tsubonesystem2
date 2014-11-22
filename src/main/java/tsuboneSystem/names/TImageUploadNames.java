@@ -3,13 +3,14 @@ package tsuboneSystem.names;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
 import tsuboneSystem.entity.TImageUpload;
+import tsuboneSystem.names.TSubmitNames._TSubmitNames;
 import tsuboneSystem.names.TTopAnnounceNames._TTopAnnounceNames;
 
 /**
  * {@link TImageUpload}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/11/15 23:37:32")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/11/22 16:38:14")
 public class TImageUploadNames {
 
     /**
@@ -55,6 +56,15 @@ public class TImageUploadNames {
      */
     public static _TTopAnnounceNames tTopAnnounce() {
         return new _TTopAnnounceNames("tTopAnnounce");
+    }
+
+    /**
+     * tSubmitのプロパティ名を返します。
+     * 
+     * @return tSubmitのプロパティ名
+     */
+    public static _TSubmitNames tSubmit() {
+        return new _TSubmitNames("tSubmit");
     }
 
     /**
@@ -133,6 +143,15 @@ public class TImageUploadNames {
          */
         public _TTopAnnounceNames tTopAnnounce() {
             return new _TTopAnnounceNames(this, "tTopAnnounce");
+        }
+
+        /**
+         * tSubmitのプロパティ名を返します。
+         * 
+         * @return tSubmitのプロパティ名
+         */
+        public _TSubmitNames tSubmit() {
+            return new _TSubmitNames(this, "tSubmit");
         }
     }
 }

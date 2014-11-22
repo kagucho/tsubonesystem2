@@ -26,6 +26,9 @@
 							<li><a href="<c:url value="/${loginMemberDto.actorKind}/mailRegist"/>">Mail</a></li>
 						</ul>
 						<ul class="nav navbar-nav">
+							<li><a href="<c:url value="/${loginMemberDto.actorKind}/submitList"/>">Submit</a></li>
+						</ul>
+						<ul class="nav navbar-nav">
 							<li><a href="<c:url value="/${loginMemberDto.actorKind}/officerList"/>">Officer</a></li>
 						</ul>
 						<ul class="nav navbar-nav">

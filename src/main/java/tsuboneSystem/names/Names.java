@@ -5,6 +5,7 @@ import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TBbsDetail;
 import tsuboneSystem.entity.TBbsSubject;
 import tsuboneSystem.entity.TClub;
+import tsuboneSystem.entity.TContact;
 import tsuboneSystem.entity.TEnquete;
 import tsuboneSystem.entity.TEnqueteAnswer;
 import tsuboneSystem.entity.TEnqueteSelect;
@@ -20,6 +21,8 @@ import tsuboneSystem.entity.TPartyAttend;
 import tsuboneSystem.entity.TPartyClub;
 import tsuboneSystem.entity.TPartyQuestion;
 import tsuboneSystem.entity.TPartySendMail;
+import tsuboneSystem.entity.TSubmit;
+import tsuboneSystem.entity.TSubmitTagKind;
 import tsuboneSystem.entity.TTempLogin;
 import tsuboneSystem.entity.TTempMessage;
 import tsuboneSystem.entity.TTopAnnounce;
@@ -27,6 +30,7 @@ import tsuboneSystem.names.TAdminNames._TAdminNames;
 import tsuboneSystem.names.TBbsDetailNames._TBbsDetailNames;
 import tsuboneSystem.names.TBbsSubjectNames._TBbsSubjectNames;
 import tsuboneSystem.names.TClubNames._TClubNames;
+import tsuboneSystem.names.TContactNames._TContactNames;
 import tsuboneSystem.names.TEnqueteAnswerNames._TEnqueteAnswerNames;
 import tsuboneSystem.names.TEnqueteNames._TEnqueteNames;
 import tsuboneSystem.names.TEnqueteSelectNames._TEnqueteSelectNames;
@@ -42,6 +46,8 @@ import tsuboneSystem.names.TPartyClubNames._TPartyClubNames;
 import tsuboneSystem.names.TPartyNames._TPartyNames;
 import tsuboneSystem.names.TPartyQuestionNames._TPartyQuestionNames;
 import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
+import tsuboneSystem.names.TSubmitNames._TSubmitNames;
+import tsuboneSystem.names.TSubmitTagKindNames._TSubmitTagKindNames;
 import tsuboneSystem.names.TTempLoginNames._TTempLoginNames;
 import tsuboneSystem.names.TTempMessageNames._TTempMessageNames;
 import tsuboneSystem.names.TTopAnnounceNames._TTopAnnounceNames;
@@ -50,7 +56,7 @@ import tsuboneSystem.names.TTopAnnounceNames._TTopAnnounceNames;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/11/15 23:37:32")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/11/22 16:38:14")
 public class Names {
 
     /**
@@ -87,6 +93,15 @@ public class Names {
      */
     public static _TClubNames tClub() {
         return new _TClubNames();
+    }
+
+    /**
+     * {@link TContact}の名前クラスを返します。
+     * 
+     * @return TContactの名前クラス
+     */
+    public static _TContactNames tContact() {
+        return new _TContactNames();
     }
 
     /**
@@ -222,6 +237,24 @@ public class Names {
      */
     public static _TPartySendMailNames tPartySendMail() {
         return new _TPartySendMailNames();
+    }
+
+    /**
+     * {@link TSubmit}の名前クラスを返します。
+     * 
+     * @return TSubmitの名前クラス
+     */
+    public static _TSubmitNames tSubmit() {
+        return new _TSubmitNames();
+    }
+
+    /**
+     * {@link TSubmitTagKind}の名前クラスを返します。
+     * 
+     * @return TSubmitTagKindの名前クラス
+     */
+    public static _TSubmitTagKindNames tSubmitTagKind() {
+        return new _TSubmitTagKindNames();
     }
 
     /**

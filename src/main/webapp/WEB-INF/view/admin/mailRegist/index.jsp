@@ -8,9 +8,9 @@ $(function() {
 	$("#mailSendAllFlag").click(function() {
 		var val = $("#mailSendAllFlag:checked").val();
 		if(val == "true") {
-			$("#clubListCheck").attr('disabled', true);
+			$(".clubListCheck").hide();
 		} else {
-			$("#clubListCheck").attr('disabled', false);
+			$(".clubListCheck").show();
 		}
 	});
 });

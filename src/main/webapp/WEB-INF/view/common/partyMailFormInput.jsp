@@ -8,11 +8,11 @@
 					<html:errors property="sendTo"/>
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group clubListCheck">
 				<label class="control-label col-sm-4" for="clubListCheck">部で選択する</label>
 				<div class="col-sm-8 memberF">
 					<c:forEach var="e" items="${clubMapSS}">
-						<html:multibox styleId="clubListCheck" property="clubListCheck" value="${e.key}" />&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
+						<html:multibox  property="clubListCheck" value="${e.key}" />&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
 					</c:forEach>
 					<html:errors property="sendTo"/>
 				</div>

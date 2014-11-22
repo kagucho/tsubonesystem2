@@ -1,6 +1,7 @@
 package tsuboneSystem.entity;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,10 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * TMemberエンティティクラス
@@ -66,6 +69,13 @@ public class TTopAnnounce implements Serializable {
     @JoinColumn(name = "REGIST_MEMBER_ID", referencedColumnName = "ID")
     public TMember tMember;
     
-    @OneToOne(mappedBy = "tTopAnnounce")
+    @OneToOne()
+    @JoinColumn(name = "IMAGE_ID", referencedColumnName = "ID")
     public TImageUpload tImageUpload;
+    
+    @OneToMany(mappedBy = "tTopAnnounce")
+    public List<TSubmit> tSubmitList;
+    
+    @Transient
+    public boolean submitFlag = false;
 }

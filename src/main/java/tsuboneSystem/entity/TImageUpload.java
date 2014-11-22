@@ -40,5 +40,8 @@ public class TImageUpload implements Serializable {
     
     @OneToOne(mappedBy = "tImageUpload")
     public TTopAnnounce tTopAnnounce;
+    
+    @OneToOne(mappedBy = "tImageUpload")
+    public TSubmit tSubmit;
 
 }

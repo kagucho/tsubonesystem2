@@ -93,7 +93,7 @@ public class TopAnnounceUpdateAction {
 					tTopAnnounce.imageId = null;
 				}
 				// 新しい画像を登録
-				tTopAnnounce.imageId = TsuboneSystemUtil.createFile(topAnnounceForm.file, ImageFilePurposeCode.TOP_ANNOUNCE.getCode());
+				tTopAnnounce.imageId = TsuboneSystemUtil.createImageFile(topAnnounceForm.file, ImageFilePurposeCode.TOP_ANNOUNCE.getCode());
 			}
 			// 登録
 			tTopAnnounceService.update(tTopAnnounce);

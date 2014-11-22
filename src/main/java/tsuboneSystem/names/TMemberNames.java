@@ -12,13 +12,14 @@ import tsuboneSystem.names.TPartyAnswerNames._TPartyAnswerNames;
 import tsuboneSystem.names.TPartyAttendNames._TPartyAttendNames;
 import tsuboneSystem.names.TPartyNames._TPartyNames;
 import tsuboneSystem.names.TPartyQuestionNames._TPartyQuestionNames;
+import tsuboneSystem.names.TSubmitNames._TSubmitNames;
 import tsuboneSystem.names.TTopAnnounceNames._TTopAnnounceNames;
 
 /**
  * {@link TMember}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/11/15 23:37:32")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/11/22 16:38:14")
 public class TMemberNames {
 
     /**
@@ -271,6 +272,15 @@ public class TMemberNames {
      */
     public static _TTopAnnounceNames tTopAnnounceList() {
         return new _TTopAnnounceNames("tTopAnnounceList");
+    }
+
+    /**
+     * tSubmitListのプロパティ名を返します。
+     * 
+     * @return tSubmitListのプロパティ名
+     */
+    public static _TSubmitNames tSubmitList() {
+        return new _TSubmitNames("tSubmitList");
     }
 
     /**
@@ -556,6 +566,15 @@ public class TMemberNames {
          */
         public _TTopAnnounceNames tTopAnnounceList() {
             return new _TTopAnnounceNames(this, "tTopAnnounceList");
+        }
+
+        /**
+         * tSubmitListのプロパティ名を返します。
+         * 
+         * @return tSubmitListのプロパティ名
+         */
+        public _TSubmitNames tSubmitList() {
+            return new _TSubmitNames(this, "tSubmitList");
         }
     }
 }

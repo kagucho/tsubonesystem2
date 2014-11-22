@@ -1,11 +1,15 @@
 package tsuboneSystem.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 
 
 
+
+
+import java.util.Map;
 
 import javax.annotation.Generated;
 
@@ -34,7 +38,12 @@ public class TTopAnnounceService extends AbstractService<TTopAnnounce> {
     	SimpleWhere where = new SimpleWhere();
     	where.eq(id(), id);
     	where.eq(deleteFlag(), false);
-        return select().where(where).innerJoin(tMember()).getSingleResult();
+        return select().where(where)
+        		.innerJoin(tMember())
+        		.leftOuterJoin(tSubmitList())
+        		.leftOuterJoin(tSubmitList().tMember())
+//        		.leftOuterJoin(tSubmitList().tImageUpload())
+        		.getSingleResult();
     }
 
     /**
@@ -67,6 +76,7 @@ public class TTopAnnounceService extends AbstractService<TTopAnnounce> {
     	ComplexWhere where = new ComplexWhere();
     	where.eq(deleteFlag(), false);
     	where.and(where
+    			// 掲載期間未設定
     			.isNull(announceFromDay(), Boolean.valueOf(true))
     			.isNull(announceToDay(),Boolean.valueOf(true))
     			.eq(deleteFlag(), false)
@@ -81,11 +91,11 @@ public class TTopAnnounceService extends AbstractService<TTopAnnounce> {
     			.ge(announceToDay(), date)
     			.eq(deleteFlag(), false)
     			.or()
-    			// 掲載終了日＜きょう
+    			// 掲載終了日＜今日
     			.isNull(announceToDay(),Boolean.valueOf(true))
     			.le(announceFromDay(), date)
     			.eq(deleteFlag(), false));
-        return select().orderBy(desc(id())).where(where).innerJoin(tMember()).getResultList();
+        return select().orderBy(desc(id())).where(where).innerJoin(tMember()).leftOuterJoin(tSubmitList()).getResultList();
     }
     
     /**
@@ -96,5 +106,73 @@ public class TTopAnnounceService extends AbstractService<TTopAnnounce> {
     public int insertCustom (TTopAnnounce tTopAnnounce) {
     	tTopAnnounce.deleteFlag = false;
     	return super.insert(tTopAnnounce);
+    }
+    
+    /**
+     * おしらせの選択肢
+     * 
+     * @return Map<id, announceTitle>
+     */
+    public Map<String, String> getTopAnnounceMap () {
+    	
+    	Map<String, String> rtnMap = new HashMap<String, String>();
+    	
+    	// 選択肢にできるのは掲載期間が過ぎていない物であればよい
+    	Date date = new Date();
+    	ComplexWhere where = new ComplexWhere();
+    	where.eq(deleteFlag(), false);
+    	where.and(where
+    			// 掲載期間未設定
+    			.isNull(announceFromDay(), Boolean.valueOf(true))
+    			.isNull(announceToDay(),Boolean.valueOf(true))
+    			.eq(deleteFlag(), false)
+    			.or()
+    			// 今日＜掲載終了日
+    			.isNull(announceFromDay(), Boolean.valueOf(true))
+    			.ge(announceToDay(), date)
+    			.eq(deleteFlag(), false)
+    			.or()
+    			// 掲載終了日＜今日
+    			.isNull(announceToDay(),Boolean.valueOf(true))
+    			.le(announceFromDay(), date)
+    			.eq(deleteFlag(), false));
+    	List<TTopAnnounce> list = select().orderBy(desc(id())).where(where).innerJoin(tMember()).getResultList();
+    	for (TTopAnnounce tTopAnnounce : list) {
+    		rtnMap.put(tTopAnnounce.id.toString(), tTopAnnounce.announceTitle);
+    	}
+    	return rtnMap;
+    }
+    
+    /**
+     * おしらせの選択肢
+     * 
+     * @return Map<id, announceTitle>
+     */
+    public Map<Integer, String> getTopAnnounceMapIS() {
+    	Map<Integer, String> rtnMap = new HashMap<Integer, String>();
+    	// 選択肢にできるのは掲載期間が過ぎていない物であればよい
+    	Date date = new Date();
+    	ComplexWhere where = new ComplexWhere();
+    	where.eq(deleteFlag(), false);
+    	where.and(where
+    			// 掲載期間未設定
+    			.isNull(announceFromDay(), Boolean.valueOf(true))
+    			.isNull(announceToDay(),Boolean.valueOf(true))
+    			.eq(deleteFlag(), false)
+    			.or()
+    			// 今日＜掲載終了日
+    			.isNull(announceFromDay(), Boolean.valueOf(true))
+    			.ge(announceToDay(), date)
+    			.eq(deleteFlag(), false)
+    			.or()
+    			// 掲載終了日＜今日
+    			.isNull(announceToDay(),Boolean.valueOf(true))
+    			.le(announceFromDay(), date)
+    			.eq(deleteFlag(), false));
+    	List<TTopAnnounce> list = select().orderBy(desc(id())).where(where).innerJoin(tMember()).getResultList();
+    	for (TTopAnnounce tTopAnnounce : list) {
+    		rtnMap.put(tTopAnnounce.id, tTopAnnounce.announceTitle);
+    	}
+    	return rtnMap;
     }
 }

@@ -83,7 +83,7 @@ public class TopAnnounceRegistAction {
 			// 画像がある場合にはアップロード処理
 			if (topAnnounceForm.file.getFileSize() > 0) {
 		    	// 画像と紐付ける
-		    	tTopAnnounce.imageId = TsuboneSystemUtil.createFile(topAnnounceForm.file, ImageFilePurposeCode.TOP_ANNOUNCE.getCode());
+		    	tTopAnnounce.imageId = TsuboneSystemUtil.createImageFile(topAnnounceForm.file, ImageFilePurposeCode.TOP_ANNOUNCE.getCode());
 			}
 			// 登録
 			tTopAnnounceService.insertCustom(tTopAnnounce);

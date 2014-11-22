@@ -44,20 +44,14 @@ cursor:pointer;
 	    -ms-user-select: none;
 	        user-select: none;
 }
-/*Vegas CSS for Slideshow (”wŒi‘S‘Ì‚É‚©‚©‚é)*/
+/*Vegas CSS for Slideshow*/
 
 .vert-text {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
-  color:#ffffff;
-  background:rgba(234, 244, 252, 0.1);
-}
-
-#top h2{
-	color: #89c3ed;
-	text-shadow: white 1px 1px 0px, white -1px 1px 0px,
-             white 1px -1px 0px, white -1px -1px 0px;
+  color:#f1f1f1;
+  background:rgba(0, 0, 0, 0.48);
 }
 
 .vert-text h1 {
@@ -82,14 +76,14 @@ border-radius:0px !important;
   background-color: rgba(0, 0, 0, 0.6);
 }
 .navbar-new .navbar-brand {
-  color: #ffffff;
+  color: #f1f1f1;
 }
 }
 .navbar-new .navbar-text {
-  color: #ffffff;
+  color: #f1f1f1;
 }
 .navbar-new .navbar-nav > li > a {
-  color: #ffffff;
+  color: #f1f1f1;
 }
 .navbar-new .navbar-nav > li > a:hover,
 .navbar-new .navbar-nav > li > a:focus {
@@ -168,7 +162,7 @@ border-radius:0px !important;
   position: relative;
 }
 .btn-top {
-color:#ffffff;
+color:#f1f1f1;
 background:none repeat scroll 0 0 rgba(0, 0, 0, 0.57);
 border-color:#cccccc;
 }
@@ -185,49 +179,43 @@ border-color:#cccccc;
 
 .about_us {
   padding: 50px 0;
-  background:none repeat scroll 0 0 rgba(44, 169, 255, 0.85);
-  /* border-bottom:1px solid #D1D1D1 !important; */
+  background:none repeat scroll 0 0 #F1F1F1;
+  border-bottom:1px solid #D1D1D1 !important;
+  color: black;
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
   *zoom: 1;
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
      -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
           box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+          
 }
 
 /* Services */
 
 .services {
-   background: none repeat scroll 0 0 rgba(160, 216, 239, 0.85);
+   background: none repeat scroll 0 0 #4D4D4D;
   padding: 50px 0;
-  color: #ffffff;
+  color: #eeeeee;
   width: 100%;
-  /* border-bottom:1px solid #ffffff !important; */
-  /* border-top:2px solid #ffffff !important; */
+  border-bottom:1px solid #D1D1D1 !important;
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
   *zoom: 1;
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
      -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
           box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
-}
-.services h2{
-	color: #ffffff;
-}
-.services h3{
-	color: #ffffff;
 }
 
 .service-item {
   margin-bottom: 15px;
-  background:#89c3ed;
+  background:#333333;
   padding:10px;
-  border:1px solid #ffffff !important;
+  border:1px solid #D1D1D1 !important;
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
   *zoom: 1;
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
      -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
           box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
 }
-
 .service-item.linkArea{
 	position: relative !important;
 }
@@ -243,6 +231,7 @@ left: 0;
 width: 100%;
 height: 100%;
 }
+
 
 .active {
 background:#3071A9 !important;
@@ -270,7 +259,7 @@ label.valid {
 			margin-top: 2px;
 		}
 .portfolio {
-background:#ffffff;
+background:#f1f1f1;
 }		
 /* gallery */
 .gallery {
@@ -378,10 +367,10 @@ span.valign {
 
 /* Contact */
 #contact {
-background:none repeat scroll 0 0 #2ca9e1;
-color:#ffffff;
+background:none repeat scroll 0 0 rgba(0, 0, 0, 0.79);
+color:#f1f1f1;
 padding:50px 0;
-/* border-top:1px solid #ffffff !important; */
+border-top:1px solid #D1D1D1 !important;
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
   *zoom: 1;
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
@@ -391,7 +380,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', en
 
 #team {
 background:none repeat scroll 0 0 rgba(0, 0, 0, 0.79);
-color:#ffffff;
+color:#f1f1f1;
 padding:50px 0;
 border-top:1px solid #D1D1D1 !important;
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
@@ -413,9 +402,7 @@ width:60% !important;
 
 footer {
   padding: 20px 0;
-  background:#ffffff;
-  color: #a0d8ef;
-  
+  background:#f1f1f1;
 }
 
 /* responsive */

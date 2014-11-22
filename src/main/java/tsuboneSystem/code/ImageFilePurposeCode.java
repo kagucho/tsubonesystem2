@@ -9,7 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 public enum ImageFilePurposeCode implements CodeEnum {
 	
 	TOP_BACK("1","TOP画面背景"),
-	TOP_ANNOUNCE("2","TOP画面おしらせ");
+	TOP_ANNOUNCE("2","TOP画面おしらせ"),
+	SUBMIT_CAPTION("3","提出物キャプション");
 	
 	private String code;
 	private String name;

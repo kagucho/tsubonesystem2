@@ -37,8 +37,6 @@ public class TContact implements Serializable {
     public String subject;
     
     /** メッセージ */
-    @Column()
+    @Column(columnDefinition ="mediumtext")
     public String message;
-
-
 }

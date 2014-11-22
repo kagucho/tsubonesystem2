@@ -1,6 +1,13 @@
 package tsuboneSystem.original.util;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,22 +16,28 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.upload.FormFile;
 import org.seasar.framework.container.SingletonS2Container;
+import org.seasar.struts.util.ResponseUtil;
 import org.seasar.struts.util.ServletContextUtil;
 import org.seasar.struts.util.UploadUtil;
 
 import tsuboneSystem.code.ActorKindCode;
+import tsuboneSystem.code.ImageFilePurposeCode;
 import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TImageUpload;
 import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMember;
+import tsuboneSystem.entity.TSubmit;
+import tsuboneSystem.form.SubmitForm;
 import tsuboneSystem.service.TAdminService;
 import tsuboneSystem.service.TImageUploadService;
 import tsuboneSystem.service.TLeadersService;
+import tsuboneSystem.service.TSubmitService;
 
 /**
  *
@@ -102,6 +115,21 @@ public class TsuboneSystemUtil {
 	}
 	
 	/**
+	 * Uploadされたファイルのファイルサイズを判定する
+	 * 
+	 * @param FormFile formFile,int size
+	 * @return 設定されたファイルサイズ(byte)よりも大きかったらtrue
+	 * @author Hiroaki
+	 * 
+	 * */
+	public static boolean isFileSizeCheck(FormFile formFile, int size){
+		if (formFile.getFileSize() > size) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * String型(yyyy/mm/dd)をDate型に変換する
 	 * 
 	 * @param String(yyyy/mm/dd)
@@ -163,7 +191,7 @@ public class TsuboneSystemUtil {
 	 * @author Hiroaki
 	 * 
 	 * */
-	public static Integer createFile(FormFile file, String imageFilePurposeCode) {
+	public static Integer createImageFile(FormFile file, String imageFilePurposeCode) {
 		Integer rtnInt = null;
 		//ServletContext オブジェクトの作成
     	ServletContext app = ServletContextUtil.getServletContext();
@@ -188,5 +216,118 @@ public class TsuboneSystemUtil {
     		rtnInt = imageUpload.id;
     	}
     	return rtnInt;
+	}
+	
+	/**
+	 * 画像ファイルをアップロード
+	 * アップロードに成功した場合はTImageUploadのid
+	 * アップロードに失敗した場合はnull
+	 * 
+	 * @param FormFile imageFilePurposeCode
+	 * @return Integer
+	 * @author Hiroaki
+	 * 
+	 * */
+	public static void createSubmitFile(SubmitForm submitForm) {
+		// キャプション画像の登録
+		submitForm.submitCaptionImageId = createImageFile(submitForm.submitCaptionImageFile, ImageFilePurposeCode.SUBMIT_CAPTION.getCode());
+		
+		//ServletContext オブジェクトの作成
+    	ServletContext app = ServletContextUtil.getServletContext();
+    	
+    	//ランダム文字を生成
+    	String rm = RandomStringUtils.randomAlphabetic(10);
+    	
+    	//ファイルの格納先フォルダの絶対パスを取得(DBにこのパスを保存しておく)
+    	String path = app.getRealPath("/submit/" + rm + submitForm.submitFile.getFileName());
+    	
+    	//ファイル書き込み（ファイルパスが空の場合は何もしません）
+        UploadUtil.write(path, submitForm.submitFile);
+        
+        //ファイル名とファイルパスをDBに追加
+        submitForm.submitProductFileName = submitForm.submitFile.getFileName();
+    	submitForm.submitProductFilePath= path;
+	}
+	
+	/**
+	 * 作品のDownload処理
+	 * 
+	 * @param Integer submitId
+	 * @return null
+	 * @author Hiroaki
+	 * 
+	 * */
+	public static String submitDownload(Integer submitId){
+		
+		// ダウンロード対象の作品を取得する
+		TSubmitService tSubmitService = SingletonS2Container.getComponent(TSubmitService.class);
+    	TSubmit tSubmit = tSubmitService.findById(submitId);
+    	
+    	if (tSubmit == null) {
+    		// TODO download対象の作品の情報が取得できなかったときの処理T
+    	}
+    	
+    	// ダウンロード対象ファイルの読み込み用オブジェクト
+    	FileInputStream fis = null; 
+    	InputStreamReader isr = null; 
+    	HttpServletResponse res = ResponseUtil.getResponse();
+
+    	// ダウンロードファイルの書き出し用オブジェクト
+    	OutputStream os = null; 
+    	OutputStreamWriter osw = null; 
+
+    	try { 
+    	    // ダウンロード対象ファイルのFileオブジェクトを生成
+    	    File file = new File(tSubmit.submitProductFilePath); 
+
+    	    if (!file.exists() || !file.isFile()) { 
+    	        // ファイルが存在しない場合のエラー処理
+    	    } 
+
+    	    // レスポンスオブジェクトのヘッダー情報を設定
+    	    res.setContentType("application/octet-stream"); 
+    	    res.setHeader("Content-Disposition", "attachment;filename=" + new String(tSubmit.submitProductFileName.getBytes("Windows-31J"), "ISO-8859-1")); 
+
+    	    // ダウンロード対象ファイルの読み込み用オブジェクトを生成
+    	    fis = new FileInputStream(file); 
+    	    isr = new InputStreamReader(fis, "ISO-8859-1"); 
+
+    	    // ダウンロードファイルの書き出し用オブジェクトを生成
+    	    os = res.getOutputStream(); 
+    	    osw = new OutputStreamWriter(os, "ISO-8859-1"); 
+
+    	    // IOストリームを用いてファイルダウンロードを行う
+    	    int i; 
+    	    while ((i = isr.read()) != -1) { 
+    	        osw.write(i); 
+    	    } 
+    	} catch (FileNotFoundException e) { 
+    	    // 例外発生時処理
+    	} catch (UnsupportedEncodingException e) { 
+    	    // 例外発生時処理
+    	} catch (IOException e) { 
+    	    // 例外発生時処理
+    	} finally { 
+
+    	    try { 
+    	        // 各オブジェクトを忘れずにクローズ
+    	        if (osw != null) { 
+    	            osw.close(); 
+    	        } 
+    	        if (os != null) { 
+    	            os.close(); 
+    	        } 
+    	        if (isr != null) { 
+    	            isr.close(); 
+    	        } 
+    	        if (fis != null) { 
+    	            fis.close(); 
+    	        } 
+    	    } catch (IOException e) { 
+    	        // 例外発生時処理
+    	    } 
+
+    	}
+		return null;
 	}
 }

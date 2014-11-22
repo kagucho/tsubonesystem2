@@ -5,12 +5,16 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
+import tsuboneSystem.code.ImageFilePurposeCode;
+import tsuboneSystem.entity.TContact;
 import tsuboneSystem.entity.TTopAnnounce;
 import tsuboneSystem.form.TopForm;
 import tsuboneSystem.service.TClubService;
+import tsuboneSystem.service.TContactService;
 import tsuboneSystem.service.TImageUploadService;
 import tsuboneSystem.service.TTopAnnounceService;
 
@@ -33,6 +37,15 @@ public class IndexAction {
 	@Resource
 	public TTopAnnounceService tTopAnnounceService;
 	
+	/** TTopAnnounceService */
+	@Resource
+	public TContactService tContactService;
+	
+	
+	/**
+	 * TOP画面表示
+	 * 
+	 * */
     @Execute(validator = false)
 	public String index() {
     	
@@ -40,7 +53,7 @@ public class IndexAction {
     	topForm.clubList = tClubService.findAllOrderById();
     	
     	//背景画像名の一覧を取得する
-    	topForm.imageList = tImageUploadService.findAll();
+    	topForm.imageList = tImageUploadService.findByImageFilePurposeCode(ImageFilePurposeCode.TOP_BACK.getCode());
     	
     	// お知らせ一覧
     	topForm.topAnnounceList = tTopAnnounceService.checkDateList();
@@ -49,10 +62,29 @@ public class IndexAction {
     		if (tTopAnnounce.imageId != null) {
     			tTopAnnounce.tImageUpload = tImageUploadService.findById(tTopAnnounce.imageId);
     		}
+    		if (tTopAnnounce.tSubmitList.size() >0) {
+    			tTopAnnounce.submitFlag = true;
+    		}
     		list.add(tTopAnnounce);
 		}
     	topForm.topAnnounceList = list;
     	
         return "index.jsp";
 	}
+    
+    /**
+     * 問い合わせ完了画面
+     * 
+     * 
+     * */
+    @Execute(validator = true, input = "index.jsp")
+    public String contact() {
+    	
+    	// 登録
+    	TContact tContact = new TContact();
+    	Beans.copy(topForm, tContact).execute();
+    	tContactService.insert(tContact);
+    	
+    	return "contactComplete.jsp";
+    }
 }
