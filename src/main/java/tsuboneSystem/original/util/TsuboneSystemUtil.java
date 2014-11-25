@@ -249,6 +249,32 @@ public class TsuboneSystemUtil {
     	submitForm.submitProductFilePath= path;
 	}
 	
+	public static void deleteSubmitFile(SubmitForm submitForm, boolean deleteFlag) {
+		// キャプション画像の削除
+		TImageUploadService tImageUploadService = SingletonS2Container.getComponent(TImageUploadService.class);
+		if (!deleteFile(tImageUploadService.findById(submitForm.submitCaptionImageId))) {
+			submitForm.submitCaptionImageId = null;
+		}
+		
+		
+		// 提出物の削除
+		TSubmitService tSubmitService = SingletonS2Container.getComponent(TSubmitService.class);
+		TSubmit tSubmit = tSubmitService.findById(submitForm.id);
+		if (tSubmit != null) {
+			File file = new File(tSubmit.submitProductFilePath);
+			if (file.exists()) {
+				if (file.delete()) {
+					submitForm.submitProductFilePath = null;
+					if (deleteFlag) {
+						tSubmit.submitProductFilePath = null;
+						tSubmit.deleteFlag = true;
+						tSubmitService.update(tSubmit);
+					}
+				}
+			}
+		}
+	}
+	
 	/**
 	 * 作品のDownload処理
 	 * 

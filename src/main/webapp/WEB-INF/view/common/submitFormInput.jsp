@@ -69,15 +69,15 @@
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="submitCaptionImageFile">作品の画像</label>
-		<div class="col-sm-8 memberF">
-			<input type="file" id="submitCaptionImageFile" name="submitCaptionImageFile" class="submitCaptionImageFile" accept="image/*">
+		<div id="submitCaptionImageFileDiv" class="col-sm-8 memberF">
+			<input type="file" id="submitCaptionImageFile" name="submitCaptionImageFile" class="submitCaptionImageFile" ">
 			<img src="" alt="" width="480" height="360" style="display:block;width:60%;height:auto;"/>
 			<html:errors property="submitCaptionImageFile"/>
 		</div>
 	</div>
 	<div class="form-group submitFileArea">
 		<label class="control-label col-sm-4" for="submitFile">作品</label>
-		<div class="col-sm-8 memberF">
+		<div id="submitDiv" class="col-sm-8 memberF">
 			<input type="file" id="submitFile" name="submitFile" class="submitFile">
 			<html:errors property="submitFile"/>
 		</div>
