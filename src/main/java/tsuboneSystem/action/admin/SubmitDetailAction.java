@@ -64,7 +64,9 @@ public class SubmitDetailAction {
 		// 表示対象特定
 		TSubmit tSubmit = new TSubmit();
 		tSubmit = tSubmitService.findById(submitForm.id);
-		tSubmit.tImageUpload = tImageUploadService.findById(tSubmit.submitCaptionImageId);
+		if (!SubmitProductFileTypeCode.DTM.getCode().equals(tSubmit.submitProductFileType.toString())) {
+			tSubmit.tImageUpload = tImageUploadService.findById(tSubmit.submitCaptionImageId);
+		}
 		Beans.copy(tSubmit, submitForm).execute();
 		submitForm.tImageUpload = tSubmit.tImageUpload;
 		
@@ -79,6 +81,8 @@ public class SubmitDetailAction {
 		
 		// 作品種大別
 		submitForm.submitProductFileCodeMap = SubmitProductFileTypeCode.getSubmitProductFileCodeMap();
+		
+		submitForm.registFlag = false;
 		return "submitDetail.jsp";
 	}
 	

@@ -23,18 +23,25 @@
 		<th class="col-md-3 col-xs-4"><h4>種別</h4></th>
 		<td><h5>${f:h(submitProductFileCodeMap[submitProductFileType])}</h5></td>
 	</tr>
+	<c:if test="${submitProductFileType != 3}">
+		<tr>
+			<th class="col-md-3 col-xs-4"><h4>作品の画像</h4></th>
+			<td><h5>(画像は省略)</h5></td>
+		</tr>
+	</c:if>
 	<tr>
-		<th class="col-md-3 col-xs-4"><h4>作品の画像</h4></th>
-		<td><h5>(画像は省略)</h5></td>
-	</tr>
-	<tr>
-		<th class="col-md-3 col-xs-4"><h4>作品(ファイル名)</h4></th>
-		<c:if test="${registFlag}">
-			<td><h5>${f:h(submitProductFileName)}</h5></td>
+		<c:if test="${submitProductFileType == 2}">
+			<th class="col-md-3 col-xs-4"><h4>作品(ファイル名)</h4></th>
+			<c:if test="${registFlag}">
+				<td><h5>${f:h(submitProductFileName)}</h5></td>
+			</c:if>
+			<c:if test="${!registFlag}">
+				<td><a href="<c:url value="/${loginMemberDto.actorKind}/submitDetail/download/"/>${e.id}"><h5>${f:h(submitProductFileName)}</h5></a></td>
+			</c:if>
 		</c:if>
-		<c:if test="${!registFlag}">
-			<td><a href="<c:url value="/${loginMemberDto.actorKind}/submitDetail/download/"/>${e.id}"><h5>${f:h(submitProductFileName)}</h5></a></td>
+		<c:if test="${submitProductFileType == 3}">
+			<th class="col-md-3 col-xs-4"><h4>作品(ファイル名)</h4></th>
+				<td>${soundCloudUrl}</td>
 		</c:if>
-		
 	</tr>
 </table>

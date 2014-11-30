@@ -96,9 +96,13 @@ public class SubmitRegistAction {
 	@Execute(validator = true, validate="validateBase", input="viewinput", stopOnValidationError = false)
 	public String confirm() {
 		// ファイル名を取得
-		if (submitForm.submitFile.getFileSize() > 0) {
-			submitForm.submitProductFileName = submitForm.submitFile.getFileName();
+		if (!SubmitProductFileTypeCode.DTM.getCode().equals(submitForm.submitProductFileType)) {
+			//　DTM部以外は画像のファイル名を読み込む
+			if (submitForm.submitFile.getFileSize() > 0) {
+				submitForm.submitProductFileName = submitForm.submitFile.getFileName();
+			}
 		}
+		
 		submitForm.registFlag = true;
 		return "submitConfirm.jsp";
 	}
@@ -110,9 +114,13 @@ public class SubmitRegistAction {
 		if (TokenProcessor.getInstance().isTokenValid(request, true)) {
 			
 			// 提出物の登録
-			TsuboneSystemUtil.createSubmitFile(submitForm);
+			if (!SubmitProductFileTypeCode.DTM.getCode().equals(submitForm.submitProductFileType)) {
+				TsuboneSystemUtil.createSubmitFile(submitForm);
+			}
+			
 			// DB登録
 			TSubmit tSubmit = new TSubmit();
+			tSubmit.registId = loginMemberDto.memberId;
 			Beans.copy(submitForm, tSubmit).execute();
 			tSubmitService.insertCustom(tSubmit);
 			// 詳細画面リンク用のID

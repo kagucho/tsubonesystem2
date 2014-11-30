@@ -11,7 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 public enum SubmitProductFileTypeCode implements CodeEnum {
 	
 	IMAGE("1","画像系"),
-	PROGRAMS("2","プログラム系");
+	PROGRAMS("2","プログラム系"),
+	DTM("3","DTM系");
 	
 	private String code;
 	private String name;
@@ -71,7 +72,7 @@ public enum SubmitProductFileTypeCode implements CodeEnum {
 		
 		//まだ値が入っていないなら値を入れる
 		submitProductFileCodeMap = new HashMap<String, String>();
-		for (int i = 1; i <= 2; i++) {
+		for (int i = 1; i <= 3; i++) {
 			submitProductFileCodeMap.put(Integer.toString(i), SubmitProductFileTypeCode.getnameByCode(Integer.toString(i)));
 		}
 		

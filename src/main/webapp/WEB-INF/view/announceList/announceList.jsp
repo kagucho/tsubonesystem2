@@ -29,23 +29,37 @@
 					<div class="announceListOne">
 						<table>
 							<tbody>
-							<tr>
-							<c:if test="${e.tImageUpload != null}">
-								<td align="center" rowspan="3"><img src="${f:url('/images/top/announce')}/${e.tImageUpload.fileName}" width="240" height="180" style="display:block;width:40%;height:auto;"/></td>
-							</c:if>
-							<th class="CENTER"><h3>${f:h(e.submitName) }</h3></th>
-							</tr>
-							<tr>
-								<td>作成者：${f:h(e.tMember.hname) }</td>
-							</tr>
-							<tr>
-								<td align="left">
-									<h4>${f:br(f:h(e.submitDetail))}</h4>
-									<c:if test="${e.submitProductFileType == 2 }">
-										<a href="<c:url value="/announceList/download/${e.id }"/>"><button type="button" class="col-md-8 col-xs-12 col-md-offset-2 btn btn-default">Download</button></a>
-									</c:if>
-								</td>
-							</tr>
+								<c:if test="${e.submitProductFileType == 2 || e.submitProductFileType == 1}">
+									<tr>
+										<c:if test="${e.tImageUpload != null}">
+											<td align="center" rowspan="3"><img src="${f:url('/images/top/announce')}/${e.tImageUpload.fileName}" width="240" height="180" style="display:block;width:40%;height:auto;"/></td>
+										</c:if>
+										<th class="CENTER"><h3>${f:h(e.submitName) }</h3></th>
+									</tr>
+									<tr>
+										<td>作成者：${f:h(e.tMember.hname) }</td>
+									</tr>
+									<tr>
+										<td align="left">
+											<h4>${f:br(f:h(e.submitDetail))}</h4>
+											<c:if test="${e.submitProductFileType == 2 }">
+												<a href="<c:url value="/announceList/download/${e.id }"/>"><button type="button" class="col-md-8 col-xs-12 col-md-offset-2 btn btn-default">Download</button></a>
+											</c:if>
+										</td>
+									</tr>
+								</c:if>
+								<c:if test="${e.submitProductFileType == 3}">
+									<tr>
+										<td align="center" rowspan="3">${e.soundCloudUrl}</td>
+										<th class="CENTER"><h3>${f:h(e.submitName) }</h3></th>
+									</tr>
+									<tr>
+										<td>作成者：${f:h(e.tMember.hname) }</td>
+									</tr>
+									<tr>
+										<td align="left"><h4>${f:br(f:h(e.submitDetail))}</h4></td>
+									</tr>
+								</c:if>
 							</tbody>
 						</table>
 					</div>

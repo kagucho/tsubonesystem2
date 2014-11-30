@@ -43,7 +43,7 @@ public class TSubmit implements Serializable {
     public String submitName;
     
     /** 作品の説明 */
-    @Column(nullable = true)
+    @Column(columnDefinition ="mediumtext")
     public String submitDetail;
     
     /** 作品のキャプション画像ID */
@@ -57,6 +57,10 @@ public class TSubmit implements Serializable {
     /** 提出物の保存先 */
     @Column()
     public String submitProductFilePath;
+    
+    /** SoundCloudの作品URL(DTM部用) */
+    @Column(columnDefinition ="mediumtext")
+    public String soundCloudUrl;
     
     /** 提出物の種別(大まかな拡張子の種類:"画像系""ソフト系") */
     @Column()

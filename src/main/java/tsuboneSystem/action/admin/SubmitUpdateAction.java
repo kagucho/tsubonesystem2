@@ -66,7 +66,7 @@ public class SubmitUpdateAction {
 	protected HttpServletRequest request;
 	
 	/** 入力画面 */
-	@Execute(validator = false, reset = "resetInput", ur)
+	@Execute(validator = false, reset = "resetInput", urlPattern = "{id}")
 	public String index() {
 		/** 2重登録防止のためのTokenの生成　**/
 		TokenProcessor.getInstance().saveToken(request);
