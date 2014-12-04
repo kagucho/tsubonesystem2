@@ -133,7 +133,7 @@ public class MemberApproveAction {
 	    	String content;
 	    	
 	    	//タイトル
-	    	title = "メンバーの仮登録がされました";
+	    	title = "メンバーの登録が承認されました";
 	    	
 	    	//内容
 	    	StringBuffer buff = new StringBuffer();
@@ -146,7 +146,7 @@ public class MemberApproveAction {
 	    	buff.append(")");
 	    	buff.append("\n");
 	    	buff.append("\n");
-	    	buff.append("仮登録メンバーは、管理者が承認して有効になります。今しばらくお待ちください。承認時にメールでお知らせします。");
+	    	buff.append("メンバーの仮登録が承認されました。以後は設定されたパスワードでログインできるようになります。");
 	    	content = new String(buff);
 	    	
 	    	//送信相手(部長・web管理・本人)
