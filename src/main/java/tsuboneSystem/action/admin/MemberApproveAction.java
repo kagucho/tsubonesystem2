@@ -146,14 +146,9 @@ public class MemberApproveAction {
 			buff.append("\n");
 			content = new String(buff);
 			
-			//送信相手(部長・web管理・本人)
+			//送信相手(承認した人・本人)
 			List<TMember> tMemberSendList = new ArrayList<TMember>();
-			List<TAdmin> admin = new ArrayList<TAdmin>();
-			admin.addAll(tAdminService.findByKind(LeadersKindCode.CHIEF.getCode()));//部長
-			admin.addAll(tAdminService.findByKind(LeadersKindCode.WEBADMIN.getCode()));//web管理
-			for(TAdmin one : admin){
-				tMemberSendList.add(one.tMember);
-			}
+			tMemberSendList.add(loginMemberDto.tMemberLogin);// 承認した人
 			tMemberSendList.add(tMember);//本人
 			
 			//メールを送信する
