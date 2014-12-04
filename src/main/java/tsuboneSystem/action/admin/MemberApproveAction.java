@@ -10,11 +10,9 @@ import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
-import tsuboneSystem.code.LeadersKindCode;
 import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.code.SexCode;
 import tsuboneSystem.dto.LoginMemberDto;
-import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.MemberForm;
 import tsuboneSystem.original.util.MailManagerUtil;
