@@ -84,26 +84,24 @@ public class MemberApproveAction {
 	@Execute(validator = false)
 	public String index() {
 
-        memberForm.clubMap = tClubService.getClubMapIS();
-        
-        /** Idから対象のメンバー情報を検索する　**/
-        TMember memberApprove = new TMember();
-        memberApprove = tMemberService.findById(memberForm.id);
-        //検索した結果をformにコピー
-        Beans.copy(memberApprove, memberForm).execute();	
-
-        memberForm.sexMap = new HashMap<String, String>();
-        for (Integer i=1; i<=3; i++) {
-        	memberForm.sexMap.put(i.toString(), SexCode.getnameByCode(i.toString()));
-        }
-        
-        /** Idから対象のメンバーが所属している部の一覧を検索する　**/
-        memberForm.tMemberClubList = tMemberClubService.findByMemberId(memberForm.id.toString());
-        
-        //パスワードは表示しない
-        memberForm.password = "(パスワードは初期化のみ可能です)";
-        	
-        return viewinput();
+		memberForm.clubMap = tClubService.getClubMapIS();
+		
+		// IDから対象メンバーを特定する
+		TMember memberApprove = new TMember();
+		memberApprove = tMemberService.findById(memberForm.id);
+		// 検索した結果をformにコピー
+		Beans.copy(memberApprove, memberForm).execute();	
+		
+		memberForm.sexMap = new HashMap<String, String>();
+		for (Integer i=1; i<=3; i++) {
+			memberForm.sexMap.put(i.toString(), SexCode.getnameByCode(i.toString()));
+		}
+		// Idから対象のメンバーが所属している部の一覧を検索する
+		memberForm.tMemberClubList = tMemberClubService.findByMemberId(memberForm.id.toString());
+		
+		//パスワードは表示しない
+		memberForm.password = "(パスワードは初期化のみ可能です)";
+		return viewinput();
 	}
 	
 	@Execute(validator = false)
@@ -113,7 +111,6 @@ public class MemberApproveAction {
 	
 	@Execute(validator = false)
 	public String complete() {
-        
 		//DB更新
 		TMember tMember = tMemberService.findById(memberForm.id);
 		
@@ -129,47 +126,46 @@ public class MemberApproveAction {
 		
 		if(memberForm.approveFlag){
 			//メール送信
-	    	String title;
-	    	String content;
-	    	
-	    	//タイトル
-	    	title = "メンバーの登録が承認されました";
-	    	
-	    	//内容
-	    	StringBuffer buff = new StringBuffer();
-	    	buff.append("メンバーの登録が完了されましたのでお知らせします。");
-	    	buff.append("\n");
-	    	buff.append("登録者：");
-	    	buff.append(memberForm.hname);
-	    	buff.append("(");
-	    	buff.append(memberForm.name);
-	    	buff.append(")");
-	    	buff.append("\n");
-	    	buff.append("\n");
-	    	buff.append("メンバーの仮登録が承認されました。以後は設定されたパスワードでログインできるようになります。");
-	    	content = new String(buff);
-	    	
-	    	//送信相手(部長・web管理・本人)
-	    	List<TMember> tMemberSendList = new ArrayList<TMember>();
-	    	List<TAdmin> admin = new ArrayList<TAdmin>();
-	    	admin.addAll(tAdminService.findByKind(LeadersKindCode.CHIEF.getCode()));//部長
-	    	admin.addAll(tAdminService.findByKind(LeadersKindCode.WEBADMIN.getCode()));//web管理
-	    	for(TAdmin one : admin){
-	    		tMemberSendList.add(one.tMember);
-	    	}
-	    	tMemberSendList.add(tMember);//本人
-	    	
-	    	//メールを送信する
-        	MailManagerUtil mailUtil = new MailManagerUtil();
-        	mailUtil.setRegistId(loginMemberDto.memberId);
-        	mailUtil.setBrowsingRights(MailBrowsingRightsCode.ADMIN.getCodeNumber());
-        	mailUtil.setTitle(title);
-        	mailUtil.setContent(content);	
-        	mailUtil.setLinkUrlFlag(false);
-        	mailUtil.setToAddressActorSplit(tMemberSendList);
-        	mailUtil.sendMail();
-	    	
+			String title;
+			String content;
+			
+			//タイトル
+			title = "メンバーの登録が承認されました";
+			//内容
+			StringBuffer buff = new StringBuffer();
+			buff.append("メンバーの登録が完了されましたのでお知らせします。");
+			buff.append("\n");
+			buff.append("登録者：");
+			buff.append(memberForm.hname);
+			buff.append("(");
+			buff.append(memberForm.name);
+			buff.append(")");
+			buff.append("\n");
+			buff.append("\n");
+			buff.append("メンバーの仮登録が承認されました。以後は設定したパスワードでログインできるようになります。");
+			buff.append("\n");
+			content = new String(buff);
+			
+			//送信相手(部長・web管理・本人)
+			List<TMember> tMemberSendList = new ArrayList<TMember>();
+			List<TAdmin> admin = new ArrayList<TAdmin>();
+			admin.addAll(tAdminService.findByKind(LeadersKindCode.CHIEF.getCode()));//部長
+			admin.addAll(tAdminService.findByKind(LeadersKindCode.WEBADMIN.getCode()));//web管理
+			for(TAdmin one : admin){
+				tMemberSendList.add(one.tMember);
+			}
+			tMemberSendList.add(tMember);//本人
+			
+			//メールを送信する
+			MailManagerUtil mailUtil = new MailManagerUtil();
+			mailUtil.setRegistId(loginMemberDto.memberId);
+			mailUtil.setBrowsingRights(MailBrowsingRightsCode.ADMIN.getCodeNumber());
+			mailUtil.setTitle(title);
+			mailUtil.setContent(content);	
+			mailUtil.setLinkUrlFlag(false);
+			mailUtil.setToAddressActorSplit(tMemberSendList);
+			mailUtil.sendMail();
 		}
-        return "memberApproveComplete.jsp";
+		return "memberApproveComplete.jsp";
 	}
 }
