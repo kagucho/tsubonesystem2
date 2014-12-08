@@ -4,12 +4,11 @@
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
-<div>
-			<a class="col-md-2 col-sm-5 col-sm-offset-1 col-xs-12  btn btn-danger btnYOKO btnMRC" href="<c:url value="/admin/bbsDelete/${id}"/>">削除</a>
+<div class="container CENTER">
+	<h3>削除が完了しました。</h3>
+	<a href="<c:url value="/admin/memberList"/>"><button type="button" class="col-md-4 col-md-offset-4 col-sm-4　col-sm-offset-4 col-xs-12 btn btn-default btn-lg">Back.MemberList </button></a>
 </div>
-<%@ include file="/WEB-INF/view/common/bbsDetailList.jsp"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${f:url('/js/bootstrap.min.js')}"></script>
-
 </body>
 </html>
