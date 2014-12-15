@@ -57,41 +57,48 @@ public class EnqueteReplyAction {
 
 	public final int num = 1;
 
-    @Execute(validator = false, urlPattern = "{id}", reset = "resetInput")
+	@Execute(validator = false, urlPattern = "{id}", reset = "resetInput")
 	public String index() {
-    	// 過去に答えたアンケートの回答を取得する
-    	TEnqueteAnswer tEnqueteAnswerOld = tEnqueteAnswerService.findByIdAndUserId(enqueteReplyForm.id, loginMemberDto.memberId);
+		// 過去に答えたアンケートの回答を取得する
+		enqueteReplyForm.tEnqueteAnswerOld = tEnqueteAnswerService.findByIdAndUserId(enqueteReplyForm.id,
+				loginMemberDto.memberId);
 
-    	if(tEnqueteAnswerOld != null){
-    		enqueteReplyForm.answer = tEnqueteAnswerOld.enqueteSelectedId.toString();
-    	}
+		if (enqueteReplyForm.tEnqueteAnswerOld != null) {
+			enqueteReplyForm.answer = enqueteReplyForm.tEnqueteAnswerOld.enqueteSelectedId.toString();
+			enqueteReplyForm.isOld = true;
+		} else {
+			enqueteReplyForm.isOld = false;
+		}
 
-    	// 選択肢を取得する
-    	Map<String, String> enqueteSelectMap = tEnqueteSelectService.enqueteSelectMap(enqueteReplyForm.id);
+		// 選択肢を取得する
+		Map<String, String> enqueteSelectMap = tEnqueteSelectService.enqueteSelectMap(enqueteReplyForm.id);
 
-    	enqueteReplyForm.enqueteSelectMap = enqueteSelectMap;
+		enqueteReplyForm.enqueteSelectMap = enqueteSelectMap;
 
-    	enqueteReplyForm.memberId = loginAdminDto.memberId;
+		enqueteReplyForm.memberId = loginAdminDto.memberId;
 
-    	return "enqueteReply.jsp";
+		return "enqueteReply.jsp";
 	}
 
-    @Execute(validator = true, validate = "validateBase", input="enqueteReply.jsp", stopOnValidationError = false)
-    public String confirm() {
-    	return "enqueteReplyConfirm.jsp";
-    }
+	@Execute(validator = true, validate = "validateBase", input = "enqueteReply.jsp", stopOnValidationError = false)
+	public String confirm() {
+		return "enqueteReplyConfirm.jsp";
+	}
 
-    @Execute(validator = false)
-    public String complete() {
+	@Execute(validator = false)
+	public String complete() {
+		if (!enqueteReplyForm.isOld) {
+			// DBに登録
+			TEnqueteAnswer tEnqueteAnswer = new TEnqueteAnswer();
+			tEnqueteAnswer.memberId = loginMemberDto.memberId;
+			tEnqueteAnswer.enqueteSelectedId = Integer.valueOf(enqueteReplyForm.answer);
+			tEnqueteAnswerService.insert(tEnqueteAnswer);
+		} else {
+			enqueteReplyForm.tEnqueteAnswerOld.enqueteSelectedId = Integer.valueOf(enqueteReplyForm.answer);
+			tEnqueteAnswerService.update(enqueteReplyForm.tEnqueteAnswerOld);
+		}
 
-    	// DBに登録
-    	TEnqueteAnswer tEnqueteAnswer = new TEnqueteAnswer();
-    	tEnqueteAnswer.memberId = loginMemberDto.memberId;
-    	tEnqueteAnswer.enqueteSelectedId = Integer.valueOf(enqueteReplyForm.answer);
-    	tEnqueteAnswerService.insert(tEnqueteAnswer);
-
-    	return "enqueteReplyComplete.jsp";
-    }
-
+		return "enqueteReplyComplete.jsp";
+	}
 
 }

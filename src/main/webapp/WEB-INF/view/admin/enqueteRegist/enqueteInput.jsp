@@ -8,7 +8,7 @@
     <link href="${f:url('/css/bootstrap.css')}" type="text/css" rel="stylesheet">
     <link href="${f:url('/css/layout.css')}" type="text/css" rel="stylesheet">
     <link href="${f:url('/css/signin.css')}" type="text/css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="${f:url('/js/jquery.add-input-area.4.7.1.js')}"></script>
     <script type="text/javascript">
         jQuery(document).ready(function($) {
@@ -46,9 +46,9 @@
 		              <label class="control-label col-sm-4" for="selectedContents[0]" id_format="selectedContents[%d]">選択肢</label>
 		              <div class="col-sm-6 memberF" >
 		                  <input type="text" id="selectedContents[0]" name="selectedContents[0]" id_format="selectedContents[%d]" name_format="selectedContents[%d]"  class="form-control" placeholder="選択肢" value="${selectedContents[0]}"/>
-		                  <html:errors property="selectedContents[0]"/>
+		                  <html:errors property="selectedContents"/>
                           <input type="button" class="selectedContents_del btn btn-danger marginUP" value="削除"/>
-                          
+
 		              </div>
                     </li>
                 </ul>
