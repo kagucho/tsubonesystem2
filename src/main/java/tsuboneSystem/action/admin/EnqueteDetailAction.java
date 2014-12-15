@@ -1,5 +1,7 @@
 package tsuboneSystem.action.admin;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 
 import org.seasar.framework.beans.util.Beans;
@@ -64,8 +66,10 @@ public class EnqueteDetailAction {
 		TEnquete tEnquete = tEnqueteService.findByIdJoinTable(enqueteForm.id);
 		//アンケートに答えた人の総数を計算
 		int sum = 0;
+		enqueteForm.tEnqueteSelectList = new ArrayList<TEnqueteSelect>();
 		for (TEnqueteSelect tEnqueteSelect : tEnquete.tEnqueteSelect) {
 			tEnqueteSelect.resultNum = tEnqueteAnswerService.resultNumCount(tEnqueteSelect.id);
+			enqueteForm.tEnqueteSelectList.add(tEnqueteSelect);
 			sum += Integer.parseInt(tEnqueteAnswerService.resultNumCount(tEnqueteSelect.id));
 		}
 		//アンケートに答えた人の総数をStringに変換

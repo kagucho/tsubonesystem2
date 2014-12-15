@@ -53,21 +53,12 @@
 	<canvas id="canvas" height="450" width="450"></canvas>
 	<script>
 		var pieData = [
+				<c:forEach var="s" items="${tEnqueteSelectList}" varStatus="status">
 				{
-					value: 5,
-					color:"#F38630",
-					label:"green"
+					value: ${s.resultNum},
+					color:"rgb("+(120/(${status.count}+${status.count}%2))+","+(160/(${status.count}+${status.count}%2))+","+(240/(${status.count}+${status.count}%2))+")",
 				},
-				{
-					value : 30,
-					color : "#E0E4CC",
-					label:"green"
-				},
-				{
-					value : 30,
-					color : "#69D2E7",
-					label:"green"
-				}
+				</c:forEach>
 			];
 		var myPie = new Chart(document.getElementById("canvas").getContext("2d")).Pie(pieData);
 	</script>
