@@ -9,7 +9,6 @@
 <div class="col-sm-12">
 	<div class="col-sm-4 col-sm-offset-4" id="compBtn">
 		<a class="btnMRC" href="<c:url value="/admin/enqueteList"/>"><button type="button" class="btn btn-default btn-lg btn-block">Back.EnqueteList </button></a>
-        <a class="btnMRC" href="<c:url value="/admin/enqueteDetail"/>"><button type="button" class="btn btn-default btn-lg btn-block">Back.EnqueteDetail </button></a>
     </div>
 </div>
 </div>

@@ -1,13 +1,13 @@
 <div class="container">
 	<div class="col-sm-12">
-		<c:if test="${loginMemberDto.actorKindCode == '1'}">
+		<c:if test="${loginMemberDto.actorKind == '1'}">
 			<a class="btn btn-primary" href="<c:url value="/admin/enqueteRegist/index"/>">新規登録</a>
 		</c:if>
 		<p>アンケート一覧</p>
 		<div class="table-responsive">
 			<table class="table">
 			<tr>
-			　　<th>氏名</th>
+			   <th>氏名</th>
 			   <th>タイトル</th>
 			   <th></th>
 			   <th>回答済み</th>
@@ -21,7 +21,7 @@
 	               	${rec.title}
 	               </td>
 	               <td>
-	                   <a class="btn btn-primary col-md-4 col-md-offset-4"  href="<c:url value="/admin/enqueteDetail/"/>${rec.id}">回答</a>
+	                   	<a class="btn btn-primary col-md-4 col-md-offset-4"  href="<c:url value="/${loginMemberDto.actorKind}/enqueteDetail/"/>${rec.id}">回答</a>
 	               </td>
 	               <td>
 	               		<c:if test="${rec.answered}">○</c:if>

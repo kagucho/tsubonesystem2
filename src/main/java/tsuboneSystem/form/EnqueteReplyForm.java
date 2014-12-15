@@ -12,7 +12,7 @@ import org.seasar.framework.container.annotation.tiger.InstanceType;
 import tsuboneSystem.entity.TEnqueteAnswer;
 
 @Component(instance = InstanceType.SESSION)
-public class EnqueteReplyForm implements Serializable{
+public class EnqueteReplyForm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,6 +30,10 @@ public class EnqueteReplyForm implements Serializable{
 	
 	public TEnqueteAnswer tEnqueteAnswerOld;
 
+	public TEnqueteAnswer tEnqueteAnswerOld;
+
+	public boolean isOld;
+
 	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
 	public void resetInput() {
 		answer = null;
@@ -37,18 +41,16 @@ public class EnqueteReplyForm implements Serializable{
 		enqueteSelectMap = null;
 	}
 
-
 	//オリジナルチェック
-    public ActionMessages validateBase(){
+	public ActionMessages validateBase() {
 
-        ActionMessages errors = new ActionMessages();
+		ActionMessages errors = new ActionMessages();
 
-      //選択されたMemberが連絡先をすべて登録しているかを確認する。
-    	if (StringUtils.isEmpty(answer)) {
-    		errors.add("answer",new ActionMessage("いずれかの選択肢を選択してください。",false));
-    	}
+		//選択されたMemberが連絡先をすべて登録しているかを確認する。
+		if (StringUtils.isEmpty(answer)) {
+			errors.add("answer", new ActionMessage("いずれかの選択肢を選択してください。", false));
+		}
 
-
-        return errors;
-    }
+		return errors;
+	}
 }
