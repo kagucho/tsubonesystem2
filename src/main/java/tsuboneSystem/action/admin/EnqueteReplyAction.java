@@ -60,10 +60,11 @@ public class EnqueteReplyAction {
     @Execute(validator = false, urlPattern = "{id}", reset = "resetInput")
 	public String index() {
     	// 過去に答えたアンケートの回答を取得する
-    	TEnqueteAnswer tEnqueteAnswerOld = tEnqueteAnswerService.findByIdAndUserId(enqueteReplyForm.id, loginMemberDto.memberId);
+    	enqueteReplyForm.tEnqueteAnswerOld = tEnqueteAnswerService.findByIdAndUserId(enqueteReplyForm.id, loginMemberDto.memberId);
 
-    	if(tEnqueteAnswerOld != null){
-    		enqueteReplyForm.answer = tEnqueteAnswerOld.enqueteSelectedId.toString();
+    	if(enqueteReplyForm.tEnqueteAnswerOld != null){
+    		enqueteReplyForm.answer = enqueteReplyForm.tEnqueteAnswerOld.enqueteSelectedId.toString();
+    		
     	}
 
     	// 選択肢を取得する
@@ -85,10 +86,16 @@ public class EnqueteReplyAction {
     public String complete() {
 
     	// DBに登録
-    	TEnqueteAnswer tEnqueteAnswer = new TEnqueteAnswer();
-    	tEnqueteAnswer.memberId = loginMemberDto.memberId;
-    	tEnqueteAnswer.enqueteSelectedId = Integer.valueOf(enqueteReplyForm.answer);
-    	tEnqueteAnswerService.insert(tEnqueteAnswer);
+    	if (enqueteReplyForm.tEnqueteAnswerOld == null) {
+    		TEnqueteAnswer tEnqueteAnswer = new TEnqueteAnswer();
+        	tEnqueteAnswer.memberId = loginMemberDto.memberId;
+        	tEnqueteAnswer.enqueteSelectedId = Integer.valueOf(enqueteReplyForm.answer);
+        	tEnqueteAnswerService.insert(tEnqueteAnswer);
+    	} else {
+    		enqueteReplyForm.tEnqueteAnswerOld.enqueteSelectedId = Integer.valueOf(enqueteReplyForm.answer);
+    		tEnqueteAnswerService.update(enqueteReplyForm.tEnqueteAnswerOld);
+    	}
+    	
 
     	return "enqueteReplyComplete.jsp";
     }

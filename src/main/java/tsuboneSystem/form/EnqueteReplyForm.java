@@ -9,6 +9,8 @@ import org.apache.struts.action.ActionMessages;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.container.annotation.tiger.InstanceType;
 
+import tsuboneSystem.entity.TEnqueteAnswer;
+
 @Component(instance = InstanceType.SESSION)
 public class EnqueteReplyForm implements Serializable{
 
@@ -25,6 +27,8 @@ public class EnqueteReplyForm implements Serializable{
 
 	/** 選択された選択肢 */
 	public String answer;
+	
+	public TEnqueteAnswer tEnqueteAnswerOld;
 
 	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
 	public void resetInput() {
