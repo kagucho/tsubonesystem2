@@ -1,6 +1,5 @@
 package tsuboneSystem.service;
 
-import static org.seasar.extension.jdbc.operation.Operations.*;
 import static tsuboneSystem.names.TEnqueteNames.*;
 
 import java.util.List;
@@ -73,7 +72,6 @@ public class TEnqueteService extends AbstractService<TEnquete> {
 
 		}
 
-
-		return
+		return list;
 	}
 }
