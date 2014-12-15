@@ -1,10 +1,13 @@
 package tsuboneSystem.form;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.apache.struts.action.ActionMessages;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.container.annotation.tiger.InstanceType;
+
+import tsuboneSystem.entity.TEnqueteSelect;
 
 @Component(instance = InstanceType.SESSION)
 public class EnqueteForm implements Serializable {
@@ -27,6 +30,8 @@ public class EnqueteForm implements Serializable {
 
 	/** ユーザー名 */
 	public String userName;
+
+	public List<TEnqueteSelect> tEnqueteSelectList;
 
 	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
 	public void resetInput() {
