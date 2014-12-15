@@ -1,6 +1,5 @@
 package tsuboneSystem.service;
 
-import static org.seasar.extension.jdbc.operation.Operations.*;
 import static tsuboneSystem.names.TEnqueteNames.*;
 
 import java.util.List;
@@ -50,28 +49,28 @@ public class TEnqueteService extends AbstractService<TEnquete> {
 		return select().innerJoin(tMember()).getResultList();
 	}
 
-//	/**
-//	 * 識別子の昇順ですべてのエンティティを検索します。
-//	 *
-//	 * @return エンティティのリスト
-//	 */
-//	public List<TEnquete> findAllOrderById(Integer memberId) {
-//		SimpleWhere where = new SimpleWhere();
-//		List<TEnquete> list = select().where(where).innerJoin(tEnqueteSelect()).leftOuterJoin(tEnqueteSelect().tEnqueteAnswerList(), new SimpleWhere().eq(tEnqueteSelect().tEnqueteAnswerList().memberId(), memberId)).getResultList();
-//		for (TEnquete tEnquete : list) {
-//			for (TEnqueteSelect tEnqueteSelect : tEnquete.tEnqueteSelect) {
-//				for (TEnqueteAnswer tEnqueteAnswer : tEnqueteSelect.tEnqueteAnswerList) {
-//					if (tEnqueteAnswer.memberId.equals(memberId)) {
-//						tEnquete.answered = true;
-//						break;
-//					}
-//				}
-//				break;
-//			}
-//
-//		}
-//
-//
-//		return
-//	}
+	/**
+	 * 識別子の昇順ですべてのエンティティを検索します。
+	 *
+	 * @return エンティティのリスト
+	 */
+	public List<TEnquete> findAllOrderById(Integer memberId) {
+
+		SimpleWhere where = new SimpleWhere();
+
+		List<TEnquete> list = select().where(where).innerJoin(tMember()).innerJoin(tEnqueteSelect()).leftOuterJoin(tEnqueteSelect().tEnqueteAnswerList(), new SimpleWhere().eq(tEnqueteSelect().tEnqueteAnswerList().memberId(), memberId)).getResultList();
+		for (TEnquete tEnquete : list) {
+			for (TEnqueteSelect tEnqueteSelect : tEnquete.tEnqueteSelect) {
+				for (TEnqueteAnswer tEnqueteAnswer : tEnqueteSelect.tEnqueteAnswerList) {
+					if (tEnqueteAnswer.memberId.equals(memberId)) {
+						tEnquete.answered = true;
+						break;
+					}
+				}
+			}
+
+		}
+
+		return list;
+	}
 }

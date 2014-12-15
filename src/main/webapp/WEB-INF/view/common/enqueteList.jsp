@@ -3,7 +3,7 @@
 		<c:if test="${loginMemberDto.actorKindCode == '1'}">
 			<a class="btn btn-primary" href="<c:url value="/admin/enqueteRegist/index"/>">新規登録</a>
 		</c:if>
-		アンケート一覧
+		<p>アンケート一覧</p>
 		<div class="table-responsive">
 			<table class="table">
 			<tr>

@@ -48,9 +48,8 @@ public class EnqueteListAction {
 
     @Execute(validator = false)
 	public String index() {
-    	enqueteListForm.list = tEnqueteService.findAllJoinTable();
-//    	tEnqueteSelectService.findById(id)
+    	enqueteListForm.list = tEnqueteService.findAllOrderById(loginMemberDto.memberId);
 
-        return "enqueteList.jsp";
+    	return "enqueteList.jsp";
 	}
 }
