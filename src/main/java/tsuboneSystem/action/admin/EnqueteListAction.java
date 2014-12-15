@@ -46,11 +46,10 @@ public class EnqueteListAction {
 	@Resource
 	protected TEnqueteSelectService tEnqueteSelectService;
 
-	@Execute(validator = false)
+    @Execute(validator = false)
 	public String index() {
-		enqueteListForm.list = tEnqueteService.findAllJoinTable();
-		//    	tEnqueteSelectService.findById(id);
+    	enqueteListForm.list = tEnqueteService.findAllOrderById(loginMemberDto.memberId);
 
-		return "enqueteList.jsp";
+    	return "enqueteList.jsp";
 	}
 }

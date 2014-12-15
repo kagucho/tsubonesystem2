@@ -8,6 +8,8 @@
 				</th>
        		</tr>
 		</table>
-		<input type="submit" value="回答" id="complete" name="complete"  class="col-md-3 col-sm-5 col-xs-12 btn btn-primary">
+		<div class="form-group">
+			<input type="submit" value="回答" id="complete" name="complete"  class="col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-3 col-xs-12  btn btn-primary">
+		</div>
 	</s:form>
 </div>

@@ -6,7 +6,11 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
+import org.seasar.extension.jdbc.where.SimpleWhere;
+
 import tsuboneSystem.entity.TEnquete;
+import tsuboneSystem.entity.TEnqueteAnswer;
+import tsuboneSystem.entity.TEnqueteSelect;
 
 /**
  * {@link TEnquete}のサービスクラスです。
@@ -50,25 +54,23 @@ public class TEnqueteService extends AbstractService<TEnquete> {
 	 *
 	 * @return エンティティのリスト
 	 */
-	//	public List<TEnquete> findAllOrderById(Integer memberId) {
-	//
-	//		SimpleWhere where = new SimpleWhere();
-	//
-	//		List<TEnquete> list = select().where(where).innerJoin(tEnqueteSelect()).leftOuterJoin(tEnqueteSelect().tEnqueteAnswerList(), new SimpleWhere().eq(tEnqueteSelect().tEnqueteAnswerList().memberId(), memberId)).getResultList();
-	//		for (TEnquete tEnquete : list) {
-	//			for (TEnqueteSelect tEnqueteSelect : tEnquete.tEnqueteSelect) {
-	//				for (TEnqueteAnswer tEnqueteAnswer : tEnqueteSelect.tEnqueteAnswerList) {
-	//					if (tEnqueteAnswer.memberId.equals(memberId)) {
-	//						tEnquete.answered = true;
-	//						break;
-	//					}
-	//				}
-	//				break;
-	//			}
-	//
-	//		}
-	//
-	//
-	//		return
-	//	}
+	public List<TEnquete> findAllOrderById(Integer memberId) {
+
+		SimpleWhere where = new SimpleWhere();
+
+		List<TEnquete> list = select().where(where).innerJoin(tMember()).innerJoin(tEnqueteSelect()).leftOuterJoin(tEnqueteSelect().tEnqueteAnswerList(), new SimpleWhere().eq(tEnqueteSelect().tEnqueteAnswerList().memberId(), memberId)).getResultList();
+		for (TEnquete tEnquete : list) {
+			for (TEnqueteSelect tEnqueteSelect : tEnquete.tEnqueteSelect) {
+				for (TEnqueteAnswer tEnqueteAnswer : tEnqueteSelect.tEnqueteAnswerList) {
+					if (tEnqueteAnswer.memberId.equals(memberId)) {
+						tEnquete.answered = true;
+						break;
+					}
+				}
+			}
+
+		}
+
+		return list;
+	}
 }
