@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
- * TMemberエンティティクラス
+ * TEnqueteSelectエンティティクラス
  *
  * @author ryuya
  */
@@ -35,7 +35,7 @@ public class TEnqueteSelect implements Serializable {
 	@Column(nullable = true, unique = false)
 	public Integer enqueteId;
 
-	/* 選択肢1 */
+	/* 選択肢 */
 	@Column(nullable = false, unique = false)
 	public String selectedContents;
 
@@ -51,4 +51,5 @@ public class TEnqueteSelect implements Serializable {
 	/** 集計の時に、いくつ選択されたか格納する変数 */
 	@Transient
 	public String resultNum;
+
 }
