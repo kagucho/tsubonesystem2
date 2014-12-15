@@ -1,11 +1,12 @@
 <div class="container">
-	<h3 class="col-md-6">アンケート詳細</h3>
+	<h3 class="col-md-6">アンケート回答</h3>
 	<s:form method="POST" >
 		<table class="table">
 			<c:forEach var="rec" items="${enqueteSelectMap}">
 				<tr>
 					<th>
-						<input type="radio" name="answer" value="${rec.key}">${rec.value}
+						<input type="radio" name="answer" value="${rec.key}" <c:if test="${rec.key == answer}">checked</c:if> >${rec.value}
+						<html:errors property="answer"/>
 					</th>
         		</tr>
         	</c:forEach>

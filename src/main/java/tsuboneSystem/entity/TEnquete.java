@@ -60,4 +60,8 @@ public class TEnquete implements Serializable {
 	/** アンケートに答えた人の総数 */
 	@Transient
 	public String totalCountNum;
+
+	/** 質問に答えたか格納する変数 */
+	@Transient
+	public boolean answered;
 }
