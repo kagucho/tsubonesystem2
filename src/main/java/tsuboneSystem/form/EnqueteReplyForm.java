@@ -30,8 +30,6 @@ public class EnqueteReplyForm implements Serializable {
 	
 	public TEnqueteAnswer tEnqueteAnswerOld;
 
-	public TEnqueteAnswer tEnqueteAnswerOld;
-
 	public boolean isOld;
 
 	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
