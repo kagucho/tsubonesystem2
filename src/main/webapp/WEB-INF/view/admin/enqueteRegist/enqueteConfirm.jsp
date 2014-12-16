@@ -24,9 +24,9 @@
         <tr>
             <th><h4>選択肢</h4></th>
             <td><h5>${rec}</h5>
-        </tr>             
+        </tr>
     </c:forEach>
-    
+
 </table>
 <s:form method="POST" >
     <%@ include file="/WEB-INF/view/common/confirmButton.jsp"%>
