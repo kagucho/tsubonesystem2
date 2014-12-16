@@ -1,6 +1,7 @@
 <div class="container">
+	<div class="col-md-6">
 	<h3 class="col-md-6">アンケート詳細</h3>
-	<a class="col-md-2 col-sm-3 col-xs-12 btn btn-primary btnYOKO" href="<c:url value="/admin/enqueteReply/${f:h(id)}"/>" role="button">回答する</a>
+	<a class="col-md-2 col-sm-3 col-xs-12 btn btn-primary btnYOKO" href="<c:url value="/${loginMemberDto.actorKind}/enqueteReply/${f:h(id)}"/>" role="button">回答する</a>
 	<table class="table">
 		<tr>
 		    <th class="col-md-2 col-sm-2"><h4>タイトル</h4></th>
@@ -23,5 +24,22 @@
         <tr>
         </tr>
 	</table>
-	<a href="<c:url value="/admin/enqueteList"/>">一覧</a>
+		<a href="<c:url value="/${loginMemberDto.actorKind}/enqueteList"/>">一覧</a>
+	</div>
+	<div class="col-md-6">
+		<div class="CENTER">
+			<canvas id="canvas" height="450" width="450"></canvas>
+		</div>
+	</div>
+	<script>
+		var pieData = [
+				<c:forEach var="s" items="${tEnqueteSelectList}" varStatus="status">
+				{
+					value: ${s.resultNum},
+					color:"rgb("+(120/(${status.count}+${status.count}%2))+","+(160/(${status.count}+${status.count}%2))+","+(240/(${status.count}+${status.count}%2))+")",
+				},
+				</c:forEach>
+			];
+		var myPie = new Chart(document.getElementById("canvas").getContext("2d")).Pie(pieData);
+	</script>
 </div>

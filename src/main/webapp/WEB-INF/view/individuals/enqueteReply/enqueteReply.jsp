@@ -4,11 +4,8 @@
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
-<%@ include file="/WEB-INF/view/common/enqueteReplyConfirm.jsp"%>
+<%@ include file="/WEB-INF/view/common/enqueteReply.jsp"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${f:url('/js/bootstrap.min.js')}"></script>
-<%@page pageEncoding="UTF-8"%>
-<html>
-<body>
 </body>
 </html>

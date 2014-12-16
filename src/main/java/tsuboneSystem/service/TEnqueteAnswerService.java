@@ -30,6 +30,21 @@ public class TEnqueteAnswerService extends AbstractService<TEnqueteAnswer> {
 	}
 
 	/**
+	 * アンケートのエンティティを検索します。
+	 *
+	 * @param enqueteSelectId
+	 * @param userId
+	 * @return アンケート
+	 */
+	public TEnqueteAnswer findByIdAndUserId(Integer enqueteId, Integer userId){
+		SimpleWhere where = new SimpleWhere();
+		where.eq(memberId(), userId);
+		return select()
+				.innerJoin(tEnqueteSelect(), new SimpleWhere().eq(tEnqueteSelect().enqueteId(), enqueteId))
+				.where(where).getSingleResult();
+	}
+
+	/**
 	 * 識別子の昇順ですべてのエンティティを検索します。
 	 *
 	 * @return エンティティのリスト

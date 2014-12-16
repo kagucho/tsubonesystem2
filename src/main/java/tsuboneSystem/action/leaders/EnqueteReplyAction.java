@@ -1,4 +1,4 @@
-package tsuboneSystem.action.admin;
+package tsuboneSystem.action.leaders;
 
 import java.util.Map;
 

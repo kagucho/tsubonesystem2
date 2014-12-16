@@ -16,6 +16,7 @@
 package tsuboneSystem.action.admin;
 
 import javax.annotation.Resource;
+
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
@@ -25,32 +26,30 @@ import tsuboneSystem.service.TEnqueteSelectService;
 import tsuboneSystem.service.TEnqueteService;
 
 public class EnqueteListAction {
-	
+
 	public String actionName = "ClubList";
-	
+
 	/** ClubFormのアクションフォーム */
 	@ActionForm
 	@Resource
 	protected EnqueteListForm enqueteListForm;
-	
+
 	/** Member用のDto */
 	@Resource
 	public LoginMemberDto loginMemberDto;
-	
+
 	/** TMemberのサービスクラス */
 	@Resource
 	protected TEnqueteService tEnqueteService;
-	
+
 	/** TMemberのサービスクラス */
 	@Resource
 	protected TEnqueteSelectService tEnqueteSelectService;
-	
+
     @Execute(validator = false)
 	public String index() {
-    	
-    	enqueteListForm.list = tEnqueteService.findAllJoinTable();
-    	
+    	enqueteListForm.list = tEnqueteService.findAllOrderById(loginMemberDto.memberId);
 
-        return "enqueteList.jsp";
+    	return "enqueteList.jsp";
 	}
 }
