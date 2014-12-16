@@ -92,6 +92,17 @@ public class TMemberService extends AbstractService<TMember> {
     	}
         return select().where(where).orderBy(asc(id())).getResultList();
     }
+    
+    /**
+     * 全てのOBを検索します。
+     * @return
+     */
+    public List<TMember> findOB_ForMail() {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+    	where.eq(obFlag(), Boolean.valueOf(true));
+        return select().where(where).orderBy(asc(id())).getResultList();
+    }
 
 	/**
      * メンバーの一覧を返す

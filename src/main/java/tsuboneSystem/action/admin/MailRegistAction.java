@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.util.TokenProcessor;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
@@ -87,16 +88,24 @@ public class MailRegistAction {
     @Execute(validator = true, input = "index.jsp", validate="validateBase", stopOnValidationError = false, reset = "resetInput")
 	public String confirm() {
     	
-    	//obを含めるかどうか
-    	boolean containsOb = (mailForm.mailSendOBFlag != null);
-    	
     	//全員に送る場合
-    	if (mailForm.mailSendAllFlag != null) {
-    		mailForm.tMemberSendList = tMemberService.findAllOrderById_ForMail(containsOb);
-    	//部ごとに送る場合
-    	} else if (mailForm.clubListCheck != null) {
-			mailForm.tMemberSendList = tMemberService.findByClubIds(containsOb, mailForm.clubListCheck);
-		}	
+    	if (StringUtil.isNotEmpty(mailForm.activeOrOb)) {
+    		if ("1".equals(mailForm.activeOrOb)) {
+    			// 現役生のみ
+    			if (StringUtil.isNotEmpty(mailForm.allOrClub)) {
+    				if ("1".equals(mailForm.allOrClub)) {
+    					// 全員
+    					mailForm.tMemberSendList = tMemberService.findAllOrderById_ForMail(false);
+    				} else if ("2".equals(mailForm.allOrClub)) {
+    					// 部ごと
+    					mailForm.tMemberSendList = tMemberService.findByClubIds(false, mailForm.clubListCheck);
+    				}
+    			}
+    			
+    		} else if ("2".equals(mailForm.activeOrOb)) {
+    			mailForm.tMemberSendList = tMemberService.findOB_ForMail();
+    		}
+    	}
 		return "mailConfirm.jsp";
 	}
     

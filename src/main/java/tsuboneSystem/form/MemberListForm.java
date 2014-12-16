@@ -43,5 +43,6 @@ public class MemberListForm implements Serializable{
 		hname = null;
 		entrance = null;
 		obFlag = null;
+		tempMemberFlag = null;
 	}
 }

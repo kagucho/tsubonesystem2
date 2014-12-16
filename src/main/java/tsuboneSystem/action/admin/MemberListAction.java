@@ -115,7 +115,7 @@ public class MemberListAction {
 	}
 
 	// 検索
-	@Execute(validator = false)
+	@Execute(validator = false, reset = "clearSearchConditon")
 	public String onSearch() {
 		// 登録されているメンバーの検索条件に一致するメンバーを一覧表示する。
 		memberItems = tMemberService.findBySearch(memberListForm, -1, -1);

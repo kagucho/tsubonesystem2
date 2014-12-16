@@ -11,6 +11,7 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.container.annotation.tiger.InstanceType;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.struts.annotation.Required;
 
 import tsuboneSystem.entity.TClub;
@@ -25,15 +26,12 @@ public class MailForm implements Serializable{
 	/* id　*/
 	public Integer id;
 	
-	/* メールの送信可否　*/
-	public boolean mailSendFlag;
-
-	/* 全体へのメール送信　*/
-	public String mailSendAllFlag;
+	/** 現役生かOBか 1:現役生　2:OB */
+	public String activeOrOb;
 	
-	/* OBへのメール送信　*/
-	public String mailSendOBFlag;
-
+	/** 全員か部ごとか 1:全員 2:部ごと */
+	public String allOrClub;
+	
 	/* 選択した部 */
 	public String[] clubListCheck = new String[0];
 	
@@ -76,22 +74,27 @@ public class MailForm implements Serializable{
 	
 	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
 	public void resetInput() {
+		activeOrOb = null;
+		allOrClub = null;
 		title = null;
 		content = null;
 		clubListCheck = new String[0];
-		mailSendFlag = false;
-		mailSendAllFlag = null;
-		mailSendOBFlag = null;
 	}
 	//オリジナルチェック
-    public ActionMessages validateBase(){
-       ActionMessages errors = new ActionMessages();
-       
-       //送信相手が選択されていない場合
-       if (mailSendAllFlag == null && clubListCheck == null){
-    	   errors.add("sendTo",new ActionMessage("メールを送る場合は、送り相手を選択してください。",false));
-    	   errors.add("sendTo",new ActionMessage("メールを送る場合は、送り相手を選択してください。",false));
-       }
+	public ActionMessages validateBase(){
+		ActionMessages errors = new ActionMessages();
+		
+		//送信相手が選択されていない場合
+		if (StringUtil.isEmpty(activeOrOb)) {
+			errors.add("activeOrOb",new ActionMessage("送り相手を選択してください。",false));
+		} else if (StringUtil.isEmpty(allOrClub)) { 
+			errors.add("allOrClub",new ActionMessage("送る範囲を選択してください",false));
+		} else if ("2".equals(allOrClub)) {
+			//　部ごとのメールの場合は部が選択されている必要がある
+			if (clubListCheck.length == 0) {
+				errors.add("clubListCheck",new ActionMessage("部を選択してください",false));
+			}
+		}
        
     return errors;
     }
