@@ -27,7 +27,7 @@ import tsuboneSystem.service.TEnqueteService;
 
 public class EnqueteListAction {
 
-	public String actionName = "ClubList";
+	public String actionName = "EnqueteList";
 
 	/** ClubFormのアクションフォーム */
 	@ActionForm

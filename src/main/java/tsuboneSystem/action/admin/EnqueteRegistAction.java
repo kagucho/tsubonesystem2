@@ -15,6 +15,9 @@ import tsuboneSystem.service.TEnqueteSelectService;
 import tsuboneSystem.service.TEnqueteService;
 
 public class EnqueteRegistAction {
+	
+	/** アクションネーム */
+	public String actionName = "EnqueteRegist";
 
 	/** アクションフォーム */
 	@ActionForm
@@ -39,7 +42,6 @@ public class EnqueteRegistAction {
 
 	@Execute(validator = false, reset = "resetInput")
 	public String index() {
-
 		return viewinput();
 	}
 

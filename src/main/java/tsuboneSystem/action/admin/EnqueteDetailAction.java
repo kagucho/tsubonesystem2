@@ -8,7 +8,6 @@ import org.seasar.framework.beans.util.Beans;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
-import tsuboneSystem.dto.LoginAdminDto;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TEnquete;
 import tsuboneSystem.entity.TEnqueteSelect;
@@ -22,7 +21,7 @@ import tsuboneSystem.service.TMemberService;
 public class EnqueteDetailAction {
 
 	/** アクションネーム */
-	public String actionName = "ClubDetail";
+	public String actionName = "EnqueteDetail";
 
 	/** ClubFormのアクションフォーム */
 	@ActionForm
@@ -52,10 +51,6 @@ public class EnqueteDetailAction {
 	/** TMailSendMemberServiceのサービスクラス */
 	@Resource
 	protected TMailSendMemberService tMailSendMemberService;
-
-	/** ログインユーザ*/
-	@Resource
-	protected LoginAdminDto loginAdminDto;
 
 	public final int num = 1;
 

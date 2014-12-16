@@ -24,7 +24,7 @@
         <tr>
         </tr>
 	</table>
-		<a href="<c:url value="/${loginMemberDto.actorKind}/enqueteList"/>">一覧</a>
+		<a class="col-md-2 col-sm-3 col-xs-12 btn btn-primary btnYOKO" role="button" href="<c:url value="/${loginMemberDto.actorKind}/enqueteList"/>">一覧へ</a>
 	</div>
 	<div class="col-md-6">
 		<div class="CENTER">
@@ -37,6 +37,7 @@
 				{
 					value: ${s.resultNum},
 					color:"rgb("+(120/(${status.count}+${status.count}%2))+","+(160/(${status.count}+${status.count}%2))+","+(240/(${status.count}+${status.count}%2))+")",
+					label: "Red"
 				},
 				</c:forEach>
 			];

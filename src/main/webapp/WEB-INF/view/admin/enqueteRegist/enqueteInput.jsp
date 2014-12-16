@@ -22,19 +22,19 @@
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">
-    <h3>会議の情報を入力してください。</h3>
+    <h3>アンケートの情報を入力してください。</h3>
     <h5 class="hissu">＊がついている項目は必須です</h5>
     <s:form method="POST" >
         <form name="party" class="form-horizontal">
 		       <div class="form-group">
-		           <label class="control-label col-sm-4" for=title>会議の題名</label>
+		           <label class="control-label col-sm-4" for=title>アンケートの名前</label>
 		           <div class="col-sm-8 memberF" >
 		               <input type="text" id="title" name="title" property="title" class="form-control" placeholder="title" value="${title}">
 		               <html:errors property="title"/>
 		           </div>
 		       </div>
 		       <div class="form-group">
-		           <label class="control-label col-sm-4" for="password">会議の内容</label>
+		           <label class="control-label col-sm-4" for="memo">会議の内容</label>
 		           <div class="col-sm-8 memberF">
 		               <textarea class="form-control" name="memo" rows="5" property="memo" placeholder="memo">${f:h(memo)}</textarea>
 		               <html:errors property="memo"/>
