@@ -56,7 +56,7 @@ import tsuboneSystem.names.TTopAnnounceNames._TTopAnnounceNames;
  * 名前クラスの集約です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/12/16 1:19:28")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesAggregateModelFactoryImpl"}, date = "2014/12/17 0:57:40")
 public class Names {
 
     /**

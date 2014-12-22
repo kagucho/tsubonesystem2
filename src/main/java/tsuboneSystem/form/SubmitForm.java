@@ -119,7 +119,7 @@ public class SubmitForm implements Serializable{
     	
     	ActionMessages errors = new ActionMessages();
     	
-    	int programsSize = 10485760;// プログラムのアップロード容量は10MBとする
+    	int programsSize = 52428800;// プログラムのアップロード容量は50MBとする
     	int imageSize = 10485760;// 画像が提出物の時のアップロード容量は10MBとする
     	int captionImageSize = 5242880;// caption画像のアップロード容量は2MBとする
     	String [] programType = {FileKindCode.EXE.getName(), FileKindCode.ZIP.getName()};// プログラム系の拡張子
@@ -138,7 +138,7 @@ public class SubmitForm implements Serializable{
         			if (!TsuboneSystemUtil.isFileSizeCheck(submitFile, programsSize)) {
         				// ファイル拡張子チェック
         				if (TsuboneSystemUtil.isFileKindCheck(submitFile, programType)) {
-        					errors.add("submitFile",new ActionMessage("ZIP、exeファイル以外はアップロードできません",false));
+        					errors.add("submitFile",new ActionMessage("zip、exeファイル以外はアップロードできません",false));
         				}
         			} else {
         				errors.add("submitFile",new ActionMessage("ファイルサイズが大きすぎます。最大10MBです",false));

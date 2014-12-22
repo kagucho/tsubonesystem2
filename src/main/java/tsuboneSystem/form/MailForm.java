@@ -91,8 +91,10 @@ public class MailForm implements Serializable{
 			errors.add("allOrClub",new ActionMessage("送る範囲を選択してください",false));
 		} else if ("2".equals(allOrClub)) {
 			//　部ごとのメールの場合は部が選択されている必要がある
-			if (clubListCheck.length == 0) {
-				errors.add("clubListCheck",new ActionMessage("部を選択してください",false));
+			if ("1".equals(activeOrOb)) {
+				if (clubListCheck.length == 0) {
+					errors.add("clubListCheck",new ActionMessage("部を選択してください",false));
+				}
 			}
 		}
        
