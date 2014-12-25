@@ -123,7 +123,7 @@ public class SubmitForm implements Serializable{
     	int imageSize = 10485760;// 画像が提出物の時のアップロード容量は10MBとする
     	int captionImageSize = 5242880;// caption画像のアップロード容量は2MBとする
     	String [] programType = {FileKindCode.EXE.getName(), FileKindCode.ZIP.getName()};// プログラム系の拡張子
-    	String [] imageType = {FileKindCode.JPEG.getName(), FileKindCode.JPG.getName(),FileKindCode.PNG.getName()};// 画像系の拡張子
+    	String [] imageType = {FileKindCode.JPEG.getName(), FileKindCode.JPG.getName(), FileKindCode.PNG.getName(), FileKindCode.ZIP_BIG.getName()};// 画像系の拡張子
     	
     	// 提出物 ファイル種別確認
     	// プログラム系

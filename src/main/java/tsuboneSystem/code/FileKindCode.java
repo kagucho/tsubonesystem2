@@ -13,7 +13,8 @@ public enum FileKindCode implements CodeEnum {
 	JPEG("3","jpeg"),
 	PNG("4","png"),
 	ZIP("5","zip"),
-	EXE("6","exe");
+	EXE("6","exe"),
+	ZIP_BIG("7","ZIP");
 	
 	private String code;
 	private String name;
