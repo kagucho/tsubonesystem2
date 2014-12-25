@@ -84,18 +84,24 @@ public class MailForm implements Serializable{
 	public ActionMessages validateBase(){
 		ActionMessages errors = new ActionMessages();
 		
-		//送信相手が選択されていない場合
-		if (StringUtil.isEmpty(activeOrOb)) {
-			errors.add("activeOrOb",new ActionMessage("送り相手を選択してください。",false));
-		} else if (StringUtil.isEmpty(allOrClub)) { 
-			errors.add("allOrClub",new ActionMessage("送る範囲を選択してください",false));
-		} else if ("2".equals(allOrClub)) {
-			//　部ごとのメールの場合は部が選択されている必要がある
+		if (StringUtil.isNotEmpty(activeOrOb)) {
 			if ("1".equals(activeOrOb)) {
-				if (clubListCheck.length == 0) {
-					errors.add("clubListCheck",new ActionMessage("部を選択してください",false));
+				// 現役生の場合は全員か部ごとか
+				if (StringUtil.isNotEmpty(allOrClub)) {
+					if ("2".equals(allOrClub)) {
+						//　部ごとのメールの場合は部が選択されている必要がある
+						if ("1".equals(activeOrOb)) {
+							if (clubListCheck.length == 0) {
+								errors.add("clubListCheck",new ActionMessage("部を選択してください",false));
+							}
+						}
+					}
+				} else {
+					errors.add("allOrClub",new ActionMessage("送る範囲を選択してください",false));
 				}
 			}
+		} else {
+			errors.add("activeOrOb",new ActionMessage("送り相手を選択してください。",false));
 		}
        
     return errors;
