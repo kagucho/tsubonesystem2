@@ -14,7 +14,7 @@
 	</tr>
 	<tr>
 		<th><h4>メールの内容</h4></th>
-		<td><h5><pre><bean:write name="mailForm" property="content" filter="false"/></pre> </h5></td>
+		<td><h5>${f:br(f:h(content))}</h5></td>
 	</tr>
 </table>
 </div>

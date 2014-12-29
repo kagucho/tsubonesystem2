@@ -125,7 +125,7 @@
     <!-- /Contact -->
     
     <!-- Footer -->
-    <footer>
+    <!-- <footer>
       <div class="container">
         <div class="row">
           <div class="col-md-6 col-md-offset-3 text-center">
@@ -133,7 +133,7 @@
           </div>
         </div>
       </div>
-    </footer>
+    </footer> -->
     <!-- /Footer -->
     <!-- Bootstrap core JavaScript -->
     <!-- Placed at the end of the document so the pages load faster -->

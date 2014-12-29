@@ -31,7 +31,7 @@
 			<th class="col-md-2 col-ms-2 col-xs-2">本名</th><th class="col-md-2 col-ms-2 col-xs-2">ハンドルネーム</th><th class="col-md-5 col-ms-5 col-xs-5">連絡先（mail）</th><th class="col-md-2 col-ms-2 col-xs-2">連絡先（電話番号）</th><c:if test="${loginMemberDto.actorKindCode == '1'}"><th class="col-md-1 col-ms-1 col-xs-1"></th></c:if><c:if test="${loginMemberDto.actorKindCode == '1'}"><th class="col-md-1 col-ms-1 col-xs-1"></th></c:if>
 			<c:forEach var="e" items="${tLeadersAccounts}">
 				<tr>
-					<%@ include file="/WEB-INF/view/common/officerListInnerLine.jsp"%>
+					<%@ include file="/WEB-INF/view/common/officerListInnerLineLeaders.jsp"%>
 					<c:if test="${loginMemberDto.actorKindCode == '1'}">
 						<td>
 							<a class="btn btn-danger" href="<c:url value="/admin/officerDelete/${e.id}"/>">削除</a>
@@ -72,7 +72,7 @@
 			<th class="col-md-2 col-ms-2 col-xs-2">本名</th><th class="col-md-2 col-ms-2 col-xs-2">ハンドルネーム</th><th class="col-md-5 col-ms-5 col-xs-5">連絡先（mail）</th><th class="col-md-2 col-ms-2 col-xs-2">連絡先（電話番号）</th><c:if test="${loginMemberDto.actorKindCode == '1'}"><th class="col-md-1 col-ms-1 col-xs-1"></th></c:if><c:if test="${loginMemberDto.actorKindCode == '1'}"><th class="col-md-1 col-ms-1 col-xs-1"></th></c:if>
 			<c:forEach var="e" items="${tLeadersGassyuku}">
 				<tr>
-					<%@ include file="/WEB-INF/view/common/officerListInnerLine.jsp"%>
+					<%@ include file="/WEB-INF/view/common/officerListInnerLineLeaders.jsp"%>
 					<c:if test="${loginMemberDto.actorKindCode == '1'}">
 						<td>
 							<a class="btn btn-danger" href="<c:url value="/admin/officerDelete/${e.id}"/>">削除</a>

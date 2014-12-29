@@ -17,4 +17,5 @@
 			<html:checkbox property="attendUpdate"/>&nbsp;&nbsp;他者の出欠を変更出来るようにする
 		</div>
 	</div>
+	<input type="submit" value="確認" id="confirmSec" name="confirmSec" class="btn btn-primary col-md-offset-4 col-md-4">
 </form>

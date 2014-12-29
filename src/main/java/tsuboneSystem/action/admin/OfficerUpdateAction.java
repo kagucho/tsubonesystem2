@@ -13,6 +13,7 @@ import org.seasar.struts.annotation.Execute;
 
 import tsuboneSystem.code.LeadersKindCode;
 import tsuboneSystem.dto.LoginMemberDto;
+import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TLeaders;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.form.OfficerForm;
@@ -79,9 +80,7 @@ public class OfficerUpdateAction {
 	//権限選択画面
     @Execute(validator = true, urlPattern = "confirm/{id}", validate="validateBase", input="officerInput.jsp", stopOnValidationError = false)
 	public String confirm() {
-    	
-    		officerForm.tMemberNew = tMemberService.findById(officerForm.id); 	
-    		
+    	officerForm.tMemberNew = tMemberService.findById(officerForm.id); 	
         return "officerConfirm.jsp";
 	}
     
@@ -202,15 +201,11 @@ public class OfficerUpdateAction {
         ActionMessages errors = new ActionMessages();
         
 		//選択されたid(memberId)でTLeaders(memberId)を検索し該当がなく、局長にも副局長にもなっていないことを確認する。
-    	List<TLeaders> leadersOld = tLeadersService.findByMemberIdList(officerForm.id);
-    	if (leadersOld.size() > 0) {
-    		for (TLeaders tLeaderOne : leadersOld){
-    			if (tLeaderOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.CHIEF.getCode())) || tLeaderOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.SUB_CHIEF.getCode())) || tLeaderOne.OfficerKind.equals(Integer.valueOf(LeadersKindCode.ACCOUNT.getCode()))){
-    				errors.add("leadersOld",new ActionMessage("このメンバーはすでに局長、もしくは副局長のになっているメンバーです。",false));
-    			}
-    		}
+    	List<TAdmin> adminOldList = tAdminService.findByMemberIdList(officerForm.id);
+    	if (adminOldList.size() > 0) {
+    		errors.add("leadersOld",new ActionMessage("このメンバーはすでに局長、もしくは副局長のになっているメンバーです。",false));
     	}
-    	
+   
     	//選択されたMemberが連絡先をすべて登録しているかを確認する。
     	TMember tMember = tMemberService.findById(officerForm.id);
     	if (StringUtils.isEmpty(tMember.mail) || StringUtils.isEmpty(tMember.tel1) || StringUtils.isEmpty(tMember.tel2) || StringUtils.isEmpty(tMember.tel3)) {

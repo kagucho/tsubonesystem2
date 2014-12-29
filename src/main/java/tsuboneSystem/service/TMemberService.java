@@ -73,7 +73,7 @@ public class TMemberService extends AbstractService<TMember> {
     	if (!containsOB) {
     		where.eq(obFlag(), Boolean.valueOf(false));
     	}
-        return select().where(where).orderBy(asc(id())).getResultList();
+        return select().where(where).orderBy(desc(entrance())).getResultList();
     }
     
     /**

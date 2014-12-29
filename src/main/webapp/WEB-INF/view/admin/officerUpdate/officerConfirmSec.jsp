@@ -33,7 +33,7 @@
 				</table>
 				<%@ include file="/WEB-INF/view/common/leadersPowerConfirm.jsp"%>
 			</div>
-			<input type="submit" value="登録" id="complete" name="complete" property="complete" class="btn btn-primary">
+			<input type="submit" value="登録" id="complete" name="complete" class="btn btn-primary col-md-offset-4 col-md-4">
 		</s:form>
 	</div>
 </div>
