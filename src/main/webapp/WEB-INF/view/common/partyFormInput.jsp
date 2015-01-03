@@ -14,22 +14,22 @@
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="meetingDay">会議の開催日(yyyy/dd/mm:例2014/07/05)</label>
 			<div class="col-sm-8 memberF">
-				<input type="text" id="meetingDay" name="meetingDay" property="meetingDay" class="form-control" placeholder="meetingDay" value="${meetingDay}">
+				<input type="text" id="meetingDay" name="meetingDay" class="form-control datepicker" placeholder="meetingDay" value="${meetingDay}">
 				<html:errors property="meetingDay"/>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-sm-4" for="meetingEndDay">会議の終了日</label>
-			<div class="col-sm-8 memberF">
-				<input type="text" id="meetingEndDay" name="meetingEndDay" property="meetingEndDay" class="form-control" placeholder="※合宿など、日を跨ぐイベントの時のみ使用" value="${meetingEndDay}">
-				<html:errors property="meetingEndDay"/>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="meetingTime">会議の開催時間</label>
 			<div class="col-sm-8 memberF">
-				<input type="text" id="meetingTime" name="meetingTime" property="meetingTime" class="form-control" placeholder="meetingTime" value="${meetingTime}">
+				<input type="text" id="meetingTime" name="meetingTime" class="form-control timepickerStart" placeholder="meetingTime" value="${meetingTime}">
 				<html:errors property="meetingTime"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-4" for="meetingEndDay">会議の終了日</label>
+			<div class="col-sm-8 memberF">
+				<input type="text" id="meetingEndDay" name="meetingEndDay" class="form-control datepicker" placeholder="※合宿など、日を跨ぐイベントの時のみ使用" value="${meetingEndDay}">
+				<html:errors property="meetingEndDay"/>
 			</div>
 		</div>
 		<div class="form-group">
@@ -74,7 +74,7 @@
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="meetingDeadlineDay">出欠席締め切り日</label>
 			<div class="col-sm-8 memberF">
-				<input type="text" id="meetingDeadlineDay" name="meetingDeadlineDay" property="meetingDeadlineDay" class="form-control" placeholder="meetingDeadlineDay" value="${meetingDeadlineDay}">
+				<input type="text" id="meetingDeadlineDay" name="meetingDeadlineDay" class="form-control datepicker" placeholder="meetingDeadlineDay" value="${meetingDeadlineDay}">
 				<html:errors property="meetingDeadlineDay"/>
 			</div>
 		</div>

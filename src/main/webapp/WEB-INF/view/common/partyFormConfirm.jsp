@@ -16,7 +16,7 @@
 	</tr>
 	<tr>
 		<th><h4>開催日</h4></th>
-		<td><h5>${f:h(meetingDay)}<c:if test="${meetingEndDay != null}">から${f:h(meetingEndDay)}まで</c:if></h5></td>
+		<td><h5>${f:h(meetingDay)}<c:if test="${!empty(meetingEndDay)}">から${f:h(meetingEndDay)}まで</c:if></h5></td>
 	</tr>
 	<tr>
 		<th><h4>開催時間</h4></th>
