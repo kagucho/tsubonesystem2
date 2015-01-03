@@ -11,6 +11,7 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.container.annotation.tiger.InstanceType;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.struts.annotation.Msg;
 import org.seasar.struts.annotation.Required;
 
@@ -48,28 +49,28 @@ public class PartyResultForm implements Serializable{
 	
 	//以下の項目はメール配信関係
 		
-		/* メールの送信可否　*/
+		/** メールの送信可否　*/
 		public boolean mailSendFlag;
-	
-		/* 全体へのメール送信　*/
-		public String mailSendAllFlag;
 		
-		/* OBへのメール送信　*/
-		public String mailSendOBFlag;
-	
-		/* 選択した部 */
+		/** 現役生かOBか 1:現役生　2:OB */
+		public String activeOrOb;
+		
+		/** 全員か部ごとか 1:全員 2:部ごと */
+		public String allOrClub;
+		
+		/** 選択した部 */
 		public String[] clubListCheck = new String[0];
 		
-		/* メールのタイトル　*/
+		/** メールのタイトル　*/
 		public String title;
 		
-		/* メールの内容　*/
+		/** メールの内容　*/
 		public String content;
 		
-		/* メールの送信相手一覧 */
+		/** メールの送信相手一覧 */
 		public List<TMember> tMemberSendList;
 		
-		/* メールの送信者　*/
+		/** メールの送信者　*/
 		public Integer registMemberId;
 		
 	//メール配信項目ここまで	
@@ -96,8 +97,8 @@ public class PartyResultForm implements Serializable{
 	public void resetInput() {
 		clubListCheck = new String[0];
 		mailSendFlag = false;
-		mailSendAllFlag = null;
-		mailSendOBFlag = null;
+		activeOrOb = null;
+		allOrClub = null;
 		resultEditEndFlag = false;
 	}
 	
@@ -108,16 +109,31 @@ public class PartyResultForm implements Serializable{
         
         //メール配信関係
         if (mailSendFlag) {
-        	if (mailSendAllFlag == null && clubListCheck.length == 0 ) {
-        		errors.add("sendTo",new ActionMessage("メールを送る場合は、送り相手を選択してください。",false));
-        	}
         	if (StringUtils.isEmpty(title)) {
         		errors.add("title",new ActionMessage("メールを送る場合は、メールの題名を入力してください。",false));
         	}
         	if (StringUtils.isEmpty(content)) {
         		errors.add("content",new ActionMessage("メールを送る場合は、メールの内容を入力してください。",false));
         	}
-        	
+        	if (StringUtil.isNotEmpty(activeOrOb)) {
+    			if ("1".equals(activeOrOb)) {
+    				// 現役生の場合は全員か部ごとか
+    				if (StringUtil.isNotEmpty(allOrClub)) {
+    					if ("2".equals(allOrClub)) {
+    						//　部ごとのメールの場合は部が選択されている必要がある
+    						if ("1".equals(activeOrOb)) {
+    							if (clubListCheck.length == 0) {
+    								errors.add("clubListCheck",new ActionMessage("部を選択してください",false));
+    							}
+    						}
+    					}
+    				} else {
+    					errors.add("allOrClub",new ActionMessage("送る範囲を選択してください",false));
+    				}
+    			}
+    		} else {
+    			errors.add("activeOrOb",new ActionMessage("送り相手を選択してください。",false));
+    		}
         }
 
         return errors;

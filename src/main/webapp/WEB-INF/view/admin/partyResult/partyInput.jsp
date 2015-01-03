@@ -9,24 +9,8 @@
     <link href="${f:url('/css/layout.css')}" type="text/css" rel="stylesheet">
     <link href="${f:url('/css/signin.css')}" type="text/css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript">
-	    $(function(){
-	        // 初期表示でチェックボックスが空だったら非表示エリアを隠す
-	        if ('${mailSendFlag}' == 'false') {
-	            $('#mailInput').hide();
-	        }
-	    });
-	    // 表示/非表示
-	    var speed = 500; //表示アニメのスピード（ミリ秒）
-	    var stateDeliv = 1;
-	    function hideToggle(hidearea) {
-	        hidearea.toggle(speed);
-	    }
-	    $(function changehoge(value) {
-	        $("#mailInput").disabled(value); // チェックされたら無効化する
-	        $("#mailInput").val($("#mailInput").disabled()); // 今の無効化状態をhogeに書く
-	    });
-	</script>
+	<script src="${f:url('/js/mailSendSelectArea.js')}"></script>
+	<script src="${f:url('/js/mailSendSelect.js')}"></script>
   </head>
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
@@ -59,32 +43,34 @@
 				</div>
 				<div class="form-group">
 					<label class="control-label col-sm-4">メールを送る</label>
-					<div class="col-sm-8 memberF">
-						<input type="checkbox" id="mailSendFlag" name="mailSendFlag" value="mailSendFlag" property="mailSendFlag"  onclick="hideToggle($('#mailInput'));"  <c:if test="${mailSendFlag}"> checked="checked"</c:if>/>&nbsp;上記の結果をメールで送る
+					<div class="col-sm-8 memberF mailSendFlag">
+						<input type="checkbox" id="mailSendFlag" name="mailSendFlag" value="true" property="mailSendFlag"  onclick="hideToggle($('#mailInput'));"  <c:if test="${mailSendFlag}"> checked="checked"</c:if>/>&nbsp;上記の結果をメールで送る
 					</div>	
 				</div>
 				<div id="mailInput">
-					<h4>送信する相手を選択してください</h4>
+					<h4>メールを配信する場合は、送信する相手を選択してください。</h4>
 					<div class="form-group">
-						<label class="control-label col-sm-4" for="mailSendAllFlag">全体に送信する</label>
-						<div class="col-sm-8 memberF">
-							<input type="checkbox" id="mailSendAllFlag"  name="mailSendAllFlag" value="true" <c:if test="${mailSendAllFlag}"> checked="checked"</c:if>/>&nbsp;全員に送信する(対象者関係なく全員に送信されます)
-							<html:errors property="sendTo"/>
+						<label class="control-label col-sm-4" for="mailSendAllFlag">現役 or OB</label>
+						<div class="col-sm-8 memberF activeOrOb">
+							<input type="radio" name="activeOrOb" value="1" <c:if test="${activeOrOb == 1}">checked</c:if> >&nbsp;現役生に送信する
+							<input type="radio" name="activeOrOb" value="2" <c:if test="${activeOrOb == 2}">checked</c:if> >&nbsp;OBに配信する
+							<html:errors property="activeOrOb"/>
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-4" for="clubListCheck">部で選択する</label>
-						<div class="col-sm-8 memberF">
+					<div class="form-group clubListCheck">
+						<label class="control-label col-sm-4" for="clubListCheck">全員 or 部ごと</label>
+						<div class="col-sm-8 memberF allOrClub">
+							<input type="radio" name="allOrClub" value="1" <c:if test="${allOrClub == 1}">checked</c:if> >&nbsp;全員に送信する
+							<input type="radio" name="allOrClub" value="2" <c:if test="${allOrClub == 2}">checked</c:if> >&nbsp;部で選択する
+							<html:errors property="allOrClub"/>
+							<div id = "selectClubDiv">
+							(
 							<c:forEach var="e" items="${clubMapSS}">
-							<html:multibox property="clubListCheck" value="${e.key}" />&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
+								<html:multibox  property="clubListCheck" value="${e.key}" />&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
 							</c:forEach>
-							<html:errors property="sendTo"/>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-4" for="mailSendAllFlag">OBにも送信する&nbsp;</label>
-						<div class="col-sm-8 memberF">
-							<input type="checkbox" id="mailSendOBFlag" <c:if test="${mailSendOBFlag}"> checked="checked"</c:if>  name="mailSendOBFlag" value="true" />&nbsp;OBを含める
+							)
+							</div>
+							<html:errors property="clubListCheck"/>
 						</div>
 					</div>
 				</div>

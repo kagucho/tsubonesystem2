@@ -9,24 +9,8 @@
     <link href="${f:url('/css/layout.css')}" type="text/css" rel="stylesheet">
     <link href="${f:url('/css/signin.css')}" type="text/css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript">
-	    $(function(){
-	        // 初期表示でチェックボックスが空だったら非表示エリアを隠す
-	        if ('${mailSendFlag}' == 'false') {
-	            $('#mailInput').hide();
-	        }
-	    });
-	    // 表示/非表示
-	    var speed = 500; //表示アニメのスピード（ミリ秒）
-	    var stateDeliv = 1;
-	    function hideToggle(hidearea) {
-	        hidearea.toggle(speed);
-	    }
-	    function changehoge(value) {
-	        $("#mailInput").disabled(value); // チェックされたら無効化する
-	        $("#mailInput").val($("#mailInput").disabled()); // 今の無効化状態をhogeに書く
-	    }
-	</script> 
+	<script src="${f:url('/js/mailSendSelectArea.js')}"></script>
+	<script src="${f:url('/js/mailSendSelect.js')}"></script>
   </head>
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>

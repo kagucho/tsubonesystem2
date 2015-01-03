@@ -6,7 +6,9 @@ import javax.annotation.Resource;
 
 
 
+
 import org.seasar.framework.beans.util.Beans;
+import org.seasar.framework.util.StringUtil;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
@@ -66,9 +68,6 @@ public class PartyResultAction extends PartyOperateAbstractAction{
     	
     	// メールを送る場合は送信対象者をリストに格納する
     	if (partyResultForm.mailSendFlag) {
-			// OBを含めるかどうか
-			boolean containsOb = (partyResultForm.mailSendOBFlag != null);
-			
 			//会議の題名をメールのタイトルとする
 			StringBuffer bf = new StringBuffer();
 			bf.append("「");
@@ -80,15 +79,25 @@ public class PartyResultAction extends PartyOperateAbstractAction{
 			//会議結果をメールの内容とする
 			partyResultForm.content = partyResultForm.meetingResult;
 			
-			// 全員にメールが送られる場合
-			if (partyResultForm.mailSendAllFlag != null) {
-				partyResultForm.tMemberSendList = tMemberService.findAllOrderById_ForMail(containsOb);
-			//部ごとにメールが送られる場合
-			} else if (partyResultForm.clubListCheck != null) {
-				partyResultForm.tMemberSendList = tMemberService.findByClubIds(containsOb, partyResultForm.clubListCheck);
+			//全員に送る場合
+			if (StringUtil.isNotEmpty(partyResultForm.activeOrOb)) {
+				if ("1".equals(partyResultForm.activeOrOb)) {
+					// 現役生のみ
+					if (StringUtil.isNotEmpty(partyResultForm.allOrClub)) {
+						if ("1".equals(partyResultForm.allOrClub)) {
+							// 全員
+							partyResultForm.tMemberSendList = tMemberService.findAllOrderById_ForMail(false);
+						} else if ("2".equals(partyResultForm.allOrClub)) {
+							// 部ごと
+							partyResultForm.tMemberSendList = tMemberService.findByClubIds(false, partyResultForm.clubListCheck);
+						}
+					}
+					
+				} else if ("2".equals(partyResultForm.activeOrOb)) {
+					partyResultForm.tMemberSendList = tMemberService.findOB_ForMail();
+				}
 			}
-    	}   
-    	
+    	}
     	
         return "partyConfirm.jsp";
 	}

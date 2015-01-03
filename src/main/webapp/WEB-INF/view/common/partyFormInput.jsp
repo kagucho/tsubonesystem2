@@ -87,7 +87,7 @@
 		</div>
 		<div class="form-group">
 			<label class="control-label col-sm-4">メール配信可否</label>
-			<div class="col-sm-8 memberF">
-				<input type="checkbox" id="mailSendFlag" name="mailSendFlag" value="mailSendFlag" property="mailSendFlag"  onclick="hideToggle($('#mailInput'));"  <c:if test="${mailSendFlag}"> checked="checked"</c:if>/>&nbsp;メールを配信する※チェクしないとメールは配信されません！！
+			<div class="col-sm-8 memberF mailSendFlag">
+				<input type="checkbox" id="mailSendFlag" name="mailSendFlag" value="true" <c:if test="${mailSendFlag}"> checked="checked"</c:if>/>&nbsp;メールを配信する※チェクしないとメールは配信されません！！
 			</div>
 		</div>

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.seasar.framework.util.StringUtil;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
@@ -94,14 +95,23 @@ public abstract class PartyOperateAbstractAction {
     		// メール本文は会議の詳細とする
     		partyForm.content = partyForm.meetingMemo;
     		
-			// OBを含めるかどうか
-			boolean containsOb = (partyForm.mailSendOBFlag != null);
-			// 全員にメールが送られる場合
-			if (partyForm.mailSendAllFlag != null) {
-				partyForm.tMemberSendList = tMemberService.findAllOrderById_ForMail(containsOb);
-			//部ごとにメールが送られる場合
-			} else if (partyForm.clubListCheck != null) {
-				partyForm.tMemberSendList = tMemberService.findByClubIds(containsOb, partyForm.clubListCheck);
+			//全員に送る場合
+			if (StringUtil.isNotEmpty(partyForm.activeOrOb)) {
+				if ("1".equals(partyForm.activeOrOb)) {
+					// 現役生のみ
+					if (StringUtil.isNotEmpty(partyForm.allOrClub)) {
+						if ("1".equals(partyForm.allOrClub)) {
+							// 全員
+							partyForm.tMemberSendList = tMemberService.findAllOrderById_ForMail(false);
+						} else if ("2".equals(partyForm.allOrClub)) {
+							// 部ごと
+							partyForm.tMemberSendList = tMemberService.findByClubIds(false, partyForm.clubListCheck);
+						}
+					}
+					
+				} else if ("2".equals(partyForm.activeOrOb)) {
+					partyForm.tMemberSendList = tMemberService.findOB_ForMail();
+				}
 			}
     	}
     	return "partyConfirm.jsp";

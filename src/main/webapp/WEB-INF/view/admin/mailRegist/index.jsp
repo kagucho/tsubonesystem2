@@ -11,39 +11,7 @@
     <link href="${f:url('/css/docs.min.css')}" type="text/css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="${f:url('/js/change.js')}"></script>
-    <script type="text/javascript">
-    $(function($) {
-    	var val = $("input[name='activeOrOb']:checked").val();
-		if(val == '2') {
-			$(".clubListCheck").hide("");
-		} else {
-			$(".clubListCheck").show();
-		}
-		var val = $("input[name='allOrClub']:checked").val();
-		if(val == '1') {
-			$("#selectClubDiv").hide();
-		} else {
-			$("#selectClubDiv").show();
-		}
-		
-    	$(".activeOrOb").click(function() {
-    		var val = $("input[name='activeOrOb']:checked").val();
-    		if(val == '2') {
-    			$(".clubListCheck").hide("normal");
-    		} else {
-    			$(".clubListCheck").show("normal");
-    		}
-    	});
-    	$(".allOrClub").click(function() {
-    		var val = $("input[name='allOrClub']:checked").val();
-    		if(val == '1') {
-    			$("#selectClubDiv").hide("normal");
-    		} else {
-    			$("#selectClubDiv").show("normal");
-    		}
-    	});
-    });
-    </script>
+    <script src="${f:url('/js/mailSendSelect.js')}"></script>
 </head>
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
@@ -95,6 +63,14 @@
 		</div>
 		<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12  btn btn-primary">
 	</s:form>
+</div>
+<div class="container">
+	<div class="bs-callout bs-callout-danger">
+		<h4>メール作成においての注意点</h4>
+		<ul>
+			<li>会議の結果などは、該当の会議の詳細画面から“会議の結果を登録する”を利用しましょう。<a href="<c:url value="/${loginMemberDto.actorKind}/partyList/historyList"/>" role="button">→過去の会議一覧</a></li>
+		</ul>
+	</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${f:url('/js/bootstrap.min.js')}"></script>

@@ -1,26 +1,27 @@
-
-		<div id="mailInput">
-			<h4>メールを配信する場合は、送信する相手と内容を入力してください。</h4>
-			<div class="form-group">
-				<label class="control-label col-sm-4" for="mailSendAllFlag">全体に送信する</label>
-				<div class="col-sm-8 memberF">
-					<input type="checkbox" id="mailSendAllFlag"  name="mailSendAllFlag" value="true" <c:if test="${mailSendAllFlag}"> checked="checked"</c:if>/>&nbsp;全員に送信する(対象者関係なく全員に送信されます)
-					<html:errors property="sendTo"/>
-				</div>
-			</div>
-			<div class="form-group clubListCheck">
-				<label class="control-label col-sm-4" for="clubListCheck">部で選択する</label>
-				<div class="col-sm-8 memberF">
-					<c:forEach var="e" items="${clubMapSS}">
-						<html:multibox  property="clubListCheck" value="${e.key}" />&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
-					</c:forEach>
-					<html:errors property="sendTo"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-4" for="mailSendAllFlag">OBにも送信する&nbsp;</label>
-				<div class="col-sm-8 memberF">
-					<input type="checkbox" id="mailSendOBFlag" <c:if test="${mailSendOBFlag}"> checked="checked"</c:if>  name="mailSendOBFlag" value="true" />&nbsp;OBを含める
-				</div>
-			</div>
+<div id="mailInput">
+	<h4>メールを配信する場合は、送信する相手を選択してください。</h4>
+	<div class="form-group">
+		<label class="control-label col-sm-4" for="mailSendAllFlag">現役 or OB</label>
+		<div class="col-sm-8 memberF activeOrOb">
+			<input type="radio" name="activeOrOb" value="1" <c:if test="${activeOrOb == 1}">checked</c:if> >&nbsp;現役生に送信する
+			<input type="radio" name="activeOrOb" value="2" <c:if test="${activeOrOb == 2}">checked</c:if> >&nbsp;OBに配信する
+			<html:errors property="activeOrOb"/>
 		</div>
+	</div>
+	<div class="form-group clubListCheck">
+		<label class="control-label col-sm-4" for="clubListCheck">全員 or 部ごと</label>
+		<div class="col-sm-8 memberF allOrClub">
+			<input type="radio" name="allOrClub" value="1" <c:if test="${allOrClub == 1}">checked</c:if> >&nbsp;全員に送信する
+			<input type="radio" name="allOrClub" value="2" <c:if test="${allOrClub == 2}">checked</c:if> >&nbsp;部で選択する
+			<html:errors property="allOrClub"/>
+			<div id = "selectClubDiv">
+			(
+			<c:forEach var="e" items="${clubMapSS}">
+				<html:multibox  property="clubListCheck" value="${e.key}" />&nbsp;${f:h(e.value)}&nbsp;&nbsp;&nbsp;
+			</c:forEach>
+			)
+			</div>
+			<html:errors property="clubListCheck"/>
+		</div>
+	</div>
+</div>
