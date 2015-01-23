@@ -35,7 +35,7 @@ public class TAdminService extends AbstractService<TAdmin> {
      * @return エンティティのリスト
      */
     public List<TAdmin> findAllOrderById() {
-        return select().orderBy(asc(id())).getResultList();
+        return select().innerJoin(tMember()).orderBy(asc(id())).getResultList();
     }
     
     /**

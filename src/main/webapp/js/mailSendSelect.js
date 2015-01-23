@@ -1,16 +1,18 @@
 $(function($) {
     	var val = $("input[name='activeOrOb']:checked").val();
 		if(val == '2') {
-			$(".clubListCheck").hide("");
+			$(".clubListCheck").hide("normal");
 		} else {
-			$(".clubListCheck").show();
+			$(".clubListCheck").show("normal");
 		}
 		var val = $("input[name='allOrClub']:checked").val();
 		if(val == '1') {
-			$("#selectClubDiv").hide();
+			$("#selectClubDiv").hide("normal");
+		} else if (val == '3') {
+			$("#selectClubDiv").hide("normal");
 		} else {
-			$("#selectClubDiv").show();
-		}
+            $("#selectClubDiv").show("normal");
+        }
 		
     	$(".activeOrOb").click(function() {
     		var val = $("input[name='activeOrOb']:checked").val();
@@ -24,8 +26,10 @@ $(function($) {
     		var val = $("input[name='allOrClub']:checked").val();
     		if(val == '1') {
     			$("#selectClubDiv").hide("normal");
+    		} else if (val == '3') {
+    			$("#selectClubDiv").hide("normal");
     		} else {
-    			$("#selectClubDiv").show("normal");
-    		}
+                $("#selectClubDiv").show("normal");
+            }
     	});
     });

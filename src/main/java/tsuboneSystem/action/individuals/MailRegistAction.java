@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import tsuboneSystem.dto.LoginIndividualsDto;
 import tsuboneSystem.entity.TMember;
 
-public class MailRegistAction extends tsuboneSystem.action.admin.MailRegistAction{
+public class MailRegistAction extends tsuboneSystem.action.admin.MailRegistAction {
 	
 	@Resource
 	LoginIndividualsDto loginIndividualsDto;

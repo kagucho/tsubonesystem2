@@ -130,9 +130,7 @@ public class OfficerUpdateAction {
   	//確認画面
       @Execute(validator = true, urlPattern = "confirmAdmin/{id}", validate="validateBase", input="indexAdminView", stopOnValidationError = false)
   	public String confirmAdmin() {
-      	
       		officerForm.tMemberNew = tMemberService.findById(officerForm.id); 	
-      		
           return "officerAdminConfirm.jsp";
   	}
       
@@ -190,7 +188,6 @@ public class OfficerUpdateAction {
         		}
         		tLeadersService.update(tLeadersOne);
         	}
-        	
             return "clubChiefComplete.jsp";
     	}
     

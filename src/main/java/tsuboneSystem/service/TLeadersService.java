@@ -36,7 +36,7 @@ public class TLeadersService extends AbstractService<TLeaders> {
      * @return エンティティのリスト
      */
     public List<TLeaders> findAllOrderById() {
-        return select().orderBy(asc(id())).getResultList();
+        return select().innerJoin(tMember()).orderBy(asc(id())).getResultList();
     }
     
     /**

@@ -11,39 +11,7 @@
     <link href="${f:url('/css/docs.min.css')}" type="text/css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="${f:url('/js/change.js')}"></script>
-    <script type="text/javascript">
-    $(function($) {
-    	var val = $("input[name='activeOrOb']:checked").val();
-		if(val == '2') {
-			$(".clubListCheck").hide("");
-		} else {
-			$(".clubListCheck").show();
-		}
-		var val = $("input[name='allOrClub']:checked").val();
-		if(val == '1') {
-			$("#selectClubDiv").hide();
-		} else {
-			$("#selectClubDiv").show();
-		}
-		
-    	$(".activeOrOb").click(function() {
-    		var val = $("input[name='activeOrOb']:checked").val();
-    		if(val == '2') {
-    			$(".clubListCheck").hide("normal");
-    		} else {
-    			$(".clubListCheck").show("normal");
-    		}
-    	});
-    	$(".allOrClub").click(function() {
-    		var val = $("input[name='allOrClub']:checked").val();
-    		if(val == '1') {
-    			$("#selectClubDiv").hide("normal");
-    		} else {
-    			$("#selectClubDiv").show("normal");
-    		}
-    	});
-    });
-    </script>
+    <script src="${f:url('/js/mailSendSelect.js')}"></script>
 </head>
 <body>
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
@@ -57,7 +25,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-4" for="mailSendAllFlag">現役 or OB</label>
 				<div class="col-sm-8 memberF activeOrOb">
-					<input type="radio" name="activeOrOb" value="1" <c:if test="${activeOrOb == 1}">checked</c:if> >&nbsp;現役生に送信する
+					<input type="radio" name="activeOrOb" value="1" <c:if test="${activeOrOb == 1}">checked</c:if> >&nbsp;現役生に送信する&nbsp;&nbsp;
 					<input type="radio" name="activeOrOb" value="2" <c:if test="${activeOrOb == 2}">checked</c:if> >&nbsp;OBに配信する
 					<html:errors property="activeOrOb"/>
 				</div>
@@ -65,7 +33,8 @@
 			<div class="form-group clubListCheck">
 				<label class="control-label col-sm-4" for="clubListCheck">全員 or 部ごと</label>
 				<div class="col-sm-8 memberF allOrClub">
-					<input type="radio" name="allOrClub" value="1" <c:if test="${allOrClub == 1}">checked</c:if> >&nbsp;全員に送信する
+					<input type="radio" name="allOrClub" value="1" <c:if test="${allOrClub == 1}">checked</c:if> >&nbsp;全員に送信する&nbsp;&nbsp;
+					<input type="radio" name="allOrClub" value="3" <c:if test="${allOrClub == 3}">checked</c:if> >&nbsp;役職に就いている人のみ&nbsp;&nbsp;
 					<input type="radio" name="allOrClub" value="2" <c:if test="${allOrClub == 2}">checked</c:if> >&nbsp;部で選択する
 					<html:errors property="allOrClub"/>
 					<div id = "selectClubDiv">
