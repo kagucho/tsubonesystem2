@@ -85,7 +85,7 @@ public class PartyRegistAction extends PartyOperateAbstractAction{
 	 */
 	protected List<TMember> getTMemberForDb(boolean containsOb) {
 		if (partyForm.attendClub != null) {
-			return tMemberService.findByClubIds(containsOb, partyForm.attendClub);
+			return tMemberService.findByClubIdsForParty(containsOb, partyForm.attendClub);
 		} else {
 			return tMemberService.findAllOrderById(containsOb);
 		}

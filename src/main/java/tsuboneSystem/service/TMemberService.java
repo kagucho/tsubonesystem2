@@ -247,7 +247,7 @@ public class TMemberService extends AbstractService<TMember> {
     	
     	//削除済みを入れないのは共通処理
     	where = where.eq(deleteFlag(), Boolean.valueOf(false));
-    	AutoSelect<TMember> autoSelect = select().where(where).orderBy(asc(id()));
+    	AutoSelect<TMember> autoSelect = select().where(where).orderBy(asc(id())).orderBy(asc(hname())).orderBy(desc(entrance()));
     	if (limit == -1 || offset == -1) {
     		return autoSelect.getResultList();
     	} else {
@@ -322,6 +322,23 @@ public class TMemberService extends AbstractService<TMember> {
     	HashSet<Integer> memberIdSet = new HashSet<Integer>();
     	for (String clubId : clubIdList) {
     		for (TMemberClub tMemberClub : tMemberClubService.findByClubId(clubId, containsOb)) {
+    			memberIdSet.add(tMemberClub.MemberId);
+			}
+		}
+		return select()
+				.where(new SimpleWhere().in(id(), memberIdSet).eq(deleteFlag(), Boolean.valueOf(false)))
+				.getResultList();
+    }
+    /**
+     * clubIDからそれに所属するMemberを重複なしで取得する
+     * @param containsOb
+     * @param clubIdList
+     * @return
+     */
+    public List<TMember> findByClubIdsForParty(boolean containsOb, String ...clubIdList) {
+    	HashSet<Integer> memberIdSet = new HashSet<Integer>();
+    	for (String clubId : clubIdList) {
+    		for (TMemberClub tMemberClub : tMemberClubService.findByClubIdForParty(clubId, containsOb)) {
     			memberIdSet.add(tMemberClub.MemberId);
 			}
 		}

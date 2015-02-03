@@ -94,12 +94,13 @@ public class TsuboneSystemUtil {
 	public static boolean isFileKindCheck(FormFile formFile, String[] kinds){
 		 // アップロードされたファイルのCheck
         if (formFile.getFileSize() > 0) {
-        	String fileContentType = new String();
-        	fileContentType = formFile.getContentType();
+        	String fileName = new String(formFile.getFileName());
+        	int point = fileName.lastIndexOf(".");
+        	String fileContentType = new String(fileName.substring(point + 1));
+        	fileContentType = fileName.substring(point + 1);
         	if (fileContentType != null) {
         		//設定された拡張子と等しいか判定する
-        		String[] splitStr = fileContentType.split("/");
-        		if (!Arrays.asList(kinds).contains(splitStr[1])) {
+        		if (!Arrays.asList(kinds).contains(fileContentType)) {
         			return true;
         		} else {
         			return false;

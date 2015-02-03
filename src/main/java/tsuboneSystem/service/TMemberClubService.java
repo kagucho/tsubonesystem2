@@ -61,12 +61,33 @@ public class TMemberClubService extends AbstractService<TMemberClub> {
         		.innerJoin(tMember(), getWhereMember(containsOb))
         		.getResultList();
     }
+    /**
+     * ClubIdですべてのエンティティを検索します。
+     * @param containsOb OBを含めるならTRUE
+     * @return エンティティのリスト
+     */
+    public List<TMemberClub> findByClubIdForParty(String clubId, boolean containsOb) {
+    	SimpleWhere where = new SimpleWhere();
+    	where.eq(ClubId(),clubId);
+        return select()
+        		.where(where)
+        		.innerJoin(tMember(), getWhereMemberForParty(containsOb))
+        		.getResultList();
+    }
 
 	private SimpleWhere getWhereMember(boolean containsOb) {
 		SimpleWhere where = new SimpleWhere().eq(tMember().deleteFlag(), Boolean.valueOf(false));
 		//OBを含めないなら検索条件に含める
 		if (!containsOb) {
-			where.eq(tMember().sendStopFlag(), Boolean.valueOf(false));
+			where.eq(tMember().sendStopFlag(), Boolean.valueOf(false));// メール用
+		}
+		return where; 
+	}
+	private SimpleWhere getWhereMemberForParty(boolean containsOb) {
+		SimpleWhere where = new SimpleWhere().eq(tMember().deleteFlag(), Boolean.valueOf(false));
+		//OBを含めないなら検索条件に含める
+		if (!containsOb) {
+			where.eq(tMember().obFlag(), Boolean.valueOf(false));// 会議用
 		}
 		return where; 
 	}

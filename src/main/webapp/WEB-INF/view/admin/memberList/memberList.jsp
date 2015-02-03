@@ -43,7 +43,7 @@
 						${f:h(e.name) }
 					</td>
 					<td>
-						<a href="<c:url value="/admin/memberDetail/detail"/>/${e.id}">${f:h(e.hname) }</a>
+						<a href="<c:url value="/admin/memberDetail/detail"/>/${e.id}">${f:h(e.hname) }</a><c:if test="${e.obFlag}"><font color="blue">(OB)</font></c:if>
 					</td>
 					<td>
 						${f:h(e.entrance) }

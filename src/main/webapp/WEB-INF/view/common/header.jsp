@@ -31,9 +31,9 @@
 						<ul class="nav navbar-nav">
 							<li><a href="<c:url value="/${loginMemberDto.actorKind}/officerList"/>">Officer</a></li>
 						</ul>
-						<%-- <ul class="nav navbar-nav">
+						<ul class="nav navbar-nav">
 							<li><a href="<c:url value="/${loginMemberDto.actorKind}/enqueteList"/>">Enquete</a></li>
-						</ul> --%>
+						</ul>
 						<ul class="nav navbar-nav">
 							<li><a href="<c:url value="/${loginMemberDto.actorKind}/bbsList"/>">BBS</a></li>
 						</ul>

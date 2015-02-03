@@ -11,7 +11,6 @@
     </script>
   </head>
 <body>
-
 <%@ include file="/WEB-INF/view/common/header.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container">

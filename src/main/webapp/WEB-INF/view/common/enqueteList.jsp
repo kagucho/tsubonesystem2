@@ -1,8 +1,6 @@
 <div class="container">
 	<div class="col-sm-12">
-		<c:if test="${loginMemberDto.actorKind == '1'}">
 			<a class="btn btn-primary" href="<c:url value="/admin/enqueteRegist/index"/>">新規登録</a>
-		</c:if>
 		<p>アンケート一覧</p>
 		<div class="table-responsive">
 			<table class="table">
