@@ -14,28 +14,28 @@
 					</div>
 					<div class="collapse navbar-collapse navbar-top">
 						<ul class="nav navbar-nav">
-							<li><a href="<c:url value="/${loginMemberDto.actorKind}/memberList"/>">Member</a></li>
+							<li><a href="<c:url value="/${loginMemberDto.actorKind}/mailRegist"/>">Mail</a></li>
 						</ul>
 						<ul class="nav navbar-nav">
 							<li><a href="<c:url value="/${loginMemberDto.actorKind}/partyList"/>">Party</a></li>
 						</ul>
 						<ul class="nav navbar-nav">
-							<li><a href="<c:url value="/${loginMemberDto.actorKind}/clubList"/>">Club</a></li>
-						</ul>
-						<ul class="nav navbar-nav">
-							<li><a href="<c:url value="/${loginMemberDto.actorKind}/mailRegist"/>">Mail</a></li>
+							<li><a href="<c:url value="/${loginMemberDto.actorKind}/enqueteList"/>">Enquete</a></li>
 						</ul>
 						<ul class="nav navbar-nav">
 							<li><a href="<c:url value="/${loginMemberDto.actorKind}/submitList"/>">Submit</a></li>
 						</ul>
 						<ul class="nav navbar-nav">
-							<li><a href="<c:url value="/${loginMemberDto.actorKind}/officerList"/>">Officer</a></li>
-						</ul>
-						<ul class="nav navbar-nav">
-							<li><a href="<c:url value="/${loginMemberDto.actorKind}/enqueteList"/>">Enquete</a></li>
-						</ul>
-						<ul class="nav navbar-nav">
 							<li><a href="<c:url value="/${loginMemberDto.actorKind}/bbsList"/>">BBS</a></li>
+						</ul>
+						<ul class="nav navbar-nav">
+							<li><a href="<c:url value="/${loginMemberDto.actorKind}/memberList"/>">Member</a></li>
+						</ul>
+						<ul class="nav navbar-nav">
+							<li><a href="<c:url value="/${loginMemberDto.actorKind}/clubList"/>">Club</a></li>
+						</ul>
+						<ul class="nav navbar-nav">
+							<li><a href="<c:url value="/${loginMemberDto.actorKind}/officerList"/>">Officer</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="<c:url value="/${loginMemberDto.actorKind}/logout"/>">Logout</a></li>

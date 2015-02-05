@@ -26,17 +26,28 @@ public class EnqueteForm implements Serializable {
 	/** メモ　*/
 	@Required
 	public String memo;
-	
-	
 
 	/** 選択肢　*/
 	@Required
 	public String [] selectedContents;
-
+	
 	/** ユーザー名 */
 	public String userName;
-
+	
+	/** 回答対象人数総数 */
+	public String respondMemberCount;
+	
+	/** 回答総数 */
+	public String totalCountNum;
+	
+	/** 回答対象人数総数に対する回答した割合 */
+	public String resAllRate;
+	
+	/** 選択肢一覧 */
 	public List<TEnqueteSelect> tEnqueteSelectList;
+	
+	/** 選択肢一覧(回答状況用) */
+	public List<TEnqueteSelect> tEnqueteSelectDetailList;
 
 	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
 	public void resetInput() {

@@ -114,6 +114,16 @@
 		       <a href="<c:url value="/${loginMemberDto.actorKind}/partyList/"/>"></a>
 		    </div>
 		    <div class="service-item text-center linkArea">
+		       <h3>Submit List</h3>
+		       <p>作品の提出や閲覧することができます。</p>
+		       <a href="<c:url value="/${loginMemberDto.actorKind}/submitList/"/>"></a>
+		    </div>
+		    <div class="service-item text-center linkArea">
+		       <h3>Enquete List</h3>
+		       <p>アンケートと作ったり、回答することができます。</p>
+		       <a href="<c:url value="/${loginMemberDto.actorKind}/enqueteList/"/>"></a>
+		    </div>
+		    <div class="service-item text-center linkArea">
 		        <h3>Kagutyo BBS</h3>
 		        <p>かぐちょの掲示板はこちら。</p>
 		        <a href="<c:url value="/${loginMemberDto.actorKind}/bbsList/"/>"></a>

@@ -24,6 +24,16 @@
 	         <button  type="button" class="btn btn-default btn-lg btn-block">EventRegist</button>
 	        </a>
 	      </div>
+	      <div class="service-item text-center linkArea">
+		       <h3>Submit List</h3>
+		       <p>作品の提出や閲覧することができます。</p>
+		       <a href="<c:url value="/${loginMemberDto.actorKind}/submitList/"/>"></a>
+		    </div>
+		    <div class="service-item text-center linkArea">
+		       <h3>Enquete List</h3>
+		       <p>アンケートと作ったり、回答することができます。</p>
+		       <a href="<c:url value="/${loginMemberDto.actorKind}/enqueteList/"/>"></a>
+		    </div>
 	      <div class="col-md-6">
 	      	<h2>メールを送りたい</h2>
 	      	<a href="<c:url value="/${loginMemberDto.actorKind}/mailRegist/"/>">

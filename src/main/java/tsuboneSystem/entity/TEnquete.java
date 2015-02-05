@@ -57,10 +57,6 @@ public class TEnquete implements Serializable {
 	@OneToMany(mappedBy = "tEnquete")
 	public List<TEnqueteSelect> tEnqueteSelect;
 
-	/** アンケートに答えた人の総数 */
-	@Transient
-	public String totalCountNum;
-
 	/** 質問に答えたか格納する変数 */
 	@Transient
 	public boolean answered;

@@ -51,5 +51,21 @@ public class TEnqueteSelect implements Serializable {
 	/** 集計の時に、いくつ選択されたか格納する変数 */
 	@Transient
 	public String resultNum;
+	
+	/** 回答数に対する回答割合 */
+	@Transient
+	public String resultRate;
+	
+	/** 回答者対象総数に対する回答割合 */
+	@Transient
+	public String allRate;
+	
+	/** 詳細画面 円グラフの配色 */
+	@Transient
+	public int r;
+	@Transient
+	public int g;
+	@Transient
+	public int b;
 
 }

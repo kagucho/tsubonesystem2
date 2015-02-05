@@ -6,12 +6,8 @@
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container CENTER">
     <h3>登録が完了しました。</h3>
-<div class="col-sm-12">
-	<div class="col-sm-4 col-sm-offset-4" id="compBtn">
-		<a class="btnMRC" href="<c:url value="/admin/enqueteList"/>"><button type="button" class="btn btn-default btn-lg btn-block">Back.EnqueteList </button></a>
-        <a class="btnMRC" href="<c:url value="/admin/enqueteDetail"/>"><button type="button" class="btn btn-default btn-lg btn-block">Back.EnqueteDetail </button></a>
-    </div>
-</div>
+		<a class="btnMRC" href="<c:url value="/admin/enqueteList"/>"><button type="button" class="col-md-4 col-md-offset-1 col-sm-5 col-xs-12 btn btn-default btn-lg btnYOKO30 btnMRC">Back.EnqueteList </button></a>
+		<a class="btnMRC" href="<c:url value="/admin/enqueteDetail"/>"><button type="button" class="col-md-4 col-md-offset-1 col-sm-5  col-xs-12 btn btn-default btn-lg">Show.EnqueteDetail </button></a>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="${f:url('/js/bootstrap.min.js')}"></script>

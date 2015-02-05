@@ -511,3 +511,7 @@
 .datepicker.datepicker-inline td {
   padding: 4px 5px;
 }
+canvas {
+  height: auto !important;
+  width: 100% !important;
+}

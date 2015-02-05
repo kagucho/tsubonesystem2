@@ -345,6 +345,21 @@ public class TMemberService extends AbstractService<TMember> {
 		return select()
 				.where(new SimpleWhere().in(id(), memberIdSet).eq(deleteFlag(), Boolean.valueOf(false)))
 				.getResultList();
-    	
-    }
+	}
+    
+    /**
+     * 登録メンバーの数
+     * @param containsOb
+     * @return String
+     */
+	public String countMember (boolean containsOb) {
+		SimpleWhere where = new SimpleWhere();
+		where.eq(deleteFlag(), false);
+		//OBを含めないなら検索条件に含める
+		if (!containsOb) {
+			where.eq(obFlag(), Boolean.valueOf(false));// 会議用
+		}
+		long count = jdbcManager.from(TMember.class).where(where).getCount();
+		return Long.toString(count);
+	}
 }
