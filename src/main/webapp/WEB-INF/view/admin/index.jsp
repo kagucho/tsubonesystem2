@@ -47,7 +47,7 @@
 		        <c:forEach var="e" items="${tPartyNoAttendList}">
 			        <div class="col-md-6 text-center">
 			            <div class="">
-			              <a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/"/>${e.id}"><h3>${f:h(e.meetingName)}</h3></a>
+			              <a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/detail/"/>${e.id}"><h3>${f:h(e.meetingName)}</h3></a>
 			              <div class=" col-md-6">
 			                <a href="<c:url value="/${loginMemberDto.actorKind}/attend/yesFromList/${e.id}"/>">
 			                  <button type="button" class="btn btn-success btn-lg btn-block marginUP">出席する</button>
@@ -66,7 +66,7 @@
 		        <c:forEach var="e" items="${tPartyNoAttendList}">
 			        <div class="col-md-12 text-center">
 			            <div class="">
-			              <a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/"/>${e.id}"><h3>${f:h(e.meetingName)}</h3></a>
+			              <a href="<c:url value="/${loginMemberDto.actorKind}/partyDetail/detail/"/>${e.id}"><h3>${f:h(e.meetingName)}</h3></a>
 			              <div class=" col-md-6">
 			                <a href="<c:url value="/${loginMemberDto.actorKind}/attend/yesFromList/${e.id}"/>">
 			                  <button type="button" class="btn btn-success btn-lg btn-block marginUP">出席する</button>

@@ -222,16 +222,16 @@ public class TPartyService extends AbstractService<TParty> {
     	where.eq(deleteFlag(), Boolean.valueOf(false));
     	where.and(where
     			//(開催日 < 今) かつ (締め切り < 今)締め切りは過ぎているがまだ開催しない
-    			.lt(meetingDeadlineDay(), dateNow)
-    			.lt(meetingDay(), dateNow)
+    			.le(meetingDeadlineDay(), dateNow)
+    			.le(meetingDay(), dateNow)
     			.or()
     			//(開催日 < 今) かつ (締め切り = なし)
     			.isNull(meetingDeadlineDay(), Boolean.valueOf(true))
-    			.lt(meetingDay(), dateNow)
+    			.le(meetingDay(), dateNow)
     			.or()
     			//(開催日 = なし) かつ (締め切り < 今)
     			.isNull(meetingDay(),Boolean.valueOf(true))
-    			.lt(meetingDeadlineDay(), dateNow));
+    			.le(meetingDeadlineDay(), dateNow));
     	
     	return select()
         		.innerJoin(tMember())
