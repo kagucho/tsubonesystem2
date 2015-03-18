@@ -83,6 +83,8 @@ public class SubmitRegistAction {
 		// 作品種大別
 		submitForm.submitProductFileCodeMap = SubmitProductFileTypeCode.getSubmitProductFileCodeMap();
 		
+		submitForm.submitProductFileType = SubmitProductFileTypeCode.PROGRAMS.getCode();
+		
 		return viewinput();
 	}
 	

@@ -32,7 +32,7 @@
 								<c:if test="${e.submitProductFileType == 2 || e.submitProductFileType == 1}">
 									<tr>
 										<c:if test="${e.tImageUpload != null}">
-											<td align="center" rowspan="3"><img src="${f:url('/images/top/announce')}/${e.tImageUpload.fileName}" width="240" height="180" style="display:block;width:40%;height:auto;"/></td>
+											<td align="center" rowspan="3"><img src="${f:url('/api/displyImage')}${e.tImageUpload.id}" width="240" height="180" style="display:block;width:40%;height:auto;"/></td>
 										</c:if>
 										<th class="CENTER"><h3>${f:h(e.submitName) }</h3></th>
 									</tr>

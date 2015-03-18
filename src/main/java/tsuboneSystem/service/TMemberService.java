@@ -222,6 +222,8 @@ public class TMemberService extends AbstractService<TMember> {
     	boolean containsOB = (memberListForm.obFlag != null);
     	//検索条件：仮登録メンバーフラグ
     	boolean tempMemberFlag = (memberListForm.tempMemberFlag != null);
+    	//検索条件：仮登録メンバーフラグ
+    	boolean sendErrorFlag = (memberListForm.sendErrorFlag != null);
     	
     	SimpleWhere where = new SimpleWhere();
     	//引数が空じゃなかったら検索条件に含める
@@ -243,6 +245,11 @@ public class TMemberService extends AbstractService<TMember> {
     	//仮登録メンバー
     	if (tempMemberFlag) {
     		where = where.eq(tempMemberFlag(), Boolean.valueOf(true));
+    	}
+    	
+    	//メール不達メンバー
+    	if (sendErrorFlag) {
+    		where = where.eq(sendErrorFlag(), Boolean.valueOf(true));
     	}
     	
     	//削除済みを入れないのは共通処理

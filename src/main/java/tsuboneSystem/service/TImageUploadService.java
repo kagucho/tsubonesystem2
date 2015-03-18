@@ -44,6 +44,7 @@ public class TImageUploadService extends AbstractService<TImageUpload> {
      */
     public List<TImageUpload> findByImageFilePurposeCode(String imageFilePurposeCode) {
     	SimpleWhere where = new SimpleWhere();
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
     	where.eq(ImageFilePurpose(), imageFilePurposeCode);
         return select().where(where).orderBy(asc(id())).getResultList();
     }

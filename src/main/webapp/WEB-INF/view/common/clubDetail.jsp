@@ -22,21 +22,27 @@
 		<th class="col-md-2 col-sm-2"><h4>部の概要</h4></th>
 		<td class="col-md-10 col-sm-10">${f:h(ClubMemo)}</td>
 	</tr>
+	<tr>
+		<th class="col-md-2 col-sm-2"><h4>部の公式ホームページ</h4></th>
+		<td><h5><a href="${clubUrl}">${f:h(clubUrl)}</a></h5></td>
+	</tr>
 </table>
 <div class="col-md-12 col-sm-12 col-sx-12">
-<h3 class="col-md-5 col-sm-12 col-sx-12">${f:h(ClubName)}に所属しているメンバー</h3>
-<s:form method="POST" >
-		<input type="submit" value="Mail" id="contentRegist" name="contentRegist" property="contentRegist" class="col-md-4 col-sm-5 col-md-offset-2 col-sm-offset-4 col-xs-12  btn btn-success btnYOKO btnMRC">
-</s:form>
-<table class="table table-striped">
-	<tr>
-		<th><h4>ハンドルネーム</h4></th><th><h4>本名</h4></th>
-	</tr>
-	<c:forEach var="e" items="${tMemberList}">
+	<h3 class="col-md-5 col-sm-12 col-sx-12">${f:h(ClubName)}に所属しているメンバー</h3>
+	<c:if test="${loginMemberDto.actorKindCode != '3'}">
+		<s:form method="POST" >
+				<input type="submit" value="Mail" id="contentRegist" name="contentRegist" class="col-md-4 col-sm-5 col-md-offset-2 col-sm-offset-4 col-xs-12  btn btn-success btnYOKO btnMRC">
+		</s:form>
+	</c:if>
+	<table class="table table-striped">
 		<tr>
-			<td>${f:h(e.hname)}</td><td>${f:h(e.name)}</td>
+			<th><h4>ハンドルネーム</h4></th><th><h4>本名</h4></th>
 		</tr>
-	</c:forEach>
-</table>
+		<c:forEach var="e" items="${tMemberList}">
+			<tr>
+				<td>${f:h(e.hname)}</td><td>${f:h(e.name)}</td>
+			</tr>
+		</c:forEach>
+	</table>
 </div>
 </div>

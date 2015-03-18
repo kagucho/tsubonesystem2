@@ -11,7 +11,7 @@ import tsuboneSystem.names.TPartyClubNames._TPartyClubNames;
  * {@link TClub}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2014/12/30 4:04:27")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/03/19 0:46:14")
 public class TClubNames {
 
     /**
@@ -48,6 +48,15 @@ public class TClubNames {
      */
     public static PropertyName<String> ClubMemo() {
         return new PropertyName<String>("ClubMemo");
+    }
+
+    /**
+     * clubUrlのプロパティ名を返します。
+     * 
+     * @return clubUrlのプロパティ名
+     */
+    public static PropertyName<String> clubUrl() {
+        return new PropertyName<String>("clubUrl");
     }
 
     /**
@@ -153,6 +162,15 @@ public class TClubNames {
          */
         public PropertyName<String> ClubMemo() {
             return new PropertyName<String>(this, "ClubMemo");
+        }
+
+        /**
+         * clubUrlのプロパティ名を返します。
+         *
+         * @return clubUrlのプロパティ名
+         */
+        public PropertyName<String> clubUrl() {
+            return new PropertyName<String>(this, "clubUrl");
         }
 
         /**

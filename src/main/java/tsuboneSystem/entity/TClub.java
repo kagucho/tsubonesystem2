@@ -41,6 +41,10 @@ public class TClub implements Serializable {
     @Column(nullable = false, unique = false)
     public String  ClubMemo;
     
+    /** 部 個別のホームページ */
+    @Column()
+    public String  clubUrl;
+    
     /** 削除フラグ */
     @Column(columnDefinition ="boolean default '0'")
     public Boolean  deleteFlag;

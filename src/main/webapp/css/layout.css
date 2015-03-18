@@ -128,3 +128,12 @@ canvas {
   height: auto !important;
   width: 100% !important;
 }
+.linkArea a{
+z-index: 999;
+display: block;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}

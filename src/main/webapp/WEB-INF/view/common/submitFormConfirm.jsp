@@ -1,8 +1,10 @@
 <table class="table">
-	<tr>
-		<th class="col-md-3 col-xs-4"><h4>作品の提出者</h4></th>
-		<td><h5>${f:h(submitMemberMap[registId])}</h5></td>
-	</tr>
+	<c:if test="${loginMemberDto.actorKindCode != 3}">
+		<tr>
+			<th class="col-md-3 col-xs-4"><h4>作品の提出者</h4></th>
+			<td><h5>${f:h(submitMemberMap[registId])}</h5></td>
+		</tr>
+	</c:if>
 	<tr>
 		<th class="col-md-3 col-xs-4"><h4>作品の分類タグ</h4></th>
 		<td><h5>${f:h(submitTagNameMap[submitTagKindId])}</h5></td>

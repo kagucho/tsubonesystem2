@@ -15,7 +15,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -23,10 +22,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.upload.FormFile;
 import org.seasar.framework.container.SingletonS2Container;
 import org.seasar.struts.util.ResponseUtil;
-import org.seasar.struts.util.ServletContextUtil;
 import org.seasar.struts.util.UploadUtil;
 
 import tsuboneSystem.code.ActorKindCode;
+import tsuboneSystem.code.FilePathCode;
 import tsuboneSystem.code.ImageFilePurposeCode;
 import tsuboneSystem.entity.TAdmin;
 import tsuboneSystem.entity.TImageUpload;
@@ -194,14 +193,12 @@ public class TsuboneSystemUtil {
 	 * */
 	public static Integer createImageFile(FormFile file, String imageFilePurposeCode) {
 		Integer rtnInt = null;
-		//ServletContext オブジェクトの作成
-    	ServletContext app = ServletContextUtil.getServletContext();
     	
     	//ランダム文字を生成
     	String rm = RandomStringUtils.randomAlphabetic(10);
     	
     	//ファイルの格納先フォルダの絶対パスを取得(DBにこのパスを保存しておく)
-    	String path = app.getRealPath("/images/top/announce/" + rm + file.getFileName());
+    	String path = FilePathCode.HONBAN_IMAGE.getName() + rm + file.getFileName();
     	
     	//ファイル書き込み（ファイルパスが空の場合は何もしません）
         UploadUtil.write(path, file);
@@ -232,15 +229,12 @@ public class TsuboneSystemUtil {
 	public static void createSubmitFile(SubmitForm submitForm) {
 		// キャプション画像の登録
 		submitForm.submitCaptionImageId = createImageFile(submitForm.submitCaptionImageFile, ImageFilePurposeCode.SUBMIT_CAPTION.getCode());
-		
-		//ServletContext オブジェクトの作成
-    	ServletContext app = ServletContextUtil.getServletContext();
     	
     	//ランダム文字を生成
     	String rm = RandomStringUtils.randomAlphabetic(10);
     	
     	//ファイルの格納先フォルダの絶対パスを取得(DBにこのパスを保存しておく)
-    	String path = app.getRealPath("/submit/" + rm + submitForm.submitFile.getFileName());
+    	String path = FilePathCode.HONBAN_SUBMIT.getName() + rm + submitForm.submitFile.getFileName();
     	
     	//ファイル書き込み（ファイルパスが空の場合は何もしません）
         UploadUtil.write(path, submitForm.submitFile);
@@ -250,13 +244,21 @@ public class TsuboneSystemUtil {
     	submitForm.submitProductFilePath= path;
 	}
 	
+	/**
+	 * 作品の削除処理
+	 * 
+	 * @param SubmitForm
+	 * @param deleteFlag
+	 * @return 
+	 * @author Hiroaki
+	 * 
+	 * */
 	public static void deleteSubmitFile(SubmitForm submitForm, boolean deleteFlag) {
 		// キャプション画像の削除
 		TImageUploadService tImageUploadService = SingletonS2Container.getComponent(TImageUploadService.class);
 		if (!deleteFile(tImageUploadService.findById(submitForm.submitCaptionImageId))) {
 			submitForm.submitCaptionImageId = null;
 		}
-		
 		
 		// 提出物の削除
 		TSubmitService tSubmitService = SingletonS2Container.getComponent(TSubmitService.class);
@@ -290,71 +292,81 @@ public class TsuboneSystemUtil {
 		TSubmitService tSubmitService = SingletonS2Container.getComponent(TSubmitService.class);
     	TSubmit tSubmit = tSubmitService.findById(submitId);
     	
-    	if (tSubmit == null) {
-    		// TODO download対象の作品の情報が取得できなかったときの処理T
+    	// 出力
+    	if (tSubmit != null) {
+    		downloadCommon(tSubmit.submitProductFilePath, tSubmit.submitName);
     	}
     	
-    	// ダウンロード対象ファイルの読み込み用オブジェクト
-    	FileInputStream fis = null; 
-    	InputStreamReader isr = null; 
-    	HttpServletResponse res = ResponseUtil.getResponse();
-
-    	// ダウンロードファイルの書き出し用オブジェクト
-    	OutputStream os = null; 
-    	OutputStreamWriter osw = null; 
-
-    	try { 
-    	    // ダウンロード対象ファイルのFileオブジェクトを生成
-    	    File file = new File(tSubmit.submitProductFilePath); 
-
-    	    if (!file.exists() || !file.isFile()) { 
-    	        // ファイルが存在しない場合のエラー処理
-    	    } 
-
-    	    // レスポンスオブジェクトのヘッダー情報を設定
-    	    res.setContentType("application/octet-stream"); 
-    	    res.setHeader("Content-Disposition", "attachment;filename=" + new String(tSubmit.submitProductFileName.getBytes("Windows-31J"), "ISO-8859-1")); 
-
-    	    // ダウンロード対象ファイルの読み込み用オブジェクトを生成
-    	    fis = new FileInputStream(file); 
-    	    isr = new InputStreamReader(fis, "ISO-8859-1"); 
-
-    	    // ダウンロードファイルの書き出し用オブジェクトを生成
-    	    os = res.getOutputStream(); 
-    	    osw = new OutputStreamWriter(os, "ISO-8859-1"); 
-
-    	    // IOストリームを用いてファイルダウンロードを行う
-    	    int i; 
-    	    while ((i = isr.read()) != -1) { 
-    	        osw.write(i); 
-    	    } 
-    	} catch (FileNotFoundException e) { 
-    	    // 例外発生時処理
-    	} catch (UnsupportedEncodingException e) { 
-    	    // 例外発生時処理
-    	} catch (IOException e) { 
-    	    // 例外発生時処理
-    	} finally { 
-
-    	    try { 
-    	        // 各オブジェクトを忘れずにクローズ
-    	        if (osw != null) { 
-    	            osw.close(); 
-    	        } 
-    	        if (os != null) { 
-    	            os.close(); 
-    	        } 
-    	        if (isr != null) { 
-    	            isr.close(); 
-    	        } 
-    	        if (fis != null) { 
-    	            fis.close(); 
-    	        } 
-    	    } catch (IOException e) { 
-    	        // 例外発生時処理
-    	    } 
-
-    	}
 		return null;
+	}
+	
+	/**
+	 * Download出力処理
+	 * 
+	 * @param filePath
+	 * @param fileName
+	 * @return null
+	 * @author Hiroaki
+	 * 
+	 * */
+	public static void downloadCommon(String filePath, String fileName) {
+		// ダウンロード対象ファイルの読み込み用オブジェクト
+		FileInputStream fis = null; 
+		InputStreamReader isr = null; 
+		HttpServletResponse res = ResponseUtil.getResponse();
+
+		// ダウンロードファイルの書き出し用オブジェクト
+		OutputStream os = null; 
+		OutputStreamWriter osw = null;
+
+		try { 
+			// ダウンロード対象ファイルのFileオブジェクトを生成
+			File file = new File(filePath); 
+
+			if (!file.exists() || !file.isFile()) { 
+				// ファイルが存在しない場合のエラー処理
+			}
+			// レスポンスオブジェクトのヘッダー情報を設定
+			res.setContentType("application/octet-stream"); 
+			res.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("Windows-31J"), "ISO-8859-1")); 
+
+			// ダウンロード対象ファイルの読み込み用オブジェクトを生成
+			fis = new FileInputStream(file); 
+			isr = new InputStreamReader(fis, "ISO-8859-1"); 
+
+			// ダウンロードファイルの書き出し用オブジェクトを生成
+			os = res.getOutputStream(); 
+			osw = new OutputStreamWriter(os, "ISO-8859-1"); 
+	
+			// IOストリームを用いてファイルダウンロードを行う
+			int i; 
+			while ((i = isr.read()) != -1) { 
+				osw.write(i); 
+			}
+		} catch (FileNotFoundException e) { 
+			// 例外発生時処理
+		} catch (UnsupportedEncodingException e) { 
+			// 例外発生時処理
+		} catch (IOException e) { 
+			// 例外発生時処理
+		} finally { 
+			try { 
+				// 各オブジェクトクローズ
+				if (osw != null) { 
+					osw.close(); 
+				} 
+				if (os != null) { 
+					os.close(); 
+				} 
+				if (isr != null) { 
+					isr.close(); 
+				} 
+				if (fis != null) { 
+					fis.close(); 
+				} 
+			} catch (IOException e) { 
+				// 例外発生時処理
+			}
+		}
 	}
 }

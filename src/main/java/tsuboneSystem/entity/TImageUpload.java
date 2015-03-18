@@ -34,6 +34,10 @@ public class TImageUpload implements Serializable {
     @Column()
     public String filePath;
     
+    /* 削除フラグ */
+    @Column(columnDefinition ="boolean default '0'")
+    public boolean deleteFlag;
+    
     // 画像の使用目的
     @Column()
     public Integer ImageFilePurpose;

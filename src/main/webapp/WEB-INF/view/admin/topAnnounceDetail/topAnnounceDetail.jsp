@@ -14,7 +14,7 @@
 					<h3>添付画像</h3>
 				</div>
 				<div class="col-md-8">
-					<img src="${f:url('/images/top/announce')}/${tImageUpload.fileName}" width="240" height="180" style="display:block;width:60%;height:auto;"/>
+					<img src="${f:url('/api/displyImage')}${tImageUpload.id}" width="240" height="180" style="display:block;width:60%;height:auto;"/>
 				</div>
 			</c:if>
 		</div>

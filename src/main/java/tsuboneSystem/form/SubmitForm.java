@@ -93,6 +93,9 @@ public class SubmitForm implements Serializable{
     /** 新規作成処理か判定 */
     public boolean registFlag = false;
     
+    /** 編集権限 */
+    public boolean isEdit = false;
+    
 	//リッセットメソッド(※命名注意！！"reset"にすると、このformに関わるすべてのメソッドで呼び出される。)
 	public void resetInput() {
 		id = null;
@@ -122,9 +125,9 @@ public class SubmitForm implements Serializable{
     	int programsSize = 52428800;// プログラムのアップロード容量は50MBとする
     	int imageSize = 10485760;// 画像が提出物の時のアップロード容量は10MBとする
     	int captionImageSize = 5242880;// caption画像のアップロード容量は2MBとする
-    	String [] programType = {FileKindCode.EXE.getName(), FileKindCode.ZIP.getName()};// プログラム系の拡張子
-    	String [] imageType = {FileKindCode.JPEG.getName(), FileKindCode.JPG.getName(), FileKindCode.PNG.getName(), FileKindCode.ZIP_BIG.getName()};// 画像系の拡張子
-    	
+    	String [] programType = {FileKindCode.EXE.getName(), FileKindCode.ZIP.getName(),FileKindCode.JPEG.getName(), FileKindCode.JPG.getName(), FileKindCode.PNG.getName()};// プログラム系の拡張子
+    	String [] imageType = {FileKindCode.JPEG.getName(), FileKindCode.JPG.getName(), FileKindCode.PNG.getName()};// 画像系の拡張子
+    	submitProductFileType = SubmitProductFileTypeCode.PROGRAMS.getCode();
     	// 提出物 ファイル種別確認
     	// プログラム系
     	if (StringUtil.isNotEmpty(submitProductFileType)) {
@@ -153,8 +156,8 @@ public class SubmitForm implements Serializable{
         				errors.add("submitCaptionImageFile",new ActionMessage("ファイルサイズが大きすぎます。最大10MBです",false));
         			}
         		} else {
-        			errors.add("submitFile",new ActionMessage("プログラム系で選択した場合はどちらも必須です",false));
-        			errors.add("submitCaptionImageFile",new ActionMessage("プログラム系で選択した場合はどちらも必須です",false));
+        			errors.add("submitFile",new ActionMessage("どちらも必須です",false));
+        			errors.add("submitCaptionImageFile",new ActionMessage("どちらも必須です",false));
         		}
         	} else if (submitProductFileType.equals(SubmitProductFileTypeCode.IMAGE.getCode())) {
         		// 画像系

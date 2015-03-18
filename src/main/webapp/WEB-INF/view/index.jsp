@@ -102,7 +102,9 @@
 										<tbody>
 											<tr>
 												<c:if test="${e.tImageUpload != null}">
-													<td align="center" rowspan="2"><img src="${f:url('/images/top/announce')}/${e.tImageUpload.fileName}" alt="${f:h(e.announceTitle) }" width="240" height="180" style="display:block;width:60%;height:auto;"/></td>
+													<td align="center" rowspan="2">
+                            <img src="${f:url('/api/displyImage')}${e.tImageUpload.id}" alt="${f:h(e.announceTitle) }" width="240" height="180" style="display:block;width:60%;height:auto;"/>
+                          </td>
 												</c:if>
 												<th class="CENTER"><h3>${f:h(e.announceTitle) }</h3></th>
 											</tr>
@@ -150,7 +152,12 @@
 	        <c:forEach var="e" items="${clubList}">
 		        <div class="col-md-12 text-center">
 		            <div class="service-item">
-		              <h3>${f:h(e.ClubName) }</h3>
+		              <c:if test="${e.clubUrl != null}">
+		            	  <a href="${e.clubUrl}"><h3>${f:h(e.ClubName) }</h3></a>
+		              </c:if>
+		              <c:if test="${e.clubUrl == null}">
+		            	  <h3>${f:h(e.ClubName) }</h3>
+		              </c:if>
 		              <p>${f:h(e.ClubMemo) }</p>
 		            </div>
 	          	</div>
@@ -242,7 +249,7 @@ $.vegas('slideshow', {
   delay:5000,
   backgrounds:[
 	 <c:forEach var="e" items="${imageList}">
-	   { src:'./images/top/slideshowimage/${e.fileName}', fade:5000 },
+	   { src:'${f:url('/api/displyImage')}${e.id}', fade:5000 },
 	 </c:forEach>
 	 { src:'./images/top/2.png', fade:5000 }  
   ]

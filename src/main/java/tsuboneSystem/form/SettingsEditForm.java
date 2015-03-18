@@ -9,6 +9,7 @@ import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.container.annotation.tiger.InstanceType;
 import org.seasar.struts.annotation.Required;
 
+import tsuboneSystem.entity.TImageUpload;
 import tsuboneSystem.entity.TTempLogin;
 
 @Component(instance = InstanceType.SESSION)
@@ -25,6 +26,12 @@ public class SettingsEditForm implements Serializable {
 	
 	/** 規約PDF */
 	public FormFile rulePdf;
+	
+	/** 背景画像一覧 */
+	public List<TImageUpload> tImageUploadList = new ArrayList<TImageUpload>();
+	
+	/** 画像ID */
+	public Integer imageId;
 	
 	public List<TTempLogin> tTempLoginNow = new ArrayList<TTempLogin>();
 	

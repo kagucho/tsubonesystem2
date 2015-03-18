@@ -1,26 +1,18 @@
 <form class="form-horizontal">
 	<input type="hidden" class="submitProductFileTypeHidden" name="submitProductFileType" value="">
-	<div class="form-group">
-		<label class="control-label col-sm-4" for="registMember">作品の提出者&nbsp;<span class="hissu">＊</span></label>
-		<div class="col-sm-8 memberF">
-			<c:if test="${loginMemberDto.actorKindCode != 3}">
-				<select name="registId">
-					<c:forEach var="e" items="${submitMemberMap}">
-						<option value="${e.key}" <c:if test="${e.key == registId}">selected="selected"</c:if> >${f:h(e.value)}</option>
-					</c:forEach>
-				</select>
-				<html:errors property="registId"/>
-			</c:if>
-			<c:if test="${loginMemberDto.actorKindCode == 3}">
-				<select name="registId" disabled>
-					<c:forEach var="e" items="${submitMemberMap}">
-						<option value="${e.key}" <c:if test="${e.key == registId}">selected="selected"</c:if> >${f:h(e.value)}</option>
-					</c:forEach>
-				</select>
-				<html:errors property="registId"/>
-			</c:if>
+	<c:if test="${loginMemberDto.actorKindCode != 3}">
+		<div class="form-group">
+			<label class="control-label col-sm-4" for="registMember">作品の提出者&nbsp;<span class="hissu">＊</span></label>
+			<div class="col-sm-8 memberF">
+					<select name="registId">
+						<c:forEach var="e" items="${submitMemberMap}">
+							<option value="${e.key}" <c:if test="${e.key == registId}">selected="selected"</c:if> >${f:h(e.value)}</option>
+						</c:forEach>
+					</select>
+					<html:errors property="registId"/>
+			</div>
 		</div>
-	</div>
+	</c:if>
 	<div class="form-group">
 		<label class="control-label col-sm-4" for="submitTagKind">作品の分類タグ</label>
 		<div class="col-sm-8 memberF">

@@ -83,6 +83,10 @@ public class SubmitDetailAction {
 		submitForm.submitProductFileCodeMap = SubmitProductFileTypeCode.getSubmitProductFileCodeMap();
 		
 		submitForm.registFlag = false;
+		
+		// 編集権限
+		submitForm.isEdit = getIsEdit(tSubmit);
+		
 		return "submitDetail.jsp";
 	}
 	
@@ -90,5 +94,12 @@ public class SubmitDetailAction {
 	@Execute(validator = false)
 	public String download() {
 		return TsuboneSystemUtil.submitDownload(submitForm.id);
+	}
+	
+	/** 編集権限
+	 * 
+	 *  */
+	public boolean getIsEdit(TSubmit tSubmit) {
+		return true;
 	}
 }

@@ -8,6 +8,7 @@ import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.container.annotation.tiger.InstanceType;
 import org.seasar.struts.annotation.Maxlength;
 import org.seasar.struts.annotation.Required;
+import org.seasar.struts.annotation.UrlType;
 
 import tsuboneSystem.entity.TClub;
 import tsuboneSystem.entity.TLeaders;
@@ -33,6 +34,10 @@ public class ClubForm implements Serializable {
 	/* 部の概要　*/
 	@Required
 	public String ClubMemo;
+	
+	/* 部の概要　*/
+	@UrlType
+	public String clubUrl;
 	
 	/* 削除フラグ　*/
 	public String deleteFlag;

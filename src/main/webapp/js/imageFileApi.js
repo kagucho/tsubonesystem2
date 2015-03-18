@@ -1,5 +1,5 @@
 $(function($) {
-	$('.file').change(function(){
+	$('#submitCaptionImageFile').change(function(){
 		// ファイルがない場合は何もしない
 		if (!this.files.length) {
 			return;

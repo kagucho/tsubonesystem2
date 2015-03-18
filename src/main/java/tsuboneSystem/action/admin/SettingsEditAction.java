@@ -15,10 +15,12 @@ import org.seasar.struts.util.ServletContextUtil;
 import org.seasar.struts.util.UploadUtil;
 
 import tsuboneSystem.code.FileKindCode;
+import tsuboneSystem.code.ImageFilePurposeCode;
 import tsuboneSystem.code.LeadersKindCode;
 import tsuboneSystem.code.MailBrowsingRightsCode;
 import tsuboneSystem.dto.LoginMemberDto;
 import tsuboneSystem.entity.TAdmin;
+import tsuboneSystem.entity.TImageUpload;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.entity.TTempLogin;
 import tsuboneSystem.form.SettingsEditForm;
@@ -26,6 +28,7 @@ import tsuboneSystem.original.util.DigestUtil;
 import tsuboneSystem.original.util.MailManagerUtil;
 import tsuboneSystem.original.util.TsuboneSystemUtil;
 import tsuboneSystem.service.TAdminService;
+import tsuboneSystem.service.TImageUploadService;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
 import tsuboneSystem.service.TMemberService;
@@ -63,6 +66,10 @@ public class SettingsEditAction {
 	/** TMailSendMemberServiceのサービスクラス */
 	@Resource
 	protected TMailSendMemberService tMailSendMemberService;
+	
+	/** TImageUploadServiceのサービスクラス */
+	@Resource
+	protected TImageUploadService tImageUploadService;
 	
 	
 	/**--------------- 一時メンバー編集 -----------**/
@@ -195,6 +202,30 @@ public class SettingsEditAction {
     	UploadUtil.write(path, settingsEditForm.rulePdf);
     	
     	return "ruleUpdateComplete.jsp";
+    }
+    
+    /**-------------------- 背景画像編集 ----------------------------**/
+    @Execute(validator = false)
+    public String topBuckImage() {
+    	settingsEditForm.tImageUploadList = new ArrayList<TImageUpload>();
+    	settingsEditForm.tImageUploadList = tImageUploadService.findByImageFilePurposeCode(ImageFilePurposeCode.TOP_BACK.getCode());
+    	
+    	return "topBuckImageList.jsp";
+    }
+    
+    @Execute(validator = false)
+    public String topBuckImageRegist() {
+    	return "topBuckImageRegist.jsp";
+    }
+    
+    @Execute(validator = false, urlPattern = "topBuckImageDelete/{imageId}")
+    public String topBuckImageDelete() {
+    	
+    	TImageUpload tImageUpload = tImageUploadService.findById(settingsEditForm.imageId);
+    	tImageUpload.deleteFlag = true;
+    	tImageUploadService.update(tImageUpload);
+    	
+    	return topBuckImage();
     }
     
     //オリジナルチェック

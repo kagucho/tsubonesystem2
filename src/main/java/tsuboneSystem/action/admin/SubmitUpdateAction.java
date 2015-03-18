@@ -83,6 +83,10 @@ public class SubmitUpdateAction {
 		// 作品種大別
 		submitForm.submitProductFileCodeMap = SubmitProductFileTypeCode.getSubmitProductFileCodeMap();
 		
+		// 選択された作品情報
+		TSubmit tSubmit = tSubmitService.findById(submitForm.id);
+		Beans.copy(tSubmit, submitForm).execute();
+		
 		return viewinput();
 	}
 	

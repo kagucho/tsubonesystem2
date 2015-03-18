@@ -21,7 +21,9 @@
 			<h3>TOPに表示したいお知らせを入力してください。</h3>
 			<h5 class="hissu">＊がついている項目は必須です</h5>
 			<s:form method="POST" enctype="multipart/form-data"><%-- 画像などをアップロードするときは"enctype="multipart/form-data" "をつける --%>
-				<%@ include file="/WEB-INF/view/common/submitFormInput.jsp"%>
+				<c:if test="${submitProductFileType == 1}"><%@ include file="/WEB-INF/view/common/submitFormInputImage.jsp"%></c:if><%-- 画像系 --%>
+				<c:if test="${submitProductFileType == 2}"><%@ include file="/WEB-INF/view/common/submitFormInputProgram.jsp"%></c:if><%-- プログラム系 --%>
+				<c:if test="${submitProductFileType == 3}"><%@ include file="/WEB-INF/view/common/submitFormInputDtm.jsp"%></c:if><%-- DTM系 --%>
 			</s:form>
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

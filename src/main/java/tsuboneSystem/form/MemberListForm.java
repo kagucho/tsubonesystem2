@@ -35,6 +35,9 @@ public class MemberListForm implements Serializable{
 	//前のページがmemberList.jspならmemberListが入る
 	public String referePage;
 	
+	/* メール不達フラグ */
+    public String sendErrorFlag;
+	
 	/**
 	 * 検索条件をクリアする
 	 */

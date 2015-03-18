@@ -26,6 +26,7 @@
 						<tr>
 							<td>
 								<a href="<c:url value="/${loginMemberDto.actorKind}/memberDetail/detail"/>/${e.tMember.id}">${f:h(e.tMember.hname) }</a>
+								<c:if test="${e.tMember.sendErrorFlag}"><font color="red">(メール不達)</font></c:if>
 							</td>
 						</tr>
 					</c:forEach>
@@ -62,6 +63,7 @@
 					<tr>
 						<td>
 							<a href="<c:url value="/${loginMemberDto.actorKind}/memberDetail/detail"/>/${e.tMember.id}">${f:h(e.tMember.hname) }</a>
+							<c:if test="${e.tMember.sendErrorFlag}"><font color="red">(メール不達)</font></c:if>
 						</td>
 					</tr>
 				</c:forEach>
@@ -92,6 +94,7 @@
 					<tr>
 						<td>
 							<a href="<c:url value="/${loginMemberDto.actorKind}/memberDetail/detail"/>/${e.tMember.id}">${f:h(e.tMember.hname) }</a>
+							<c:if test="${e.tMember.sendErrorFlag}"><font color="red">(メール不達)</font></c:if>
 						</td>
 					</tr>
 				</c:forEach>

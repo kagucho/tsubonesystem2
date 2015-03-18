@@ -10,6 +10,7 @@
 <a class="btn btn-primary" href="<c:url value="/admin/memberRegist/index"/>">新規登録</a>
 <a class="btn btn-primary" href="<c:url value="/admin/memberUpload/index"/>">CSV一括登録</a>
 <a class="btn btn-primary" href="<c:url value="/admin/memberList/onSearchTempMember"/>">仮登録メンバー一覧</a>
+<a class="btn btn-primary" href="<c:url value="/admin/memberList/onSearchNonDeliveryMail"/>">メール不達者一覧</a>
 <div class="table-responsive">
 	<table class="table table-bordered">
 		<tr class="info">

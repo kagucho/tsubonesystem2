@@ -125,7 +125,6 @@ public class MemberListAction {
 		
 		// 少し強引だが、検索した時はページング機能を使わない
 		PAGE_LIMIT = memberItems.size();
-
 		total = memberItems.size();
 
 		return "memberList.jsp";
@@ -137,6 +136,32 @@ public class MemberListAction {
 			
 			//仮登録メンバーフラグをtrueにする。
 			memberListForm.tempMemberFlag = "true";
+			memberListForm.obFlag = "true";
+			memberListForm.name = "";
+			memberListForm.hname = "";
+			memberListForm.entrance = "";
+			
+			// 登録されているメンバーの検索条件に一致するメンバーを一覧表示する。
+			memberItems = tMemberService.findBySearch(memberListForm, -1, -1);
+			
+			//ログイン中のユーザ情報を格納
+			setLoginUer();
+			
+			// 少し強引だが、検索した時はページング機能を使わない
+			PAGE_LIMIT = memberItems.size();
+
+			total = memberItems.size();
+
+			return "memberList.jsp";
+		}
+		
+		// 検索(仮登録メンバー用)
+		@Execute(validator = false)
+		public String onSearchNonDeliveryMail() {
+			
+			//仮登録メンバーフラグをtrueにする。
+			memberListForm.sendErrorFlag = "true";
+			memberListForm.tempMemberFlag = null;
 			memberListForm.obFlag = "true";
 			memberListForm.name = "";
 			memberListForm.hname = "";

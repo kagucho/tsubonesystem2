@@ -30,6 +30,13 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label class="control-label col-sm-4" for="clubUrl">部の公式ホームページ</label>
+				<div class="col-sm-8 memberF" >
+					<input type="text" id="clubUrl" name="clubUrl" class="form-control" placeholder="ClubUrl" value="${clubUrl}">
+					<html:errors property="clubUrl"/>
+				</div>
+			</div>
+			<div class="form-group">
 				<div class="col-sm-8">
 					<input type="submit" value="確認" id="confirm" name="confirm" property="confirm" class="col-md-6 col-md-offset-6 col-sm-6 col-sm-offset-6 col-xs-12  btn btn-primary">
 				</div>
