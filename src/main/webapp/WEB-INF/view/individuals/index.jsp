@@ -12,6 +12,8 @@
     <link href="${f:url('/css/memberTopCss/slidefolio.css')}" rel="stylesheet">
     <link href="${f:url('/fonts/topfonts/css/font-awesome.min.css')}" rel="stylesheet">
     <link href="${f:url('/css/layout.css')}" rel="stylesheet">
+    <link href="${f:url('/css/fullcalendar.css')}" type="text/css" rel="stylesheet">
+    
   </head>
   <body>
   <%@ include file="/WEB-INF/view/common/header.jsp"%>
@@ -133,6 +135,23 @@
       </div>
     </div>
     <!-- /Contact -->
+        <!-- カレンダー -->
+    <div id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4 text-center">
+            <h2>schedule</h2>
+            <hr>
+          </div>
+          <div class="col-md-8 col-md-offset-2">
+            <div id='calendar'></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /カレンダー -->
+    
+    
     
     <!-- Footer -->
     <footer>
@@ -155,6 +174,26 @@
 	<script src="${f:url('/js/topjs/jquery.validate.min.js')}"></script>
 	<script src="${f:url('/js/topjs/script.js')}"></script>
 	<script src="${f:url('/js/topjs/bootstrap.js')}"></script>
+	<script src="${f:url('/js/moment.min.js')}"></script>
+	<script src="${f:url('/js/fullcalendar.js')}"></script>
+	<script type='text/javascript'>
+	$(function() {
+		$('#calendar').fullCalendar({
+        	events: {
+        		url: '${f:url('/api/fulCalenderApi/getJson')}',
+				error: function() {
+					$('#script-warning').show();
+				}
+			},
+			timeFormat: "H:mm",
+			// クリックされたイベントの編集画面に遷移する
+			eventClick: function(calEvent, jsEvent, view) {
+				location.href = '${f:url('partyDetail/detail/')}' + calEvent.id;
+			},
+        });
+    });
+	</script>
+	
 	
 <!-- Slideshow Background  -->
 <script>

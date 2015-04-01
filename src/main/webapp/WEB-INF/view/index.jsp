@@ -15,26 +15,8 @@
     <link href="${f:url('/css/layout.css')}" rel="stylesheet">
 	<!-- Font Awesome -->
     <link href="${f:url('/fonts/topfonts/css/font-awesome.min.css')}" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript">
-   /*  $(document).ready(function() {
+        <link href="${f:url('/css/topcss/fullcalendar.css')}" type="text/css" rel="stylesheet">
 
-    	var windowHeight = $(window).height() *5; // ウインドウの高さ
-    	$('body').css("height",windowHeight);
-      $(window).scroll(function() {
-          var scroll = $(window).scrollTop(); //どれだけ動いたか
-          var windowHeight = $(window).height(); // ウインドウの高さ
-          var opVar = 1 - scroll / windowHeight*0.25; //要素が画面から消えると同時に透明度を上げていく
-          $('.second').css("opacity",scroll / windowHeight);
-          $('.vert-text').css("opacity",opVar);
-          if (opVar < 0) {
-            $('.vert-text').css("z-index",-2);
-          };
-          if (opVar > 0) {
-              $('.vert-text').css("z-index",100);
-          };
-      });
-    }); */
     </script>
   </head>
   <body>
@@ -166,6 +148,23 @@
       </div>
     </div>
     <!-- /Services -->
+    <!-- カレンダー -->
+    <div id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4 text-center">
+            <h2>schedule</h2>
+            <hr>
+          </div>
+          <div class="col-md-8 col-md-offset-2">
+            <div id='calendar'></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /カレンダー -->
+    
+
     <!-- Contact -->
     <div id="contact">
       <div class="container">
@@ -177,64 +176,13 @@
 
           <div class="col-md-9 col-md-offset-1">
           <h5 class="CENTER">お問い合わせはこちらまで</h5>
-          <h5 class="CENTER">kagucho.net@gmail.com</h5>
-		  <!-- contact form starts -->
-			<%-- <s:form method="POST" >
-	            <form action="contact" id="contact-form" class="form-horizontal">
-					<fieldset>
-					    <div class="form-group btnMRC">
-					      <label class="col-sm-4 control-label" for="name">Your Name</label>
-					      <div class="col-sm-8">
-					        <input type="text"  placeholder="Your Name" class="form-control" name="name" id="name" >
-					        <html:errors property="name"/>
-					      </div>
-					    </div>
-				    	<div class="form-group btnMRC">
-					      <label class="col-sm-4 control-label" for="email">Email Address</label>
-					      <div class="col-sm-8">
-					        <input type="text" placeholder="Enter Your Email Address" class="form-control" name="mail" id="email" >
-					        <html:errors property="mail"/>
-					      </div>
-					    </div>
-					    <div class="form-group btnMRC">
-					      <label class="col-sm-4 control-label" for="subject">Subject</label>
-					      <div class="col-sm-8">
-					        <input type="text" placeholder="Subject" class="form-control" name="subject" id="subject" >
-					        <html:errors property="subject"/>
-					      </div>
-					    </div>
-					    <div class="form-group btnMRC">
-					      <label class="col-sm-4 control-label" for="message">Your Message</label>
-					      <div class="col-sm-8">
-					      	<textarea placeholder="Please Type Your Message" class="form-control" name="message" id="message" rows="5" ></textarea>
-					        <html:errors property="message"/>
-					      </div>
-						</div>
-			            <div class="col-sm-offset-4 col-sm-8">
-		      				<input type="submit" value="Submit!" id="contact" name="contact" class="btn btn-lg btn-primary btn-block marginUP">
-		      			</div>
-					</fieldset>
-				</form>
-			</s:form> --%>
-		  <!-- contact form ends -->
+          <a href="mailto:kagucho.net@gmail.com"><h5 class="CENTER">kagucho.net@gmail.com</h5></a>
+		 
           </div>
         </div>
       </div>
     </div>
-    <!-- /Contact -->
-    <!-- Footer -->
-    <!-- <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-md-offset-3 text-center">
-           <h2>Thank You</h2>
-          </div>
-        </div>
-      </div>
-    </footer> -->
-    <!-- /Footer -->
-    <!-- Bootstrap core JavaScript -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    
     </div>
 
     <script src="${f:url('/js/topjs/jquery.js')}"></script>
@@ -244,6 +192,22 @@
 	<script src="${f:url('/js/topjs/jquery.validate.min.js')}"></script>
 	<script src="${f:url('/js/topjs/script.js')}"></script>
 	<script src="${f:url('/js/topjs/bootstrap.js')}"></script>
+	<script src="${f:url('/js/moment.min.js')}"></script>
+	<script src="${f:url('/js/fullcalendar.js')}"></script>
+	<script type='text/javascript'>
+	$(function() {
+		$('#calendar').fullCalendar({
+        	events: {
+        		url: '${f:url('/api/fulCalenderApi/getJson')}',
+				error: function() {
+					$('#script-warning').show();
+				}
+			},
+			timeFormat: "H:mm",
+        });
+    });
+	</script>
+
 
 <!-- Slideshow Background  -->
 	<script>

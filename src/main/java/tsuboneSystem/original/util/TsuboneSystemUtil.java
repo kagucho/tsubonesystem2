@@ -182,6 +182,54 @@ public class TsuboneSystemUtil {
 	}
 	
 	/**
+	 * 日付を変換する(Date→String yyyy-MM-dd)
+	 * 
+	 * */
+	static public final String DATE_PATTERN = "yyyy-MM-dd";
+	public static String parsDateToString (Date date) {
+		String  str;
+		if(date == null) {
+			str = null;
+		} else {
+			str = new SimpleDateFormat(DATE_PATTERN).format(date);
+		}
+		return str;
+		
+	}
+	
+	/**
+	 * 日付をを変換する(Date→String yyyy/MM/dd)
+	 * 
+	 * */
+	static public final String DATE_PATTERN_SLASH = "yyyy/MM/dd";
+	public static String parsDateToStringSLASH (Date date) {
+		String  str;
+		if(date == null) {
+			str = null;
+		} else {
+			str = new SimpleDateFormat(DATE_PATTERN_SLASH).format(date);
+		}
+		return str;
+		
+	}
+	
+	/**
+	 * 時間をを変換する(Date→String HH:mm:ss)
+	 * 
+	 * */
+	static public final String TIME_PATTERN = "HH:mm:ss";
+	public static String parsTimeToString (Date time) {
+		String  str;
+		if(time == null) {
+			str = null;
+		} else {
+			str = new SimpleDateFormat(TIME_PATTERN).format(time);
+		}
+		return str;
+	}
+
+	
+	/**
 	 * 画像ファイルをアップロード
 	 * アップロードに成功した場合はTImageUploadのid
 	 * アップロードに失敗した場合はnull
