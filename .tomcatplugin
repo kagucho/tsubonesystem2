@@ -5,7 +5,7 @@
     <reloadable>false</reloadable>
     <redirectLogger>true</redirectLogger>
     <updateXml>true</updateXml>
-    <warLocation>/Users/Hiroaki/Dropbox/app/workspace/TsuboneSystem/target/TsuboneSystem.war</warLocation>
+    <warLocation>/Users/Hiroaki/Google/app/workspace/TsuboneSystem/target/TsuboneSystem.war</warLocation>
     <extraInfo></extraInfo>
     <webPath>/TsuboneSystem</webPath>
 </tomcatProjectProperties>

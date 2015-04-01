@@ -24,7 +24,7 @@ public class FulCalenderApiAction {
     	
     	List<TParty> tPartyList = tPartyService.findAllForCalender();
     	List<FullCalenderDto> calList = new ArrayList<FullCalenderDto>();
-    	if (calList.size() > 0) {
+    	if (tPartyList.size() > 0) {
     		for (TParty tParty : tPartyList) {
     			calList.add(new FullCalenderDto(tParty));
     		}

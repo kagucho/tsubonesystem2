@@ -58,7 +58,7 @@ public class TPartyService extends AbstractService<TParty> {
      */
     public List<TParty> findAllForCalender() {
     	SimpleWhere where = new SimpleWhere();
-    	where.isNotNull(meetingDay(), Boolean.valueOf(true));
+    	where.isNotNull(meetingDay(), Boolean.valueOf(false));
     	where.eq(deleteFlag(), Boolean.valueOf(false));
         return select().where(where)
         		.innerJoin(tMember())
