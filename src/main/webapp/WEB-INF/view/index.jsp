@@ -15,7 +15,27 @@
     <link href="${f:url('/css/layout.css')}" rel="stylesheet">
 	<!-- Font Awesome -->
     <link href="${f:url('/fonts/topfonts/css/font-awesome.min.css')}" rel="stylesheet">
-    <link href="${f:url('/css/topcss/fullcalendar.css')}" type="text/css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript">
+   /*  $(document).ready(function() {
+
+    	var windowHeight = $(window).height() *5; // ウインドウの高さ
+    	$('body').css("height",windowHeight);
+      $(window).scroll(function() {
+          var scroll = $(window).scrollTop(); //どれだけ動いたか
+          var windowHeight = $(window).height(); // ウインドウの高さ
+          var opVar = 1 - scroll / windowHeight*0.25; //要素が画面から消えると同時に透明度を上げていく
+          $('.second').css("opacity",scroll / windowHeight);
+          $('.vert-text').css("opacity",opVar);
+          if (opVar < 0) {
+            $('.vert-text').css("z-index",-2);
+          };
+          if (opVar > 0) {
+              $('.vert-text').css("z-index",100);
+          };
+      });
+    }); */
+    </script>
   </head>
   <body>
     <!-- Header Area -->
@@ -29,12 +49,12 @@
     </div>
     <!-- /Header Area -->
     <div id="second" class="second">
-    
-    
-    
+
+
+
     <!-- About -->
     <div id="about" class="about_us">
-      <div class="container">	
+      <div class="container">
         <div class="row">
           <div class="col-md-12 text-center">
             <h2>What's KAGUTYO?</h2>
@@ -146,21 +166,6 @@
       </div>
     </div>
     <!-- /Services -->
-    <!-- カレンダー -->
-    <div id="contact">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 col-md-offset-4 text-center">
-            <h2>schedule</h2>
-            <hr>
-          </div>
-          <div class="col-md-8 col-md-offset-2">
-            <div id='calendar'></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- /カレンダー -->
     <!-- Contact -->
     <div id="contact">
       <div class="container">
@@ -169,8 +174,10 @@
             <h2>Contact Us</h2>
 			<hr>
           </div>
+
           <div class="col-md-9 col-md-offset-1">
-          <h5 class="CENTER">(※問い合わせ機能は工事中です)</h5>
+          <h5 class="CENTER">お問い合わせはこちらまで</h5>
+          <h5 class="CENTER">kagucho.net@gmail.com</h5>
 		  <!-- contact form starts -->
 			<%-- <s:form method="POST" >
 	            <form action="contact" id="contact-form" class="form-horizontal">
@@ -207,9 +214,9 @@
 		      				<input type="submit" value="Submit!" id="contact" name="contact" class="btn btn-lg btn-primary btn-block marginUP">
 		      			</div>
 					</fieldset>
-				</form>	
+				</form>
 			</s:form> --%>
-		  <!-- contact form ends -->		
+		  <!-- contact form ends -->
           </div>
         </div>
       </div>
@@ -229,7 +236,7 @@
     <!-- Bootstrap core JavaScript -->
     <!-- Placed at the end of the document so the pages load faster -->
     </div>
-    
+
     <script src="${f:url('/js/topjs/jquery.js')}"></script>
 	<script src="${f:url('/js/topjs/jquery-scrolltofixed-min.js')}"></script>
 	<script src="${f:url('/js/topjs/jquery.vegas.js')}"></script>
@@ -237,22 +244,7 @@
 	<script src="${f:url('/js/topjs/jquery.validate.min.js')}"></script>
 	<script src="${f:url('/js/topjs/script.js')}"></script>
 	<script src="${f:url('/js/topjs/bootstrap.js')}"></script>
-  <script src="${f:url('/js/moment.min.js')}"></script>
-  <script src="${f:url('/js/fullcalendar.js')}"></script>
-  <script type='text/javascript'>
-  $(function() {
-    $('#calendar').fullCalendar({
-          events: {
-            url: '${f:url('/api/fulCalenderApi/getJson')}',
-        error: function() {
-          $('#script-warning').show();
-        }
-      },
-      timeFormat: "H:mm",
-    });
-  });
-  </script>
-	
+
 <!-- Slideshow Background  -->
 	<script>
 $.vegas('slideshow', {
@@ -261,11 +253,11 @@ $.vegas('slideshow', {
 	 <c:forEach var="e" items="${imageList}">
 	   { src:'${f:url('/api/displyImage')}${e.id}', fade:5000 },
 	 </c:forEach>
-	 { src:'./images/top/2.png', fade:5000 }  
+	 { src:'./images/top/2.png', fade:5000 }
   ]
 })('overlay', {
 
-}); 
+});
 
 	</script>
 <!-- /Slideshow Background -->
@@ -276,13 +268,13 @@ $.vegas('slideshow', {
     $('#Grid').mixitup();
       });
     </script>
-<!-- /Mixitup : Grid -->	
+<!-- /Mixitup : Grid -->
 
     <!-- Custom JavaScript for Smooth Scrolling - Put in a custom JavaScript file to clean this up -->
     <script>
       $(function() {
         $('a[href*=#]:not([href=#])').click(function() {
-          if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
+          if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
             || location.hostname == this.hostname) {
             var target = $(this.hash);
             target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
@@ -296,7 +288,7 @@ $.vegas('slideshow', {
         });
       });
     </script>
-	
+
   </body>
 
 </html>

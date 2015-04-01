@@ -8,23 +8,19 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.upload.FormFile;
 import org.seasar.framework.container.SingletonS2Container;
-import org.seasar.struts.util.RequestUtil;
 import org.seasar.struts.util.ResponseUtil;
 import org.seasar.struts.util.UploadUtil;
 
@@ -155,53 +151,6 @@ public class TsuboneSystemUtil {
 		} else {
 			return null;
 		}
-	}
-	
-	/**
-	 * 日付を変換する(Date→String yyyy-MM-dd)
-	 * 
-	 * */
-	static public final String DATE_PATTERN = "yyyy-MM-dd";
-	public static String parsDateToString (Date date) {
-		String  str;
-		if(date == null) {
-			str = null;
-		} else {
-			str = new SimpleDateFormat(DATE_PATTERN).format(date);
-		}
-		return str;
-		
-	}
-	
-	/**
-	 * 日付をを変換する(Date→String yyyy/MM/dd)
-	 * 
-	 * */
-	static public final String DATE_PATTERN_SLASH = "yyyy/MM/dd";
-	public static String parsDateToStringSLASH (Date date) {
-		String  str;
-		if(date == null) {
-			str = null;
-		} else {
-			str = new SimpleDateFormat(DATE_PATTERN_SLASH).format(date);
-		}
-		return str;
-		
-	}
-	
-	/**
-	 * 時間をを変換する(Date→String HH:mm:ss)
-	 * 
-	 * */
-	static public final String TIME_PATTERN = "HH:mm:ss";
-	public static String parsTimeToString (Date time) {
-		String  str;
-		if(time == null) {
-			str = null;
-		} else {
-			str = new SimpleDateFormat(TIME_PATTERN).format(time);
-		}
-		return str;
 	}
 	
 	/**
@@ -345,7 +294,7 @@ public class TsuboneSystemUtil {
     	
     	// 出力
     	if (tSubmit != null) {
-    		downloadCommon(tSubmit.submitProductFilePath, tSubmit.submitProductFileName);
+    		downloadCommon(tSubmit.submitProductFilePath, tSubmit.submitName);
     	}
     	
 		return null;
@@ -365,7 +314,6 @@ public class TsuboneSystemUtil {
 		FileInputStream fis = null; 
 		InputStreamReader isr = null; 
 		HttpServletResponse res = ResponseUtil.getResponse();
-		HttpServletRequest req = RequestUtil.getRequest();
 
 		// ダウンロードファイルの書き出し用オブジェクト
 		OutputStream os = null; 
@@ -380,13 +328,7 @@ public class TsuboneSystemUtil {
 			}
 			// レスポンスオブジェクトのヘッダー情報を設定
 			res.setContentType("application/octet-stream"); 
-			if (req.getHeader("User-Agent").indexOf("MSIE") == -1) {
-			  // Firefox, Opera 11
-				res.setHeader("Content-Disposition", String.format(Locale.JAPAN, "attachment; filename*=utf-8'jp'%s", URLEncoder.encode(fileName, "utf-8")));
-			} else {
-			  // IE7, 8, 9
-				res.setHeader("Content-Disposition", String.format(Locale.JAPAN, "attachment; filename=\"%s\"", new String(fileName.getBytes("MS932"), "ISO8859_1")));
-			}
+			res.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("Windows-31J"), "ISO-8859-1")); 
 
 			// ダウンロード対象ファイルの読み込み用オブジェクトを生成
 			fis = new FileInputStream(file); 
