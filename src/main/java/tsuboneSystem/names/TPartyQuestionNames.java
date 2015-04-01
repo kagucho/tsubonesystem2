@@ -11,7 +11,7 @@ import tsuboneSystem.names.TPartyNames._TPartyNames;
  * {@link TPartyQuestion}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/03/19 0:46:14")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/03/21 13:08:53")
 public class TPartyQuestionNames {
 
     /**

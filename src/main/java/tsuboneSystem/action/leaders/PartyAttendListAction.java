@@ -2,9 +2,12 @@ package tsuboneSystem.action.leaders;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 
@@ -103,6 +106,9 @@ public class PartyAttendListAction {
 	@Resource
 	protected HttpServletRequest request;
 	
+	@Resource
+    protected HttpServletRequest httpServletRequest;
+	
 	public boolean deadFlag;
 	
 	/** 一覧画面表示　*/
@@ -146,9 +152,10 @@ public class PartyAttendListAction {
         return "partyAttendList.jsp";
 	}
     
-    /**　エクセル出力　*/
+    /**　エクセル出力　
+     * @throws UnsupportedEncodingException */
     @Execute(validator = false)
-    public String createExcel(){
+    public String createExcel() throws UnsupportedEncodingException{
     	
     	ExcelDto dto = new ExcelDto();
     	dto.setMeetingName(partyDto.meetingName);
@@ -156,9 +163,15 @@ public class PartyAttendListAction {
     	
     	HSSFWorkbook wb = excelFpao.excelTemplate(dto);
     	
-    	httpServletResponse.setHeader(
-    			"Content-Disposition",
-    			"attachment; filename=" + partyDto.meetingName + System.currentTimeMillis() + ".xls");
+		String fileName = partyDto.meetingName + "_の出席者一覧" + ".xls";
+    	
+    	if (httpServletRequest.getHeader("User-Agent").indexOf("MSIE") == -1) {
+			// Firefox, Opera 11
+    		httpServletResponse.setHeader("Content-Disposition", String.format(Locale.JAPAN, "attachment; filename*=utf-8'jp'%s", URLEncoder.encode(fileName, "utf-8")));
+		} else {
+			// IE7, 8, 9
+			httpServletResponse.setHeader("Content-Disposition", String.format(Locale.JAPAN, "attachment; filename=\"%s\"", new String(fileName.getBytes("MS932"), "ISO8859_1")));
+		}
     	
     	try {
     		OutputStream out = httpServletResponse.getOutputStream();

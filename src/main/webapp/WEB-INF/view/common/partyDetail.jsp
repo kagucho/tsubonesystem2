@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row CENTER">
-		<h3 class="col-md-4 col-xs-12">${f:h(meetingName)}たんの詳細情報</h3>
+		<h3 class="col-md-4 col-xs-12">${f:h(meetingName)}の詳細情報</h3>
 		<c:if test="${!deadFlag}">
 			<c:if test="${loginMemberDto.actorKindCode == '1'}">
 				<a class="col-md-2 col-sm-3 col-sm-offset-1 col-xs-12  btn btn-danger btnYOKO btnMRC" href="<c:url value="/${loginMemberDto.actorKind}/partyDelete/${id}"/>" role="button">削除</a>
@@ -23,14 +23,21 @@
 		</c:if>
 		<c:if test="${deadFlag}">
 			<c:if test="${loginMemberDto.actorKindCode == '1'}">
-				<a class="col-md-2 col-sm-5 col-sm-offset-4 col-xs-12  btn btn-primary btnMRC" href="<c:url value="/${loginMemberDto.actorKind}/partyResult/${id}"/>" role="button">会議の結果を入力する</a>
+				<a class="col-md-2 col-sm-12 col-md-offset-3 col-xs-12  btn btn-primary btnMRC btnYOKO" href="<c:url value="/${loginMemberDto.actorKind}/partyResult/${id}"/>" role="button">会議の結果を入力する</a>
+				<a class="col-md-2 col-sm-12 col-xs-12 btn btn-info" href="<c:url value="/${loginMemberDto.actorKind}/partyAttendList/${id}"/>" role="button">出欠状況</a>
 			</c:if>
 			<c:if test="${resultPower && loginMemberDto.actorKindCode == '2'}">
-				<a class="col-md-2 col-sm-5 col-sm-offset-4 col-xs-12  btn btn-primary btnMRC" href="<c:url value="/${loginMemberDto.actorKind}/partyResult/${id}"/>" role="button">会議の結果を入力する</a>
+				<a class="col-md-2 col-sm-12 col-md-offset-3 col-xs-12  btn btn-primary btnMRC btnYOKO" href="<c:url value="/${loginMemberDto.actorKind}/partyResult/${id}"/>" role="button">会議の結果を入力する</a>
+				<a class="col-md-2 col-sm-12 col-xs-12 btn btn-info" href="<c:url value="/${loginMemberDto.actorKind}/partyAttendList/${id}"/>" role="button">出欠状況</a>
 			</c:if>
 			<c:if test="${loginMemberDto.actorKindCode == '3' && myPartyFlag}">
-				<a class="col-md-2 col-sm-5 col-sm-offset-4 col-xs-12  btn btn-primary btnMRC" href="<c:url value="/${loginMemberDto.actorKind}/partyResult/${id}"/>" role="button">会議の結果を入力する</a>
+				<a class="col-md-2 col-sm-12 col-md-offset-3 col-xs-12  btn btn-primary btnMRC btnYOKO" href="<c:url value="/${loginMemberDto.actorKind}/partyResult/${id}"/>" role="button">会議の結果を入力する</a>
+				<a class="col-md-2 col-sm-12 col-xs-12 btn btn-info" href="<c:url value="/${loginMemberDto.actorKind}/partyAttendList/${id}"/>" role="button">出欠状況</a>
 			</c:if>
+			<c:if test="${loginMemberDto.actorKindCode == '3' && !myPartyFlag}">
+				<a class="col-md-2 col-sm-12 col-md-offset-3 col-xs-12 btn btn-info" href="<c:url value="/${loginMemberDto.actorKind}/partyAttendList/${id}"/>" role="button">出欠状況</a>
+			</c:if>
+			
 		</c:if>
 	</div>
 	<div class="col-md-12">

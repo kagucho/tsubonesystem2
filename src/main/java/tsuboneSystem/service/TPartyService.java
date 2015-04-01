@@ -48,8 +48,21 @@ public class TPartyService extends AbstractService<TParty> {
     	where.eq(deleteFlag(), Boolean.valueOf(false));
         return select().where(where)
         		.innerJoin(tMember())
-
         		.orderBy(desc(meetingDeadlineDay())).getResultList();
+    }
+    
+    /**
+     * カレンダー表示用に最低会議の開始日が設定されている会議を一覧で検索する。
+     * 
+     * @return エンティティのリスト
+     */
+    public List<TParty> findAllForCalender() {
+    	SimpleWhere where = new SimpleWhere();
+    	where.isNotNull(meetingDay(), Boolean.valueOf(true));
+    	where.eq(deleteFlag(), Boolean.valueOf(false));
+        return select().where(where)
+        		.innerJoin(tMember())
+        		.getResultList();
     }
     
     /**
@@ -171,15 +184,26 @@ public class TPartyService extends AbstractService<TParty> {
      * @return エンティティのリスト
      */
     public List<TParty> findBy_MeetingDay_BETWEEN_Now(Date dateNow, Integer memberId) {
-    	SimpleWhere where = new SimpleWhere();
-    	where.eq(deleteFlag(), Boolean.valueOf(false));
-    	where.le(meetingDay(), dateNow);
-    	where.ge(meetingEndDay(), dateNow);
+    	
+    	SimpleWhere whereFast = new SimpleWhere();
+    	whereFast.eq(deleteFlag(), Boolean.valueOf(false));
+    	whereFast.le(meetingDay(), dateNow);
+    	whereFast.ge(meetingEndDay(), dateNow);
+    	
+    	SimpleWhere whereSec = new SimpleWhere();
+    	whereSec.eq(deleteFlag(), Boolean.valueOf(false));
+    	whereSec.eq(meetingDay(), dateNow);
+    	whereSec.isNull(meetingEndDay(), true);
+    	
+    	ComplexWhere cWhere = new ComplexWhere();
+    	cWhere.and(whereFast);
+    	cWhere.or();
+    	cWhere.and(whereSec);
+    	
         return select()
         		.innerJoin(tMember())
-
         		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
-        		.where(where).orderBy(desc(id())).getResultList();
+        		.where(cWhere).orderBy(desc(id())).getResultList();
     }
     
     /**
@@ -305,24 +329,26 @@ public class TPartyService extends AbstractService<TParty> {
      */
     public List<TParty> findBy_WillMeeting(Date dateNow, Integer memberId) {
 		
-    	ComplexWhere whereFirst = new ComplexWhere();
-    	ComplexWhere whereSec = new ComplexWhere();
-    	whereFirst.eq(deleteFlag(), Boolean.valueOf(false));
+    	ComplexWhere cWhere = new ComplexWhere();
+
     	//(開催日 > 今) かつ (締め切り < 今)締め切りは過ぎているがまだ開催しない
-    	whereSec.lt(meetingDeadlineDay(), dateNow);
-		whereSec.gt(meetingDay(), dateNow);
-		whereSec.or();
+    	cWhere.eq(deleteFlag(), Boolean.valueOf(false));
+    	cWhere.lt(meetingDeadlineDay(), dateNow);
+		cWhere.gt(meetingDay(), dateNow);
+		cWhere.or();
 		//(開催日 >= 今) かつ (締め切り = なし)
-		whereSec.isNull(meetingDeadlineDay(), Boolean.valueOf(true));
-		whereSec.gt(meetingDay(), dateNow);
-		whereSec.or();
+		cWhere.eq(deleteFlag(), Boolean.valueOf(false));
+		cWhere.isNull(meetingDeadlineDay(), Boolean.valueOf(true));
+		cWhere.gt(meetingDay(), dateNow);
+		cWhere.or();
 		//(開催日 = なし) かつ (締め切り < 今)
-		whereSec.isNull(meetingDay(),Boolean.valueOf(true));
-		whereSec.le(meetingDeadlineDay(), dateNow);
+		cWhere.eq(deleteFlag(), Boolean.valueOf(false));
+		cWhere.isNull(meetingDay(),Boolean.valueOf(true));
+		cWhere.le(meetingDeadlineDay(), dateNow);
         return select()
         		.innerJoin(tMember())
         		.leftOuterJoin(tPartyAttendList(), new SimpleWhere().eq(tPartyAttendList().memberId(), memberId))
-        		.where(whereFirst).where(whereSec).orderBy(desc(id()))
+        		.where(cWhere).orderBy(desc(id()))
         		.getResultList();
     }
     
