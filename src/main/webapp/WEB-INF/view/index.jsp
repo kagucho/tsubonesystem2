@@ -174,6 +174,7 @@
             <h2>Contact Us</h2>
 			<hr>
           </div>
+
           <div class="col-md-9 col-md-offset-1">
           <h5 class="CENTER">お問い合わせはこちらまで</h5>
           <h5 class="CENTER">kagucho.net@gmail.com</h5>
