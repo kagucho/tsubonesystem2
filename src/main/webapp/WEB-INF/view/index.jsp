@@ -18,7 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript">
    /*  $(document).ready(function() {
-    	
+
     	var windowHeight = $(window).height() *5; // ウインドウの高さ
     	$('body').css("height",windowHeight);
       $(window).scroll(function() {
@@ -49,12 +49,12 @@
     </div>
     <!-- /Header Area -->
     <div id="second" class="second">
-    
-    
-    
+
+
+
     <!-- About -->
     <div id="about" class="about_us">
-      <div class="container">	
+      <div class="container">
         <div class="row">
           <div class="col-md-12 text-center">
             <h2>What's KAGUTYO?</h2>
@@ -175,7 +175,8 @@
 			<hr>
           </div>
           <div class="col-md-9 col-md-offset-1">
-          <h5 class="CENTER">(※問い合わせ機能は工事中です)</h5>
+          <h5 class="CENTER">お問い合わせはこちらまで</h5>
+          <h5 class="CENTER">kagucho.net@gmail.com</h5>
 		  <!-- contact form starts -->
 			<%-- <s:form method="POST" >
 	            <form action="contact" id="contact-form" class="form-horizontal">
@@ -212,9 +213,9 @@
 		      				<input type="submit" value="Submit!" id="contact" name="contact" class="btn btn-lg btn-primary btn-block marginUP">
 		      			</div>
 					</fieldset>
-				</form>	
+				</form>
 			</s:form> --%>
-		  <!-- contact form ends -->		
+		  <!-- contact form ends -->
           </div>
         </div>
       </div>
@@ -234,7 +235,7 @@
     <!-- Bootstrap core JavaScript -->
     <!-- Placed at the end of the document so the pages load faster -->
     </div>
-    
+
     <script src="${f:url('/js/topjs/jquery.js')}"></script>
 	<script src="${f:url('/js/topjs/jquery-scrolltofixed-min.js')}"></script>
 	<script src="${f:url('/js/topjs/jquery.vegas.js')}"></script>
@@ -242,7 +243,7 @@
 	<script src="${f:url('/js/topjs/jquery.validate.min.js')}"></script>
 	<script src="${f:url('/js/topjs/script.js')}"></script>
 	<script src="${f:url('/js/topjs/bootstrap.js')}"></script>
-	
+
 <!-- Slideshow Background  -->
 	<script>
 $.vegas('slideshow', {
@@ -251,11 +252,11 @@ $.vegas('slideshow', {
 	 <c:forEach var="e" items="${imageList}">
 	   { src:'${f:url('/api/displyImage')}${e.id}', fade:5000 },
 	 </c:forEach>
-	 { src:'./images/top/2.png', fade:5000 }  
+	 { src:'./images/top/2.png', fade:5000 }
   ]
 })('overlay', {
 
-}); 
+});
 
 	</script>
 <!-- /Slideshow Background -->
@@ -266,13 +267,13 @@ $.vegas('slideshow', {
     $('#Grid').mixitup();
       });
     </script>
-<!-- /Mixitup : Grid -->	
+<!-- /Mixitup : Grid -->
 
     <!-- Custom JavaScript for Smooth Scrolling - Put in a custom JavaScript file to clean this up -->
     <script>
       $(function() {
         $('a[href*=#]:not([href=#])').click(function() {
-          if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
+          if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
             || location.hostname == this.hostname) {
             var target = $(this.hash);
             target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
@@ -286,7 +287,7 @@ $.vegas('slideshow', {
         });
       });
     </script>
-	
+
   </body>
 
 </html>
