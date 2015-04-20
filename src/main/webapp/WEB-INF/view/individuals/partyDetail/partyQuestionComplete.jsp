@@ -10,7 +10,6 @@
     <link href="${f:url('/css/signin.css')}" type="text/css" rel="stylesheet">
   </head>
 <body>
-<%@ include file="/WEB-INF/view/common/indeividualsHeader.jsp"%>
 <%@ include file="/WEB-INF/view/common/jumbotronMenu.jsp"%>
 <div class="container CENTER">
 	<h3>登録が完了しました。</h3>
