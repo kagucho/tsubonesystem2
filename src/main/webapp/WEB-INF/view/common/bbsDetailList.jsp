@@ -11,7 +11,7 @@
 			<c:forEach var="e" items="${tBbsDetailList}">
 				<tr>
 					<td>
-						${f:br(f:h(e.detail))}
+						${e.detail}
 					</td>
 					<td>
 						${f:h(e.tMember.hname)}

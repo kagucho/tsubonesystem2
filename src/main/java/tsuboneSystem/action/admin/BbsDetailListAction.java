@@ -1,7 +1,10 @@
 package tsuboneSystem.action.admin;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 
+import org.markdown4j.Markdown4jProcessor;
 import org.seasar.struts.annotation.ActionForm;
 import org.seasar.struts.annotation.Execute;
 
@@ -57,10 +60,19 @@ public class BbsDetailListAction {
     @Execute(validator = true,input = "viewinput")
 	public String bbsDetailRegist() {
     	
+    	//MarkDownに変換する
+    	String markDown = new String();
+    	Markdown4jProcessor pross = new Markdown4jProcessor();
+		try {
+			markDown = pross.process(bbsForm.detail);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
     	//DBに書き込み
     	TBbsDetail tBbsDetail = new TBbsDetail();
     	tBbsDetail.subjectId = bbsForm.id;
-    	tBbsDetail.detail = bbsForm.detail;
+    	tBbsDetail.detail = markDown;
     	tBbsDetail.memberId = loginMemberDto.memberId;
     	tBbsDetailService.insert(tBbsDetail);
     	bbsForm.detail = null;

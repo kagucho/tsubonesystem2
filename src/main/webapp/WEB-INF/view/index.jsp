@@ -203,7 +203,7 @@
 					$('#script-warning').show();
 				}
 			},
-			timeFormat: "H:mm",
+			timeFormat: "",
         });
     });
 	</script>
