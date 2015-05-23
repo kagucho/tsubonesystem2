@@ -5,7 +5,7 @@
 		<div class="table-responsive">
 			<table class="table">
 			<tr>
-				<th>メールのタイトル</th><th class="hidden-xs">送信者名</th><th>送信ステータス</th><c:if test="${loginMemberDto.actorKindCode == 1}"><th>閲覧種別</th></c:if>
+				<th>メールのタイトル</th><th class="hidden-xs">送信者名</th><th>送信時間</th><th>送信ステータス</th><c:if test="${loginMemberDto.actorKindCode == 1}"><th>閲覧種別</th></c:if>
 				<c:forEach var="e" items="${tMailItem}">
 					<tr>
 						<td>
@@ -14,6 +14,9 @@
 						<td class="hidden-xs">
 							<c:if test="${e.registMemberId == null}"><p class="hidden-xs">(自動配信)</p></c:if>
 							<p class="hidden-xs">${f:h(memberMapIS[e.registMemberId]) }</p>
+						</td>
+						<td>
+							<fmt:formatDate value="${e.registTime}" pattern="yyyy/MM/dd HH:mm:ss" />
 						</td>
 						<td>
 							<c:if test="${e.errorFlag}">

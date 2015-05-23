@@ -1,5 +1,6 @@
 package tsuboneSystem.names;
 
+import java.util.Date;
 import javax.annotation.Generated;
 import org.seasar.extension.jdbc.name.PropertyName;
 import tsuboneSystem.entity.TMail;
@@ -13,7 +14,7 @@ import tsuboneSystem.names.TPartySendMailNames._TPartySendMailNames;
  * {@link TMail}のプロパティ名の集合です。
  * 
  */
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/03/19 0:46:14")
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.NamesModelFactoryImpl"}, date = "2015/05/23 19:17:46")
 public class TMailNames {
 
     /**
@@ -68,6 +69,15 @@ public class TMailNames {
      */
     public static PropertyName<Integer> browsingRights() {
         return new PropertyName<Integer>("browsingRights");
+    }
+
+    /**
+     * registTimeのプロパティ名を返します。
+     * 
+     * @return registTimeのプロパティ名
+     */
+    public static PropertyName<Date> registTime() {
+        return new PropertyName<Date>("registTime");
     }
 
     /**
@@ -200,6 +210,15 @@ public class TMailNames {
          */
         public PropertyName<Integer> browsingRights() {
             return new PropertyName<Integer>(this, "browsingRights");
+        }
+
+        /**
+         * registTimeのプロパティ名を返します。
+         *
+         * @return registTimeのプロパティ名
+         */
+        public PropertyName<Date> registTime() {
+            return new PropertyName<Date>(this, "registTime");
         }
 
         /**
