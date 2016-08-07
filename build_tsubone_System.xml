@@ -6,8 +6,8 @@
     <property name="build.SourceDir" value="src/main/java"/>
     <property name="build.ResourceDir" value="src/main/resources"/>
     <property name="build.webinf" value="src/main/webapp/WEB-INF"/>
-    <!-- 本番用設定ファイルパス -->
-    <property name="build.Production" value="src/main/resources"/>
+    <property name="build.config" value="config"/>
+    <property file="${build.config}/build.properties" />
     
     <!-- ビルドに必要なファイル群 -->
     <path id="build.classpath">
@@ -17,7 +17,7 @@
         <fileset dir="${build.webinf}/lib">
             <include name="*.jar"/>
         </fileset>
-        <fileset dir="[Tomcatパス]\lib">
+        <fileset dir="${build.tomcat}/lib">
             <include name="*.jar"/>
         </fileset>
     </path>
@@ -70,7 +70,7 @@
     <!-- 本番環境用の設定ファイルをコピー -->
     <target name="CopyProductionFile">
         <copy todir="${build.OutputDir}" overwrite="true">
-            <fileset dir="${build.Production}">
+            <fileset dir="${build.config}">
                 <include name="*.dicon"/>
                 <include name="*.properties"/>
             </fileset>
