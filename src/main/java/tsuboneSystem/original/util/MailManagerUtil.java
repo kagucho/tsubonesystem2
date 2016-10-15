@@ -29,6 +29,7 @@ import tsuboneSystem.entity.TMail;
 import tsuboneSystem.entity.TMailSendMember;
 import tsuboneSystem.entity.TMember;
 import tsuboneSystem.original.manager.MailManager;
+import tsuboneSystem.original.util.ConfigUtil;
 import tsuboneSystem.service.TMailSendMemberService;
 import tsuboneSystem.service.TMailService;
 
@@ -70,9 +71,6 @@ public class MailManagerUtil {
 	
 	//メールにリンクをつけるかどうか
 	public boolean linkUrlFlag = false;
-	
-	//urlの先頭
-	private final String urlHead = "http://kagucho.net/";
 	
 	//メールの回覧権限(デフォルトはMEMBER)
 	public Integer browsingRights = MailBrowsingRightsCode.MEMBER.getCodeNumber();
@@ -263,7 +261,7 @@ public class MailManagerUtil {
 				urlbf.append(caption);
 			}
 			urlbf.append("\n");
-			urlbf.append(urlHead);
+			urlbf.append(ConfigUtil.getConfig("web.uri"));
 			if(ActorKindCode.ADMIN.getCode().equals(actorKindCode)){
 				urlbf.append(ActorKindCode.ADMIN.getName());
 			}else if(ActorKindCode.LEADERS.getCode().equals(actorKindCode)){
