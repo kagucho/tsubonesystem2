@@ -126,7 +126,7 @@
 		       <a href="<c:url value="/${loginMemberDto.actorKind}/enqueteList/"/>"></a>
 		    </div>
 		    <div class="service-item text-center linkArea">
-		        <h3>Kagutyo BBS</h3>
+		        <h3>Kagucho BBS</h3>
 		        <p>かぐちょの掲示板はこちら。</p>
 		        <a href="<c:url value="/${loginMemberDto.actorKind}/bbsList/"/>"></a>
 		    </div>

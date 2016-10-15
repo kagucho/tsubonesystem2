@@ -26,7 +26,7 @@
 	  <img class="img-rounded" alt="" src="./images/top/logo250c.png"/>
         <h2>神楽坂一丁目通信局</h2>
 			<br>
-			<a href="#about" class="btn btn-top">What's KAGUTYO?</a>
+			<a href="#about" class="btn btn-top">What's KAGUCHO?</a>
       </div>
     </div>
     <!-- /Header Area -->
@@ -39,7 +39,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12 text-center">
-            <h2>What's KAGUTYO?</h2>
+            <h2>What's KAGUCHO?</h2>
             <div class="col-md-4">
             	<h3>Independent</h3>
             	<p class="lead">
