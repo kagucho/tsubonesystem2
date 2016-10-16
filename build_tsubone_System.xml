@@ -88,7 +88,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <!-- 本番環境用の設定ファイルをコピー -->
     <target name="CopyProductionFile">
         <copy todir="${build.OutputDir}" overwrite="true">
-            <fileset dir="${build.config}">
+            <fileset dir="${build.config}/resources">
                 <include name="*.dicon"/>
                 <include name="*.properties"/>
             </fileset>
