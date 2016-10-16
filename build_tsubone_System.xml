@@ -105,6 +105,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <exclude name="web.xml"/>
             </webinf>
             <lib dir="${basedir}/${build.webinf}/lib" includes="*.jar"/>
+	    <lib dir="${build.config}/lib" includes="*.jar"/>
             <classes dir="${build.OutputDir}"/>
             <fileset dir="${basedir}/src/main/webapp">
                 <include name="css/**"/>
